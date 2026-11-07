@@ -1,0 +1,70 @@
+---
+import '../styles/global.css';
+
+const stories = [
+  { category: 'BANGLADESH', time: 'Today', title: 'Your daily briefing starts here', summary: 'Sarangsho Plus will bring important developments into one clear, bilingual reading experience.', tag: 'DEMO STORY' },
+  { category: 'ECONOMY', time: 'Foundation preview', title: 'Understand the story behind the headline', summary: 'Each story will distinguish verified reporting, useful background, and AI-generated explanation.', tag: 'HOW IT WORKS' },
+  { category: 'WORLD', time: 'Coming next', title: 'Follow a developing story over time', summary: 'Related coverage from multiple publishers will be grouped around events, with source links kept visible.', tag: 'PLANNED FEATURE' }
+];
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101d35" />
+    <meta name="description" content="Sarangsho Plus: a bilingual news and knowledge platform." />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <title>Sarangsho Plus | News, understood</title>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Sarangsho Plus home"><span class="brand-mark">S+</span><span>SARANGSHO <b>PLUS</b></span></a>
+      <nav aria-label="Main navigation"><a class="active" href="/">Today</a><a href="#topics">Topics</a><a href="#learn">Learn</a><a href="#about">About</a></nav>
+      <button class="language" id="language-toggle" type="button" aria-label="Switch language">বাংলা</button>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="eyebrow"><span class="live-dot"></span> THE BIG PICTURE, CLEARLY</div>
+        <h1 id="hero-title">The news,<br /><em>understood.</em></h1>
+        <p id="hero-copy">A calmer way to follow Bangladesh and the world. Important stories, clear context, and two languages. No noise required.</p>
+        <div class="hero-meta"><span>ENGLISH + বাংলা</span><span>·</span><span>BUILT FOR CURIOUS MINDS</span></div>
+      </section>
+      <section class="briefing-head">
+        <div><p class="section-kicker">YOUR FRONT PAGE</p><h2 id="today-title">Today's briefing</h2></div>
+        <span class="edition">FOUNDATION PREVIEW · NOT LIVE NEWS</span>
+      </section>
+      <section class="story-grid" aria-label="Featured stories">
+        {stories.map((story, index) => <article class:list={['story-card', index === 0 && 'feature']}>
+          <div class="story-top"><span>{story.category}</span><span>{story.time}</span></div>
+          <div class="story-body"><span class="tag">{story.tag}</span><h3>{story.title}</h3><p>{story.summary}</p></div>
+          <div class="story-foot"><span>Editorial experience preview</span><span aria-hidden="true">↗</span></div>
+        </article>)}
+      </section>
+      <section class="principles" id="topics">
+        <div><p class="section-kicker">BUILT DIFFERENTLY</p><h2>Clarity before quantity.</h2></div>
+        <div class="principle-list">
+          <article><span>01</span><div><h3>More than a headline</h3><p>Short summaries, background, key facts, and why a development matters.</p></div></article>
+          <article><span>02</span><div><h3>Sources stay visible</h3><p>Publisher names, original links, dates, and attribution remain part of every story.</p></div></article>
+          <article id="learn"><span>03</span><div><h3>English and Bangla</h3><p>Switch languages without losing the thread. Explanations should sound natural in both.</p></div></article>
+        </div>
+      </section>
+      <section class="footer-note" id="about"><span class="brand-mark">S+</span><p>Sarangsho Plus is under construction. This preview uses demonstration content, not current reporting.</p></section>
+    </main>
+    <footer><span>© 2026 SARANGSHO PLUS</span><span>INDEPENDENT PROJECT · FOUNDATION BUILD</span></footer>
+    <script>
+      const toggle = document.querySelector('#language-toggle');
+      const title = document.querySelector('#hero-title');
+      const copy = document.querySelector('#hero-copy');
+      const today = document.querySelector('#today-title');
+      let bangla = false;
+      toggle?.addEventListener('click', () => {
+        bangla = !bangla;
+        document.documentElement.lang = bangla ? 'bn' : 'en';
+        toggle.textContent = bangla ? 'English' : 'বাংলা';
+        title.innerHTML = bangla ? 'খবর বুঝুন,<br /><em>গভীরে যান।</em>' : 'The news,<br /><em>understood.</em>';
+        copy.textContent = bangla ? 'বাংলাদেশ ও বিশ্বের গুরুত্বপূর্ণ খবর, প্রেক্ষাপট এবং ব্যাখ্যা। সহজভাবে, বাংলা ও ইংরেজিতে।' : 'A calmer way to follow Bangladesh and the world. Important stories, clear context, and two languages. No noise required.';
+        today.textContent = bangla ? 'আজকের সংক্ষিপ্তসার' : "Today's briefing";
+      });
+    </script>
+  </body>
+</html>
