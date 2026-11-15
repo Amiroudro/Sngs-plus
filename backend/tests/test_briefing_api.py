@@ -43,7 +43,7 @@ class BriefingApiTests(unittest.TestCase):
         self.assertEqual(payload["stories"][0]["summary"], "বাংলা")
         self.assertEqual(payload["stories"][0]["headline"], "English")
 
-    def test_unreviewed_bangla_overlay_falls_back_to_english(self):
+    def test_unreviewed_bangla_overlay_never_falls_back_to_english(self):
         english = [{"id": "CA01", "headline": "English", "summary": "Base"}]
         loaded = {"edition": {"stories": english},
                   "bangla": {"stories": {"CA01": {
@@ -53,19 +53,39 @@ class BriefingApiTests(unittest.TestCase):
         with patch.object(main, "list_editions", return_value=[{"edition_date": "2026-11-15"}]), \
              patch.object(main, "load_edition", return_value=loaded):
             payload = main.briefing("bn")
-        self.assertEqual(payload["language"], "en")
-        self.assertEqual(payload["fallback_language"], "en")
-        self.assertEqual(payload["stories"], english)
+        self.assertEqual(payload["status"], "translation_pending")
+        self.assertEqual(payload["language"], "bn")
+        self.assertIsNone(payload["fallback_language"])
+        self.assertEqual(payload["stories"], [])
 
-    def test_missing_bangla_overlay_falls_back_to_english(self):
+    def test_missing_bangla_overlay_never_falls_back_to_english(self):
         english = [{"id": "CA01", "headline": "English", "summary": "Base"}]
         loaded = {"edition": {"stories": english}, "bangla": None}
         with patch.object(main, "list_editions", return_value=[{"edition_date": "2026-11-15"}]), \
              patch.object(main, "load_edition", return_value=loaded):
             payload = main.briefing("bn")
-        self.assertEqual(payload["language"], "en")
-        self.assertEqual(payload["fallback_language"], "en")
-        self.assertEqual(payload["stories"], english)
+        self.assertEqual(payload["status"], "translation_pending")
+        self.assertEqual(payload["language"], "bn")
+        self.assertIsNone(payload["fallback_language"])
+        self.assertEqual(payload["stories"], [])
+
+    def test_bangla_mcqs_keep_answer_key_but_use_reviewed_bangla_text(self):
+        english = [{"id": "CA01", "headline": "Headline", "summary": "Summary"}]
+        en_mcqs = [{"no": 1, "question": "Where?", "options": {"A": "Dhaka", "B": "Khulna"},
+                    "correct": "A", "explanation": "Answer is Dhaka"}]
+        bn_mcqs = {"1": {"question": "কোথায়?", "options": {"A": "ঢাকা", "B": "খুলনা"},
+                         "explanation": "উত্তর ঢাকা"}}
+        loaded = {"edition": {"stories": english, "mcqs": en_mcqs, "words": [{"Headword / phrase": "budget"}]},
+                  "bangla": {"stories": {"CA01": {"headline": "শিরোনাম", "summary": "সারাংশ",
+                                                   "translation_status": "approved"}},
+                             "mcqs": bn_mcqs, "language": "bn"}}
+        with patch.object(main, "list_editions", return_value=[{"edition_date": "2026-11-15"}]), \\
+             patch.object(main, "load_edition", return_value=loaded):
+            payload = main.briefing("bn")
+        self.assertEqual(payload["data"]["mcqs"][0]["question"], "কোথায়?")
+        self.assertEqual(payload["data"]["mcqs"][0]["correct"], "A")
+        self.assertEqual(payload["data"]["mcqs"][0]["options"]["A"], "ঢাকা")
+        self.assertEqual(payload["data"]["words"][0]["Headword / phrase"], "budget")
 
 
 if __name__ == "__main__":
