@@ -101,6 +101,9 @@ def load_metadata_archive(edition_date: str) -> list[dict[str, Any]]:
     if not path.is_file():
         return []
     archive = _read_json(path)
+    if (archive.get("record_type") != "metadata_only"
+            or archive.get("study_notes_available") is not False):
+        raise ValueError("Metadata archive must be explicitly marked metadata_only")
     if archive.get("date") != edition_date:
         raise ValueError("Metadata archive date does not match its filename")
     items = archive.get("items", [])
