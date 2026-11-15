@@ -94,14 +94,14 @@ def scratch_run_dir(tmp):
                       (f"bn-{DATE}.json", bn),
                       (f"index-{DATE}.json", staged_index)):
         (staging / name).write_text(
-            json.dumps(obj, indent=2, ensure_ascii=False) + "\\n",
+            json.dumps(obj, indent=2, ensure_ascii=False) + "\n",
             encoding="utf-8")
     (staging / f"edition-{DATE}.xlsx").write_bytes(b"synthetic test fixture")
     (staging / f"edition-{DATE}.pdf").write_bytes(b"synthetic test fixture")
     edition = {"stats": {"collected": 1514, "decisions": {
         "keep": 128, "maybe": 300, "reject": 949}}}
     (dst / f"edition-{DATE}.json").write_text(
-        json.dumps(edition, indent=2) + "\\n", encoding="utf-8")
+        json.dumps(edition, indent=2) + "\n", encoding="utf-8")
     return dst
 
 
