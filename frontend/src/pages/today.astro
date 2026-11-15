@@ -164,7 +164,7 @@ import '../styles/global.css';
           fallbackNotice.hidden = !(language === 'bn' && payload.fallback_language === 'en');
           fallbackNotice.textContent = fallbackNotice.hidden ? '' : words.fallback;
           list.lang = payload.language || language;
-          list.dir = list.lang === 'bn' ? 'rtl' : 'ltr';
+          list.dir = 'auto';
           renderStories(payload.stories, words);
         } catch (err) {
           status.lastChild.textContent = labels[language].unavailable;
