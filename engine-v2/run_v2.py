@@ -84,7 +84,6 @@ def _metadata_only_record(decision, article):
         "source": (article.get("source") or "").strip(),
         "url": (article.get("url") or "").strip(),
         "published": article.get("published") or "",
-        "rss_summary": (article.get("summary") or "")[:600],
         "archive_status": status,
         "study_note_status": "not_generated",
         "body_error": error,
