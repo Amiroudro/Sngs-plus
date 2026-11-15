@@ -67,8 +67,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is % of Gazipur factories open on…?",
-          "a": "35"
+          "q": "What minimum monthly wage were garment workers demanding during the unrest?",
+          "a": "Tk30,000."
+        },
+        {
+          "q": "What share of garment factories in Gazipur were open on Friday, 6 November, according to police?",
+          "a": "About 35%."
         }
       ],
       "recall_cards": [
@@ -142,12 +146,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is around companies?",
-          "a": "125"
+          "q": "How many individuals' bank accounts did NBR ask banks to freeze?",
+          "a": "More than 100 individuals."
         },
         {
-          "q": "What is individuals and firms in total?",
-          "a": "225"
+          "q": "How many companies' financial transactions were being scrutinised?",
+          "a": "Around 125 companies."
         }
       ],
       "recall_cards": [
@@ -215,12 +219,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is total deaths?",
-          "a": "455"
+          "q": "How many dengue deaths had been recorded in the year by 6 November?",
+          "a": "455 deaths."
         },
         {
-          "q": "What is total cases?",
-          "a": "145,906"
+          "q": "How many dengue patients were hospitalised in the 24 hours to 8am on 6 November?",
+          "a": "1,535 patients."
         }
       ],
       "recall_cards": [
@@ -290,12 +294,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is combined tally?",
-          "a": "1,276"
+          "q": "What was the combined confirmed and suspected measles-related death tally reported on 6 November?",
+          "a": "1,276 deaths."
         },
         {
-          "q": "What is suspected cases?",
-          "a": "236,714"
+          "q": "How many suspected measles cases had been recorded?",
+          "a": "236,714 cases."
         }
       ],
       "recall_cards": [
@@ -367,12 +371,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is project?",
-          "a": "Tk 447.57bn"
+          "q": "How much was allocated to the health sector in the current fiscal year?",
+          "a": "Tk694.09 billion."
         },
         {
-          "q": "What is Record allocated to the health sector…?",
-          "a": "Tk 694.09 billion"
+          "q": "How many upazila health complexes did the government plan to upgrade into 151-bed hospitals?",
+          "a": "All 503 upazila health complexes."
         }
       ],
       "recall_cards": [
@@ -447,12 +451,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is cr secondary books outstanding?",
-          "a": "6.6"
+          "q": "By what date did the authorities aim to deliver all textbooks for the 2027 academic year to upazilas?",
+          "a": "30 November 2026."
         },
         {
-          "q": "What is cr+ books to print?",
-          "a": "30"
+          "q": "How many textbooks did NCTB plan to print for nearly four crore students?",
+          "a": "More than 30 crore textbooks."
         }
       ],
       "recall_cards": [
@@ -525,12 +529,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is recommended?",
-          "a": "1,807"
+          "q": "How many candidates were recommended by the PSC in the 45th BCS?",
+          "a": "1,807 candidates."
         },
         {
-          "q": "What is gazetted?",
-          "a": "1,702"
+          "q": "How many of those recommended candidates were included in the final gazette?",
+          "a": "1,702 candidates."
         }
       ],
       "recall_cards": [
@@ -609,8 +613,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is NAV?",
-          "a": "Tk 35.84bn"
+          "q": "To what amount did Islami Bank propose to raise its authorised capital?",
+          "a": "Tk10,000 crore, from Tk2,000 crore."
+        },
+        {
+          "q": "What net loss did the bank report for July–September 2026?",
+          "a": "Tk1,970 crore."
         }
       ],
       "recall_cards": [
@@ -683,8 +691,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is EPS?",
-          "a": "Tk 3.24"
+          "q": "What was Bank Asia's net profit for January–September 2026?",
+          "a": "Tk472 crore, up 34% year on year."
+        },
+        {
+          "q": "How much did customer deposits grow to?",
+          "a": "Tk53,308 crore, up 19%."
         }
       ],
       "recall_cards": [
@@ -756,7 +768,16 @@
         "Using Enigio's solution, the banks electronically created and transferred original trade documents, including an electronic bill of lading and a digital promissory note.",
         "The digital process improved transaction visibility and document security, reducing the risks of documents being lost, delayed or altered."
       ],
-      "exam_qa": [],
+      "exam_qa": [
+        {
+          "q": "How much did the BRAC Bank export-document process reduce document processing time to?",
+          "a": "One day, down from 40 days."
+        },
+        {
+          "q": "Which two banks acted as remitting and collecting banks in the transaction?",
+          "a": "BRAC Bank was the remitting bank and Lloyds Bank was the collecting bank."
+        }
+      ],
       "recall_cards": [
         {
           "cloze": "BRAC Bank completed Bangladesh's first blockchain-based digital export transaction, cutting document processing time from ______ days to just one day in a deal involving garment exporter NAZ Bangladesh and UK retailer Matalan.",
@@ -824,12 +845,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is allocated?",
-          "a": "Tk 75.7bn"
+          "q": "By what year did the government target completion of the two Dhaka monorail corridors?",
+          "a": "2030."
         },
         {
-          "q": "What is Dhaka Transport?",
-          "a": "Coordination Authority (DTCA) Additional Executive Director Md Moshiur Rahman"
+          "q": "How much was allocated for the pre-feasibility study and detailed designs?",
+          "a": "Tk75.7 billion."
         }
       ],
       "recall_cards": [
@@ -902,12 +923,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is trillion external debt?",
-          "a": "$9.4"
+          "q": "What was the external debt of developing countries in 2025, according to the World Bank?",
+          "a": "A record $9.4 trillion."
         },
         {
-          "q": "What is % average rate for poorest?",
-          "a": "8.2"
+          "q": "What average rate did the poorest countries pay on new private loans or bonds?",
+          "a": "8.2%, the highest since 1989."
         }
       ],
       "recall_cards": [
@@ -980,12 +1001,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is Nearly displaced people at climate risk?",
-          "a": "90 million"
+          "q": "How many forcibly displaced people were living in countries increasingly exposed to climate hazards, according to UNHCR?",
+          "a": "Nearly 90 million."
         },
         {
-          "q": "What is Nearly forcibly displaced people live in…?",
-          "a": "90 million"
+          "q": "What share of the world's forcibly displaced people lived in countries facing severe climate risks?",
+          "a": "Nearly three-quarters."
         }
       ],
       "recall_cards": [
@@ -1055,8 +1076,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is Copernicus Climate Change Service, EU?",
-          "a": "2026 'most likely' the second-hottest year on record"
+          "q": "Which year did the EU's Copernicus Climate Change Service say was most likely to be the second-hottest on record?",
+          "a": "2026."
+        },
+        {
+          "q": "How far above pre-industrial levels was October's global temperature?",
+          "a": "1.75°C."
         }
       ],
       "recall_cards": [
@@ -1129,12 +1154,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is % of graduates from National University?",
-          "a": "60-70"
+          "q": "What share of Bangladesh's graduates came from the National University, according to the UGC annual report?",
+          "a": "About 60–70%."
         },
         {
-          "q": "What is of hundreds pass problem-solving tests?",
-          "a": "10-15"
+          "q": "In the example cited from Markopolo.ai, how many applicants per position performed well in problem-solving tests?",
+          "a": "About 10–15."
         }
       ],
       "recall_cards": [
@@ -1170,7 +1195,7 @@
       "Headword / phrase": "normalcy",
       "IPA": "/ˈnɔːməlsi/",
       "Newspaper context note": "Normalcy largely returned to Gazipur, Narayanganj and Mirpur after five days of labour unrest.",
-      "Original example": "Normalcy largely returned to Gazipur, Narayanganj and Mirpur.",
+      "Original example": "Normalcy returned gradually after the transport strike ended.",
       "Part of speech / type": "noun",
       "Priority": "High",
       "Publication date": "2026-11-06",
@@ -1192,7 +1217,7 @@
       "Headword / phrase": "precaution",
       "IPA": "/prɪˈkɔːʃən/",
       "Newspaper context note": "Some factories in Ashulia remained closed as a precaution.",
-      "Original example": "Some factories remained closed as a precaution.",
+      "Original example": "The laboratory closed for a day as a precaution.",
       "Part of speech / type": "noun",
       "Priority": "Medium",
       "Publication date": "2026-11-06",
@@ -1214,13 +1239,13 @@
       "Headword / phrase": "queue",
       "IPA": "/kjuː/",
       "Newspaper context note": "Workers were seen queuing outside factories in Gazipur as production resumed.",
-      "Original example": "Workers were seen standing in a queue outside factories in the morning.",
+      "Original example": "Applicants formed a queue outside the registration centre.",
       "Part of speech / type": "verb / noun",
       "Priority": "Basic",
       "Publication date": "2026-11-06",
       "Record type": "New word",
       "Source publication": "The Daily Star",
-      "Synonyms": "line up, wait in line",
+      "Synonyms": "line; waiting line; line of people",
       "Word family / derivatives": "queue (noun)"
     },
     {
@@ -1236,7 +1261,7 @@
       "Headword / phrase": "scrutinise",
       "IPA": "/ˈskruːtɪnaɪz/",
       "Newspaper context note": "The NBR is scrutinising the financial transactions of around 125 companies.",
-      "Original example": "The NBR continues to scrutinise the transactions of around 125 companies.",
+      "Original example": "Auditors will scrutinise the accounts before approving the report.",
       "Part of speech / type": "verb",
       "Priority": "High",
       "Publication date": "2026-11-06",
@@ -1258,7 +1283,7 @@
       "Headword / phrase": "hamper",
       "IPA": "/ˈhæmpər/",
       "Newspaper context note": "The unrest has hampered production and raised concerns about exports in the major export-earning sector.",
-      "Original example": "The unrest has hampered production and raised concerns about exports.",
+      "Original example": "Heavy rainfall can hamper construction work.",
       "Part of speech / type": "verb",
       "Priority": "High",
       "Publication date": "2026-11-06",
@@ -1280,7 +1305,7 @@
       "Headword / phrase": "trace",
       "IPA": "/treɪs/",
       "Newspaper context note": "The financial scrutiny aims to trace possible funding channels behind the unrest.",
-      "Original example": "The scrutiny aims to trace possible funding channels.",
+      "Original example": "Investigators used bank records to trace the movement of funds.",
       "Part of speech / type": "verb",
       "Priority": "High",
       "Publication date": "2026-11-06",
@@ -1302,7 +1327,7 @@
       "Headword / phrase": "cumulative",
       "IPA": "/ˈkjuːmjələtɪv/",
       "Newspaper context note": "The cumulative number of dengue cases reached 145,906.",
-      "Original example": "The cumulative number of dengue cases reached 145,906.",
+      "Original example": "The cumulative effect of small delays pushed the project beyond its deadline.",
       "Part of speech / type": "adjective",
       "Priority": "High",
       "Publication date": "2026-11-06",
@@ -1312,7 +1337,7 @@
       "Word family / derivatives": "accumulate (verb), accumulation (noun)"
     },
     {
-      "Antonyms": "recover, rebuild",
+      "Antonyms": "stability; continued operation (contextual contrasts, not strict antonyms)",
       "Article headline": "Govt unveils comprehensive plan to rebuild health system",
       "BCS / Bank relevance": "High — health, governance.",
       "Bangla meaning": "ভেঙে পড়া",
@@ -1324,7 +1349,7 @@
       "Headword / phrase": "collapse",
       "IPA": "/kəˈlæps/",
       "Newspaper context note": "The state minister said the government had inherited a collapsed healthcare system.",
-      "Original example": "The government inherited a collapsed healthcare system.",
+      "Original example": "The bridge was closed after engineers found signs of structural collapse.",
       "Part of speech / type": "verb / noun",
       "Priority": "High",
       "Publication date": "2026-11-06",
@@ -1346,7 +1371,7 @@
       "Headword / phrase": "renovation",
       "IPA": "/ˌrenəˈveɪʃən/",
       "Newspaper context note": "Many health facilities had not received adequate repair or renovation for years.",
-      "Original example": "Many health facilities had not received adequate repair or renovation for years.",
+      "Original example": "The school completed the renovation of its science laboratory.",
       "Part of speech / type": "noun",
       "Priority": "Medium",
       "Publication date": "2026-11-06",
@@ -1368,7 +1393,7 @@
       "Headword / phrase": "integrated",
       "IPA": "/ˈɪntɪɡreɪtɪd/",
       "Newspaper context note": "The health system must be reconstructed through an integrated plan, the state minister said.",
-      "Original example": "The health system must be rebuilt through an integrated plan.",
+      "Original example": "The agency introduced an integrated system for collecting and analysing data.",
       "Part of speech / type": "adjective",
       "Priority": "High",
       "Publication date": "2026-11-06",
@@ -1378,7 +1403,7 @@
       "Word family / derivatives": "integrate (verb), integration (noun)"
     },
     {
-      "Antonyms": "setback",
+      "Antonyms": "No direct antonym.",
       "Article headline": "Govt aims to deliver all textbooks by Nov",
       "BCS / Bank relevance": "High — education, vocabulary.",
       "Bangla meaning": "মাইলফলক",
@@ -1390,7 +1415,7 @@
       "Headword / phrase": "milestone",
       "IPA": "/ˈmaɪlstəʊn/",
       "Newspaper context note": "The NCTB chairman said delivering all textbooks by 30 November would undoubtedly be a milestone.",
-      "Original example": "Delivering all textbooks by November would be a milestone.",
+      "Original example": "Completing the first phase was an important milestone for the project.",
       "Part of speech / type": "noun",
       "Priority": "High",
       "Publication date": "2026-11-06",
@@ -1412,7 +1437,7 @@
       "Headword / phrase": "outstanding",
       "IPA": "/aʊtˈstændɪŋ/",
       "Newspaper context note": "An estimated 6.6 crore secondary textbooks are still outstanding.",
-      "Original example": "Around 6.6 crore secondary textbooks are still outstanding.",
+      "Original example": "The borrower must clear all outstanding payments before the contract ends.",
       "Part of speech / type": "adjective",
       "Priority": "High",
       "Publication date": "2026-11-06",
@@ -1434,13 +1459,13 @@
       "Headword / phrase": "gazette",
       "IPA": "/ɡəˈzet/",
       "Newspaper context note": "105 candidates recommended for the 45th BCS were left out of the final gazette.",
-      "Original example": "105 candidates were left out of the final gazette.",
+      "Original example": "The appointment became official after publication in the gazette.",
       "Part of speech / type": "noun / verb",
       "Priority": "High",
       "Publication date": "2026-11-06",
       "Record type": "New word",
       "Source publication": "Prothom Alo English",
-      "Synonyms": "official journal, notification",
+      "Synonyms": "official government journal; official record of notices",
       "Word family / derivatives": "gazette (verb)"
     },
     {
@@ -1456,7 +1481,7 @@
       "Headword / phrase": "verification",
       "IPA": "/ˌverɪfɪˈkeɪʃən/",
       "Newspaper context note": "56 candidates were denied appointments for administrative reasons including police verification.",
-      "Original example": "56 candidates were denied appointments for reasons including police verification.",
+      "Original example": "The authority completed verification of the applicants' documents.",
       "Part of speech / type": "noun",
       "Priority": "High",
       "Publication date": "2026-11-06",
@@ -1478,7 +1503,7 @@
       "Headword / phrase": "authorised",
       "IPA": "/ˈɔːθəraɪzd/",
       "Newspaper context note": "Islami Bank plans to raise its authorised capital to Tk 10,000 crore from Tk 2,000 crore.",
-      "Original example": "Islami Bank plans to raise its authorised capital to Tk 10,000 crore.",
+      "Original example": "Only authorised staff may access the financial records.",
       "Part of speech / type": "adjective",
       "Priority": "High",
       "Publication date": "2026-11-06",
@@ -1500,7 +1525,7 @@
       "Headword / phrase": "disclosure",
       "IPA": "/dɪsˈkləʊʒər/",
       "Newspaper context note": "The bank made the disclosure to the Dhaka Stock Exchange.",
-      "Original example": "The bank made the disclosure to the Dhaka Stock Exchange.",
+      "Original example": "The company made a disclosure about the change in its ownership.",
       "Part of speech / type": "noun",
       "Priority": "High",
       "Publication date": "2026-11-06",
@@ -1522,17 +1547,17 @@
       "Headword / phrase": "legacy",
       "IPA": "/ˈleɡəsi/",
       "Newspaper context note": "Non-performing investments remained high, mostly due to large legacy exposures.",
-      "Original example": "Non-performing investments remained high due to large legacy exposures.",
+      "Original example": "The bank is still dealing with legacy loans issued under earlier policies.",
       "Part of speech / type": "adjective / noun",
       "Priority": "Medium",
       "Publication date": "2026-11-06",
       "Record type": "New word",
       "Source publication": "The Daily Star",
-      "Synonyms": "inherited, old, historical",
+      "Synonyms": "inherited obligation; existing exposure; old liability (in banking context)",
       "Word family / derivatives": "legacy (noun)"
     },
     {
-      "Antonyms": "—",
+      "Antonyms": "No direct antonym.",
       "Article headline": "BRAC Bank completes blockchain-based export deal",
       "BCS / Bank relevance": "High — finance, trade.",
       "Bangla meaning": "প্রতিশ্রুতিমূলক",
@@ -1544,13 +1569,13 @@
       "Headword / phrase": "promissory",
       "IPA": "/ˈprɒmɪsəri/",
       "Newspaper context note": "The banks electronically transferred a digital promissory note as part of the blockchain export deal.",
-      "Original example": "The banks transferred a digital promissory note electronically.",
+      "Original example": "The borrower signed a promissory note agreeing to repay the amount by June.",
       "Part of speech / type": "adjective",
       "Priority": "Medium",
       "Publication date": "2026-11-06",
       "Record type": "New word",
       "Source publication": "The Daily Star",
-      "Synonyms": "pledged",
+      "Synonyms": "No exact synonym; a written promise to pay (descriptive definition).",
       "Word family / derivatives": "promise (noun / verb)"
     },
     {
@@ -1566,7 +1591,7 @@
       "Headword / phrase": "feasibility",
       "IPA": "/ˌfiːzəˈbɪləti/",
       "Newspaper context note": "BUET completed the pre-feasibility study for Dhaka's monorail corridors.",
-      "Original example": "BUET completed the pre-feasibility study for the monorail.",
+      "Original example": "The study assessed the technical and financial feasibility of the project.",
       "Part of speech / type": "noun",
       "Priority": "High",
       "Publication date": "2026-11-06",
@@ -1588,7 +1613,7 @@
       "Headword / phrase": "corridor",
       "IPA": "/ˈkɒrɪdɔːr/",
       "Newspaper context note": "Two monorail corridors are targeted for completion by 2030.",
-      "Original example": "Two monorail corridors are targeted for completion by 2030.",
+      "Original example": "The new transport corridor will connect the industrial zone to the port.",
       "Part of speech / type": "noun",
       "Priority": "High",
       "Publication date": "2026-11-06",
@@ -1718,8 +1743,8 @@
       "Direct source URL": "https://www.thedailystar.net/news/world/news/developing-countries-debt-hit-record-94-trillion-2025-world-bank-4316781",
       "English explanation": "To postpone dealing with a problem, usually by a temporary fix.",
       "Exam value": "High — idiom.",
-      "Original example 1": "Governments issued new bonds to buy back maturing debt, effectively kicking the debt can down the road.",
-      "Original example 2": "Delaying the reform is just kicking the can down the road.",
+      "Original example 1": "Postponing the decision again would be kicking the can down the road.",
+      "Original example 2": "The government cannot keep kicking the can down the road on pension reform.",
       "Phrase": "kicking the can down the road",
       "Publication date": "2026-11-06",
       "Source publication": "The Daily Star",
@@ -1733,8 +1758,8 @@
       "Direct source URL": "https://www.thedailystar.net/news/world/news/developing-countries-debt-hit-record-94-trillion-2025-world-bank-4316781",
       "English explanation": "To push something out by taking its place or using up resources.",
       "Exam value": "High — phrasal verb, economics.",
-      "Original example 1": "High debt burdens threaten to crowd out essential investments in people.",
-      "Original example 2": "Private borrowing can crowd out public spending.",
+      "Original example 1": "Rising debt payments can crowd out spending on schools and hospitals.",
+      "Original example 2": "Large subsidies may crowd out investment in infrastructure.",
       "Phrase": "crowd out",
       "Publication date": "2026-11-06",
       "Source publication": "The Daily Star",
@@ -1748,8 +1773,8 @@
       "Direct source URL": "https://en.prothomalo.com/youth/employment/7faouaes9h",
       "English explanation": "A protest in which people refuse to eat until their demands are met.",
       "Exam value": "High — protest vocabulary.",
-      "Original example 1": "The excluded candidates staged a hunger strike at Dhaka University.",
-      "Original example 2": "Workers went on hunger strike over unpaid wages.",
+      "Original example 1": "The detainees began a hunger strike to demand a hearing.",
+      "Original example 2": "The protest ended after the hunger strike participants received medical care.",
       "Phrase": "hunger strike",
       "Publication date": "2026-11-06",
       "Source publication": "Prothom Alo English",
@@ -1763,8 +1788,8 @@
       "Direct source URL": "https://en.prothomalo.com/bangladesh/t3806w3hot",
       "English explanation": "In the actual place where things are happening; in practice.",
       "Exam value": "High — common phrase.",
-      "Original example 1": "Human Rights Watch urged police not to use excessive force on the ground.",
-      "Original example 2": "The situation on the ground is improving.",
+      "Original example 1": "The policy looks sound on paper, but implementation on the ground remains difficult.",
+      "Original example 2": "Field officers reported different conditions on the ground.",
       "Phrase": "on the ground",
       "Publication date": "2026-11-06",
       "Source publication": "Prothom Alo English",
@@ -1778,8 +1803,8 @@
       "Direct source URL": "https://www.thedailystar.net/business/economy/news/ai-adoption-not-enough-value-creation-key-experts-4316696",
       "English explanation": "To take control of something; to replace someone.",
       "Exam value": "High — phrasal verb.",
-      "Original example 1": "AI will take over routine tasks.",
-      "Original example 2": "The new board took over the bank's management.",
+      "Original example 1": "A new management team will take over the company next month.",
+      "Original example 2": "Automation may take over some repetitive tasks.",
       "Phrase": "take over",
       "Publication date": "2026-11-06",
       "Source publication": "The Daily Star",
@@ -1793,8 +1818,8 @@
       "Direct source URL": "https://www.thedailystar.net/business/economy/news/bb-calls-curbing-loan-based-money-laundering-4316716",
       "English explanation": "Among the things to be discussed or dealt with.",
       "Exam value": "High — common phrase.",
-      "Original example 1": "Curbing loan-based money laundering is on the agenda.",
-      "Original example 2": "The issue is high on the agenda.",
+      "Original example 1": "Improving road safety is now high on the agenda.",
+      "Original example 2": "The committee placed the budget review on the agenda.",
       "Phrase": "on the agenda",
       "Publication date": "2026-11-06",
       "Source publication": "The Daily Star",
@@ -1808,8 +1833,8 @@
       "Direct source URL": "https://en.prothomalo.com/youth/employment/7faouaes9h",
       "English explanation": "Because of, or using something as the reason or foundation.",
       "Exam value": "High — formal phrase.",
-      "Original example 1": "Candidates were excluded on the basis of police verification.",
-      "Original example 2": "Decisions were made on the basis of merit.",
+      "Original example 1": "Applicants were selected on the basis of their test scores.",
+      "Original example 2": "The court ruled on the basis of the evidence presented.",
       "Phrase": "on the basis of",
       "Publication date": "2026-11-06",
       "Source publication": "Prothom Alo English",
@@ -1823,8 +1848,8 @@
       "Direct source URL": "https://en.prothomalo.com/international/americas/1wxn6a58q9",
       "English explanation": "In the shape or type of something.",
       "Exam value": "High — common phrase.",
-      "Original example 1": "Change came in the form of a new government.",
-      "Original example 2": "Aid arrived in the form of food and medicine.",
+      "Original example 1": "The grant was provided in the form of low-interest loans.",
+      "Original example 2": "Support arrived in the form of food, medicine and temporary shelter.",
       "Phrase": "in the form of",
       "Publication date": "2026-11-06",
       "Source publication": "Prothom Alo English",
@@ -1838,8 +1863,8 @@
       "Direct source URL": "https://en.prothomalo.com/youth/education/vaoowrjzze",
       "English explanation": "Using something as a justification or excuse.",
       "Exam value": "High — common phrase.",
-      "Original example 1": "Extra fees were charged in the name of form submission.",
-      "Original example 2": "He acted in the name of the law.",
+      "Original example 1": "The officer said the inspection was conducted in the name of public safety.",
+      "Original example 2": "The company charged an extra fee in the name of document processing.",
       "Phrase": "in the name of",
       "Publication date": "2026-11-06",
       "Source publication": "Prothom Alo English",
@@ -1853,8 +1878,8 @@
       "Direct source URL": "https://en.prothomalo.com/international/g6t5yf50f7",
       "English explanation": "Exposed to danger or loss.",
       "Exam value": "High — common phrase.",
-      "Original example 1": "90 million displaced people are at climate risk.",
-      "Original example 2": "Jobs are at risk if factories close.",
+      "Original example 1": "Coastal homes are at risk during severe storm surges.",
+      "Original example 2": "The jobs may be at risk if the factory remains closed.",
       "Phrase": "at risk",
       "Publication date": "2026-11-06",
       "Source publication": "Prothom Alo English",
@@ -2337,5 +2362,14 @@
   ],
   "backfilled": true,
   "backfill_note": "Backfilled edition: built from real articles published 6 November 2026 (Daily Star, Prothom Alo English via sitemaps and Bing News RSS). Friday edition — thinner news day (119 articles collected vs 148-166 on other backfill days). CA03 (dengue) and CA04 (measles) have no Current Affairs MCQ.",
-  "approved_by": "Rudro (via granted full autonomy — 'do everything do not wait for me', 2026-11-07)"
+  "approved_by": "Rudro (via granted full autonomy — 'do everything do not wait for me', 2026-11-07)",
+  "renovation_status": "editorially_rewritten_pending_human_review",
+  "renovation_notes": [
+    "Rewrote 30 English and added 30 Bangla short-answer questions across all 15 stories.",
+    "Questions use facts already present in the edition; allegations and attributed agency or company claims remain qualified.",
+    "Original story IDs and source URLs preserved.",
+    "Human editorial and factual review remains required before publication."
+  ],
+  "vocabulary_editorial_note": "Vocabulary and phrase example sentences in this edition are original learner examples, not quotations from linked articles. Context-specific terms and non-opposites are labelled accurately.",
+  "vocabulary_review_status": "editorially_revised_pending_human_review"
 }
