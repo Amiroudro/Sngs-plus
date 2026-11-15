@@ -751,7 +751,7 @@ void main() {
           result.correctConsecutive,
           result.correctRule,
         );
-        // Bundled editions run 2026-11-01..13; the fake server offers
+        // Bundled editions run 2026-11-01..15; the fake server offers
         // 2026-11-16 through the DEFAULT Pages URL.
         final bundledDates = state.editions.map((e) => e.date).toSet();
         expect(bundledDates, contains('2026-11-13'));
