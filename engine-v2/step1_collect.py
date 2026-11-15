@@ -6,8 +6,13 @@ manual paste needed. Stdlib only. No imports from v1 (engine/,
 tools/collector/) — the working v1 collector's logic was adapted,
 not imported. Never writes into v1 directories.
 
-Routes (verified live from this VM; see
-tools/collector/ROUTES.md for the full table):
+Collector route notes below are historical observations recorded
+in the original Engine development VM on 15 Nov 2026. They are NOT
+verification from the Sarangsho Plus deployment environment, are NOT
+current availability guarantees, and do NOT grant collection or reuse
+permission. The machine-readable route inventory records this distinction
+explicitly. A source remains disabled until the separate rights and
+deployment-environment gates pass.
   * Bing News RSS — PRIMARY. Direct publisher URLs, unwrapped from
     the apiclick `url=` parameter. Queries cover Bangladesh,
     economy, politics, bank, education/jobs, and site: searches
@@ -23,7 +28,7 @@ tools/collector/ROUTES.md for the full table):
     Article-body access requires a separate current licence.
   * Prothom Alo news sitemap — the sitemap leg of the per-paper
     chain (RSS first, then news sitemap, then section links).
-  * TBS sitemap index — the index loads; its 2026 children
+  * TBS sitemap index — the original development VM reported that the index loaded; its 2026 children
     (sitemap-2026-1.xml, 50,000 URLs; sitemap-2026-2.xml) carry
     lastmod dates. Plain sitemaps have no titles, so the title is
     derived from the URL slug (never invented) — and then, for
@@ -32,7 +37,7 @@ tools/collector/ROUTES.md for the full table):
     Step 3 decides, so no page item ever shows a slug headline.
     Only children whose lastmod is within 2 days are fetched, and
     only items with lastmod in the window are kept.
-  * Daily Star sitemap — the index is IncompleteRead from this VM,
+  * Daily Star sitemap — the original development VM reported that the index was IncompleteRead,
     so the 2026 child (sitemaps/2026/sitemap-2026-1.xml) is wired
     directly. It is flaky: the server often closes mid-read and
     the tail (newest items) is lost, so on a truncated fetch it
@@ -42,17 +47,16 @@ tools/collector/ROUTES.md for the full table):
     sitemap leg yields 0 fresh items. Section cards carry
     <time datetime="...">, so only same-window items are kept;
     title comes from the card's aria-label, never invented.
-  * Jugantor news sitemap — Bangla daily; a real news sitemap
+  * Jugantor news sitemap — the original development VM reported a Bangla news sitemap
     (news:title + news:publication_date), ~500 items in 48 h.
-  * Prothom Alo Bangla /feed — RSS, 55 items, fresh.
+  * Prothom Alo Bangla /feed — the original development VM reported RSS with 55 fresh items.
   * Editorial Bing News RSS — path-qualified site: queries for
     the opinion/editorial sections (/opinion, /thoughts for TBS,
     /editorial for FE), tagged section="editorial",
     found_via="editorial". UNQUOTED queries only — quoted
     "site:..." queries return 0 items.
 
-DROPPED (verified stale/blocked, kept visible, never silently
-retried): TBS RSS (latest 12 Nov 2021), Daily Star RSS (latest
+Historical DROPPED observations from the original development VM (15 Nov 2026; not a deployment-side test; kept visible and not silently retried): TBS RSS (latest 12 Nov 2021), Daily Star RSS (latest
 1 Jun 2026), Dhaka Tribune (every route 403/404 — entirely
 unreachable from this VM), New Age (403), Daily Observer
 (unreachable), BSS (403), Kaler Kantho (403), Ittefaq (403),
