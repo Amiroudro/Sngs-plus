@@ -84,7 +84,7 @@ Until rights are established, use only publisher-permitted access patterns. Do n
 
 ## 50-publisher domain coverage update (16 Nov 2026)
 
-The candidate directory now has a domain lead for 49 of the 50 candidates. Sonali Sangbad remains unresolved. Domain leads are not equivalent to publisher-controlled verification or permission to reuse content.
+The candidate directory now has domain leads for all 50 candidates. Sonali Sangbad's publisher homepage is confirmed at sonalisangbad.com, but its current feed endpoint and freshness remain unverified. Domain leads are not equivalent to feed verification or permission to reuse content.
 
 | Group | Candidate | Domain lead | Evidence class |
 |---|---|---|---|
@@ -137,11 +137,17 @@ The candidate directory now has a domain lead for 49 of the 50 candidates. Sonal
 | Regional | Dainik Azadi | dainikazadi.net (alternate directory lead: dainikazadi.com) | Inkline feed-registry listing / regional directory lead |
 | Regional | Dainik Purbokone | dainikpurbokone.net | GDI / regional directory lead |
 | Regional | Karatoa | karatoa.com.bd | Regional newspaper directory lead |
-| Regional | Sonali Sangbad | unresolved | Listed by MRDI; canonical domain not established |
+| Regional | Sonali Sangbad | sonalisangbad.com | Publisher homepage and e-paper route; feed freshness unverified |
+
+
+
+### Sonali Sangbad domain follow-up
+
+The publisher-controlled homepage is reachable at [sonalisangbad.com](https://sonalisangbad.com/). Its visible page header was dated 11 August 2026 during this check, and it lists a Rajshahi office/contact section. The [e-paper route](https://sonalisangbad.com/epaper/) exists, but its visible edition date was 22 January 2025. A third-party newspaper directory also lists sonalisangbad.com as the official site. This establishes a credible domain lead, not a fresh feed. No RSS route or current e-paper freshness has been verified, so the source remains source_enabled=false, metadata pending, automated processing pending and body processing not permitted.
 
 ### Domain and permission registry
 
-The machine-readable registry now contains 55 host records: 49 candidate publisher identities with a known domain lead, Prothom Alo's separate Bangla and English hosts, and the additional agencies BSS and UNB. All records remain pending for metadata and page-metadata use; automated processing is pending or restricted for flagged sources, and article bodies are not permitted. The registry's default for an unlisted or malformed publisher URL is deny.
+The machine-readable registry now contains 55 host records: all 50 candidate publisher identities have a domain lead, Prothom Alo has separate Bangla and English hosts, and BSS/UNB are additional agencies. All records remain pending for metadata and page-metadata use; automated processing is pending or restricted for flagged sources, and article bodies are not permitted. The registry's default for an unlisted or malformed publisher URL is deny.
 
 The third-party directories above are discovery aids. The canonical domain for each candidate still needs confirmation against a publisher-controlled site. The route audit must then verify feed structure, recency, robots rules and the intended use permitted by current terms. No source should be marked active based on a directory listing alone.
 
