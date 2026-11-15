@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "policy": {
+    "default_metadata_status": "pending",
+    "default_page_metadata_status": "pending",
+    "default_body_status": "not_permitted",
+    "require_permission_evidence": true,
+    "require_scope_for_body": true,
+    "discovery_hosts": ["www.bing.com", "bing.com", "news.google.com"]
+  },
+  "publishers": {
+    "thedailystar.net": {"publisher": "The Daily Star", "metadata_status": "pending", "metadata_scope": "", "metadata_evidence": "", "page_metadata_status": "pending", "page_metadata_evidence": "", "body_status": "not_permitted", "body_scope": "", "body_evidence": "", "expires_at": ""},
+    "tbsnews.net": {"publisher": "The Business Standard", "metadata_status": "pending", "metadata_scope": "", "metadata_evidence": "", "page_metadata_status": "pending", "page_metadata_evidence": "", "body_status": "not_permitted", "body_scope": "", "body_evidence": "", "expires_at": ""},
+    "dhakatribune.com": {"publisher": "Dhaka Tribune", "metadata_status": "pending", "metadata_scope": "", "metadata_evidence": "", "page_metadata_status": "pending", "page_metadata_evidence": "", "body_status": "not_permitted", "body_scope": "", "body_evidence": "", "expires_at": ""},
+    "thefinancialexpress.com.bd": {"publisher": "The Financial Express", "metadata_status": "pending", "metadata_scope": "", "metadata_evidence": "", "page_metadata_status": "pending", "page_metadata_evidence": "", "body_status": "not_permitted", "body_scope": "", "body_evidence": "", "expires_at": ""},
+    "en.prothomalo.com": {"publisher": "Prothom Alo English", "metadata_status": "pending", "metadata_scope": "", "metadata_evidence": "", "page_metadata_status": "pending", "page_metadata_evidence": "", "body_status": "not_permitted", "body_scope": "", "body_evidence": "", "expires_at": ""},
+    "prothomalo.com": {"publisher": "Prothom Alo Bangla", "metadata_status": "pending", "metadata_scope": "", "metadata_evidence": "", "page_metadata_status": "pending", "page_metadata_evidence": "", "body_status": "not_permitted", "body_scope": "", "body_evidence": "", "expires_at": ""},
+    "jugantor.com": {"publisher": "Jugantor", "metadata_status": "pending", "metadata_scope": "", "metadata_evidence": "", "page_metadata_status": "pending", "page_metadata_evidence": "", "body_status": "not_permitted", "body_scope": "", "body_evidence": "", "expires_at": ""},
+    "bssnews.net": {"publisher": "Bangladesh Sangbad Sangstha (BSS)", "metadata_status": "pending", "metadata_scope": "", "metadata_evidence": "", "page_metadata_status": "pending", "page_metadata_evidence": "", "body_status": "not_permitted", "body_scope": "", "body_evidence": "", "expires_at": ""}
+  },
+  "unmapped_candidates": [
+    "Bangladesh Pratidin", "Kaler Kantho", "Ittefaq", "Samakal", "Amader Shomoy", "Janakantha", "Manabzamin", "Naya Diganta", "Inqilab", "Bonik Barta", "Desh Rupantor", "Ajker Patrika", "Kalbela", "Jaijaidin", "Dainik Bangla", "Sangbad", "Sangram", "Shomoyer Alo", "Alokito Bangladesh", "Amar Desh", "Amar Sangbad", "Dinkal Digital", "Share Biz", "The Business Post", "Daily Sun", "The Daily Observer", "Bangladesh Post", "The Bangladesh Today", "The Asian Age", "bdnews24.com", "Banglanews24", "Jago News 24", "Bangla Tribune", "Dhaka Post", "Risingbd", "Barta24", "Sarabangla", "NewsBangla24", "Daily Bangladesh", "Dainik Azadi", "Dainik Purbokone", "Karatoa", "Sonali Sangbad", "United News of Bangladesh (UNB)"
+  ]
+}
