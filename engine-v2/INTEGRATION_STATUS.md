@@ -17,7 +17,7 @@
 - English/Bangla briefing endpoint and bilingual Today page.
 - Bangla converter overlays are marked needs_review. The API serves Bangla fields only when every story has explicit translation_status=approved; otherwise it falls back to English.
 - SQLite migrations for source health, fact evidence, questions/options, vocabulary occurrences, review progress, editorial corrections, publisher rights reviews, article localizations and separate exam relevance assessments.
-- Database triggers block source activation in the application database unless a current documented licence covers the existing article-body collector.
+- Database triggers allow least-privilege `metadata_only` activation only with current metadata and separate automated-processing scope/evidence; `article_body` mode additionally requires a current body licence. Article-page extraction has its own approval gate.
 - Independent 0–10 exam score, topic tags and exam tracks are stored separately from the engine's 0–3 processing score.
 - Candidate source directory for 50 publishers plus BSS and UNB. It is not a list of active integrations.
 - 16 Nov 2026 source audit: all 50 candidate publishers have a domain lead. Sonali Sangbad's homepage is active, but its feed parser/robots checks remain unverified. The machine-readable route matrix contains 55 hosts, eight feed-route leads, zero directly verified routes and zero enabled sources. CI checks exact host/status parity between source_routes.json and source_rights.json. Third-party feed claims are discovery evidence only.
@@ -37,7 +37,7 @@ The SQLite source_rights_reviews table is the review ledger. The Engine reads a 
 
 ## Current rights and collection state
 
-- Every publisher's metadata and page-metadata status remains pending. Automated-processing status is pending or restricted for flagged sources.
+- Every publisher's metadata and page-metadata status remains pending. Automated-processing status is pending or restricted for flagged sources. No source is currently eligible for metadata-only activation.
 - Every publisher's article-body status remains not_permitted.
 - No publisher is enabled for collection.
 - No live collection schedule is enabled.
@@ -48,7 +48,7 @@ The SQLite source_rights_reviews table is the review ledger. The Engine reads a 
 
 ## Known limitations
 
-- The 50-publisher directory is not yet 50 direct feed integrations. Exact official route, current item timestamps, robots response and deployment-region reachability still need direct verification.
+- The 50-publisher directory is not yet 50 direct feed integrations. Exact official route, current item timestamps, robots response and deployment-region reachability still need direct verification. Metadata-only collection can preserve permitted headlines and source metadata, but the current detailed study-note path drops kept stories when body text is unavailable; a metadata-only archive view and explicit no-body status still need to be wired into app output.
 - The current Bangla renderer uses deterministic templates and sanitisation, not fluent translation. Its output must remain unapproved until human review or a properly tested translation workflow is introduced.
 - The expanded study taxonomy is specified in docs/EXAM_TAXONOMY_V1.md but is not yet wired to an automated classifier or frontend filters.
 - The separate 0–10 assessment schema exists, but no calibrated scoring model or importer currently populates it.
