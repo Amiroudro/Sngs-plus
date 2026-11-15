@@ -85,10 +85,16 @@ def main():
     assert rr.body_decision(url, reg)[0] is False
     print("PASS: expired licences and overdue rights reviews are denied")
 
+    filter_reg = registry()
+    filter_reg["publishers"]["example.com"].update({
+        "automated_processing_status": "approved",
+        "automated_processing_scope": "automated classification and study summaries",
+        "automated_processing_evidence": "written permission AP-002"
+    })
     permitted, blocked = rr.filter_metadata_items([
         {"url": url, "title": "Permitted"},
         {"url": "https://unknown.example/story", "title": "Unmapped"}
-    ], registry())
+    ], filter_reg)
     assert len(permitted) == 1 and permitted[0]["title"] == "Permitted"
     assert blocked.get("unknown.example") == 1
     print("PASS: metadata filter keeps only explicitly approved publisher records")
