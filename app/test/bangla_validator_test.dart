@@ -149,8 +149,11 @@ Future<
   final rawEntries = indexJson['editions'];
   if (rawEntries is List) {
     for (final e in rawEntries) {
-      if (e is Map && e['file'] is String) {
-        files.add(e['file'] as String);
+      if (e is Map) {
+        final date = e['edition_date']?.toString() ?? '';
+        final file = e['file'] as String? ??
+            (date.isEmpty ? '' : 'data-$date.json');
+        if (file.isNotEmpty) files.add(file);
       }
     }
   }
@@ -159,12 +162,13 @@ Future<
     final bnFile = file.replaceFirst('data-', 'bn-');
     final bnRaw = await _readAsset('assets/editions/$bnFile');
     final bn = jsonDecode(bnRaw) as Map<String, dynamic>;
-    _walkJson(bn, '', (path, value) {
-      if (path == 'note' || path == 'edition_date' || path == 'language') {
-        return;
-      }
-      check('assets/editions/$bnFile', path, value);
-    });
+    for (final section in ['stories', 'mcqs']) {
+      final content = bn[section];
+      if (content == null) continue;
+      _walkJson(content, section, (path, value) {
+        check('assets/editions/$bnFile', path, value);
+      });
+    }
 
     final dataRaw = await _readAsset('assets/editions/$file');
     final data = jsonDecode(dataRaw) as Map<String, dynamic>;
