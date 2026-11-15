@@ -860,6 +860,39 @@ def _v2_run_counter(live_index):
     return is_first_v2, new_count, rule
 
 
+def metadata_archive_validation_error(document, date_str):
+    """Return an error string unless an archive is safe to publish."""
+    if not isinstance(document, dict):
+        return "metadata-only archive must be a JSON object."
+    if (document.get("date") != date_str
+            or document.get("record_type") != "metadata_only"
+            or document.get("study_notes_available") is not False
+            or not isinstance(document.get("items"), list)):
+        return "metadata-only archive schema/date invalid."
+    allowed_document_fields = {
+        "date", "record_type", "study_notes_available", "items",
+    }
+    if set(document) != allowed_document_fields:
+        return "metadata-only archive contains unexpected top-level fields."
+    allowed_fields = {
+        "id", "headline", "source", "url", "published",
+        "archive_status", "study_note_status",
+    }
+    allowed_statuses = {
+        "metadata_only_body_not_licensed",
+        "body_blocked_by_robots",
+        "no_direct_article_url",
+        "body_fetch_failed",
+    }
+    for item in document["items"]:
+        if (not isinstance(item, dict)
+                or not set(item).issubset(allowed_fields)
+                or item.get("archive_status") not in allowed_statuses
+                or item.get("study_note_status") != "not_generated"):
+            return "metadata-only archive contains invalid fields or status."
+    return ""
+
+
 def run_publish(date_str, run_dir, staging_dir, editions_dir,
                 app_editions_dir, tracker_md):
     run_dir = Path(run_dir)
@@ -917,34 +950,10 @@ def run_publish(date_str, run_dir, staging_dir, editions_dir,
         metadata_archive = load_json(metadata_archive_path)
     except Exception as exc:  # noqa: BLE001
         return _refuse(f"metadata-only archive unreadable ({exc}). Nothing written.")
-    allowed_archive_statuses = {
-        "metadata_only_body_not_licensed",
-        "body_blocked_by_robots",
-        "no_direct_article_url",
-        "body_fetch_failed",
-    }
-    archive_items = metadata_archive.get("items") if isinstance(metadata_archive, dict) else None
-    if (not isinstance(metadata_archive, dict)
-            or metadata_archive.get("date") != date_str
-            or metadata_archive.get("record_type") != "metadata_only"
-            or metadata_archive.get("study_notes_available") is not False
-            or not isinstance(archive_items, list)):
-        return _refuse("metadata-only archive schema/date invalid. Nothing written.")
-    allowed_archive_fields = {
-        "id", "headline", "source", "url", "published",
-        "archive_status", "study_note_status",
-    }
-    allowed_archive_document_fields = {
-        "date", "record_type", "study_notes_available", "items",
-    }
-    if set(metadata_archive) != allowed_archive_document_fields:
-        return _refuse("metadata-only archive contains unexpected top-level fields. Nothing written.")
-    for item in archive_items:
-        if (not isinstance(item, dict)
-                or not set(item).issubset(allowed_archive_fields)
-                or item.get("archive_status") not in allowed_archive_statuses
-                or item.get("study_note_status") != "not_generated"):
-            return _refuse("metadata-only archive contains invalid fields or status. Nothing written.")
+    archive_error = metadata_archive_validation_error(metadata_archive, date_str)
+    if archive_error:
+        return _refuse(f"{archive_error} Nothing written.")
+    archive_items = metadata_archive["items"]
     # Coverage must be the gate-verified label.
     expected_cov = coverage_label(day)
     if data.get("coverage") != expected_cov:
