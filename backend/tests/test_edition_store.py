@@ -29,10 +29,10 @@ class EditionStoreTests(unittest.TestCase):
 
     def test_published_edition_and_bangla_overlay(self):
         day = "2026-11-15"
-        entry = {"edition_date": day, "file": f"data-{day}.json"}
+        entry = {"edition_date": day, "file": f"data-{day}.json", "status": "published"}
         self.write_json(self.editions / "index.json", {"editions": [entry]})
         self.write_json(self.editions / f"data-{day}.json", {
-            "edition_date": day, "stories": [{"id": "CA01"}]
+            "edition_date": day, "status": "published", "stories": [{"id": "CA01"}]
         })
         self.write_json(self.bn / f"bn-{day}.json", {
             "edition_date": day, "stories": [{"id": "CA01", "summary": "বাংলা"}]
@@ -43,6 +43,24 @@ class EditionStoreTests(unittest.TestCase):
             result = store.load_edition(day)
         self.assertEqual(result["edition"]["stories"][0]["id"], "CA01")
         self.assertEqual(result["bangla"]["stories"][0]["summary"], "বাংলা")
+
+
+    def test_draft_entries_are_not_listed_or_served(self):
+        day = "2026-11-15"
+        self.write_json(self.editions / "index.json", {
+            "editions": [{
+                "edition_date": day,
+                "file": f"data-{day}.json",
+                "status": "draft",
+            }]
+        })
+        self.write_json(self.editions / f"data-{day}.json", {
+            "edition_date": day, "status": "draft", "stories": []
+        })
+        with patch.object(store, "EDITIONS_DIR", self.editions):
+            self.assertEqual(store.list_editions(), [])
+            with self.assertRaises(store.EditionNotFound):
+                store.load_edition(day)
 
     def test_rejects_path_traversal_filename(self):
         day = "2026-11-15"
