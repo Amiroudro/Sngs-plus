@@ -37,6 +37,9 @@ jobs:
       - name: Validate 55-host source route ledger
         working-directory: engine-v2
         run: python tests/test_source_routes.py
+      - name: Run metadata-only archive tests
+        working-directory: engine-v2
+        run: python tests/test_metadata_archive.py
       - name: Run publisher rights registry tests
         working-directory: engine-v2
         run: python tests/test_rights_registry.py
