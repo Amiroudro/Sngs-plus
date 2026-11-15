@@ -28,7 +28,7 @@
   - Article-page headline extraction requires separate page-metadata scope/evidence plus automated-processing approval, or a body licence covering page processing.
   - Article-body fetching requires a current body licence and separate automated-processing scope/evidence.
   - Robots policy is enforced independently; robots.txt fetch failures are fail-closed.
-- Regression tests cover metadata vs page/body permissions, unknown domains, malformed URLs, expired licences, overdue reviews, direct feed blocking, title-page fetch blocking, body fetch blocking and robots behaviour.
+- Regression tests cover metadata vs page/body/automated-processing permissions, unknown domains, malformed URLs, expired licences, overdue reviews, direct feed blocking, title-page fetch blocking, body fetch blocking, SQLite-to-JSON sync, conflicting source records and robots behaviour.
 - Collector retains sports, entertainment and lifestyle articles for editorial scoring rather than discarding them at URL-filter time.
 
 ## Rights ledger and operational registry sync
