@@ -143,7 +143,7 @@ The candidate directory now has domain leads for all 50 candidates. Sonali Sangb
 
 ### Sonali Sangbad domain follow-up
 
-The publisher-controlled homepage is reachable at [sonalisangbad.com](https://sonalisangbad.com/). Its visible page header was dated 11 August 2026 during this check, and it lists a Rajshahi office/contact section. The [e-paper route](https://sonalisangbad.com/epaper/) exists, but its visible edition date was 22 January 2025. A third-party newspaper directory also lists sonalisangbad.com as the official site. This establishes a credible domain lead, not a fresh feed. No RSS route or current e-paper freshness has been verified, so the source remains source_enabled=false, metadata pending, automated processing pending and body processing not permitted.
+The publisher-controlled homepage is reachable at [sonalisangbad.com](https://sonalisangbad.com/), with a current homepage article dated 14 November 2026. Its [e-paper route](https://sonalisangbad.com/epaper/) shows an edition dated 11 November 2026. A third-party directory also identifies sonalisangbad.com as the official site. This confirms an active publisher homepage and recent e-paper, but no RSS/news-sitemap route has been verified. The source remains source_enabled=false, metadata pending, automated processing pending and body processing not permitted.
 
 ### Domain and permission registry
 
