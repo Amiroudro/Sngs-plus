@@ -107,6 +107,8 @@ def metadata_decision(url, registry=None):
         return False, "invalid publisher URL"
     if not record:
         return False, "publisher domain is not mapped in rights registry"
+    if record.get("source_enabled") is not True:
+        return False, "publisher source is not enabled in the application rights ledger"
     if record.get("metadata_status") != "approved":
         return False, "publisher metadata permission is not approved"
     if not _has_evidence(record, "metadata_scope", "metadata_evidence"):
@@ -123,6 +125,8 @@ def page_metadata_decision(url, registry=None):
         return False, "invalid publisher URL"
     if not record:
         return False, "publisher domain is not mapped in rights registry"
+    if record.get("source_enabled") is not True:
+        return False, "publisher source is not enabled in the application rights ledger"
     if record.get("page_metadata_status") == "approved" and (
             record.get("page_metadata_scope") or "").strip() and (
             record.get("page_metadata_evidence") or "").strip() and _review_current(record) and (
@@ -140,6 +144,8 @@ def body_decision(url, registry=None):
         return False, "invalid publisher URL"
     if not record:
         return False, "publisher domain is not mapped in rights registry"
+    if record.get("source_enabled") is not True:
+        return False, "publisher source is not enabled in the application rights ledger"
     if record.get("body_status") != "licensed":
         return False, "article-body licence is not approved"
     if not _has_evidence(record, "body_scope", "body_evidence"):
