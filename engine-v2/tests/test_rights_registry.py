@@ -93,6 +93,18 @@ def main():
     assert "blocked by rights registry" in report["Prothom Alo"]["status"]
     print("PASS: collector blocks direct publisher feeds until metadata approval")
 
+    original_fetch = collector.common.fetch_text
+    collector.common.fetch_text = lambda *args, **kwargs: (_ for _ in ()).throw(
+        AssertionError("unapproved page metadata must not be fetched"))
+    try:
+        assert collector._resolve_one_title({
+            "url": "https://www.tbsnews.net/news/example",
+            "title": "Slug headline"
+        }) == ""
+    finally:
+        collector.common.fetch_text = original_fetch
+    print("PASS: collector does not fetch article pages to resolve titles without permission")
+
     kept = [{"url": "https://www.tbsnews.net/news/example", "title": "Test"}]
     ok, tried = collector.fetch_bodies_for_kept(kept)
     assert (ok, tried) == (0, 0)
