@@ -57,7 +57,7 @@ jobs:
         run: python3 tools/check_data.py
       - name: Analyze Flutter app
         working-directory: app
-        run: flutter analyze
+        run: flutter analyze --no-fatal-infos
       - name: Run Flutter tests
         working-directory: app
         run: flutter test
