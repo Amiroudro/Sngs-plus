@@ -140,7 +140,7 @@ import '../styles/global.css';
       }
 
       function safeUrl(url) {
-        return typeof url === 'string' && /^https?:\\/\\//i.test(url);
+        return typeof url === 'string' && (url.startsWith('https://') || url.startsWith('http://'));
       }
 
       function appendSection(parent, heading, className) {
