@@ -23,6 +23,8 @@ def main():
         assert row["body_status"] == "not_permitted"
         assert row["source_enabled"] == rights["publishers"][row["host"]]["source_enabled"]
         assert row["body_status"] == rights["publishers"][row["host"]]["body_status"]
+        assert row["metadata_status"] == rights["publishers"][row["host"]]["metadata_status"]
+        assert row["page_metadata_status"] == rights["publishers"][row["host"]]["page_metadata_status"]
         assert row["automated_processing_status"] == rights["publishers"][row["host"]]["automated_processing_status"]
         assert row["automated_processing_status"] != "approved", row["host"]
         if row["feed_url_lead"]:
