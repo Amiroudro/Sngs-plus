@@ -240,3 +240,16 @@ Sources:
 - Independent implementation notes and access observations: https://github.com/Claudefarid/bangla-news-radar
 
 **Next verification required for each route:** fetch from the intended deployment region using the documented collector identity; record HTTP status and content type; parse at least five items; verify non-empty title, canonical URL and timezone-aware publication date; calculate newest-item age; check robots and publisher terms separately; then test duplicate identity against an overlapping source. A 403 or failed fetch is recorded as inaccessible from that environment, not proof the publisher has shut down. Never rotate identities or evade blocks to force a successful fetch.
+
+
+## Collector route inventory reconciliation (16 Nov 2026)
+
+A comparison of the imported `step1_collect.py` constants with the original source notes found that the collector contains 19 publisher-route entries (RSS, sitemap, section-page and historical blocked/stale routes), while the first route ledger only represented eight third-party directory leads. The two sets are now kept separately in `engine-v2/state/source_routes.json`:
+
+- `sources`: 55 publisher hosts and eight third-party route leads. These remain discovery-only.
+- `collector_route_inventory`: 19 routes configured or historically tested by the imported Engine.
+- Each collector route records its observation date (15 Nov 2026), evidence environment (`original_engine_development_vm`), and explicit false values for deployment verification, rights approval and source activation.
+
+The top of `step1_collect.py` now labels its route notes as historical original-VM observations, not current deployment verification. This fixes the misleading phrase “verified live from this VM” and removes a reference to a route report that is not present in this imported repository. Historical 403/404/stale observations remain visible; they are not bypassed or silently reclassified.
+
+**Current status after reconciliation:** 55 publisher hosts; 8 third-party route leads; 19 historical/configured collector routes; 0 deployment-verified routes; 0 enabled publishers; 0 article-body permissions. This is a better inventory, not an activation event.
