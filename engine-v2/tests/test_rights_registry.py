@@ -27,7 +27,9 @@ def registry():
                 "body_status": "not_permitted",
                 "body_scope": "",
                 "body_evidence": "",
-                "expires_at": ""
+                "expires_at": "",
+                "reviewed_at": date.today().isoformat(),
+                "review_due_at": (date.today() + timedelta(days=30)).isoformat()
             }
         }
     }
@@ -65,7 +67,11 @@ def main():
         date.today() - timedelta(days=1)).isoformat()
     assert rr.body_decision(url, reg)[0] is False
     assert rr.metadata_decision(url, reg)[0] is False
-    print("PASS: expired permissions are denied")
+    reg["publishers"]["example.com"]["expires_at"] = ""
+    reg["publishers"]["example.com"]["review_due_at"] = (
+        date.today() - timedelta(days=1)).isoformat()
+    assert rr.body_decision(url, reg)[0] is False
+    print("PASS: expired licences and overdue rights reviews are denied")
 
     permitted, blocked = rr.filter_metadata_items([
         {"url": url, "title": "Permitted"},
