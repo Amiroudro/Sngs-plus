@@ -62,6 +62,34 @@ Map<String, dynamic> editionJson(String date, {String headline = 'H'}) => {
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
+  group('compact edition index parsing', () {
+    test('derives bundled English and Bangla filenames from the date', () {
+      final entry = EditionIndexEntry.fromJson({
+        'edition_date': '2026-11-15',
+        'status': 'published',
+      });
+      expect(entry.date, '2026-11-15');
+      expect(entry.file, 'data-2026-11-15.json');
+      expect(entry.bnFile, 'bn-2026-11-15.json');
+    });
+
+    test('preserves an explicit filename from the remote index', () {
+      final entry = EditionIndexEntry.fromJson({
+        'edition_date': '2026-11-15',
+        'file': 'custom-edition.json',
+        'status': 'published',
+      });
+      expect(entry.file, 'custom-edition.json');
+      expect(entry.bnFile, 'custom-bn-edition.json');
+    });
+
+    test('missing date and filename remain empty', () {
+      final entry = EditionIndexEntry.fromJson({'status': 'published'});
+      expect(entry.date, '');
+      expect(entry.file, '');
+    });
+  });
+
   group('phase5: new story fields', () {
     test('parses all new fields', () {
       final story = Story.fromJson(newFieldStoryJson());
