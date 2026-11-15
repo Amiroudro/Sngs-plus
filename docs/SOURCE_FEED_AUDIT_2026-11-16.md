@@ -141,7 +141,7 @@ The candidate directory now has a domain lead for 49 of the 50 candidates. Sonal
 
 ### Domain and permission registry
 
-The machine-readable registry now contains 54 host records: 49 candidate publisher identities with a known domain lead, Prothom Alo's separate Bangla and English hosts, and the additional agencies BSS and UNB. All records remain pending for metadata and page-metadata use; automated processing is pending or restricted for flagged sources, and article bodies are not permitted. The registry's default for an unlisted or malformed publisher URL is deny.
+The machine-readable registry now contains 55 host records: 49 candidate publisher identities with a known domain lead, Prothom Alo's separate Bangla and English hosts, and the additional agencies BSS and UNB. All records remain pending for metadata and page-metadata use; automated processing is pending or restricted for flagged sources, and article bodies are not permitted. The registry's default for an unlisted or malformed publisher URL is deny.
 
 The third-party directories above are discovery aids. The canonical domain for each candidate still needs confirmation against a publisher-controlled site. The route audit must then verify feed structure, recency, robots rules and the intended use permitted by current terms. No source should be marked active based on a directory listing alone.
 
