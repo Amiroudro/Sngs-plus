@@ -33,7 +33,7 @@
 
 ## Rights ledger and operational registry sync
 
-The SQLite source_rights_reviews table is the review ledger. The Engine reads a JSON policy snapshot. The new sync_rights_registry.py exports the latest reviewed DB rows into that JSON snapshot, matches publisher_domain to known registry hosts, rejects conflicting DB rows for the same registry domain, and is dry-run by default. It writes only with --write after a human reviews the report. This is a manual, one-way sync, not a scheduled process or admin UI. Record approvals in the DB ledger and do not edit approved JSON entries independently.
+The SQLite source_rights_reviews table is the review ledger. The Engine reads a JSON policy snapshot. The new sync_rights_registry.py exports the latest reviewed DB rows into both source_rights.json and source_routes.json, matches publisher_domain to known registry hosts, rejects conflicting DB rows for the same registry domain, and is dry-run by default. It writes only with --write after a human reviews the report. This is a manual, one-way sync, not a scheduled process or admin UI. Record approvals in the DB ledger and do not edit approved JSON entries independently.
 
 ## Current rights and collection state
 
