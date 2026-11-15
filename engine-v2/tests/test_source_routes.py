@@ -2,6 +2,7 @@
 """Validate the machine-readable publisher feed-route audit ledger."""
 import json
 from pathlib import Path
+from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 ledger = json.loads((ROOT / "state" / "source_routes.json").read_text(encoding="utf-8"))
@@ -28,6 +29,13 @@ def main():
         assert route["rights_approved"] is False
         assert route["source_enabled"] is False
         assert route["url"].startswith("https://")
+        host = (urlparse(route["url"]).hostname or "").lower()
+        host = host[4:] if host.startswith("www.") else host
+        assert host in rights["publishers"], (route["publisher"], host)
+        assert route["route_type"] in {
+            "rss", "news_sitemap", "news_sitemap_template",
+            "sitemap_index", "sitemap", "section_page", "homepage_probe",
+        }
     for row in sources:
         assert row["source_enabled"] is False, row["host"]
         assert row["direct_fetch_status"] == "not_verified_in_deployment_environment"
