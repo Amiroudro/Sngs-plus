@@ -51,10 +51,10 @@ and BSS/UNB. Third-party feed-verification claims are discovery leads, not
 publisher permission. All metadata and page-metadata statuses remain pending. Automated-processing status is pending or restricted for flagged sources; article-body processing remains not permitted.
 No publisher is enabled.
 
-The JSON registry is currently the Engine's operational source of truth.
-SQLite source_rights_reviews is a separate application audit store and is not
-automatically synchronised yet. Do not approve a source in one store and
-assume the other has changed.
+SQLite source_rights_reviews is the review ledger. Run sync_rights_registry.py
+with --db to preview the latest DB-to-JSON changes; add --write only after
+reviewing the report. This is a manual, one-way sync, not a scheduled process.
+Record approvals in the DB ledger and do not edit approved JSON entries by hand.
 
 ## Important limitations before production
 
