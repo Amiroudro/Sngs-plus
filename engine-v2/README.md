@@ -37,8 +37,8 @@ The operational collector policy is in:
 - state/source_rights.json
 
 The registry denies unknown publishers by default. Direct publisher feed and
-sitemap routes require approved metadata scope, permission evidence and a
-current dated review. Bing and Google News may be used only as discovery
+sitemap routes require approved metadata scope, permission evidence, a
+current dated review and separate automated-processing permission. Bing and Google News may be used only as discovery
 inputs; each resulting publisher URL is checked against the registry.
 Article-page headline extraction requires separate page-metadata permission.
 Article-body fetching requires a current licence with explicit scope and
