@@ -69,7 +69,9 @@ def export_registry(db_path, registry_path=None, write=False):
         conn.close()
 
     report = {"rows_seen": len(rows), "domains_updated": [], "unmapped": [],
-              "sources_without_domain": []}
+              "sources_without_domain": [], "conflicts": []}
+    assignments = {}
+    conflicting_keys = set()
     for row in rows:
         domain = _domain(row["publisher_domain"])
         if not domain:
@@ -81,7 +83,21 @@ def export_registry(db_path, registry_path=None, write=False):
             report["unmapped"].append({"source": row["source_name"],
                                        "domain": domain})
             continue
+        for key in keys:
+            previous = assignments.get(key)
+            if previous is not None and previous["id"] != row["id"]:
+                conflicting_keys.add(key)
+                report["conflicts"].append({
+                    "registry_domain": key,
+                    "sources": sorted({previous["source_name"], row["source_name"]})
+                })
+            else:
+                assignments[key] = row
 
+    for key, row in assignments.items():
+        if key in conflicting_keys:
+            continue
+        record = data["publishers"][key]
         rights_status = row["rights_status"]
         metadata_status = row["metadata_status"]
         page_status = row["page_metadata_status"]
@@ -91,27 +107,29 @@ def export_registry(db_path, registry_path=None, write=False):
             page_status = "restricted"
             processing_status = "restricted"
 
-        for key in keys:
-            record = data["publishers"][key]
-            record["metadata_status"] = metadata_status or "pending"
-            record["metadata_scope"] = row["metadata_scope"] or ""
-            record["metadata_evidence"] = row["metadata_evidence"] or ""
-            record["page_metadata_status"] = page_status or "pending"
-            record["page_metadata_scope"] = row["page_metadata_scope"] or ""
-            record["page_metadata_evidence"] = row["page_metadata_evidence"] or ""
-            record["automated_processing_status"] = processing_status or "pending"
-            record["automated_processing_scope"] = row["automated_processing_scope"] or ""
-            record["automated_processing_evidence"] = row["automated_processing_evidence"] or ""
-            record["body_status"] = "licensed" if rights_status == "licensed" else "not_permitted"
-            record["body_scope"] = row["licence_scope"] or ""
-            record["body_evidence"] = row["permission_evidence"] or ""
-            record["reviewed_at"] = _date_only(row["reviewed_at"])
-            record["review_due_at"] = _date_only(row["review_due_at"])
-            record["expires_at"] = _date_only(row["expires_at"])
-            record["database_source_name"] = row["source_name"]
-        report["domains_updated"].extend(keys)
-
-    report["domains_updated"] = sorted(set(report["domains_updated"]))
+        record["metadata_status"] = metadata_status or "pending"
+        record["metadata_scope"] = row["metadata_scope"] or ""
+        record["metadata_evidence"] = row["metadata_evidence"] or ""
+        record["page_metadata_status"] = page_status or "pending"
+        record["page_metadata_scope"] = row["page_metadata_scope"] or ""
+        record["page_metadata_evidence"] = row["page_metadata_evidence"] or ""
+        record["automated_processing_status"] = processing_status or "pending"
+        record["automated_processing_scope"] = row["automated_processing_scope"] or ""
+        record["automated_processing_evidence"] = row["automated_processing_evidence"] or ""
+        record["body_status"] = "licensed" if rights_status == "licensed" else "not_permitted"
+        record["body_scope"] = row["licence_scope"] or ""
+        record["body_evidence"] = row["permission_evidence"] or ""
+        record["reviewed_at"] = _date_only(row["reviewed_at"])
+        record["review_due_at"] = _date_only(row["review_due_at"])
+        record["expires_at"] = _date_only(row["expires_at"])
+        record["database_source_name"] = row["source_name"]
+    report["domains_updated"] = sorted(
+        key for key in assignments if key not in conflicting_keys
+    )
+    if write and report["conflicts"]:
+        raise RuntimeError(
+            "conflicting database reviews map to the same registry domain; "
+            "resolve the source records before writing")
     if write:
         registry_file.write_text(
             json.dumps(data, ensure_ascii=False, indent=2) + "\n",
