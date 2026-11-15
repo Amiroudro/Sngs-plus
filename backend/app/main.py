@@ -3,7 +3,7 @@ import os
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
-from .edition_store import EditionNotFound, list_editions, load_edition
+from .edition_store import (EditionNotFound, list_editions, load_edition,\n                            search_metadata_archive)
 
 app = FastAPI(
     title="Sarangsho Plus API",
@@ -130,4 +130,23 @@ def briefing(language: str = Query(default="en", pattern="^(en|bn)$")):
         "fallback_language": "en" if language == "bn" and resolved_language == "en" else None,
         "data": data,
         "stories": stories,
+    }
+
+
+@app.get("/api/v1/archive")
+def metadata_archive(
+    q: str = Query(default="", max_length=160),
+    source: str = Query(default="", max_length=100),
+    limit: int = Query(default=30, ge=1, le=100),
+):
+    """Search the published metadata-only archive, never article bodies."""
+    try:
+        result = search_metadata_archive(q, source, limit)
+    except (ValueError, OSError) as exc:
+        raise HTTPException(status_code=503, detail=f"Archive unavailable: {exc}")
+    return {
+        "status": "ready" if result["total"] else "empty",
+        "record_type": "metadata_only",
+        "study_notes_available": False,
+        **result,
     }
