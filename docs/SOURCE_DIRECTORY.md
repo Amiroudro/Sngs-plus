@@ -3,6 +3,8 @@
 **Purpose:** Candidate discovery list for Sarangsho Plus collection.  
 **Status:** Candidate directory only. None of these 50 entries is automatically considered a verified live feed or an enabled collector route.
 
+**16 Nov 2026 audit:** 49 of 50 candidates have a domain lead; Sonali Sangbad's canonical domain remains unresolved. The leads are not proof of publisher-controlled ownership or permission. The machine-readable rights registry contains 52 host records (including separate Prothom Alo Bangla/English hosts and BSS/UNB); all metadata/page-metadata rights remain pending and all article-body rights remain not permitted. See [SOURCE_FEED_AUDIT_2026-11-16.md](SOURCE_FEED_AUDIT_2026-11-16.md) and [engine-v2/state/source_rights.json](../engine-v2/state/source_rights.json).
+
 The list is grouped by publisher type and language, not ranked by circulation, accuracy or political orientation. Before activation, each source must be checked for current publication activity, canonical homepage, language, RSS/sitemap availability, robots.txt, publisher terms, timestamps, duplicate behaviour and technical reachability from the deployment environment.
 
 ## 25 Bangla national newspaper candidates
