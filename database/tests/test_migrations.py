@@ -93,11 +93,30 @@ class StudyMigrationTests(unittest.TestCase):
             (source_id,),
         )
         with self.assertRaises(sqlite3.IntegrityError):
+            self.db.execute("UPDATE sources SET enabled=1 WHERE id=?", (source_id,))
+        with self.assertRaises(sqlite3.IntegrityError):
+            self.db.execute(
+                "INSERT INTO sources (name, homepage_url, enabled) "
+                "VALUES ('Unsafe source', 'https://unsafe.example', 1)"
+            )
+        with self.assertRaises(sqlite3.IntegrityError):
             self.db.execute(
                 "INSERT INTO source_rights_reviews (source_id, rights_status) "
                 "VALUES (?, 'probably_ok')",
                 (source_id,),
             )
+        self.db.execute(
+            "INSERT INTO source_rights_reviews "
+            "(source_id, rights_status, licence_scope, permission_evidence) "
+            "VALUES (?, 'licensed', 'article body and derivative study notes', "
+            "'Written publisher permission on file')",
+            (source_id,),
+        )
+        self.db.execute("UPDATE sources SET enabled=1 WHERE id=?", (source_id,))
+        enabled = self.db.execute(
+            "SELECT enabled FROM sources WHERE id=?", (source_id,)
+        ).fetchone()[0]
+        self.assertEqual(enabled, 1)
 
     def test_localization_requires_review_by_default(self):
         _, article_id = self._insert_article()
