@@ -886,7 +886,7 @@ def metadata_archive_validation_error(document, date_str):
     }
     for item in document["items"]:
         if (not isinstance(item, dict)
-                or not set(item).issubset(allowed_fields)
+                or set(item) != allowed_fields
                 or item.get("archive_status") not in allowed_statuses
                 or item.get("study_note_status") != "not_generated"):
             return "metadata-only archive contains invalid fields or status."
