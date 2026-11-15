@@ -1,0 +1,67 @@
+name: Build and deploy Sarangsho Plus to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'frontend/**'
+      - 'editions/**'
+      - 'app/assets/editions/**'
+      - '.github/workflows/deploy-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sarangsho-pages-deploy
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout private application source
+        uses: actions/checkout@v4
+
+      - name: Prepare public edition data
+        run: |
+          mkdir -p frontend/public/editions
+          cp editions/index.json frontend/public/editions/index.json
+          cp editions/data-*.json frontend/public/editions/
+          cp app/assets/editions/bn-*.json frontend/public/editions/
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm install
+
+      - name: Check and build static website
+        working-directory: frontend
+        run: |
+          npm run check
+          npm run build
+
+      - name: Verify deployable output
+        run: |
+          test -s frontend/dist/index.html
+          test -s frontend/dist/today/index.html
+          test -s frontend/dist/editions/index.json
+          test -s frontend/dist/editions/bn-2026-11-15.json
+          echo "Static site and bundled editions are present."
+
+      - name: Publish site to public Pages repository
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.PAGES_DEPLOY_TOKEN }}
+          external_repository: Amiroudro/sarangsho-plus-editions
+          publish_branch: gh-pages
+          publish_dir: ./frontend/dist
+          force_orphan: true
+          commit_message: "Deploy Sarangsho Plus site from ${{ github.sha }}"
