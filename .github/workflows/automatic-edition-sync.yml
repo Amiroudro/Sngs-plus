@@ -109,12 +109,12 @@ jobs:
           clean = dict(index)
           clean["editions"] = published
           (target / "index.json").write_text(
-              json.dumps(clean, ensure_ascii=False, indent=2) + "\\n",
+              json.dumps(clean, ensure_ascii=False, indent=2) + "\n",
               encoding="utf-8"
           )
           (bn_target / "index.json").write_text(
               json.dumps({"editions": [{"edition_date": d, "status": "published"} for d in sorted(dates)]},
-                         ensure_ascii=False, indent=2) + "\\n",
+                         ensure_ascii=False, indent=2) + "\n",
               encoding="utf-8"
           )
 
@@ -123,6 +123,14 @@ jobs:
               json.loads(path.read_text(encoding="utf-8"))
           print(f"Synced {len(published)} published editions.")
           PY
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install backend dependencies
+        run: pip install -r backend/requirements.txt
 
       - name: Run backend checks
         run: |
