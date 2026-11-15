@@ -41,8 +41,13 @@ def load_index() -> dict[str, Any]:
 
 def list_editions() -> list[dict[str, Any]]:
     entries = load_index()["editions"]
+    # The index is the publication registry, but require its explicit
+    # published state too so staged/draft entries can never appear.
     return sorted(
-        [entry for entry in entries if isinstance(entry, dict)],
+        [
+            entry for entry in entries
+            if isinstance(entry, dict) and entry.get("status") == "published"
+        ],
         key=lambda entry: str(entry.get("edition_date", "")),
         reverse=True,
     )
@@ -76,6 +81,8 @@ def load_edition(edition_date: str) -> dict[str, Any]:
     edition = _read_json(data_path)
     if edition.get("edition_date") != edition_date:
         raise ValueError("Edition file date does not match its index entry")
+    if edition.get("status") != "published":
+        raise ValueError("Indexed edition file is not marked published")
 
     bn_path = BANGLA_EDITIONS_DIR / f"bn-{edition_date}.json"
     bangla = _read_json(bn_path) if bn_path.is_file() else None
