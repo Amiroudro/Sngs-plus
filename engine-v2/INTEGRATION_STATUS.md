@@ -70,3 +70,14 @@ The SQLite source_rights_reviews table is the review ledger. The Engine reads a 
 9. Complete the human publish validator before considering scheduled collection.
 
 The integration does not publish or activate any article. PR #4 must remain unmerged until the user approves it.
+
+
+## Source route ledger update (16 Nov 2026)
+
+- Added `state/source_routes.json`, a machine-readable route audit ledger for all 55 operational host records (50 candidate publishers plus separate language hosts and BSS/UNB records).
+- Eight candidate feed URLs are recorded as discovery leads only; zero are marked directly verified by this ledger. The Sonali Sangbad route is recorded as an RSS-content-type observation with an unparsed payload.
+- All 55 hosts remain disabled; article-body status remains `not_permitted` throughout.
+- Added `tests/test_source_routes.py` to enforce host-count consistency, lead counts, default-deny status and honest verification labels. The Engine smoke workflow now runs this test.
+- Corrected a stale collector diagnostic that described robots fetch failures as fail-open; the runtime policy and regression tests are fail-closed.
+
+This ledger is an audit tracker, not a live probe result. Direct fetch, parse, freshness, robots and rights evidence must be populated from the actual deployment environment before any source can be reviewed for activation.
