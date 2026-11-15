@@ -146,6 +146,11 @@ def main():
     assert rr.metadata_decision("https://www.dailyinqilab.com/news/test", prod)[0] is False
     assert rr.body_decision("https://www.risingbd.com/news/test", prod)[0] is False
     print("PASS: AI-crawler warning sources remain explicitly restricted")
+    assert rr.publisher_name("https://sonalisangbad.com/news/example", prod) == "Sonali Sangbad"
+    assert rr.metadata_decision("https://sonalisangbad.com/news/example", prod)[0] is False
+    assert rr.body_decision("https://sonalisangbad.com/news/example", prod)[0] is False
+    assert prod["publishers"]["sonalisangbad.com"]["source_enabled"] is False
+    print("PASS: newly resolved Sonali Sangbad domain is mapped but remains disabled")
     print("PASS: current candidate publishers remain disabled pending evidence")
 
 
