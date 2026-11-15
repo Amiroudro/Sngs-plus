@@ -37,7 +37,7 @@ The JSON rights registry is the operational policy source read by Engine v2. The
 
 ## Current rights and collection state
 
-- Every publisher's metadata and page-metadata status remains pending.
+- Every publisher's metadata, page-metadata and automated-processing status remains pending.
 - Every publisher's article-body status remains not_permitted.
 - No publisher is enabled for collection.
 - No live collection schedule is enabled.
