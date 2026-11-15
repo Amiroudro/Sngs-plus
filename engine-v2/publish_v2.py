@@ -924,7 +924,8 @@ def run_publish(date_str, run_dir, staging_dir, editions_dir,
         "body_fetch_failed",
     }
     archive_items = metadata_archive.get("items") if isinstance(metadata_archive, dict) else None
-    if (metadata_archive.get("date") != date_str
+    if (not isinstance(metadata_archive, dict)
+            or metadata_archive.get("date") != date_str
             or metadata_archive.get("record_type") != "metadata_only"
             or metadata_archive.get("study_notes_available") is not False
             or not isinstance(archive_items, list)):
