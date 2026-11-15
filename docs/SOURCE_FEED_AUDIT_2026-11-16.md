@@ -198,6 +198,8 @@ A fresh third-party discovery pass found a public list of eight Bangladesh RSS c
 
 **Audit decision:** domain coverage is now 50/50 at the candidate-lead level. Direct publisher feed verification and rights clearance remain a separate, incomplete workstream. No status in the operational rights registry is changed by this research.
 
+The machine-readable route matrix is [engine-v2/state/source_routes.json](../engine-v2/state/source_routes.json). It records 55 hosts, eight feed-route leads, zero directly verified routes and zero enabled sources. Its CI test checks exact host parity with source_rights.json and confirms that source-enabled, body-rights and automated-processing states agree.
+
 
 ## Sonali Sangbad route recheck (16 Nov 2026)
 
