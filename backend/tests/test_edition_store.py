@@ -97,6 +97,8 @@ class EditionStoreTests(unittest.TestCase):
         })
         self.write_json(self.editions / f"metadata-only-{day}.json", {
             "date": day,
+            "record_type": "metadata_only",
+            "study_notes_available": False,
             "items": [{
                 "id": "MO01",
                 "headline": "A metadata-only headline",
@@ -132,7 +134,8 @@ class EditionStoreTests(unittest.TestCase):
             "edition_date": day, "status": "draft", "stories": []
         })
         self.write_json(self.editions / f"metadata-only-{day}.json", {
-            "date": day, "items": [{
+            "date": day, "record_type": "metadata_only",
+            "study_notes_available": False, "items": [{
                 "headline": "Hidden draft record",
                 "source": "Example Daily",
                 "archive_status": "body_fetch_failed",
