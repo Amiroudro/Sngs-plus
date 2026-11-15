@@ -18,6 +18,7 @@ def registry():
         "publishers": {
             "example.com": {
                 "publisher": "Example News",
+                "source_enabled": True,
                 "metadata_status": "approved",
                 "metadata_scope": "headline, canonical URL and publication date",
                 "metadata_evidence": "https://example.com/terms",
