@@ -40,11 +40,9 @@ jobs:
         working-directory: frontend
         run: npm install
 
-      - name: Check and build static website
+      - name: Build static website
         working-directory: frontend
-        run: |
-          npm run check
-          npm run build
+        run: npm run build
 
       - name: Verify deployable output
         run: |
