@@ -63,6 +63,34 @@ def _item_status(facts):
     return "happened"
 
 
+def _metadata_only_record(decision, article):
+    """Preserve a kept story's accessible metadata when body text is unavailable.
+
+    This record is an archive entry, not a verified study note. It deliberately
+    contains no body text, extracted facts, generated translation or questions.
+    """
+    error = (article.get("body_error") or "").strip()
+    if error.startswith("rights registry:"):
+        status = "metadata_only_body_not_licensed"
+    elif error == "robots.txt disallows":
+        status = "body_blocked_by_robots"
+    elif error == "no direct URL":
+        status = "no_direct_article_url"
+    else:
+        status = "body_fetch_failed"
+    return {
+        "id": decision.get("id", article.get("id", "")),
+        "headline": (article.get("title") or "").strip(),
+        "source": (article.get("source") or "").strip(),
+        "url": (article.get("url") or "").strip(),
+        "published": article.get("published") or "",
+        "rss_summary": (article.get("summary") or "")[:600],
+        "archive_status": status,
+        "study_note_status": "not_generated",
+        "body_error": error,
+    }
+
+
 def _pub_date(raw):
     """Article date as YYYY-MM-DD from any pub-date format.
 
@@ -216,10 +244,12 @@ def run(date, fresh=False):
     stats["bodies"] = {"ok": ok, "tried": tried}
     print(f"[run] step4: bodies fetched {ok}/{tried} kept articles")
     items = []
+    metadata_only_items = []
     no_body = 0
     for dec, art in zip(kept, kept_articles):
         if not art.get("body_text"):
             no_body += 1
+            metadata_only_items.append(_metadata_only_record(dec, art))
             continue
         art = dict(art)
         art["topic_primary"] = dec["topic_primary"]
@@ -231,8 +261,7 @@ def run(date, fresh=False):
                       "decision": dec, "article": art,
                       "facts_raw": extracted["facts"],
                       "why_important": extracted["why_important"]})
-    stats["no_body_dropped"] = no_body
-    print(f"[run] step4: {len(items)} items with facts "
+    stats["no_body_dropped"] = no_body\n    stats["metadata_only_items"] = len(metadata_only_items)\n    print(f"[run] step4: {len(items)} items with facts "
           f"({no_body} kept items dropped: no body text)")
 
     # ---- Step 5 (check) + Step 6 (Bangla) ----------------------------
@@ -387,6 +416,8 @@ def run(date, fresh=False):
     # 15 Nov run predates this line, so that run has no items file.
     _save_json(outdir / f"items-{date}.json",
                {"date": date, "items": final_items})
+    _save_json(outdir / f"metadata-only-{date}.json",
+               {"date": date, "items": metadata_only_items})
     print(f"[run] final items written: {outdir}/items-{date}.json "
           f"({len(final_items)} items)")
 
@@ -394,8 +425,7 @@ def run(date, fresh=False):
     edition = {"date": date, "engine": "v2", "stats": stats,
                "page": page, "qa": all_qa, "mcq": all_mcq,
                "analytical": all_analytical,
-               "srs_cards": stats["srs_cards"], "vocab": vocab}
-    _save_json(outdir / f"edition-{date}.json", edition)
+               "srs_cards": stats["srs_cards"], "vocab": vocab,\n               "metadata_only_items": metadata_only_items}\n    _save_json(outdir / f"edition-{date}.json", edition)
     print(f"[run] edition written: {outdir}/edition-{date}.json")
     return stats
 
