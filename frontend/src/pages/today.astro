@@ -132,6 +132,10 @@ import '../styles/global.css';
       };
       let language = 'bn';
 
+      function asArray(value) {
+        return Array.isArray(value) ? value : [];
+      }
+
       function element(tag, className, text) {
         const node = document.createElement(tag);
         if (className) node.className = className;
@@ -215,8 +219,8 @@ import '../styles/global.css';
 
         const panel = element('div', 'exam-learning');
         const conceptItems = [
-          ...(learning.concepts || []), ...(learning.institutions || []),
-          ...(learning.processes || []), ...(learning.distinctions || [])
+          ...asArray(learning.concepts), ...asArray(learning.institutions),
+          ...asArray(learning.processes), ...asArray(learning.distinctions)
         ];
         if (conceptItems.length) {
           const section = appendSection(panel, words.context);
@@ -252,7 +256,7 @@ import '../styles/global.css';
           const section = appendSection(panel, words.practice);
           learning.mcqs.forEach((q, i) => renderQuestion(section, q, words, i + 1));
         }
-        const shortQuestions = [...(learning.short_questions || []), ...legacyQa];
+        const shortQuestions = [...asArray(learning.short_questions), ...legacyQa];
         if (shortQuestions.length) {
           const section = appendSection(panel, words.shortQuestions);
           shortQuestions.forEach((q, i) => renderQuestion(section, q, words, i + 1));
@@ -272,13 +276,13 @@ import '../styles/global.css';
             const meta = [item.pronunciation_bn, item.part_of_speech || item.pos].filter(Boolean).join(' · ');
             if (meta) entry.append(element('p', 'vocab-meta', meta));
             if (item.example) entry.append(element('p', 'vocab-example', 'উদাহরণ: ' + item.example));
-            if (item.synonyms && item.synonyms.length) entry.append(element('p', 'vocab-meta', 'সমার্থক: ' + item.synonyms.join(', ')));
-            if (item.antonyms && item.antonyms.length) entry.append(element('p', 'vocab-meta', 'বিপরীতার্থক: ' + item.antonyms.join(', ')));
+            if (Array.isArray(item.synonyms) && item.synonyms.length) entry.append(element('p', 'vocab-meta', 'সমার্থক: ' + item.synonyms.join(', ')));
+            if (Array.isArray(item.antonyms) && item.antonyms.length) entry.append(element('p', 'vocab-meta', 'বিপরীতার্থক: ' + item.antonyms.join(', ')));
             section.append(entry);
           });
         }
 
-        const revisionItems = [...(learning.revision || []), ...recall];
+        const revisionItems = [...asArray(learning.revision), ...recall];
         if (revisionItems.length) {
           const section = appendSection(panel, words.revision);
           const ul = element('ul');
