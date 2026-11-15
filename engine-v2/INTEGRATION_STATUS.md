@@ -44,7 +44,7 @@ The JSON rights registry is the operational policy source read by Engine v2. The
 - No articles have been published or synced to the app.
 - Third-party feed-registry verification is a discovery signal, not a reuse licence.
 - Prothom Alo terms restrict derivative works and reuse; The Daily Star, BSS and UNB require rights-scope review before reuse. The Daily Sangbad terms require prior written consent for republication/reproduction.
-- Daily Inqilab and Risingbd carry a third-party-reported AI-crawler robots warning that must be rechecked against their current publisher-controlled robots files before any automated processing.
+- Daily Inqilab and Risingbd are set to automated_processing_status=restricted because a third-party registry reports AI-crawler blocks; they must be rechecked against current publisher-controlled robots files and terms before any automated processing.
 
 ## Known limitations
 
