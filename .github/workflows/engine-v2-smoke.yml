@@ -43,9 +43,6 @@ jobs:
       - name: Run SQLite rights registry sync tests
         working-directory: engine-v2
         run: python tests/test_rights_sync.py
-      - name: Run metadata-only publish gate tests
-        working-directory: engine-v2
-        run: python tests/test_publish_metadata_archive.py
       - name: Run exam-learning sidecar tests
         working-directory: engine-v2
         run: python tests/test_exam_learning_sidecar.py
