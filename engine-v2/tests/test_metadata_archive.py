@@ -22,11 +22,11 @@ def main():
     item = _metadata_only_record(decision, article)
     assert item["id"] == "a017"
     assert item["headline"] == article["title"]
-    assert item["rss_summary"] == article["summary"]
+    assert "rss_summary" not in item
     assert item["archive_status"] == "metadata_only_body_not_licensed"
     assert item["study_note_status"] == "not_generated"
     assert "body_text" not in item and "facts" not in item
-    assert len(item["rss_summary"]) <= 600
+    assert "summary" not in item
 
     blocked = _metadata_only_record(
         decision, {**article, "body_error": "robots.txt disallows"})
