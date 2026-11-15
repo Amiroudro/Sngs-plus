@@ -1,0 +1,36 @@
+name: Engine v2 smoke checks
+
+on:
+  pull_request:
+    paths:
+      - "engine-v2/**"
+      - ".github/workflows/engine-v2-smoke.yml"
+  push:
+    branches: [main]
+    paths:
+      - "engine-v2/**"
+      - ".github/workflows/engine-v2-smoke.yml"
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Compile engine modules
+        working-directory: engine-v2
+        run: python -m py_compile *.py
+      - name: Load canonical rules and vocabulary
+        working-directory: engine-v2
+        run: |
+          python rules_loader.py
+          python -c "import json; json.load(open('rules/vocab_bank.json', encoding='utf-8'))"
+      - name: Run deterministic prefilter tests
+        working-directory: engine-v2
+        run: python tests/test_step2.py
+      - name: Run editorial decision tests
+        working-directory: engine-v2
+        run: python tests/test_step3.py
