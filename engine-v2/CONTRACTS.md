@@ -48,8 +48,8 @@ must keep these permissions separate:
   Metadata permission alone does not authorise AI/automated study processing.
 - Article-page headline extraction: page_metadata_status=approved with
   separate page_metadata_scope/evidence and a current review window, plus
-  approved automated-processing scope/evidence, or a body licence that
-  explicitly covers page processing and automated use.
+  approved automated-processing scope/evidence; alternatively, a body licence
+  may cover page processing, but still requires automated-processing approval.
 - Article-body fetching: body_status=licensed, non-empty body_scope,
   permission evidence, and a current review window, plus approved
   automated-processing scope/evidence. A metadata-only or RSS-headline
