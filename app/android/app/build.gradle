@@ -123,7 +123,7 @@ tasks.register('validateEditions') {
     doLast {
         // Edition validator lives at the REPO root (sarangsho-plus/tools);
         // the Bengali validator lives under app/tools.
-        def repoToolsDir = "${rootProject.projectDir}/../../tools"
+        def appToolsDir = "${rootProject.projectDir}/../tools"
         def appToolsDir = "${rootProject.projectDir}/../tools"
         exec {
             commandLine 'python3', "${repoToolsDir}/validate_editions.py"
