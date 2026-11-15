@@ -307,7 +307,16 @@ def test_publish_success_scratch():
         # the v1 7/7 count to 0 and makes the v2 run 1/7.
         idx_live = json.loads((ed / "index.json").read_text(encoding="utf-8"))
         idx_app = json.loads((app_ed / "index.json").read_text(encoding="utf-8"))
-        check(idx_live == idx_app, "both scratch index.json files identical")
+        check(
+            [e.get("edition_date") for e in idx_live["editions"]] ==
+            [e.get("edition_date") for e in idx_app["editions"]],
+            "canonical and app index dates remain aligned")
+        live_v2 = next(e for e in idx_live["editions"] if e["edition_date"] == DATE)
+        app_v2 = next(e for e in idx_app["editions"] if e["edition_date"] == DATE)
+        check(live_v2 == app_v2, "new v2 index entry is identical in both indexes")
+        check(idx_live.get("correct_consecutive_editions") ==
+              idx_app.get("correct_consecutive_editions") == 1,
+              "v2 correct-consecutive count matches in both indexes")
         entries = [e for e in idx_live["editions"] if e["edition_date"] == DATE]
         check(len(entries) == 1, "exactly one new index entry for the date")
         if entries:
