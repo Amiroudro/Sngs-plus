@@ -76,11 +76,11 @@ void main() {
     test('preserves an explicit filename from the remote index', () {
       final entry = EditionIndexEntry.fromJson({
         'edition_date': '2026-11-15',
-        'file': 'custom-edition.json',
+        'file': 'data-custom.json',
         'status': 'published',
       });
       expect(entry.file, 'custom-edition.json');
-      expect(entry.bnFile, 'custom-bn-edition.json');
+      expect(entry.bnFile, 'bn-custom.json');
     });
 
     test('missing date and filename remain empty', () {
