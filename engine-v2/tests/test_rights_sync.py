@@ -101,6 +101,7 @@ def main():
             # Dry-run produces the correct export but leaves the JSON unchanged.
             dry_data, dry_report = export_registry(db_path, registry_path, write=False)
             assert dry_report["domains_updated"] == ["example.com", "news.example.com"]
+            assert dry_report["routes_ledger_updated"] is True
             assert dry_data["publishers"]["example.com"]["metadata_status"] == "approved"
             assert json.loads(registry_path.read_text())["publishers"]["example.com"]["metadata_status"] == "pending"
             assert json.loads(routes_path.read_text())["sources"][0]["metadata_status"] == "pending"
@@ -128,6 +129,9 @@ def main():
             current = rights_registry.load_registry(registry_path)
             assert rights_registry.body_decision("https://example.com/story", current)[0]
             assert rights_registry.page_metadata_decision("https://example.com/story", current)[0]
+            route_current = json.loads(routes_path.read_text(encoding="utf-8"))
+            assert route_current["sources"][0]["body_status"] == "licensed"
+            assert route_current["sources"][0]["page_metadata_status"] == "approved"
             print("PASS: separately approved page and body rights sync to Engine registry")
 
             _insert_review(db, source_id, body="permission_required",
@@ -154,6 +158,7 @@ def main():
             _, conflict_report = export_registry(db_path, registry_path, write=False)
             assert conflict_report["conflicts"]
             before = registry_path.read_text(encoding="utf-8")
+            routes_before = routes_path.read_text(encoding="utf-8")
             try:
                 export_registry(db_path, registry_path, write=True)
             except RuntimeError as exc:
@@ -161,7 +166,8 @@ def main():
             else:
                 raise AssertionError("conflicting source rows must block registry writes")
             assert registry_path.read_text(encoding="utf-8") == before
-            print("PASS: conflicting DB sources cannot silently overwrite a publisher registry entry")
+            assert routes_path.read_text(encoding="utf-8") == routes_before
+            print("PASS: conflicting DB sources cannot silently overwrite either rights or route ledger")
         finally:
             db.close()
 
