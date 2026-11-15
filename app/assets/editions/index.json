@@ -1,4 +1,64 @@
 {
-  "correct_consecutive_editions": 0,
-  "editions": []
+  "editions": [
+    {
+      "edition_date": "2026-11-01",
+      "status": "published"
+    },
+    {
+      "edition_date": "2026-11-02",
+      "status": "published"
+    },
+    {
+      "edition_date": "2026-11-03",
+      "status": "published"
+    },
+    {
+      "edition_date": "2026-11-04",
+      "status": "published"
+    },
+    {
+      "edition_date": "2026-11-05",
+      "status": "published"
+    },
+    {
+      "edition_date": "2026-11-06",
+      "status": "published"
+    },
+    {
+      "edition_date": "2026-11-07",
+      "status": "published"
+    },
+    {
+      "edition_date": "2026-11-08",
+      "status": "published"
+    },
+    {
+      "edition_date": "2026-11-09",
+      "status": "published"
+    },
+    {
+      "edition_date": "2026-11-10",
+      "status": "published"
+    },
+    {
+      "edition_date": "2026-11-11",
+      "status": "published"
+    },
+    {
+      "edition_date": "2026-11-12",
+      "status": "published"
+    },
+    {
+      "edition_date": "2026-11-13",
+      "status": "published"
+    },
+    {
+      "edition_date": "2026-11-14",
+      "status": "published"
+    },
+    {
+      "edition_date": "2026-11-15",
+      "status": "published"
+    }
+  ]
 }
