@@ -352,7 +352,7 @@ void main() {
         (snapshot['totals'] as Map)['suppressed']);
   });
 
-  test('allowlist suppresses the pending HSC date spans', () async {
+  test('allowlist suppresses only the corrected HSC baseline date spans', () async {
     final allowlist = await _loadAllowlist();
     final result = await _scanAll(allowlist);
     const file = 'assets/editions/bn-2026-11-02.json';
@@ -364,7 +364,7 @@ void main() {
     expect(suppressedHere, greaterThan(0));
 
     // And no UNSUPPRESSED violation may sit inside an allowlisted span:
-    // e.g. the '2' and 'December' of '1 December' must never be reported,
+    // e.g. the '1' and 'December' of '1 December' must never be reported,
     // while the '31 December' results date (not allowlisted) still is.
     for (final v in result.violations) {
       if (v.file != file) continue;
