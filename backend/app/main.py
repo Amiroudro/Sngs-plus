@@ -47,9 +47,11 @@ def _merge_bangla_stories(english_stories, bangla_stories):
     for story in english_stories:
         if not isinstance(story, dict):
             continue
-        overlay = overlays.get(story.get("id"), {})
-        if not isinstance(overlay, dict):
-            overlay = {}
+        overlay = overlays.get(story.get("id"))
+        # A mechanical conversion is not a reviewed translation. Require
+        # an explicit per-story approval before any Bangla fields are shown.
+        if not isinstance(overlay, dict) or overlay.get("translation_status") != "approved":
+            return []
         merged.append({**story, **overlay, "id": story.get("id")})
     return merged
 
