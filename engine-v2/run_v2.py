@@ -262,7 +262,7 @@ def run(date, fresh=False):
                       "facts_raw": extracted["facts"],
                       "why_important": extracted["why_important"]})
     stats["no_body_dropped"] = no_body\n    stats["metadata_only_items"] = len(metadata_only_items)\n    print(f"[run] step4: {len(items)} items with facts "
-          f"({no_body} kept items dropped: no body text)")
+          f"({no_body} preserved in metadata-only archive; no body text)")
 
     # ---- Step 5 (check) + Step 6 (Bangla) ----------------------------
     final_items = []
