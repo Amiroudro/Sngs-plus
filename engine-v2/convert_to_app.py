@@ -8,6 +8,7 @@ app-format edition files to a STAGING directory
 
   data-<date>.json   English canonical edition (v1 app contract)
   bn-<date>.json     Bengali overlay (v1 app contract)
+  metadata-only-<date>.json searchable archive metadata (no study notes/body)
   index-<date>.json  full index.json with the new entry appended
                      (built by copying the live editions/index.json)
   conversion-report-<date>.json / .md
@@ -908,6 +909,40 @@ def convert(date_str, run_dir, staging_dir):
             "before run_v2.py persisted final_items). BN key_fact labels "
             "are sanitised English 'what' text; from the next run the "
             "items file supplies Bangla structured facts.")
+    metadata_path = run_dir / f"metadata-only-{date_str}.json"
+    metadata_doc = load_json(metadata_path) if metadata_path.exists() else {
+        "date": date_str, "items": []
+    }
+    metadata_items = []
+    allowed_archive_statuses = {
+        "metadata_only_body_not_licensed",
+        "body_blocked_by_robots",
+        "no_direct_article_url",
+        "body_fetch_failed",
+    }
+    for record in metadata_doc.get("items", []):
+        if not isinstance(record, dict):
+            continue
+        if (record.get("archive_status") not in allowed_archive_statuses
+                or record.get("study_note_status") != "not_generated"):
+            report["notes"].append(
+                "A metadata-only archive record failed its status contract and was omitted.")
+            continue
+        metadata_items.append({
+            key: record.get(key, "")
+            for key in ("id", "headline", "source", "url", "published",
+                        "archive_status", "study_note_status")
+        })
+    metadata_archive = {"date": date_str, "record_type": "metadata_only",
+                        "study_notes_available": False,
+                        "items": metadata_items}
+    report["metadata_archive"] = {
+        "items": len(metadata_items),
+        "output": f"metadata-only-{date_str}.json",
+        "body_text_included": False,
+        "study_notes_generated": False,
+    }
+
     qa_by_story = {}
     for q in questions.get("qa", []):
         sid = q.get("id", "").rsplit("-qa", 1)[0]
@@ -1426,12 +1461,14 @@ def convert(date_str, run_dir, staging_dir):
     staging_dir.mkdir(parents=True, exist_ok=True)
     save_json(staging_dir / f"data-{day_iso}.json", data)
     save_json(staging_dir / f"bn-{day_iso}.json", bn)
+    save_json(staging_dir / f"metadata-only-{day_iso}.json", metadata_archive)
     save_json(staging_dir / f"index-{day_iso}.json", index)
     save_json(staging_dir / f"conversion-report-{day_iso}.json", report)
     md = render_report_md(report, data, stories_en, story_notes)
     (staging_dir / f"conversion-report-{day_iso}.md").write_text(
         md, encoding="utf-8")
     log(f"wrote {staging_dir}/data-{day_iso}.json, bn-{day_iso}.json, "
+        f"metadata-only-{day_iso}.json ({len(metadata_items)} records), "
         f"index-{day_iso}.json, conversion-report-{day_iso}.json/.md")
     failed = [c for c in checks if not c["ok"]]
     log(f"self-checks: {len(checks) - len(failed)}/{len(checks)} passed"
