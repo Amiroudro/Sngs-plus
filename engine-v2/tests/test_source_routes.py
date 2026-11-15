@@ -18,7 +18,12 @@ def main():
     assert counts["route_leads"] == sum(bool(row["feed_url_lead"]) for row in sources) == 8
     assert counts["directly_verified"] == 0
     assert counts["enabled"] == 0
-    terms_reviewed = [row for row in sources if row.get("terms_status")]
+    terms_reviewed = [
+        row for row in sources
+        if row.get("terms_status") not in {
+            "", "not_reviewed_or_not_recorded", "not_located",
+        }
+    ]
     assert len(terms_reviewed) == 9
     for row in terms_reviewed:
         assert row.get("terms_url", "").startswith("https://")
