@@ -39,6 +39,8 @@ def main():
 
     assert rr.metadata_decision(url, reg)[0] is True
     assert rr.metadata_decision("https://unknown.example/news", reg)[0] is False
+    assert rr.metadata_decision("ftp://example.com/news/story", reg)[0] is False
+    assert rr.metadata_decision("https://user:pass@example.com/news/story", reg)[0] is False
     assert rr.page_metadata_decision(url, reg)[0] is False
     assert rr.body_decision(url, reg)[0] is False
     print("PASS: metadata permission does not imply article-page or body permission")
