@@ -352,7 +352,7 @@ void main() {
     final allowlist = await _loadAllowlist();
     final result = await _scanAll(allowlist);
     const file = 'assets/editions/bn-2026-11-02.json';
-    const spans = ['2 December', '2 December 2026', '2-31 December'];
+    const spans = ['1 December', '1 December 2026', '1-31 December'];
 
     // The pending-fix entries must actually be doing work.
     final suppressedHere =
@@ -360,7 +360,7 @@ void main() {
     expect(suppressedHere, greaterThan(0));
 
     // And no UNSUPPRESSED violation may sit inside an allowlisted span:
-    // e.g. the '2' and 'December' of '2 December' must never be reported,
+    // e.g. the '2' and 'December' of '1 December' must never be reported,
     // while the '31 December' results date (not allowlisted) still is.
     for (final v in result.violations) {
       if (v.file != file) continue;
