@@ -23,6 +23,8 @@ python3 engine-v2/run_v2.py --help
 python3 engine-v2/run_v2_daily.py --help
 python3 engine-v2/tests/test_robots_policy.py
 python3 engine-v2/tests/test_rights_registry.py
+python3 engine-v2/tests/test_rights_sync.py
+python3 engine-v2/sync_rights_registry.py --db database/sarangsho.db
 ```
 
 The orchestrator writes generated material under engine-v2/runs/<date>/.
