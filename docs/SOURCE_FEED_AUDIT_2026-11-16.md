@@ -42,3 +42,41 @@ Third-party RSS directories are useful for discovery, but they do not replace a 
 - Preserve blocked, stale and unavailable publishers in the source directory; these are source-health states, not reasons to erase a publisher.
 - Avoid treating search-engine news feeds or third-party RSS registries as direct publisher integrations.
 - Continue with official sitemap discovery and robots/terms review for the remaining candidates. Re-test all candidate routes from the actual deployment environment before activation.
+
+
+## Publisher rights and reuse review
+
+Technical accessibility is not permission to republish or create derivative study content. The publisher's own terms must be checked before enabling article-body collection, machine summarisation or display of excerpts.
+
+| Publisher | Public policy evidence | Operational consequence |
+|---|---|---|
+| Prothom Alo | Its current Terms of Use explicitly permit access through RSS but also state that users may not make derivative works from its content; use is limited to personal, private and non-commercial purposes, and content sharing is subject to restrictions. | **Do not enable article-body summarisation or app redistribution without written permission or legal review.** RSS availability is not a blanket licence. |
+| The Daily Star | The current site footer states that unauthorised use or reproduction of its content for commercial purposes is prohibited. | Treat article-body reuse and any public/commercial app distribution as permission-required; inspect full terms and obtain advice before enabling. |
+| BSS | Its official site carries a 2026 copyright notice. The privacy page is not a content licence. | No republication or derivative-use permission established in this audit. Keep disabled for body processing until terms/licensing are confirmed. |
+
+Prothom Alo policy: https://www.prothomalo.com/terms  
+The Daily Star site: https://www.thedailystar.net/  
+BSS official site: https://www.bssnews.net/  
+BSS privacy policy: https://www.bssnews.net/privacy-policy
+
+## Conflicting freshness evidence
+
+Prothom Alo's /feed/ endpoint appears in multiple feed directories, but the evidence conflicts: Inkline's 17 October 2026 registry says its feed was verified, while Feeder's live listing reports the last post was three months ago. This is exactly why a feed should not be marked active based on a directory badge alone. Re-fetch the XML directly, inspect the newest item timestamps, compare them with the publisher's latest homepage articles, and repeat from the actual deployment environment.
+
+- Inkline source entry: https://inklinenews.com/publications/prothom-alo/
+- Feeder source entry: https://feeder.co/discover/aff49d20ea/prothom-alo-com
+
+An independent public project, bangla-news-radar, reports that Jugantor, Kaler Kantho and bdnews24 return HTTP 403 to automated requests, and that The Daily Star's site-wide feed is stale while section feeds are current. This is useful corroboration for cautious handling, not a substitute for our own permitted deployment-side tests:
+https://github.com/Claudefarid/bangla-news-radar
+
+## Rights-aware activation rule
+
+Add a separate rights state to the source registry. It must not be inferred from HTTP status or RSS presence:
+
+- unknown: terms not reviewed
+- rss_headlines_only: publisher terms allow feed discovery but do not establish rights for article bodies or derivative summaries
+- permission_required: terms restrict the intended reuse or the permission scope is unclear
+- licensed: written permission/licence is recorded, with scope and expiry
+- disabled: source is not used for automated content processing
+
+Until rights are established, use only publisher-permitted access patterns. Do not scrape around 403 responses, paywalls, bot blocks or other access controls. Keep source links and metadata for editorial discovery only where the publisher's terms permit that use. The app must not treat attribution or a link-back as a substitute for permission.
