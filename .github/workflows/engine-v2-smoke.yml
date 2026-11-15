@@ -34,6 +34,9 @@ jobs:
       - name: Run fail-closed robots policy tests
         working-directory: engine-v2
         run: python tests/test_robots_policy.py
+      - name: Run publisher rights registry tests
+        working-directory: engine-v2
+        run: python tests/test_rights_registry.py
       - name: Run deterministic prefilter tests
         working-directory: engine-v2
         run: python tests/test_step2.py
