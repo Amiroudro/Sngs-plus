@@ -77,6 +77,7 @@ The tool updates both the rights registry and route audit ledger. Record approva
   corroboration. Important claims need a separate primary-source check.
 - The publishing gate references the legacy edition validator under tools/,
   which has not yet been imported into this repository.
+- Kept stories without an authorised/fetchable body are preserved in a metadata-only archive, without RSS excerpts or generated study content.
 - No live sources are enabled in the app database. No output is auto-published.
 
 Do not mark an edition live until the editorial fixes, integration tests,
