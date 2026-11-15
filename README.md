@@ -5,7 +5,7 @@ Bilingual (Bengali-first) daily newspaper + exam-learning platform for Banglades
 ## Layout
 
 - `app/` — the Flutter app (Sarangsho Plus, v1.2.1, build 2013, package `com.sarangsho.plus`). Bengali-first: editions, vocab cards, quizzes, SRS revision, self-update from GitHub. Start with `app/README.md` and `app/BUILD_NOTES.md`.
-- `engine-v2/` — the LIVE daily engine (Python, standard library only). Collects from 15 Level 1 newspapers, ranks, summarises, generates the daily edition, and publishes it when the 15-check gate passes. First v2 edition: Edition 11, 17 Nov 2026. Start with `engine-v2/PLAN.md`, `engine-v2/CONTRACTS.md`, `engine-v2/CRON_INSTRUCTIONS_V2.md`, `engine-v2/SOURCES.md`.
+- `engine-v2/` — the v2 engine implementation (Python, standard library only). Its collection, ranking, conversion and 15-check publishing gate are implemented and tested. It is **not yet verified as the active daily job**: `engine-v2/CRON_INSTRUCTIONS_V2.md` explicitly says the external cron update has not been applied. Edition 11 (17 Nov 2026) is the planned first v2 edition, not a confirmed publication. Start with `engine-v2/PLAN.md`, `engine-v2/CONTRACTS.md`, `engine-v2/CRON_INSTRUCTIONS_V2.md`, `engine-v2/SOURCES.md`.
 - `engine-v1/` — the FROZEN v1 engine. It produced Editions 1–10 and the 7/7 proof (see `engine-v1/tracker.md`). Read it for history only; do not run it.
 - `frontend/` + `backend/` — the Astro web build. Deployment notes: `docs/INTEGRATION_STATUS.md`.
 - `editions/` — published edition JSON archive (English editions + Bangla overlays).
@@ -13,7 +13,13 @@ Bilingual (Bengali-first) daily newspaper + exam-learning platform for Banglades
 
 ## How editions flow
 
-engine-v2 (08:00 Asia/Dhaka) → 15-check gate → publish → public editions repo → app downloads + self-updates. Auto-publish rule (Rudro, 2026-11-15): every v2 edition from Edition 11 onward auto-publishes on gate 15/15.
+Planned flow after the external cron is switched: engine-v2 → 15-check gate → approval/publish step → public editions repo → app downloads + self-updates. `run_v2_daily.py` itself stops at the human approval gate; `publish_v2.py` requires an approval file. The proposed external auto-approval rule only takes effect if the separate cron update is actually applied.
+
+## Current operational blockers (verified 2026-11-16)
+
+- **Daily schedule:** the v2 cron instructions say the external cron was NOT edited. The existing 08:00 daily job must not be described as v2 until that change is independently verified.
+- **Publisher rights:** the v2 rights registry contains 55 candidate publisher records, all currently disabled. The collector now enforces this registry at feed, page-title and article-body stages. No newspaper publisher should be treated as an active v2 source until the required permission records are approved and enabled.
+- **Publishing:** the local publisher refuses to write an edition without both a 15/15 gate report and an approval file. A synthetic CI fixture tests the publish mechanism; it is not evidence that a real daily edition has passed the gate or been published.
 
 ## What is NOT in this repo (by design)
 
