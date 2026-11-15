@@ -232,7 +232,7 @@ import '../styles/global.css';
             card.append(meta);
             card.append(element('h3', 'archive-title-text', item.headline || 'Untitled headline'));
             if (item.published) card.append(element('time', 'archive-date', item.published));
-            if (item.url && /^https?:\\/\\//i.test(item.url)) {
+            if (item.url && (item.url.startsWith('https://') || item.url.startsWith('http://'))) {
               const link = element('a', 'archive-link', words.archiveOpen);
               link.href = item.url;
               link.target = '_blank';
