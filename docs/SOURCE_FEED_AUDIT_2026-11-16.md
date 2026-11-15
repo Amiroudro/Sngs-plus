@@ -105,7 +105,7 @@ The candidate directory now has a domain lead for 49 of the 50 candidates. Sonal
 | Bangla national | Kalbela | kalbela.com | Third-party directory lead |
 | Bangla national | Jaijaidin | jaijaidinbd.com | Research / directory lead |
 | Bangla national | Dainik Bangla | dainikbangla.com.bd | Publisher About Us page |
-| Bangla national | Sangbad | sangbad.net | Publisher Terms page |
+| Bangla national | Sangbad | sangbad.net; sangbad.net.bd | Publisher Terms page / Inkline directory lead |
 | Bangla national | Sangram | dailysangram.com | Third-party directory lead |
 | Bangla national | Shomoyer Alo | shomoyeralo.com | Publisher homepage |
 | Bangla national | Alokito Bangladesh | alokitobangladesh.com | Publisher homepage |
@@ -134,13 +134,24 @@ The candidate directory now has a domain lead for 49 of the 50 candidates. Sonal
 | Digital-first | Sarabangla | sarabangla.net | GDI / directory lead |
 | Digital-first | NewsBangla24 | newsbangla24.com | GDI / directory lead |
 | Digital-first | Daily Bangladesh | daily-bangladesh.com | Third-party directory lead |
-| Regional | Dainik Azadi | dainikazadi.com | Regional newspaper directory lead |
+| Regional | Dainik Azadi | dainikazadi.net (alternate directory lead: dainikazadi.com) | Inkline feed-registry listing / regional directory lead |
 | Regional | Dainik Purbokone | dainikpurbokone.net | GDI / regional directory lead |
 | Regional | Karatoa | karatoa.com.bd | Regional newspaper directory lead |
 | Regional | Sonali Sangbad | unresolved | Listed by MRDI; canonical domain not established |
 
 ### Domain and permission registry
 
-The machine-readable registry now contains 52 host records: 49 candidate publisher identities with a known domain lead, Prothom Alo's separate Bangla and English hosts, and the additional agencies BSS and UNB. All records remain pending for metadata and page-metadata use, with article bodies not permitted. The registry's default for an unlisted or malformed publisher URL is deny.
+The machine-readable registry now contains 54 host records: 49 candidate publisher identities with a known domain lead, Prothom Alo's separate Bangla and English hosts, and the additional agencies BSS and UNB. All records remain pending for metadata and page-metadata use, with article bodies not permitted. The registry's default for an unlisted or malformed publisher URL is deny.
 
 The third-party directories above are discovery aids. The canonical domain for each candidate still needs confirmation against a publisher-controlled site. The route audit must then verify feed structure, recency, robots rules and the intended use permitted by current terms. No source should be marked active based on a directory listing alone.
+
+
+## Third-party RSS registry cross-check
+
+Inkline's 17 October 2026 Bangladesh registry lists 43 publications and says each listed feed was machine-verified in that pass. It includes 32 publisher identities that overlap the current candidate inventory or the two additional agencies. The machine registry records these as third-party feed leads only; it does not store an assumed feed URL and does not change any rights status.
+
+Examples with individual Inkline publication pages surfaced in this audit include [Bangladesh Pratidin](https://inklinenews.com/publications/bangladesh-pratidin/), [Daily Janakantha](https://inklinenews.com/publications/daily-janakantha/), [Samakal](https://inklinenews.com/publications/samakal/), [Bonik Barta](https://inklinenews.com/publications/bonik-barta/), [Manab Zamin](https://inklinenews.com/publications/manab-zamin/), [Daily Naya Diganta](https://inklinenews.com/publications/daily-naya-diganta/), [Daily Sun](https://inklinenews.com/publications/daily-sun/), [The Business Post](https://inklinenews.com/publications/the-business-post/), [Risingbd](https://inklinenews.com/publications/risingbd/), [Daily Inqilab](https://inklinenews.com/publications/daily-inqilab/), [New Age](https://inklinenews.com/publications/new-age/), [Bangla Tribune](https://inklinenews.com/publications/bangla-tribune/), [Dhaka Tribune](https://inklinenews.com/publications/dhaka-tribune/), [The Business Standard](https://inklinenews.com/publications/the-business-standard/), [The Daily Star](https://inklinenews.com/publications/the-daily-star/), [Dainik Azadi](https://inklinenews.com/publications/dainik-azadi/) and [BSS](https://inklinenews.com/publications/bangladesh-sangbad-sangstha/). These pages are useful for feed discovery and coverage metadata, not permission to reuse articles.
+
+Inkline's profile pages report that Daily Inqilab and Risingbd robots.txt disallow several named AI crawlers in a scan dated 16 August 2026. This is a third-party report that must be checked against each publisher's current robots.txt and terms before any automated processing. The rights registry records this as a review warning; it does not attempt to work around those rules.
+
+The registry's third-party feed claim is deliberately distinct from direct verification by Sarangsho Plus. Exact feed URL, direct response, item freshness, parsing, robots compatibility and permitted use remain unverified until tested from the actual deployment environment.
