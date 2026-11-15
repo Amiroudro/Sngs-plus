@@ -37,6 +37,9 @@ jobs:
       - name: Run publisher rights registry tests
         working-directory: engine-v2
         run: python tests/test_rights_registry.py
+      - name: Run SQLite rights registry sync tests
+        working-directory: engine-v2
+        run: python tests/test_rights_sync.py
       - name: Run deterministic prefilter tests
         working-directory: engine-v2
         run: python tests/test_step2.py
