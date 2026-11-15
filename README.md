@@ -64,7 +64,7 @@ A wider candidate source directory can be added after the list has been checked 
 
 ## Engine v2 integration
 
-The pipeline source and integration limitations are documented in [`engine-v2/README.md`](engine-v2/README.md) and [`engine-v2/INTEGRATION_STATUS.md`](engine-v2/INTEGRATION_STATUS.md). The imported pipeline is not yet connected to automatic scheduling, the SQLite content model or the Astro frontend. Publishing still requires the engine's human-approval gate.
+The pipeline source and integration limitations are documented in [`engine-v2/README.md`](engine-v2/README.md) and [`engine-v2/INTEGRATION_STATUS.md`](engine-v2/INTEGRATION_STATUS.md). The published-edition API and Astro Today page are connected, but Engine output is not yet imported into the SQLite content model or automatically scheduled. The Engine collector now enforces a fail-closed publisher rights registry; all sources remain pending/not permitted. Publishing still requires the engine's human-approval gate.
 
 ## Configuration and secrets
 
