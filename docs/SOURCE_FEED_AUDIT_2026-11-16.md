@@ -287,3 +287,12 @@ The terms do not establish that headline-only metadata collection is permitted. 
 References:
 - Bangladesh Pratidin official terms: https://www.bd-pratidin.com/page/terms
 - Bangla Tribune official terms: https://www.banglatribune.com/terms
+
+
+## Additional official terms review: Ajker Patrika (16 Nov 2026)
+
+The publisher-controlled [Ajker Patrika terms page](https://www.ajkerpatrika.com/user-terms-and-conditions) says its intellectual property is not licensed for commercial use, discourages copying and creating new works from its content, and prohibits sharing content with other organisations or digital platforms in either original or modified form. The page does not provide an affirmative licence for automated collection, derivative exam summaries or public app redistribution.
+
+**Disposition:** keep Ajker Patrika disabled. Obtain written permission for the precise collection, automated-processing and display workflow before considering activation. This is a terms review, not a legal opinion or permission grant.
+
+Daily Ittefaq's located [Privacy Policy](https://www.ittefaq.com.bd/privacy-policy/) concerns personal-data handling and is not a general article-content licence. Its general content terms remain unreviewed; do not treat the privacy policy as permission or as a content restriction finding.
