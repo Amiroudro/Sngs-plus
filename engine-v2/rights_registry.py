@@ -90,6 +90,7 @@ def page_metadata_decision(url, registry=None):
     if not record:
         return False, "publisher domain is not mapped in rights registry"
     if record.get("page_metadata_status") == "approved" and (
+            record.get("page_metadata_scope") or "").strip() and (
             record.get("page_metadata_evidence") or "").strip() and _not_expired(record):
         return True, "page metadata permission approved"
     if body_decision(url, registry)[0]:
