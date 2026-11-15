@@ -435,27 +435,32 @@ void main() {
     testWidgets('due word listed, known / not-due / unanswered hidden',
         (tester) async {
       final state = await freshState();
+      final edition = state.findEdition('2026-11-15')!;
+      final dueWord = edition.words[0].headword;
+      final futureWord = edition.words[1].headword;
+      final knownWord = edition.words[2].headword;
+      final unansweredWord = edition.words[3].headword;
       final today = DateTime.now();
-      await state.setWordResult('2026-11-08', 'conspiracy', false,
+      await state.setWordResult(edition.date, dueWord, false,
           now: today.subtract(const Duration(days: 2)));
-      await state.setWordResult('2026-11-08', 'suppress', false,
+      await state.setWordResult(edition.date, futureWord, false,
           now: today); // due tomorrow, not due yet
-      await state.setWordResult('2026-11-08', 'defaced', true);
+      await state.setWordResult(edition.date, knownWord, true);
 
       await tester.pumpWidget(
         MaterialApp(
           theme: buildLightTheme(),
-          home: EditionWordsScreen(edition: edition8Nov, state: state),
+          home: EditionWordsScreen(edition: edition, state: state),
         ),
       );
       await _pump(tester);
       expect(find.text('পুনরালোচনা (১)'), findsOneWidget);
       await tester.tap(find.text('পুনরালোচনা (১)'));
       await _pump(tester);
-      expect(find.text('conspiracy'), findsOneWidget);
-      expect(find.text('suppress'), findsNothing);
-      expect(find.text('defaced'), findsNothing);
-      expect(find.text('uproar'), findsNothing);
+      expect(find.text(dueWord), findsOneWidget);
+      expect(find.text(futureWord), findsNothing);
+      expect(find.text(knownWord), findsNothing);
+      expect(find.text(unansweredWord), findsNothing);
       expect(find.text('আজকের পড়া'), findsOneWidget);
       expect(tester.takeException(), isNull);
     });
