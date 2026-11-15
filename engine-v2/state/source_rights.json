@@ -24,7 +24,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "tbsnews.net": {
       "publisher": "The Business Standard",
@@ -37,7 +39,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "dhakatribune.com": {
       "publisher": "Dhaka Tribune",
@@ -50,7 +54,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "thefinancialexpress.com.bd": {
       "publisher": "The Financial Express",
@@ -63,7 +69,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "en.prothomalo.com": {
       "publisher": "Prothom Alo English",
@@ -76,7 +84,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "prothomalo.com": {
       "publisher": "Prothom Alo Bangla",
@@ -89,7 +99,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "jugantor.com": {
       "publisher": "Jugantor",
@@ -102,7 +114,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "bssnews.net": {
       "publisher": "Bangladesh Sangbad Sangstha (BSS)",
@@ -115,7 +129,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "bd-pratidin.com": {
       "publisher": "Bangladesh Pratidin",
@@ -130,7 +146,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "kalerkantho.com": {
       "publisher": "Kaler Kantho",
@@ -145,7 +163,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "ittefaq.com.bd": {
       "publisher": "Ittefaq",
@@ -160,7 +180,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "samakal.com": {
       "publisher": "Samakal",
@@ -175,7 +197,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "dailyjanakantha.com": {
       "publisher": "Janakantha",
@@ -190,7 +214,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "mzamin.com": {
       "publisher": "Manabzamin",
@@ -205,7 +231,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "dailynayadiganta.com": {
       "publisher": "Naya Diganta",
@@ -220,7 +248,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "dailyinqilab.com": {
       "publisher": "Inqilab",
@@ -235,7 +265,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "bonikbarta.net": {
       "publisher": "Bonik Barta",
@@ -250,7 +282,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "deshrupantor.com": {
       "publisher": "Desh Rupantor",
@@ -265,7 +299,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "ajkerpatrika.com": {
       "publisher": "Ajker Patrika",
@@ -280,7 +316,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "kalbela.com": {
       "publisher": "Kalbela",
@@ -295,7 +333,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "jaijaidinbd.com": {
       "publisher": "Jaijaidin",
@@ -310,7 +350,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "dailysangram.com": {
       "publisher": "Sangram",
@@ -325,7 +367,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "amardeshonline.com": {
       "publisher": "Amar Desh",
@@ -340,7 +384,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "amarsangbad.com": {
       "publisher": "Amar Sangbad",
@@ -355,7 +401,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "dainikdinkal.net": {
       "publisher": "Dinkal Digital",
@@ -370,7 +418,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "sharebiz.net": {
       "publisher": "Share Biz",
@@ -385,7 +435,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "businesspostbd.com": {
       "publisher": "The Business Post",
@@ -400,7 +452,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "daily-sun.com": {
       "publisher": "Daily Sun",
@@ -415,7 +469,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "observerbd.com": {
       "publisher": "The Daily Observer",
@@ -430,7 +486,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "bangladeshpost.net": {
       "publisher": "Bangladesh Post",
@@ -445,7 +503,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "thebangladeshtoday.com": {
       "publisher": "The Bangladesh Today",
@@ -460,7 +520,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "dailyasianage.com": {
       "publisher": "The Asian Age",
@@ -475,7 +537,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "bdnews24.com": {
       "publisher": "bdnews24.com",
@@ -490,7 +554,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "banglanews24.com": {
       "publisher": "Banglanews24",
@@ -505,7 +571,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "jagonews24.com": {
       "publisher": "Jago News 24",
@@ -520,7 +588,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "banglatribune.com": {
       "publisher": "Bangla Tribune",
@@ -535,7 +605,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "dhakapost.com": {
       "publisher": "Dhaka Post",
@@ -550,7 +622,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "risingbd.com": {
       "publisher": "Risingbd",
@@ -565,7 +639,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "barta24.com": {
       "publisher": "Barta24",
@@ -580,7 +656,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "sarabangla.net": {
       "publisher": "Sarabangla",
@@ -595,7 +673,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "newsbangla24.com": {
       "publisher": "NewsBangla24",
@@ -610,7 +690,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "daily-bangladesh.com": {
       "publisher": "Daily Bangladesh",
@@ -625,7 +707,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "dainikazadi.com": {
       "publisher": "Dainik Azadi",
@@ -640,7 +724,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "dainikpurbokone.net": {
       "publisher": "Dainik Purbokone",
@@ -655,7 +741,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "karatoa.com.bd": {
       "publisher": "Karatoa",
@@ -670,7 +758,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "unb.com.bd": {
       "publisher": "United News of Bangladesh (UNB)",
@@ -685,7 +775,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "dainikbangla.com.bd": {
       "publisher": "Dainik Bangla",
@@ -700,7 +792,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "sangbad.net": {
       "publisher": "The Sangbad",
@@ -715,7 +809,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "shomoyeralo.com": {
       "publisher": "Shomoyer Alo",
@@ -730,7 +826,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "alokitobangladesh.com": {
       "publisher": "Alokito Bangladesh",
@@ -745,7 +843,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "amadershomoys.com": {
       "publisher": "Amader Shomoy",
@@ -760,7 +860,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     },
     "newagebd.net": {
       "publisher": "New Age",
@@ -775,7 +877,9 @@
       "body_status": "not_permitted",
       "body_scope": "",
       "body_evidence": "",
-      "expires_at": ""
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": ""
     }
   },
   "unmapped_candidates": [
