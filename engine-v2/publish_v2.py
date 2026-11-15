@@ -900,9 +900,11 @@ def run_publish(date_str, run_dir, staging_dir, editions_dir,
     data_path = staging_dir / f"data-{date_str}.json"
     bn_path = staging_dir / f"bn-{date_str}.json"
     staged_index_path = staging_dir / f"index-{date_str}.json"
+    metadata_archive_path = staging_dir / f"metadata-only-{date_str}.json"
     for p, what in ((data_path, "staged data file"),
                     (bn_path, "staged BN file"),
-                    (staged_index_path, "staged index file")):
+                    (staged_index_path, "staged index file"),
+                    (metadata_archive_path, "staged metadata-only archive")):
         if not p.exists():
             return _refuse(f"{what} missing: {p}. Nothing written.")
     try:
@@ -911,6 +913,32 @@ def run_publish(date_str, run_dir, staging_dir, editions_dir,
         staged_index = load_json(staged_index_path)
     except Exception as exc:  # noqa: BLE001
         return _refuse(f"staged file unreadable ({exc}). Nothing written.")
+    try:
+        metadata_archive = load_json(metadata_archive_path)
+    except Exception as exc:  # noqa: BLE001
+        return _refuse(f"metadata-only archive unreadable ({exc}). Nothing written.")
+    allowed_archive_statuses = {
+        "metadata_only_body_not_licensed",
+        "body_blocked_by_robots",
+        "no_direct_article_url",
+        "body_fetch_failed",
+    }
+    archive_items = metadata_archive.get("items") if isinstance(metadata_archive, dict) else None
+    if (metadata_archive.get("date") != date_str
+            or metadata_archive.get("record_type") != "metadata_only"
+            or metadata_archive.get("study_notes_available") is not False
+            or not isinstance(archive_items, list)):
+        return _refuse("metadata-only archive schema/date invalid. Nothing written.")
+    forbidden_archive_fields = {
+        "body_text", "content", "article_body", "facts", "questions",
+        "translation", "summary", "study_notes",
+    }
+    for item in archive_items:
+        if (not isinstance(item, dict)
+                or item.get("archive_status") not in allowed_archive_statuses
+                or item.get("study_note_status") != "not_generated"
+                or forbidden_archive_fields.intersection(item)):
+            return _refuse("metadata-only archive contains invalid status or study/body fields. Nothing written.")
     # Coverage must be the gate-verified label.
     expected_cov = coverage_label(day)
     if data.get("coverage") != expected_cov:
@@ -951,8 +979,10 @@ def run_publish(date_str, run_dir, staging_dir, editions_dir,
     # byte-identical to the canonical edition.
     save_json(app_editions_dir / f"data-{date_str}.json", data)
     save_json(app_editions_dir / f"bn-{date_str}.json", bn)
+    save_json(editions_dir / f"metadata-only-{date_str}.json", metadata_archive)
     log(f"copied data-{date_str}.json -> editions/ and app/assets/editions/; "
-        f"bn-{date_str}.json -> app/assets/editions/")
+        f"bn-{date_str}.json -> app/assets/editions/; "
+        f"metadata-only archive -> editions/ ({len(archive_items)} records)")
 
     # xlsx/pdf exports, if the staging dir has them.
     exports = []
