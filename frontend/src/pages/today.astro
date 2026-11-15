@@ -276,8 +276,9 @@ import '../styles/global.css';
           learning.vocabulary.forEach(item => {
             const entry = element('div', 'vocab-entry');
             entry.append(element('h4', '', item.term || item.word || item.phrase || ''));
-            const meaning = item.meaning_bn || item.meaning || item.definition || '';
+            const meaning = item.meaning_bn || item.meaning || '';
             if (meaning) entry.append(element('p', 'learning-copy', meaning));
+            if (item.definition) entry.append(element('p', 'vocab-definition', item.definition));
             const meta = [item.pronunciation_bn, item.part_of_speech || item.pos].filter(Boolean).join(' · ');
             if (meta) entry.append(element('p', 'vocab-meta', meta));
             if (item.example) entry.append(element('p', 'vocab-example', 'উদাহরণ: ' + item.example));
@@ -321,10 +322,12 @@ import '../styles/global.css';
           panel.append(element('h2', 'extras-title', words.vocabulary));
           [...vocab, ...phrases].forEach(item => {
             const term = item['Headword / phrase'] || item['Phrase'] || item.term || '';
-            const meaning = item['Bangla meaning'] || item.meaning_bn || item['English definition'] || item['English explanation'] || '';
+            const meaning = item['Bangla meaning'] || item.meaning_bn || '';
+            const definition = item['English definition'] || item['English explanation'] || '';
             const entry = element('article', 'vocab-entry');
             entry.append(element('h4', '', term));
-            entry.append(element('p', 'learning-copy', meaning));
+            if (meaning) entry.append(element('p', 'learning-copy', meaning));
+            if (definition) entry.append(element('p', 'vocab-definition', definition));
             const example = item['Original example'] || item['Original example 1'] || '';
             if (example) entry.append(element('p', 'vocab-example', example));
             panel.append(entry);
@@ -537,7 +540,7 @@ import '../styles/global.css';
       .practice-answer { margin: .75rem 0 .2rem; color: #176b52; font-weight: 700; }
       .practice-explanation { font-size: .92rem; }
       .vocab-meta { margin: .2rem 0; color: var(--muted, #667085); font-size: .85rem; }
-      .vocab-example { margin: .3rem 0; color: #475467; font-size: .92rem; font-style: italic; }
+      .vocab-definition { margin: .25rem 0; color: #475467; font-size: .9rem; line-height: 1.6; }\n      .vocab-example { margin: .3rem 0; color: #475467; font-size: .92rem; font-style: italic; }
       .story-card { background: #fff; border: 1px solid var(--line, #dce2e9); border-radius: 18px; padding: clamp(1.2rem, 4vw, 2rem); box-shadow: 0 8px 28px rgba(20,36,63,.045); }
       .story-meta { display: flex; align-items: center; flex-wrap: wrap; gap: .75rem; color: var(--muted, #667085); font-size: .76rem; letter-spacing: .06em; text-transform: uppercase; }
       .story-number { color: #a56c31; font-weight: 800; }
