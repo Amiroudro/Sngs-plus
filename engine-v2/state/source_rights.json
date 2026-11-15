@@ -1207,7 +1207,7 @@
     },
     "sonalisangbad.com": {
       "publisher": "Sonali Sangbad",
-      "domain_evidence": "https://sonalisangbad.com/ (publisher homepage and current e-paper route observed 2026-11-16)",
+      "domain_evidence": "https://sonalisangbad.com/ (publisher homepage and e-paper route observed 2026-11-16; current feed not verified)",
       "domain_status": "publisher_homepage_found_feed_unverified",
       "metadata_status": "pending",
       "metadata_scope": "",
@@ -1229,7 +1229,5 @@
       "source_enabled": false
     }
   },
-  "unmapped_candidates": [
-    "Sonali Sangbad"
-  ]
+  "unmapped_candidates": []
 }
