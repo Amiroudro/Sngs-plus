@@ -2,7 +2,7 @@
   "name": "Sarangsho Plus",
   "short_name": "Sarangsho+",
   "description": "Bilingual news and knowledge, clearly explained.",
-  "start_url": "/",
+  "start_url": "/sarangsho-plus-editions/",
   "display": "standalone",
   "background_color": "#f6f7f9",
   "theme_color": "#142440",
