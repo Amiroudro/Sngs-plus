@@ -83,5 +83,68 @@ class EditionStoreTests(unittest.TestCase):
                 store.load_edition("2026-11-15")
 
 
+    def test_metadata_archive_requires_published_edition_and_strips_body_fields(self):
+        day = "2026-11-16"
+        self.write_json(self.editions / "index.json", {
+            "editions": [{
+                "edition_date": day,
+                "file": f"data-{day}.json",
+                "status": "published",
+            }]
+        })
+        self.write_json(self.editions / f"data-{day}.json", {
+            "edition_date": day, "status": "published", "stories": []
+        })
+        self.write_json(self.editions / f"metadata-only-{day}.json", {
+            "date": day,
+            "items": [{
+                "id": "MO01",
+                "headline": "A metadata-only headline",
+                "source": "Example Daily",
+                "url": "https://example.com/story",
+                "published": "2026-11-16T08:00:00+06:00",
+                "archive_status": "metadata_only_body_not_licensed",
+                "study_note_status": "not_generated",
+                "body_text": "MUST NEVER LEAK",
+                "facts": ["MUST NEVER LEAK"],
+            }]
+        })
+        with patch.object(store, "EDITIONS_DIR", self.editions), patch.object(
+            store, "BANGLA_EDITIONS_DIR", self.bn
+        ), patch.object(store, "METADATA_ARCHIVE_DIR", self.editions):
+            result = store.search_metadata_archive("metadata-only", limit=10)
+        self.assertEqual(result["total"], 1)
+        self.assertEqual(result["items"][0]["headline"], "A metadata-only headline")
+        self.assertEqual(result["items"][0]["record_type"], "metadata_only")
+        self.assertNotIn("body_text", result["items"][0])
+        self.assertNotIn("facts", result["items"][0])
+
+    def test_metadata_archive_is_hidden_for_draft_edition(self):
+        day = "2026-11-16"
+        self.write_json(self.editions / "index.json", {
+            "editions": [{
+                "edition_date": day,
+                "file": f"data-{day}.json",
+                "status": "draft",
+            }]
+        })
+        self.write_json(self.editions / f"data-{day}.json", {
+            "edition_date": day, "status": "draft", "stories": []
+        })
+        self.write_json(self.editions / f"metadata-only-{day}.json", {
+            "date": day, "items": [{
+                "headline": "Hidden draft record",
+                "source": "Example Daily",
+                "archive_status": "body_fetch_failed",
+                "study_note_status": "not_generated",
+            }]
+        })
+        with patch.object(store, "EDITIONS_DIR", self.editions), patch.object(
+            store, "BANGLA_EDITIONS_DIR", self.bn
+        ), patch.object(store, "METADATA_ARCHIVE_DIR", self.editions):
+            result = store.search_metadata_archive()
+        self.assertEqual(result, {"total": 0, "items": []})
+
+
 if __name__ == "__main__":
     unittest.main()
