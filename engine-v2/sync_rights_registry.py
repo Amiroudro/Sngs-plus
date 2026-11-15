@@ -160,7 +160,7 @@ def export_registry(db_path, registry_path=None, write=False, routes_path=None):
         report["written_to"] = str(registry_file)
         if routes_data is not None:
             routes_file.write_text(
-                json.dumps(routes_data, ensure_ascii=False, indent=2) + "\\n",
+                json.dumps(routes_data, ensure_ascii=False, indent=2) + "\n",
                 encoding="utf-8"
             )
             report["routes_written_to"] = str(routes_file)
