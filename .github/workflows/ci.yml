@@ -18,6 +18,8 @@ jobs:
         run: pip install -r backend/requirements.txt
       - name: Check Python syntax
         run: python -m compileall -q backend/app
+      - name: Test published-edition reader
+        run: python -m unittest discover -s backend/tests -v
   web-build:
     runs-on: ubuntu-latest
     steps:
