@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """Regression tests for the optional exam-learning edition sidecar."""
 import unittest
+import sys
+from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import convert_to_app as converter
 
 
