@@ -12,14 +12,20 @@ from urllib.parse import urlparse
 
 BASE = Path(__file__).resolve().parent
 REGISTRY_PATH = BASE / "state" / "source_rights.json"
+_DEFAULT_REGISTRY = None
 
 
 def load_registry(path=None):
     """Load the registry. Invalid or missing policy raises; callers must stop."""
+    global _DEFAULT_REGISTRY
+    if path is None and _DEFAULT_REGISTRY is not None:
+        return _DEFAULT_REGISTRY
     p = Path(path) if path else REGISTRY_PATH
     data = json.loads(p.read_text(encoding="utf-8"))
     if data.get("version") != 1 or not isinstance(data.get("publishers"), dict):
         raise ValueError("unsupported or malformed source rights registry")
+    if path is None:
+        _DEFAULT_REGISTRY = data
     return data
 
 
