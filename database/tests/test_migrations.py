@@ -93,6 +93,19 @@ class StudyMigrationTests(unittest.TestCase):
             "VALUES (?, 'permission_required', 'https://example.com/terms')",
             (source_id,),
         )
+        review_id = self.db.execute(
+            "SELECT id FROM source_rights_reviews WHERE source_id=?",
+            (source_id,),
+        ).fetchone()[0]
+        with self.assertRaises(sqlite3.IntegrityError):
+            self.db.execute(
+                "UPDATE source_rights_reviews SET reviewer_note='overwrite' WHERE id=?",
+                (review_id,),
+            )
+        with self.assertRaises(sqlite3.IntegrityError):
+            self.db.execute(
+                "DELETE FROM source_rights_reviews WHERE id=?", (review_id,)
+            )
         with self.assertRaises(sqlite3.IntegrityError):
             self.db.execute("UPDATE sources SET enabled=1 WHERE id=?", (source_id,))
         with self.assertRaises(sqlite3.IntegrityError):
