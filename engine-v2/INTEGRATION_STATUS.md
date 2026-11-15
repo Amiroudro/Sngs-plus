@@ -30,6 +30,7 @@
   - Robots policy is enforced independently; robots.txt fetch failures are fail-closed.
 - Regression tests cover metadata vs page/body/automated-processing permissions, unknown domains, malformed URLs, expired licences, overdue reviews, direct feed blocking, title-page fetch blocking, body fetch blocking, SQLite-to-JSON sync, conflicting source records and robots behaviour.
 - Collector retains sports, entertainment and lifestyle articles for editorial scoring rather than discarding them at URL-filter time.
+- Kept stories whose body cannot be fetched are now written to a separate metadata-only archive with headline/source/URL/date and a reason. RSS excerpts are stripped by default; no article body, facts, translation or questions are generated for these records.
 
 ## Rights ledger and operational registry sync
 
@@ -48,7 +49,7 @@ The SQLite source_rights_reviews table is the review ledger. The Engine reads a 
 
 ## Known limitations
 
-- The 50-publisher directory is not yet 50 direct feed integrations. Exact official route, current item timestamps, robots response and deployment-region reachability still need direct verification. Metadata-only collection can preserve permitted headlines and source metadata, but the current detailed study-note path drops kept stories when body text is unavailable; a metadata-only archive view and explicit no-body status still need to be wired into app output.
+- The 50-publisher directory is not yet 50 direct feed integrations. Exact official route, current item timestamps, robots response and deployment-region reachability still need direct verification. Metadata-only collection can preserve permitted headlines and source metadata, but the Engine now writes a separate metadata-only archive for kept stories without body text, but that archive and its explicit no-body status are not yet wired into app output.
 - The current Bangla renderer uses deterministic templates and sanitisation, not fluent translation. Its output must remain unapproved until human review or a properly tested translation workflow is introduced.
 - The expanded study taxonomy is specified in docs/EXAM_TAXONOMY_V1.md but is not yet wired to an automated classifier or frontend filters.
 - The separate 0–10 assessment schema exists, but no calibrated scoring model or importer currently populates it.
