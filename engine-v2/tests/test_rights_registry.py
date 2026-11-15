@@ -114,6 +114,8 @@ def main():
 
     # Production registry must deny every currently unreviewed known publisher.
     prod = rr.load_registry()
+    assert rr.publisher_name("https://www.dainikazadi.net/news/example", prod) == "Dainik Azadi"
+    assert rr.publisher_name("https://www.sangbad.net.bd/news/example", prod) == "The Sangbad"
     assert rr.metadata_decision("https://www.prothomalo.com/news/test", prod)[0] is False
     assert rr.body_decision("https://www.tbsnews.net/news/test", prod)[0] is False
     print("PASS: current candidate publishers remain disabled pending evidence")
