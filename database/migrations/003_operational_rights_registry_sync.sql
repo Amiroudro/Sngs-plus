@@ -25,6 +25,20 @@ ALTER TABLE source_rights_reviews ADD COLUMN review_due_at TEXT;
 CREATE INDEX IF NOT EXISTS idx_source_rights_domain_review
   ON source_rights_reviews(publisher_domain, reviewed_at DESC, id DESC);
 
+-- Rights reviews are an audit ledger. Corrections must be new rows, never
+-- edits or deletions of the prior decision.
+CREATE TRIGGER IF NOT EXISTS trg_source_rights_reviews_no_update
+BEFORE UPDATE ON source_rights_reviews
+BEGIN
+  SELECT RAISE(ABORT, 'rights reviews are append-only; insert a new review');
+END;
+
+CREATE TRIGGER IF NOT EXISTS trg_source_rights_reviews_no_delete
+BEFORE DELETE ON source_rights_reviews
+BEGIN
+  SELECT RAISE(ABORT, 'rights reviews are append-only');
+END;
+
 -- Metadata-only is the least-privilege default. A current metadata grant and
 -- a separate automated-processing grant are required to enable any source.
 DROP TRIGGER IF EXISTS trg_sources_enable_requires_license;
