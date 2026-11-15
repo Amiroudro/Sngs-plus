@@ -793,9 +793,15 @@ class EditionIndexEntry {
   });
 
   factory EditionIndexEntry.fromJson(Map<String, dynamic> json) {
+    final date = asStr(json['edition_date']) ?? '';
+    // The bundled app index is intentionally compact (date + status).
+    // Remote publication indexes may provide an explicit filename.
+    // Derive the conventional bundled filename when it is omitted.
+    final file = asStr(json['file']) ??
+        (date.isEmpty ? '' : 'data-$date.json');
     return EditionIndexEntry(
-      date: asStr(json['edition_date']) ?? '',
-      file: asStr(json['file']) ?? '',
+      date: date,
+      file: file,
       status: asStr(json['status']),
       review: asStr(json['review']),
       coverage: asStr(json['coverage']),
