@@ -128,6 +128,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import common  # noqa: E402
+import rights_registry  # noqa: E402
 
 VERSION = "2.2.0"
 BASE = Path(__file__).resolve().parent
@@ -501,6 +502,24 @@ def _fetch_route(url, name, report, method, state):
     """Fetch one route, respecting robots.txt. Returns the raw text
     or None. Every outcome (ok / robots-blocked / fetch failed) is
     recorded in `report` and, on success, in the persisted state."""
+    # Discovery aggregators may be queried under their separate host allowlist.
+    # Direct publisher routes require current metadata + automated-processing
+    # permission. A missing/invalid registry is a hard stop.
+    try:
+        if not rights_registry.discovery_host_allowed(url):
+            permitted, reason = rights_registry.metadata_decision(url)
+            if not permitted:
+                report[name] = {"method": method,
+                                "status": f"blocked by rights registry: {reason}",
+                                "items": 0, "fresh": False, "latest_item": None,
+                                "last_success": state.get(name, {}).get("last_success")}
+                return None
+    except Exception as e:
+        report[name] = {"method": method,
+                        "status": f"blocked: rights registry unavailable: {e}",
+                        "items": 0, "fresh": False, "latest_item": None,
+                        "last_success": state.get(name, {}).get("last_success")}
+        return None
     if not common.robots_allowed(url):
         report[name] = {"method": method,
                         "status": "blocked by robots.txt",
@@ -543,7 +562,9 @@ def collect_bing(report, state):
             continue
         items = parse_rss_items(text, "Bing News", "bing")
         _report_items(name, report, "bing-rss", items, state)
-        all_items.extend(items)
+        permitted, blocked = rights_registry.filter_metadata_items(items)
+        report[name]["rights_blocked"] = blocked
+        all_items.extend(permitted)
     return all_items
 
 
@@ -559,7 +580,9 @@ def collect_editorial_bing(report, state):
         items = parse_rss_items(text, "Bing News", "editorial",
                                 section="editorial")
         _report_items(name, report, "bing-rss-editorial", items, state)
-        all_items.extend(items)
+        permitted, blocked = rights_registry.filter_metadata_items(items)
+        report[name]["rights_blocked"] = blocked
+        all_items.extend(permitted)
     return all_items
 
 
@@ -574,7 +597,9 @@ def collect_googlenews(report, state):
             continue
         items = parse_rss_items(text, "Google News", "google-news")
         _report_items(name, report, "google-news-rss", items, state)
-        all_items.extend(items)
+        permitted, blocked = rights_registry.filter_metadata_items(items)
+        report[name]["rights_blocked"] = blocked
+        all_items.extend(permitted)
     return all_items
 
 
@@ -859,6 +884,14 @@ def fetch_bodies_for_kept(articles):
             a["body_text"] = ""
             a["body_error"] = "no direct URL"
             continue
+        try:
+            permitted, reason = rights_registry.body_decision(a["url"])
+        except Exception as e:
+            permitted, reason = False, f"rights registry unavailable: {e}"
+        if not permitted:
+            a["body_text"] = ""
+            a["body_error"] = f"rights registry: {reason}"
+            continue
         if not common.robots_allowed(a["url"]):
             a["body_text"] = ""
             a["body_error"] = "robots.txt disallows"
@@ -976,7 +1009,11 @@ def _resolve_one_title(article):
     url = article.get("url") or ""
     if not url or not _is_direct(url):
         return ""
-    if not common.robots_allowed(url):
+    try:
+        permitted, _reason = rights_registry.page_metadata_decision(url)
+    except Exception:
+        return ""
+    if not permitted or not common.robots_allowed(url):
         return ""
     for _attempt in range(2):
         try:
