@@ -248,7 +248,12 @@ import '../styles/global.css';
         if (Array.isArray(learning.exam_notes) && learning.exam_notes.length) {
           const section = appendSection(panel, words.examNotes);
           const ul = element('ul');
-          learning.exam_notes.forEach(note => ul.append(element('li', '', typeof note === 'object' ? (note.text || note.note || '') : note)));
+          learning.exam_notes.forEach(note => {
+            const li = element('li');
+            li.append(document.createTextNode(typeof note === 'object' ? (note.text || note.note || '') : note));
+            if (note && typeof note === 'object') renderSourceLinks(li, note.source_refs || note.sources, words.sources);
+            ul.append(li);
+          });
           section.append(ul);
         }
 
@@ -278,6 +283,7 @@ import '../styles/global.css';
             if (item.example) entry.append(element('p', 'vocab-example', 'উদাহরণ: ' + item.example));
             if (Array.isArray(item.synonyms) && item.synonyms.length) entry.append(element('p', 'vocab-meta', 'সমার্থক: ' + item.synonyms.join(', ')));
             if (Array.isArray(item.antonyms) && item.antonyms.length) entry.append(element('p', 'vocab-meta', 'বিপরীতার্থক: ' + item.antonyms.join(', ')));
+            renderSourceLinks(entry, item.source_refs || item.sources, words.sources);
             section.append(entry);
           });
         }
