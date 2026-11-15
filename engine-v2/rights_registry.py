@@ -51,20 +51,32 @@ def _record(url, registry=None):
     return None, host
 
 
-def _not_expired(record):
-    expiry = (record.get("expires_at") or "").strip()
-    if not expiry:
-        return True
+def _review_current(record):
+    """Require a dated review and a future review-due date for every approval."""
+    reviewed = (record.get("reviewed_at") or "").strip()
+    due = (record.get("review_due_at") or "").strip()
     try:
-        return date.fromisoformat(expiry) >= date.today()
+        reviewed_date = date.fromisoformat(reviewed)
+        due_date = date.fromisoformat(due)
     except ValueError:
         return False
+    today = date.today()
+    if reviewed_date > today or due_date < today or due_date < reviewed_date:
+        return False
+    expiry = (record.get("expires_at") or "").strip()
+    if expiry:
+        try:
+            if date.fromisoformat(expiry) < today:
+                return False
+        except ValueError:
+            return False
+    return True
 
 
 def _has_evidence(record, scope_key, evidence_key):
     return bool((record.get(scope_key) or "").strip()
                 and (record.get(evidence_key) or "").strip()
-                and _not_expired(record))
+                and _review_current(record))
 
 
 def discovery_host_allowed(url, registry=None):
