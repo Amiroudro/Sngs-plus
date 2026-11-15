@@ -64,9 +64,44 @@ def sha(path):
 
 
 def scratch_run_dir(tmp):
-    """Copy the live 15 Nov run dir (+ staging) to tmp; return its path."""
+    """Use the historical run when present; otherwise create a self-contained
+    synthetic fixture so a fresh clone can still exercise publish/refusal logic."""
     dst = tmp / f"runs-{DATE}"
-    shutil.copytree(LIVE_RUN, dst)
+    if LIVE_RUN.exists():
+        shutil.copytree(LIVE_RUN, dst)
+        return dst
+    staging = dst / "app-format"
+    staging.mkdir(parents=True)
+    coverage = "14 Nov 2026, 7:47 AM to 2026-11-15, 7:47 AM (Asia/Dhaka)"
+    stories = [
+        {"id": f"CA{i:02d}", "sources": [
+            {"url": f"https://example.com/story/{i}"}]}
+        for i in range(1, 16)
+    ]
+    data = {
+        "status": "draft", "coverage": coverage, "stories": stories,
+        "counts": {"stories": 15, "words": 20, "phrases": 10,
+                   "mcqs": 25, "revision_words": 5},
+    }
+    bn = {"status": "draft", "stories": []}
+    staged_index = {"editions": [{
+        "edition_date": DATE, "file": f"data-{DATE}.json",
+        "status": "draft", "stories": 15, "words": 20, "phrases": 10,
+        "mcqs": 25, "revision_words": 5, "sources": 15,
+        "coverage": coverage,
+    }]}
+    for name, obj in ((f"data-{DATE}.json", data),
+                      (f"bn-{DATE}.json", bn),
+                      (f"index-{DATE}.json", staged_index)):
+        (staging / name).write_text(
+            json.dumps(obj, indent=2, ensure_ascii=False) + "\\n",
+            encoding="utf-8")
+    (staging / f"edition-{DATE}.xlsx").write_bytes(b"synthetic test fixture")
+    (staging / f"edition-{DATE}.pdf").write_bytes(b"synthetic test fixture")
+    edition = {"stats": {"collected": 1514, "decisions": {
+        "keep": 128, "maybe": 300, "reject": 949}}}
+    (dst / f"edition-{DATE}.json").write_text(
+        json.dumps(edition, indent=2) + "\\n", encoding="utf-8")
     return dst
 
 
@@ -98,6 +133,10 @@ def scratch_trees(tmp):
 def test_gate_reproduction():
     print("== 1. gate reproduction on a scratch copy of runs/2026-11-15 ==")
     live_review = LIVE_RUN / f"review-v2-{DATE}.json"
+    if not live_review.exists():
+        print("  SKIP: historical per-day run outputs are intentionally not committed; "
+              "the clean-clone suite tests the publish/refusal path with synthetic fixtures.")
+        return
     before = sha(live_review)
     with tempfile.TemporaryDirectory(prefix="v2-pub-test-") as tmp:
         tmp = Path(tmp)
@@ -364,12 +403,12 @@ def main():
                    ROOT / "engine-v1" / "tracker.md",
                    ENGINE_V2 / "runs" / "tracker.md",
                    LIVE_RUN / f"review-v2-{DATE}.json"]
-    _before = {str(p): sha(p) for p in _live_paths}
+    _before = {str(p): sha(p) for p in _live_paths if p.exists()}
     test_gate_reproduction()
     test_publish_refusals()
     test_publish_success_scratch()
     test_v2_run_counter()
-    _after = {str(p): sha(p) for p in _live_paths}
+    _after = {str(p): sha(p) for p in _live_paths if p.exists()}
     _LIVE_UNTOUCHED = _before == _after
     # Live-untouched check runs here (not inside test 5): the flag is
     # only computed after the whole suite has run.
