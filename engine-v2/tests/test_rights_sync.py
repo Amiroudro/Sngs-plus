@@ -16,6 +16,7 @@ from sync_rights_registry import export_registry  # noqa: E402
 def _record():
     return {
         "publisher": "Example News",
+        "source_enabled": False,
         "metadata_status": "pending", "metadata_scope": "", "metadata_evidence": "",
         "page_metadata_status": "pending", "page_metadata_scope": "",
         "page_metadata_evidence": "",
@@ -81,6 +82,8 @@ def main():
         db, source_id = _make_database(db_path)
         try:
             _insert_review(db, source_id)
+            db.execute("UPDATE sources SET enabled=1 WHERE id=?", (source_id,))
+            db.commit()
 
             # Dry-run produces the correct export but leaves the JSON unchanged.
             dry_data, dry_report = export_registry(db_path, registry_path, write=False)
@@ -98,6 +101,10 @@ def main():
             print("PASS: metadata-only DB grant reaches Engine registry without body/page permission")
 
             _insert_review(db, source_id, body="licensed", page="approved")
+            db.execute(
+                "UPDATE sources SET collection_mode='article_body', "
+                "article_page_fetch_enabled=1 WHERE id=?", (source_id,))
+            db.commit()
             export_registry(db_path, registry_path, write=True)
             current = rights_registry.load_registry(registry_path)
             assert rights_registry.body_decision("https://example.com/story", current)[0]
