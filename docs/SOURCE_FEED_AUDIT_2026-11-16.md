@@ -215,3 +215,26 @@ A fresh publisher-site check confirms the homepage is actively publishing: the h
 Independent directories corroborate the publisher identity and Rajshahi regional classification, but are not permission evidence. The MRDI media list includes Sonali Sangbad; KhoborBox lists its homepage and e-paper; Inkline's 43-feed registry does not list it in the 17 October 2026 pass.
 
 **Disposition:** `publisher_site_active_feed_lead_unverified_rights_pending`. Do not enable.
+
+
+## Concrete RSS route leads from third-party directories (16 Nov 2026)
+
+Chetmail's Bangladesh directory and the public Plenary OPML export independently expose the following candidate routes. These are **discovery leads**, not direct fetch tests by Sarangsho Plus. No route is promoted to `verified` or `active` from this table.
+
+| Publisher | Candidate feed URL | Audit status |
+|---|---|---|
+| The Daily Star | `https://www.thedailystar.net/frontpage/rss.xml` | Third-party route lead; section-feed freshness must be checked |
+| BD24Live | `https://www.bd24live.com/feed` | Third-party route lead; not in the 50-candidate core |
+| bdnews24.com | `https://bdnews24.com/?widgetName=rssfeed&widgetId=1150&getXmlFeed=true` | Third-party route lead; automated access has been reported as blocked by an independent project |
+| Banglanews24 | `https://www.banglanews24.com/rss/rss.xml` | Third-party route lead; freshness and parser output unverified |
+| Jugantor | `https://www.jugantor.com/feed/rss.xml` | Third-party route lead; automated access has been reported as blocked by an independent project |
+| Jago News 24 | `https://www.jagonews24.com/rss/rss.xml` | Third-party route lead; freshness and parser output unverified |
+| Kaler Kantho | `https://www.kalerkantho.com/rss.xml` | Third-party route lead; automated access has been reported as blocked by an independent project |
+| Prothom Alo | `https://www.prothomalo.com/feed/` | Third-party route lead; a feed aggregator previously reported stale output, so freshness is unresolved |
+
+Sources:
+- Chetmail Bangladesh RSS directory: https://www.chetmail.com/feeds/local-news/bangladesh
+- Plenary Bangladesh OPML: https://github.com/plenaryapp/awesome-rss-feeds/blob/master/countries/with_category/Bangladesh.opml
+- Independent implementation notes and access observations: https://github.com/Claudefarid/bangla-news-radar
+
+**Next verification required for each route:** fetch from the intended deployment region using the documented collector identity; record HTTP status and content type; parse at least five items; verify non-empty title, canonical URL and timezone-aware publication date; calculate newest-item age; check robots and publisher terms separately; then test duplicate identity against an overlapping source. A 403 or failed fetch is recorded as inaccessible from that environment, not proof the publisher has shut down. Never rotate identities or evade blocks to force a successful fetch.
