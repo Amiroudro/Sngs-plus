@@ -28,7 +28,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "tbsnews.net",
@@ -41,7 +43,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "dhakatribune.com",
@@ -54,7 +58,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "thefinancialexpress.com.bd",
@@ -67,7 +73,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "en.prothomalo.com",
@@ -80,7 +88,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "prothomalo.com",
@@ -93,7 +103,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "jugantor.com",
@@ -106,7 +118,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "bssnews.net",
@@ -119,7 +133,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "bd-pratidin.com",
@@ -132,7 +148,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "kalerkantho.com",
@@ -145,7 +163,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "ittefaq.com.bd",
@@ -158,7 +178,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "samakal.com",
@@ -171,7 +193,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "dailyjanakantha.com",
@@ -184,7 +208,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "mzamin.com",
@@ -197,7 +223,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "dailynayadiganta.com",
@@ -210,7 +238,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "dailyinqilab.com",
@@ -223,7 +253,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "restricted",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "bonikbarta.net",
@@ -236,7 +268,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "deshrupantor.com",
@@ -249,7 +283,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "ajkerpatrika.com",
@@ -262,7 +298,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "kalbela.com",
@@ -275,7 +313,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "jaijaidinbd.com",
@@ -288,7 +328,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "dailysangram.com",
@@ -301,7 +343,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "amardeshonline.com",
@@ -314,7 +358,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "amarsangbad.com",
@@ -327,7 +373,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "dainikdinkal.net",
@@ -340,7 +388,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "sharebiz.net",
@@ -353,7 +403,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "businesspostbd.com",
@@ -366,7 +418,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "daily-sun.com",
@@ -379,7 +433,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "observerbd.com",
@@ -392,7 +448,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "bangladeshpost.net",
@@ -405,7 +463,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "thebangladeshtoday.com",
@@ -418,7 +478,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "dailyasianage.com",
@@ -431,7 +493,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "bdnews24.com",
@@ -444,7 +508,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "banglanews24.com",
@@ -457,7 +523,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "jagonews24.com",
@@ -470,7 +538,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "banglatribune.com",
@@ -483,7 +553,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "dhakapost.com",
@@ -496,7 +568,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "risingbd.com",
@@ -509,7 +583,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "restricted",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "barta24.com",
@@ -522,7 +598,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "sarabangla.net",
@@ -535,7 +613,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "newsbangla24.com",
@@ -548,7 +628,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "daily-bangladesh.com",
@@ -561,7 +643,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "dainikazadi.com",
@@ -574,7 +658,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "dainikpurbokone.net",
@@ -587,7 +673,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "karatoa.com.bd",
@@ -600,7 +688,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "unb.com.bd",
@@ -613,7 +703,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "dainikbangla.com.bd",
@@ -626,7 +718,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "sangbad.net",
@@ -639,7 +733,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "shomoyeralo.com",
@@ -652,7 +748,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "alokitobangladesh.com",
@@ -665,7 +763,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "amadershomoys.com",
@@ -678,7 +778,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "newagebd.net",
@@ -691,7 +793,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "dainikazadi.net",
@@ -704,7 +808,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "sangbad.net.bd",
@@ -717,7 +823,9 @@
       "robots_status": "not_rechecked_in_this_route_matrix",
       "terms_status": "not_reviewed_or_not_recorded",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     },
     {
       "host": "sonalisangbad.com",
@@ -730,7 +838,9 @@
       "robots_status": "unverified",
       "terms_status": "not_located",
       "automated_processing_status": "pending",
-      "body_status": "not_permitted"
+      "body_status": "not_permitted",
+      "metadata_status": "pending",
+      "page_metadata_status": "pending"
     }
   ]
 }
