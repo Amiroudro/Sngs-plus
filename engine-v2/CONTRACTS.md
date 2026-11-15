@@ -60,10 +60,10 @@ must keep these permissions separate:
 - Robots policy is independent. A rights approval never overrides a
   robots.txt disallow; a robots.txt fetch failure denies the request.
 
-The JSON registry is the Engine's operational policy source. The SQLite
-source_rights_reviews table is a separate application audit store and is
-not automatically synchronised yet. Changes to either store alone do not
-constitute publisher activation.
+The SQLite source_rights_reviews table is the review ledger. The manual
+dry-run-first sync_rights_registry.py exports its latest reviewed rows into
+the Engine JSON policy snapshot. It is not scheduled; changes in the DB do
+not reach the collector until the export is reviewed and written.
 
 ## Step 2 output (article + two fields)
 - `priority`: "normal" | "low"
