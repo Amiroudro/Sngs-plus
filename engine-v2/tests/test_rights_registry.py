@@ -136,6 +136,11 @@ def main():
     assert rr.publisher_name("https://www.sangbad.net.bd/news/example", prod) == "The Sangbad"
     assert rr.metadata_decision("https://www.prothomalo.com/news/test", prod)[0] is False
     assert rr.body_decision("https://www.tbsnews.net/news/test", prod)[0] is False
+    assert prod["publishers"]["dailyinqilab.com"]["automated_processing_status"] == "restricted"
+    assert prod["publishers"]["risingbd.com"]["automated_processing_status"] == "restricted"
+    assert rr.metadata_decision("https://www.dailyinqilab.com/news/test", prod)[0] is False
+    assert rr.body_decision("https://www.risingbd.com/news/test", prod)[0] is False
+    print("PASS: AI-crawler warning sources remain explicitly restricted")
     print("PASS: current candidate publishers remain disabled pending evidence")
 
 
