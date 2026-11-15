@@ -313,11 +313,13 @@
       "feed_route_status": "not_yet_audited",
       "direct_fetch_status": "not_verified_in_deployment_environment",
       "robots_status": "not_rechecked_in_this_route_matrix",
-      "terms_status": "not_reviewed_or_not_recorded",
+      "terms_status": "official_terms_reviewed_derivative_and_cross_platform_sharing_not_authorised",
       "automated_processing_status": "pending",
       "body_status": "not_permitted",
       "metadata_status": "pending",
-      "page_metadata_status": "pending"
+      "page_metadata_status": "pending",
+      "terms_url": "https://www.ajkerpatrika.com/user-terms-and-conditions",
+      "terms_observation": "Official terms discourage copying and creating new works from content, reserve IP, limit use to personal/non-commercial purposes, and prohibit sharing content with other organisations or digital platforms in original or modified form; no automated processing licence identified."
     },
     {
       "host": "kalbela.com",
