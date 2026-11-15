@@ -41,6 +41,8 @@ The operational policy is loaded from state/source_rights.json by
 rights_registry.py. Unknown domains are denied by default. The collector
 must keep these permissions separate:
 
+- Source activation: source_enabled must be true in the DB-exported registry;
+  rights approval alone does not turn collection on.
 - Metadata collection: metadata_status=approved, non-empty metadata_scope,
   permission evidence, and a current reviewed_at/review_due_at window.
 - Automated classification/summarisation: automated_processing_status=approved,
