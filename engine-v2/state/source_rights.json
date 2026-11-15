@@ -746,11 +746,24 @@
       "body_scope": "",
       "body_evidence": "",
       "expires_at": ""
+    },
+    "amadershomoys.com": {
+      "publisher": "Amader Shomoy",
+      "domain_evidence": "https://bangladeshnewspaper.bd/",
+      "domain_status": "directory_lead_unverified",
+      "metadata_status": "pending",
+      "metadata_scope": "",
+      "metadata_evidence": "",
+      "page_metadata_status": "pending",
+      "page_metadata_scope": "",
+      "page_metadata_evidence": "",
+      "body_status": "not_permitted",
+      "body_scope": "",
+      "body_evidence": "",
+      "expires_at": ""
     }
   },
   "unmapped_candidates": [
-    "Amader Shomoy",
-    "Sangbad",
     "Sonali Sangbad"
   ]
 }
