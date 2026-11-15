@@ -86,6 +86,12 @@ import '../styles/global.css';
           emptyCopy: 'The content pipeline is being connected. This page will show stories only after an edition passes review and is published.',
           connecting: 'Connecting', live: 'Published edition', unavailable: 'Not published',
           story: 'Story', why: 'Why it matters', facts: 'Key facts', source: 'Read original report',
+          context: 'Context and concepts', examNotes: 'Exam notes', practice: 'Practice questions',
+          shortQuestions: 'Quick questions', written: 'Written practice', vocabulary: 'Vocabulary',
+          revision: 'Quick revision', reveal: 'Show answer and explanation', answer: 'Answer',
+          explanation: 'Explanation', sources: 'References', translationPending: 'The Bangla edition is being prepared and reviewed. No English summary is substituted.',
+          noLearning: 'Additional exam-learning notes will appear here after source review.',
+          words: 'Words', phrases: 'Phrases',
           back: 'Back to home', fallback: 'Bangla translation is awaiting editorial review. The English edition is shown for now.',
           archiveTitle: 'Search the metadata archive',
           archiveNote: 'Find retained headlines and publisher records that do not have accessible article text. These are archive records, not study notes.',
@@ -105,6 +111,12 @@ import '../styles/global.css';
           emptyCopy: 'সংবাদ প্রক্রিয়াটি যুক্ত করা হচ্ছে। পর্যালোচনা ও প্রকাশের পরই এখানে সংবাদ দেখানো হবে।',
           connecting: 'সংযোগ করা হচ্ছে', live: 'প্রকাশিত সংস্করণ', unavailable: 'প্রকাশিত হয়নি',
           story: 'সংবাদ', why: 'কেন গুরুত্বপূর্ণ', facts: 'মূল তথ্য', source: 'মূল প্রতিবেদন পড়ুন',
+          context: 'প্রেক্ষাপট ও প্রয়োজনীয় ধারণা', examNotes: 'পরীক্ষার নোট', practice: 'অনুশীলন',
+          shortQuestions: 'সংক্ষিপ্ত প্রশ্ন', written: 'লিখিত প্রস্তুতি', vocabulary: 'শব্দভান্ডার',
+          revision: 'দ্রুত রিভিশন', reveal: 'উত্তর ও ব্যাখ্যা দেখুন', answer: 'উত্তর',
+          explanation: 'ব্যাখ্যা', sources: 'তথ্যসূত্র', translationPending: 'বাংলা সংস্করণ প্রস্তুত ও পর্যালোচনার কাজ চলছে। আপাতত ইংরেজি সারাংশ দেখানো হবে না।',
+          noLearning: 'যাচাইকৃত অতিরিক্ত পরীক্ষার নোট প্রস্তুত হলে এখানে যুক্ত হবে।',
+          words: 'শব্দ', phrases: 'Phrase',
           back: 'প্রচ্ছদে ফিরুন', fallback: 'বাংলা অনুবাদের মানবীয় পর্যালোচনা এখনো সম্পন্ন হয়নি। আপাতত ইংরেজি সংস্করণ দেখানো হচ্ছে।',
           archiveTitle: 'সংরক্ষিত সংবাদ-তথ্য খুঁজুন',
           archiveNote: 'যেসব সংবাদের পূর্ণ লেখা পাওয়া যায়নি, সেগুলোর শিরোনাম ও প্রকাশক-তথ্য এখানে খুঁজুন। এগুলো শুধু আর্কাইভ রেকর্ড, পড়ার নোট নয়।',
@@ -118,7 +130,7 @@ import '../styles/global.css';
           archiveOpen: 'প্রকাশকের ওয়েবসাইট খুলুন'
         }
       };
-      let language = 'en';
+      let language = 'bn';
 
       function element(tag, className, text) {
         const node = document.createElement(tag);
@@ -127,7 +139,190 @@ import '../styles/global.css';
         return node;
       }
 
-      function renderStories(stories, words) {
+      function safeUrl(url) {
+        return typeof url === 'string' && /^https?:\\/\\//i.test(url);
+      }
+
+      function appendSection(parent, heading, className) {
+        const section = element('section', className || 'learning-section');
+        section.append(element('h3', 'learning-heading', heading));
+        parent.append(section);
+        return section;
+      }
+
+      function renderSourceLinks(parent, refs, label) {
+        if (!Array.isArray(refs) || !refs.length) return;
+        const wrap = element('div', 'learning-sources');
+        refs.forEach(ref => {
+          const url = typeof ref === 'string' ? ref : ref.url;
+          if (!safeUrl(url)) return;
+          const link = element('a', '', (typeof ref === 'object' && (ref.title || ref.publisher)) || label);
+          link.href = url;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          wrap.append(link);
+        });
+        if (wrap.childNodes.length) parent.append(wrap);
+      }
+
+      function renderQuestion(parent, question, words, index) {
+        if (!question || typeof question !== 'object') return;
+        const details = element('details', 'practice-question');
+        const summary = element('summary', 'practice-prompt',
+          (index ? index + '. ' : '') + (question.question || question.q || ''));
+        details.append(summary);
+        const options = question.options;
+        if (Array.isArray(options)) {
+          const list = element('ol', 'practice-options');
+          options.forEach((option, i) => list.append(element('li', '', typeof option === 'object' ? (option.text || option.label || '') : option)));
+          details.append(list);
+        } else if (options && typeof options === 'object') {
+          const list = element('ol', 'practice-options');
+          Object.entries(options).forEach(([key, value]) => list.append(element('li', '', key + '. ' + value)));
+          details.append(list);
+        }
+        const answer = question.answer || question.correct_answer || question.correct || question.a || '';
+        if (answer) {
+          const line = element('p', 'practice-answer');
+          line.append(element('strong', '', words.answer + ': '));
+          line.append(document.createTextNode(String(answer)));
+          details.append(line);
+        }
+        const explanation = question.explanation || question.why || '';
+        if (explanation) {
+          const line = element('p', 'practice-explanation');
+          line.append(element('strong', '', words.explanation + ': '));
+          line.append(document.createTextNode(String(explanation)));
+          details.append(line);
+        }
+        renderSourceLinks(details, question.source_refs || question.sources, words.sources);
+        parent.append(details);
+      }
+
+      function renderLearning(parent, learning, story, words) {
+        if (!learning || typeof learning !== 'object') {
+          learning = {};
+        }
+        const hasLearning = ['concepts','institutions','processes','distinctions','exam_notes',
+          'mcqs','short_questions','analytical_questions','vocabulary','revision']
+          .some(key => Array.isArray(learning[key]) && learning[key].length);
+        const legacyQa = Array.isArray(story.exam_qa) ? story.exam_qa : [];
+        const recall = Array.isArray(story.recall_cards) ? story.recall_cards : [];
+        if (!hasLearning && !legacyQa.length && !recall.length) return;
+
+        const panel = element('div', 'exam-learning');
+        const conceptItems = [
+          ...(learning.concepts || []), ...(learning.institutions || []),
+          ...(learning.processes || []), ...(learning.distinctions || [])
+        ];
+        if (conceptItems.length) {
+          const section = appendSection(panel, words.context);
+          conceptItems.forEach(item => {
+            if (typeof item === 'string') {
+              section.append(element('p', 'learning-copy', item));
+              return;
+            }
+            const entry = element('div', 'learning-entry');
+            if (item.title || item.term || item.name) entry.append(element('h4', '', item.title || item.term || item.name));
+            if (item.body || item.explanation || item.description) entry.append(element('p', 'learning-copy', item.body || item.explanation || item.description));
+            if (Array.isArray(item.points) && item.points.length) {
+              const ul = element('ul');
+              item.points.forEach(point => ul.append(element('li', '', typeof point === 'object' ? (point.text || point.label || '') : point)));
+              entry.append(ul);
+            }
+            if (item.left && item.right) {
+              entry.append(element('p', 'learning-copy', item.left + ' বনাম ' + item.right));
+            }
+            renderSourceLinks(entry, item.source_refs || item.sources, words.sources);
+            section.append(entry);
+          });
+        }
+
+        if (Array.isArray(learning.exam_notes) && learning.exam_notes.length) {
+          const section = appendSection(panel, words.examNotes);
+          const ul = element('ul');
+          learning.exam_notes.forEach(note => ul.append(element('li', '', typeof note === 'object' ? (note.text || note.note || '') : note)));
+          section.append(ul);
+        }
+
+        const questions = [
+          ...(learning.mcqs || []), ...(learning.short_questions || []),
+          ...(learning.analytical_questions || [])
+        ];
+        if (questions.length || legacyQa.length) {
+          const section = appendSection(panel, words.practice);
+          questions.forEach((q, i) => renderQuestion(section, q, words, i + 1));
+          legacyQa.forEach((q, i) => renderQuestion(section, q, words, questions.length + i + 1));
+        }
+
+        if (Array.isArray(learning.vocabulary) && learning.vocabulary.length) {
+          const section = appendSection(panel, words.vocabulary);
+          learning.vocabulary.forEach(item => {
+            const entry = element('div', 'vocab-entry');
+            entry.append(element('h4', '', item.term || item.word || item.phrase || ''));
+            const meaning = item.meaning_bn || item.meaning || item.definition || '';
+            if (meaning) entry.append(element('p', 'learning-copy', meaning));
+            const meta = [item.pronunciation_bn, item.part_of_speech || item.pos].filter(Boolean).join(' · ');
+            if (meta) entry.append(element('p', 'vocab-meta', meta));
+            if (item.example) entry.append(element('p', 'vocab-example', 'উদাহরণ: ' + item.example));
+            if (item.synonyms && item.synonyms.length) entry.append(element('p', 'vocab-meta', 'সমার্থক: ' + item.synonyms.join(', ')));
+            if (item.antonyms && item.antonyms.length) entry.append(element('p', 'vocab-meta', 'বিপরীতার্থক: ' + item.antonyms.join(', ')));
+            section.append(entry);
+          });
+        }
+
+        const revisionItems = [...(learning.revision || []), ...recall];
+        if (revisionItems.length) {
+          const section = appendSection(panel, words.revision);
+          const ul = element('ul');
+          revisionItems.forEach(item => {
+            const text = typeof item === 'string' ? item :
+              [item.prompt || item.cloze || item.question, item.answer ? ' → ' + item.answer : ''].filter(Boolean).join('');
+            if (text) ul.append(element('li', '', text));
+          });
+          section.append(ul);
+        }
+        parent.append(panel);
+      }
+
+      function renderEditionExtras(data, words) {
+        if (!data || typeof data !== 'object') return;
+        const mcqValues = Array.isArray(data.mcqs) ? data.mcqs :
+          (data.mcqs && typeof data.mcqs === 'object' ? Object.values(data.mcqs) : []);
+        if (mcqValues.length) {
+          const panel = element('section', 'edition-extras');
+          panel.append(element('h2', 'extras-title', words.practice));
+          mcqValues.forEach((q, i) => renderQuestion(panel, q, words, i + 1));
+          list.append(panel);
+        }
+
+        const vocab = Array.isArray(data.words) ? data.words : [];
+        const phrases = Array.isArray(data.phrases) ? data.phrases : [];
+        const revisions = Array.isArray(data.revision_words) ? data.revision_words : [];
+        if (vocab.length || phrases.length || revisions.length) {
+          const panel = element('section', 'edition-extras');
+          panel.append(element('h2', 'extras-title', words.vocabulary));
+          [...vocab, ...phrases].forEach(item => {
+            const term = item['Headword / phrase'] || item['Phrase'] || item.term || '';
+            const meaning = item['Bangla meaning'] || item.meaning_bn || item['English definition'] || item['English explanation'] || '';
+            const entry = element('article', 'vocab-entry');
+            entry.append(element('h4', '', term));
+            entry.append(element('p', 'learning-copy', meaning));
+            const example = item['Original example'] || item['Original example 1'] || '';
+            if (example) entry.append(element('p', 'vocab-example', example));
+            panel.append(entry);
+          });
+          if (revisions.length) {
+            panel.append(element('h3', 'learning-heading', words.revision));
+            const ul = element('ul');
+            revisions.forEach(item => ul.append(element('li', '', item['Headword / phrase'] || item.term || String(item))));
+            panel.append(ul);
+          }
+          list.append(panel);
+        }
+      }
+
+      function renderStories(stories, words, data) {
         list.replaceChildren();
         stories.forEach((story, index) => {
           const card = element('article', 'story-card');
@@ -157,11 +352,12 @@ import '../styles/global.css';
             facts.append(ul);
             card.append(facts);
           }
+          renderLearning(card, story.exam_learning || story.learning || {}, story, words);
           const sources = Array.isArray(story.sources) ? story.sources : [];
           if (sources.length) {
             const sourceRow = element('div', 'story-sources');
             sources.forEach(source => {
-              if (!source.url || !/^https?:\/\//i.test(source.url)) return;
+              if (!safeUrl(source.url)) return;
               const link = element('a', '', source.publication || words.source);
               link.href = source.url;
               link.target = '_blank';
@@ -172,6 +368,7 @@ import '../styles/global.css';
           }
           list.append(card);
         });
+        renderEditionExtras(data, words);
       }
 
       async function loadEdition() {
@@ -187,6 +384,13 @@ import '../styles/global.css';
           if (!response.ok) throw new Error('Briefing API returned ' + response.status);
           const payload = await response.json();
           const words = labels[language];
+          if (payload.status === 'translation_pending') {
+            status.lastChild.textContent = words.unavailable;
+            empty.hidden = false;
+            document.querySelector('#empty-title').textContent = words.emptyTitle;
+            document.querySelector('#empty-copy').textContent = words.translationPending;
+            return;
+          }
           if (payload.status !== 'published' || !Array.isArray(payload.stories) || !payload.stories.length) {
             status.lastChild.textContent = words.unavailable;
             empty.hidden = false;
@@ -196,11 +400,11 @@ import '../styles/global.css';
           }
           status.lastChild.textContent = words.live;
           dateLabel.textContent = payload.edition_date || '';
-          fallbackNotice.hidden = !(language === 'bn' && payload.fallback_language === 'en');
-          fallbackNotice.textContent = fallbackNotice.hidden ? '' : words.fallback;
+          fallbackNotice.hidden = true;
+          fallbackNotice.textContent = '';
           list.lang = payload.language || language;
           list.dir = 'auto';
-          renderStories(payload.stories, words);
+          renderStories(payload.stories, words, payload.data || {});
         } catch (err) {
           status.lastChild.textContent = labels[language].unavailable;
           error.hidden = false;
@@ -300,6 +504,23 @@ import '../styles/global.css';
       .archive-link { display: inline-block; margin-top: .5rem; color: #315b82; font-size: .88rem; font-weight: 700; text-decoration: none; }
       .archive-link:hover { text-decoration: underline; }
       .fallback-notice { border-left: 3px solid #b9864b; padding: .75rem 1rem; margin: 0 0 1rem; color: #475467; background: #faf7f2; line-height: 1.6; border-radius: 0 10px 10px 0; }
+      .exam-learning, .edition-extras { margin-top: 1.5rem; padding-top: 1.2rem; border-top: 1px solid var(--line, #dce2e9); }
+      .learning-section { margin-top: 1rem; }
+      .learning-heading, .extras-title { margin: 0 0 .7rem; color: var(--ink, #14243f); font-size: 1.05rem; font-weight: 800; }
+      .extras-title { font: 700 1.55rem/1.25 Georgia, serif; margin-bottom: 1rem; }
+      .learning-entry, .vocab-entry { padding: .8rem 0; border-bottom: 1px solid #edf0f4; }
+      .learning-entry h4, .vocab-entry h4 { margin: 0 0 .35rem; color: var(--ink, #14243f); font-size: 1rem; }
+      .learning-copy, .practice-explanation { margin: .3rem 0; color: #344054; line-height: 1.75; white-space: pre-line; }
+      .learning-section ul { padding-left: 1.25rem; color: #344054; line-height: 1.75; }
+      .learning-sources { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: .5rem; }
+      .learning-sources a { color: #315b82; font-size: .82rem; font-weight: 700; }
+      .practice-question { margin: .65rem 0; padding: .85rem 1rem; border: 1px solid #e5eaf0; border-radius: 12px; background: #fbfcfe; }
+      .practice-question summary { cursor: pointer; color: var(--ink, #14243f); font-weight: 700; line-height: 1.55; }
+      .practice-options { padding-left: 1.4rem; color: #344054; line-height: 1.75; }
+      .practice-answer { margin: .75rem 0 .2rem; color: #176b52; font-weight: 700; }
+      .practice-explanation { font-size: .92rem; }
+      .vocab-meta { margin: .2rem 0; color: var(--muted, #667085); font-size: .85rem; }
+      .vocab-example { margin: .3rem 0; color: #475467; font-size: .92rem; font-style: italic; }
       .story-card { background: #fff; border: 1px solid var(--line, #dce2e9); border-radius: 18px; padding: clamp(1.2rem, 4vw, 2rem); box-shadow: 0 8px 28px rgba(20,36,63,.045); }
       .story-meta { display: flex; align-items: center; flex-wrap: wrap; gap: .75rem; color: var(--muted, #667085); font-size: .76rem; letter-spacing: .06em; text-transform: uppercase; }
       .story-number { color: #a56c31; font-weight: 800; }
