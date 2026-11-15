@@ -260,7 +260,8 @@ def run(date, fresh=False):
                       "decision": dec, "article": art,
                       "facts_raw": extracted["facts"],
                       "why_important": extracted["why_important"]})
-    stats["no_body_dropped"] = no_body
+    stats["no_body_dropped"] = 0
+    stats["no_body_archived"] = no_body
     stats["metadata_only_items"] = len(metadata_only_items)
     print(f"[run] step4: {len(items)} items with facts "
           f"({no_body} preserved in metadata-only archive; no body text)")
