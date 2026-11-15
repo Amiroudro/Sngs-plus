@@ -48,6 +48,8 @@ CREATE TABLE IF NOT EXISTS article_exam_assessments (
     CHECK (exam_relevance_score BETWEEN 0 AND 10),
   exam_relevance_reason TEXT NOT NULL,
   exam_tracks_json TEXT NOT NULL DEFAULT '[]',
+  topic_tags_json TEXT NOT NULL DEFAULT '[]',
+  taxonomy_version TEXT NOT NULL DEFAULT 'exam-topics-v1',
   retention_status TEXT NOT NULL CHECK (retention_status IN (
     'full_note', 'short_note', 'archive_only'
   )),
