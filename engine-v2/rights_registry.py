@@ -93,6 +93,14 @@ def discovery_host_allowed(url, registry=None):
     return bool(host and host in allowed)
 
 
+def publisher_name(url, registry=None):
+    """Return the reviewed registry label for a known domain, else empty."""
+    record, host = _record(url, registry)
+    if not host or not record:
+        return ""
+    return (record.get("publisher") or "").strip()
+
+
 def metadata_decision(url, registry=None):
     record, host = _record(url, registry)
     if not host:
