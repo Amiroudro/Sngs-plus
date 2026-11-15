@@ -181,7 +181,10 @@ import '../styles/global.css';
           Object.entries(options).forEach(([key, value]) => list.append(element('li', '', key + '. ' + value)));
           details.append(list);
         }
-        const answer = question.answer || question.correct_answer || question.correct || question.a || '';
+        const answerKey = question.answer || question.correct_answer || question.correct || question.a || '';
+        const answer = (question.options && typeof question.options === 'object' &&
+          typeof answerKey === 'string' && question.options[answerKey])
+          ? answerKey + '. ' + question.options[answerKey] : answerKey;
         if (answer) {
           const line = element('p', 'practice-answer');
           line.append(element('strong', '', words.answer + ': '));
@@ -245,14 +248,18 @@ import '../styles/global.css';
           section.append(ul);
         }
 
-        const questions = [
-          ...(learning.mcqs || []), ...(learning.short_questions || []),
-          ...(learning.analytical_questions || [])
-        ];
-        if (questions.length || legacyQa.length) {
+        if (Array.isArray(learning.mcqs) && learning.mcqs.length) {
           const section = appendSection(panel, words.practice);
-          questions.forEach((q, i) => renderQuestion(section, q, words, i + 1));
-          legacyQa.forEach((q, i) => renderQuestion(section, q, words, questions.length + i + 1));
+          learning.mcqs.forEach((q, i) => renderQuestion(section, q, words, i + 1));
+        }
+        const shortQuestions = [...(learning.short_questions || []), ...legacyQa];
+        if (shortQuestions.length) {
+          const section = appendSection(panel, words.shortQuestions);
+          shortQuestions.forEach((q, i) => renderQuestion(section, q, words, i + 1));
+        }
+        if (Array.isArray(learning.analytical_questions) && learning.analytical_questions.length) {
+          const section = appendSection(panel, words.written);
+          learning.analytical_questions.forEach((q, i) => renderQuestion(section, q, words, i + 1));
         }
 
         if (Array.isArray(learning.vocabulary) && learning.vocabulary.length) {
