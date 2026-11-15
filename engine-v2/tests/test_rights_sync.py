@@ -79,6 +79,19 @@ def main():
                    "publishers": {"example.com": _record(),
                                   "news.example.com": _record()}}
         registry_path.write_text(json.dumps(initial), encoding="utf-8")
+        routes_path = tmp / "source_routes.json"
+        route_initial = {
+            "counts": {"host_records": 2, "route_leads": 0,
+                       "directly_verified": 0, "enabled": 0},
+            "sources": [
+                {"host": host, "source_enabled": False,
+                 "metadata_status": "pending", "page_metadata_status": "pending",
+                 "automated_processing_status": "pending",
+                 "body_status": "not_permitted", "feed_url_lead": None}
+                for host in ("example.com", "news.example.com")
+            ]
+        }
+        routes_path.write_text(json.dumps(route_initial), encoding="utf-8")
         db, source_id = _make_database(db_path)
         try:
             _insert_review(db, source_id)
@@ -90,6 +103,7 @@ def main():
             assert dry_report["domains_updated"] == ["example.com", "news.example.com"]
             assert dry_data["publishers"]["example.com"]["metadata_status"] == "approved"
             assert json.loads(registry_path.read_text())["publishers"]["example.com"]["metadata_status"] == "pending"
+            assert json.loads(routes_path.read_text())["sources"][0]["metadata_status"] == "pending"
             print("PASS: dry-run sync maps latest DB metadata/AI grants without writing")
 
             export_registry(db_path, registry_path, write=True)
@@ -98,7 +112,12 @@ def main():
             assert rights_registry.body_decision("https://example.com/story", current)[0] is False
             assert rights_registry.page_metadata_decision("https://example.com/story", current)[0] is False
             assert rights_registry.metadata_decision("https://news.example.com/story", current)[0]
-            print("PASS: metadata-only DB grant reaches Engine registry without body/page permission")
+            route_current = json.loads(routes_path.read_text(encoding="utf-8"))
+            assert route_current["sources"][0]["metadata_status"] == "approved"
+            assert route_current["sources"][0]["body_status"] == "not_permitted"
+            assert route_current["sources"][0]["source_enabled"] is True
+            assert route_current["counts"]["enabled"] == 2
+            print("PASS: metadata-only DB grant updates rights and route ledgers without body/page permission")
 
             _insert_review(db, source_id, body="licensed", page="approved")
             db.execute(
@@ -118,7 +137,11 @@ def main():
             current = rights_registry.load_registry(registry_path)
             assert rights_registry.metadata_decision("https://example.com/story", current)[0] is False
             assert rights_registry.body_decision("https://example.com/story", current)[0] is False
-            print("PASS: latest restrictive DB review revokes prior JSON permissions")
+            route_current = json.loads(routes_path.read_text(encoding="utf-8"))
+            assert route_current["sources"][0]["metadata_status"] == "restricted"
+            assert route_current["sources"][0]["automated_processing_status"] == "restricted"
+            assert route_current["sources"][0]["body_status"] == "not_permitted"
+            print("PASS: latest restrictive DB review revokes permissions in both ledgers")
 
             db.execute(
                 "INSERT INTO sources (name, homepage_url) VALUES (?, ?)",
