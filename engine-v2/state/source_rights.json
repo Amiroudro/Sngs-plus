@@ -686,14 +686,71 @@
       "body_scope": "",
       "body_evidence": "",
       "expires_at": ""
+    },
+    "dainikbangla.com.bd": {
+      "publisher": "Dainik Bangla",
+      "domain_evidence": "https://english.dainikbangla.com.bd/about-us",
+      "domain_status": "publisher_site_search_result",
+      "metadata_status": "pending",
+      "metadata_scope": "",
+      "metadata_evidence": "",
+      "page_metadata_status": "pending",
+      "page_metadata_scope": "",
+      "page_metadata_evidence": "",
+      "body_status": "not_permitted",
+      "body_scope": "",
+      "body_evidence": "",
+      "expires_at": ""
+    },
+    "sangbad.net": {
+      "publisher": "The Sangbad",
+      "domain_evidence": "https://sangbad.net/Terms-And-Condition/",
+      "domain_status": "publisher_site_search_result",
+      "metadata_status": "pending",
+      "metadata_scope": "",
+      "metadata_evidence": "",
+      "page_metadata_status": "pending",
+      "page_metadata_scope": "",
+      "page_metadata_evidence": "",
+      "body_status": "not_permitted",
+      "body_scope": "",
+      "body_evidence": "",
+      "expires_at": ""
+    },
+    "shomoyeralo.com": {
+      "publisher": "Shomoyer Alo",
+      "domain_evidence": "https://shomoyeralo.com/",
+      "domain_status": "publisher_site_search_result",
+      "metadata_status": "pending",
+      "metadata_scope": "",
+      "metadata_evidence": "",
+      "page_metadata_status": "pending",
+      "page_metadata_scope": "",
+      "page_metadata_evidence": "",
+      "body_status": "not_permitted",
+      "body_scope": "",
+      "body_evidence": "",
+      "expires_at": ""
+    },
+    "alokitobangladesh.com": {
+      "publisher": "Alokito Bangladesh",
+      "domain_evidence": "https://www.alokitobangladesh.com/",
+      "domain_status": "publisher_site_search_result",
+      "metadata_status": "pending",
+      "metadata_scope": "",
+      "metadata_evidence": "",
+      "page_metadata_status": "pending",
+      "page_metadata_scope": "",
+      "page_metadata_evidence": "",
+      "body_status": "not_permitted",
+      "body_scope": "",
+      "body_evidence": "",
+      "expires_at": ""
     }
   },
   "unmapped_candidates": [
     "Amader Shomoy",
-    "Dainik Bangla",
     "Sangbad",
-    "Shomoyer Alo",
-    "Alokito Bangladesh",
     "Sonali Sangbad"
   ]
 }
