@@ -109,6 +109,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import common  # noqa: E402
+import rights_registry  # noqa: E402
 
 VERSION = "2.1.0"
 BASE = Path(__file__).resolve().parent
@@ -431,6 +432,17 @@ def _fetch_route(url, name, report, method, state):
     """Fetch one route, respecting robots.txt. Returns the raw text
     or None. Every outcome (ok / robots-blocked / fetch failed) is
     recorded in `report` and, on success, in the persisted state."""
+    # Aggregator discovery endpoints are allowed only as discovery inputs;
+    # every resulting publisher URL is checked separately before retention.
+    # Direct publisher routes require explicit metadata permission.
+    if not rights_registry.discovery_host_allowed(url):
+        allowed, reason = rights_registry.metadata_decision(url)
+        if not allowed:
+            report[name] = {"method": method,
+                            "status": "blocked by rights registry: " + reason,
+                            "items": 0, "fresh": False, "latest_item": None,
+                            "last_success": state.get(name, {}).get("last_success")}
+            return None
     if not common.robots_allowed(url):
         report[name] = {"method": method,
                         "status": "blocked by robots.txt",
@@ -758,6 +770,11 @@ def fetch_bodies_for_kept(articles):
             a["body_text"] = ""
             a["body_error"] = "no direct URL"
             continue
+        body_allowed, body_reason = rights_registry.body_decision(a["url"])
+        if not body_allowed:
+            a["body_text"] = ""
+            a["body_error"] = "rights registry: " + body_reason
+            continue
         if not common.robots_allowed(a["url"]):
             a["body_text"] = ""
             a["body_error"] = "robots.txt disallows"
@@ -872,6 +889,9 @@ def _resolve_one_title(article):
     slug title on failure."""
     url = article.get("url") or ""
     if not url or not _is_direct(url):
+        return ""
+    page_allowed, _reason = rights_registry.page_metadata_decision(url)
+    if not page_allowed:
         return ""
     if not common.robots_allowed(url):
         return ""
@@ -1023,6 +1043,15 @@ def collect(day, bodies=False, keep_ids=None):
                                        if paste_articles else None),
                        "last_success": (datetime.now(timezone.utc).isoformat()
                                         if paste_found else None)}
+    # Enforce publisher permissions on final URLs, including aggregator
+    # discoveries and manually pasted records. Unmapped sources are denied.
+    all_items, rights_blocked = rights_registry.filter_metadata_items(all_items)
+    report["rights_registry"] = {
+        "status": "enforced",
+        "metadata_items_allowed": len(all_items),
+        "metadata_items_blocked": sum(rights_blocked.values()),
+        "blocked_by_publisher": rights_blocked
+    }
     save_state(state)
     for name, url, why in DROPPED:
         report[f"DROPPED: {name}"] = {"method": "dropped", "status": why,
