@@ -60,3 +60,36 @@ CREATE TABLE IF NOT EXISTS article_exam_assessments (
 );
 CREATE INDEX IF NOT EXISTS idx_exam_assessments_score
   ON article_exam_assessments(exam_relevance_score DESC, assessed_at DESC);
+
+
+-- The current collector fetches article bodies, so enabling a source requires
+-- an explicit, current licence record. RSS/headline-only access is not enough.
+-- Insert sources disabled first, record the permission evidence, then enable.
+CREATE TRIGGER IF NOT EXISTS trg_sources_insert_disabled
+BEFORE INSERT ON sources
+WHEN NEW.enabled <> 0
+BEGIN
+  SELECT RAISE(ABORT, 'new sources must be inserted disabled pending rights review');
+END;
+
+CREATE TRIGGER IF NOT EXISTS trg_sources_enable_requires_license
+BEFORE UPDATE OF enabled ON sources
+WHEN NEW.enabled = 1
+AND NOT EXISTS (
+  SELECT 1
+  FROM source_rights_reviews r
+  WHERE r.source_id = NEW.id
+    AND r.id = (
+      SELECT id FROM source_rights_reviews
+      WHERE source_id = NEW.id
+      ORDER BY reviewed_at DESC, id DESC
+      LIMIT 1
+    )
+    AND r.rights_status = 'licensed'
+    AND length(trim(coalesce(r.licence_scope, ''))) > 0
+    AND length(trim(coalesce(r.permission_evidence, ''))) > 0
+    AND (r.expires_at IS NULL OR date(r.expires_at) >= date('now'))
+)
+BEGIN
+  SELECT RAISE(ABORT, 'source cannot be enabled without a current documented licence');
+END;
