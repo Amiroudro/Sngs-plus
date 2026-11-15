@@ -58,6 +58,10 @@ def main():
     })
     assert rr.metadata_decision(url, reg)[0] is True
     assert rr.body_decision(url, reg)[0] is False
+    reg["publishers"]["example.com"]["source_enabled"] = False
+    assert rr.metadata_decision(url, reg)[0] is False
+    reg["publishers"]["example.com"]["source_enabled"] = True
+    print("PASS: application source activation is required in addition to rights approvals")
     print("PASS: automated processing needs its own explicit scope and evidence")
 
     reg["publishers"]["example.com"].update({
