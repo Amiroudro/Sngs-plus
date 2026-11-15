@@ -33,6 +33,9 @@ jobs:
           ref: main
           path: source-editions
 
+      - name: Validate source archive before syncing
+        run: python source-editions/tools/validate_renovated_editions.py
+
       - name: Sync and validate published editions
         run: |
           python - <<'PY'
