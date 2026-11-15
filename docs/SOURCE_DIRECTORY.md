@@ -87,6 +87,9 @@ These are additional verification/discovery sources and are not included in the 
 | section_routes | Public article section pages, if permitted |
 | robots_status | Allowed, disallowed, unavailable or not checked |
 | terms_status | Reviewed, unclear or not reviewed |
+| rights_status | unknown, rss_headlines_only, permission_required, licensed or disabled |
+| licence_scope | Permitted fields, processing, display, audience, territory and expiry, if licensed |
+| permission_evidence | Public terms URL or written licence record |
 | reachability | HTTP status and deployment-region result |
 | latest_item_at | Latest verified publication timestamp |
 | dedupe_identity | Canonical domain and URL normalisation rules |
@@ -100,3 +103,8 @@ A publisher may remain a valuable editorial source even when automated access is
 A source becomes **active** only after its official public route and access conditions are checked and a test fetch returns identifiable article records with credible publication timestamps. A 200 response alone is insufficient: stale feeds, HTML error pages, incomplete sitemaps and aggregator results do not count as verified direct publisher coverage.
 
 Aggregator discovery (for example, a search engine's news feed) must be recorded separately from direct publisher collection. It must never inflate the count of active direct publisher integrations.
+
+
+## Rights-aware collection gate
+
+A reachable RSS feed or public article page does not itself grant permission to store full article text, generate derivative summaries, or redistribute material in an app. Review each publisher's current terms and record a separate `rights_status`. If the intended processing or display is not clearly permitted, set `permission_required` or `disabled` and do not collect article bodies until permission is documented. Attribution and source links do not replace a licence. See `docs/SOURCE_FEED_AUDIT_2026-11-16.md` for the first policy checks and publisher-specific cautions.
