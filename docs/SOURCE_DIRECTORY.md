@@ -108,3 +108,5 @@ Aggregator discovery (for example, a search engine's news feed) must be recorded
 ## Rights-aware collection gate
 
 A reachable RSS feed or public article page does not itself grant permission to store full article text, generate derivative summaries, or redistribute material in an app. Review each publisher's current terms and record a separate `rights_status`. If the intended processing or display is not clearly permitted, set `permission_required` or `disabled` and do not collect article bodies until permission is documented. Attribution and source links do not replace a licence. See `docs/SOURCE_FEED_AUDIT_2026-11-16.md` for the first policy checks and publisher-specific cautions.
+
+The database now enforces this boundary for the current body-fetching collector: new source records must be inserted disabled, and a source cannot be enabled unless its latest rights review is `licensed` with a non-empty licence scope and permission evidence that has not expired. `rss_headlines_only` is not sufficient to enable the current collector because it fetches article bodies; a separate metadata-only collection path would be required.
