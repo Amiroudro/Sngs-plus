@@ -262,12 +262,15 @@ class _SettingsCard extends StatelessWidget {
             ),
           ),
           const Divider(height: 1),
-          SwitchListTile(
-            contentPadding: EdgeInsets.zero,
-            secondary: const Icon(Icons.dark_mode),
-            title: Text(t('darkMode')),
-            value: state.darkMode,
-            onChanged: (v) => state.setDarkMode(v),
+          Material(
+            color: Colors.transparent,
+            child: SwitchListTile(
+              contentPadding: EdgeInsets.zero,
+              secondary: const Icon(Icons.dark_mode),
+              title: Text(t('darkMode')),
+              value: state.darkMode,
+              onChanged: (v) => state.setDarkMode(v),
+            ),
           ),
           const Divider(height: 1),
           Padding(
