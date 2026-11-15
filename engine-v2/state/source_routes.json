@@ -193,11 +193,13 @@
       "feed_route_status": "not_yet_audited",
       "direct_fetch_status": "not_verified_in_deployment_environment",
       "robots_status": "not_rechecked_in_this_route_matrix",
-      "terms_status": "not_reviewed_or_not_recorded",
+      "terms_status": "official_terms_reviewed_read_only_and_derivative_works_prohibited",
       "automated_processing_status": "pending",
       "body_status": "not_permitted",
       "metadata_status": "pending",
-      "page_metadata_status": "pending"
+      "page_metadata_status": "pending",
+      "terms_url": "https://www.ittefaq.com.bd/terms",
+      "terms_observation": "Official terms grant read-only personal/private/non-commercial access, reserve content IP, prohibit derivative works and prohibit sharing modified or altered content on other digital platforms; no automated processing or app redistribution licence identified."
     },
     {
       "host": "samakal.com",
@@ -208,11 +210,13 @@
       "feed_route_status": "not_yet_audited",
       "direct_fetch_status": "not_verified_in_deployment_environment",
       "robots_status": "not_rechecked_in_this_route_matrix",
-      "terms_status": "not_reviewed_or_not_recorded",
+      "terms_status": "official_terms_reviewed_scope_inconclusive_no_processing_grant_identified",
       "automated_processing_status": "pending",
       "body_status": "not_permitted",
       "metadata_status": "pending",
-      "page_metadata_status": "pending"
+      "page_metadata_status": "pending",
+      "terms_url": "https://onlinebn.samakal24.com/terms",
+      "terms_observation": "Located official terms page contains general disclaimers, comment rules and communication provisions; reviewed text does not clearly address or grant automated collection, summarisation or app redistribution. Clarification required."
     },
     {
       "host": "dailyjanakantha.com",
