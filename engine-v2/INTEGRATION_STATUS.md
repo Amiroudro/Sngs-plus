@@ -17,7 +17,7 @@
 - Read-only API for editions explicitly marked published in both the index and edition file.
 - English/Bangla briefing endpoint and bilingual Today page.
 - Bangla converter overlays are marked needs_review. The API now uses Bangla fields only when every story in the edition has explicit translation_status=approved; otherwise it falls back to English.
-- SQLite migrations for source health, fact evidence, questions/options, vocabulary occurrences, review progress, editorial corrections, publisher rights reviews, article localizations and separate exam relevance assessments.
+- SQLite migrations for source health, fact evidence, questions/options, vocabulary occurrences, review progress, editorial corrections, publisher rights reviews, article localizations and separate exam relevance assessments. Database triggers block source activation unless a current documented licence covers article-body processing.
 - Independent 0–10 exam score, topic tags and exam tracks are stored separately from the engine's 0–3 processing score.
 - Candidate source directory for 50 publishers plus BSS and UNB; candidates are not automatically considered verified or active.
 - First-pass public-route and publisher-terms audit for eight candidates.
