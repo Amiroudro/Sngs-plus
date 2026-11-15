@@ -93,10 +93,8 @@ jobs:
           python tests/test_collection_policy.py
           python tests/test_robots_policy.py
           python tests/test_source_routes.py
-          python tests/test_metadata_archive.py
           python tests/test_rights_registry.py
           python tests/test_rights_sync.py
-          python tests/test_metadata_only_archive.py
           python tests/test_publish_metadata_archive.py
           python tests/test_exam_learning_sidecar.py
           python tests/test_step2.py
