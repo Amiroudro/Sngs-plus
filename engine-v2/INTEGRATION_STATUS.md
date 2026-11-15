@@ -28,7 +28,7 @@ places them at the expected paths. Python modules are placed under
 - The collector no longer excludes sports, entertainment and lifestyle sections at URL-filter time; their priority is left to editorial scoring.
 - No database ingestion for engine events, source contributions, facts,
   vocabulary or questions.
-- No frontend Today/Topics/Exam Desk data binding.
+- The new `/today` page reads the published-edition API and supports English/Bangla display; Topics and Exam Desk are not yet connected.
 - No scheduler or GitHub Actions workflow runs the live collector.
 - No 50-publisher source registry or verified direct-feed coverage.
 - No production publish validator in `tools/`.
