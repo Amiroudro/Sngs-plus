@@ -112,6 +112,26 @@ def main():
             assert rights_registry.metadata_decision("https://example.com/story", current)[0] is False
             assert rights_registry.body_decision("https://example.com/story", current)[0] is False
             print("PASS: latest restrictive DB review revokes prior JSON permissions")
+
+            db.execute(
+                "INSERT INTO sources (name, homepage_url) VALUES (?, ?)",
+                ("Duplicate domain source", "https://example.com/duplicate")
+            )
+            duplicate_id = db.execute(
+                "SELECT id FROM sources WHERE name='Duplicate domain source'"
+            ).fetchone()[0]
+            _insert_review(db, duplicate_id, body="rss_headlines_only")
+            _, conflict_report = export_registry(db_path, registry_path, write=False)
+            assert conflict_report["conflicts"]
+            before = registry_path.read_text(encoding="utf-8")
+            try:
+                export_registry(db_path, registry_path, write=True)
+            except RuntimeError as exc:
+                assert "conflicting database reviews" in str(exc)
+            else:
+                raise AssertionError("conflicting source rows must block registry writes")
+            assert registry_path.read_text(encoding="utf-8") == before
+            print("PASS: conflicting DB sources cannot silently overwrite a publisher registry entry")
         finally:
             db.close()
 
