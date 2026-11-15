@@ -24,7 +24,7 @@ def main():
             "", "not_reviewed_or_not_recorded", "not_located",
         }
     ]
-    assert len(terms_reviewed) == 12
+    assert len(terms_reviewed) == 14
     for row in terms_reviewed:
         assert row.get("terms_url", "").startswith("https://")
         assert "permission" not in row["terms_status"] or "permission_granted" not in row["terms_status"]
