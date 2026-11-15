@@ -58,7 +58,7 @@ No publisher is enabled.
 SQLite source_rights_reviews is the review ledger. Run sync_rights_registry.py
 with --db to preview the latest DB-to-JSON changes; add --write only after
 reviewing the report. This is a manual, one-way sync, not a scheduled process.
-Record approvals in the DB ledger and do not edit approved JSON entries by hand.
+The tool updates both the rights registry and route audit ledger. Record approvals in the DB ledger and do not edit approved JSON entries by hand.
 
 ## Important limitations before production
 
