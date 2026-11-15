@@ -929,16 +929,21 @@ def run_publish(date_str, run_dir, staging_dir, editions_dir,
             or metadata_archive.get("study_notes_available") is not False
             or not isinstance(archive_items, list)):
         return _refuse("metadata-only archive schema/date invalid. Nothing written.")
-    forbidden_archive_fields = {
-        "body_text", "content", "article_body", "facts", "questions",
-        "translation", "summary", "study_notes",
+    allowed_archive_fields = {
+        "id", "headline", "source", "url", "published",
+        "archive_status", "study_note_status",
     }
+    allowed_archive_document_fields = {
+        "date", "record_type", "study_notes_available", "items",
+    }
+    if set(metadata_archive) != allowed_archive_document_fields:
+        return _refuse("metadata-only archive contains unexpected top-level fields. Nothing written.")
     for item in archive_items:
         if (not isinstance(item, dict)
+                or not set(item).issubset(allowed_archive_fields)
                 or item.get("archive_status") not in allowed_archive_statuses
-                or item.get("study_note_status") != "not_generated"
-                or forbidden_archive_fields.intersection(item)):
-            return _refuse("metadata-only archive contains invalid status or study/body fields. Nothing written.")
+                or item.get("study_note_status") != "not_generated"):
+            return _refuse("metadata-only archive contains invalid fields or status. Nothing written.")
     # Coverage must be the gate-verified label.
     expected_cov = coverage_label(day)
     if data.get("coverage") != expected_cov:
