@@ -1,6 +1,10 @@
 name: Automatic edition sync
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/automatic-edition-sync.yml'
   workflow_dispatch:
   schedule:
     # 08:00 and 18:00 Asia/Dhaka
