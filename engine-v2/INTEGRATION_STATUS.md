@@ -31,9 +31,9 @@
 - Regression tests cover metadata vs page/body permissions, unknown domains, malformed URLs, expired licences, overdue reviews, direct feed blocking, title-page fetch blocking, body fetch blocking and robots behaviour.
 - Collector retains sports, entertainment and lifestyle articles for editorial scoring rather than discarding them at URL-filter time.
 
-## Important distinction between rights stores
+## Rights ledger and operational registry sync
 
-The JSON rights registry is the operational policy source read by Engine v2. The SQLite source_rights_reviews table is an application audit store with database activation triggers. They are not automatically synchronised yet. Do not approve a publisher in one store and assume the other has changed. A reviewed activation workflow must update and validate both stores before any source is enabled.
+The SQLite source_rights_reviews table is the review ledger. The Engine reads a JSON policy snapshot. The new sync_rights_registry.py exports the latest reviewed DB rows into that JSON snapshot, matches publisher_domain to known registry hosts, and is dry-run by default. It writes only with --write after a human reviews the report. This is a manual, one-way sync, not a scheduled process or admin UI. Record approvals in the DB ledger and do not edit approved JSON entries independently.
 
 ## Current rights and collection state
 
