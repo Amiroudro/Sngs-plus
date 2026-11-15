@@ -163,7 +163,12 @@ def filter_metadata_items(items, registry=None):
         url = item.get("url") or ""
         allowed, reason = metadata_decision(url, registry)
         if allowed:
-            permitted.append(item)
+            clean = dict(item)
+            # RSS descriptions are article excerpts, not basic bibliographic
+            # metadata. No separate excerpt permission is represented here,
+            # so do not retain or process them under a headline-only grant.
+            clean["summary"] = ""
+            permitted.append(clean)
         else:
             record, host = _record(url, registry)
             publisher = (record or {}).get("publisher") or host or "invalid URL"
