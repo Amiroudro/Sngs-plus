@@ -57,9 +57,6 @@ The score measures durable public significance and plausible syllabus relevance,
 ### Bangla explanation
 Aim for **80–150 words** for an important article. Start with the actual event or decision. State who did what, where and when, the confirmed details, and any material uncertainty. Do not begin with empty phrases such as “প্রতিবেদনে বলা হয়েছে”, “খবরে জানা যায়” or “সূত্র অনুযায়ী”. Retain attribution when the distinction between a claim and an established fact matters.
 
-### English explanation
-Aim for **40–80 words** for an important article. Explain the same event and facts in clear English, without adding a detail absent from the evidence.
-
 ### Key facts
 Use compact, individually traceable entries for:
 - People, offices, institutions and organisations
@@ -72,8 +69,18 @@ Never detach a number from its unit or reference period. Preserve the difference
 ### Why it matters
 Explain the actual public, economic, constitutional, social, scientific or diplomatic consequence. Avoid generic claims that everything is “important for BCS”.
 
-### Background and connections
-Add only context that helps explain the story. Link it where relevant to the Constitution, public administration, economics, banking, geography, history, science, international organisations or Bangladesh's foreign relations. Mark stable background separately from new reporting.
+### Context, concepts and exam learning
+Build outward from the reported event into the knowledge a candidate needs to understand it. Do not create a detached textbook chapter or use a generic standalone heading such as “বিষয়ভিত্তিক সাধারণ জ্ঞান”. Let the explanation follow naturally after the news and verified facts.
+
+Research relevant stable background from authoritative internet sources, prioritising Bangladesh government institutions and primary materials, official datasets, laws, regulators, central banks, international organisations and recognised academic references. Use current sources for facts that can change. Keep the article's reported facts separate from independently researched background; attach source links and dates to the latter.
+
+Select only connections that genuinely help explain this particular story. Depending on the subject, cover definitions, institutional roles, processes, laws, policy instruments, important distinctions, historical context, Bangladesh's position, relevant international frameworks and practical implications. Explain unfamiliar abbreviations on first use. Do not pad the lesson with loosely related trivia.
+
+The learning layer should prepare for BCS Preliminary and Written, Bangladesh Bank and other bank recruitment, and relevant government-job examinations. Include factual knowledge and conceptual understanding, not guesses about what an examiner will ask. Label time-sensitive facts with an as-of date. If a fact cannot be verified, omit it or mark it for review rather than filling the gap.
+
+### Why it matters
+Explain the actual public, economic, constitutional, social, scientific or diplomatic consequence. Avoid generic claims that everything is “important for BCS”.
+
 
 ### Vocabulary
 For high-relevance English-language items, select **5–10 useful words or phrases**, not random difficult words. Each entry should contain:
@@ -87,12 +94,13 @@ For high-relevance English-language items, select **5–10 useful words or phras
 For medium-relevance stories, use fewer items. Do not force vocabulary into stories where it adds no learning value. Deduplicate against the cumulative vocabulary bank and retain multiple meanings when context changes.
 
 ### Exam practice
-Write questions only from supported facts or clearly labelled stable background:
+Create a useful practice set from both the verified news and the independently sourced learning layer:
 - MCQs with one defensible correct answer, plausible distractors and a brief explanation
-- Short factual questions for names, dates, institutions, places, figures and definitions
-- Analytical prompts only when the article supports analysis
+- Short factual questions on names, dates, institutions, places, figures and definitions
+- Conceptual and distinction-based questions (for example, ADP vs RADP) where relevant
+- Analytical/written prompts only when the story supports meaningful analysis
 
-Keep an answer key. Cite the fact or source that supports each answer. Never present speculative predictions as likely exam questions.
+Keep an answer key. Cite the fact or source that supports each answer. Never present speculative predictions as likely exam questions. Vary the correct-option position; do not let answer-position patterns make questions guessable. Check that each question, options, answer and explanation refer to the same subject and that only one option is defensibly correct.
 
 ### Five-minute revision
 End important notes with a compact recall sheet: central event, essential facts, one or two concepts, and the exam connection. It must be possible to revise without rereading the whole note.
@@ -134,6 +142,10 @@ Use explicit states such as:
 
 High-impact, sensitive, fast-changing and disputed stories require human review before prominent publication. Automation must not mark its own unsupported output as verified.
 
-## 10. Current implementation boundary
+## 10. Language and output policy
+
+The default reader-facing article is a polished Bangla explanation. Do not generate a separate English article summary that merely repeats it. English remains useful where it adds learning value: original English terminology, abbreviations, vocabulary, official names, source headlines and exam questions where appropriate. Preserve the original headline and source language in the provenance record.
+
+## 11. Current implementation boundary
 
 The repository is a foundation build. A source listed in a planning document is not an enabled feed. An article is not collected until a real source item has been fetched and recorded. No story, summary, vocabulary item or question should be displayed as current until the underlying record and source status exist.
