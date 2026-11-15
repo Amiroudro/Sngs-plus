@@ -74,6 +74,8 @@ jobs:
               if not isinstance(en.get("stories"), list) or not en["stories"]:
                   raise SystemExit(f"Empty or invalid stories: {day}")
               shutil.copy2(en_path, target / en_name)
+              # Keep the bundled English edition byte-identical to the canonical archive.
+              shutil.copy2(en_path, bn_target / en_name)
               published.append(entry)
 
               if bn_path.is_file():
