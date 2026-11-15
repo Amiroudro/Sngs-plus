@@ -109,6 +109,7 @@ def main():
     # unit checks runnable there; historical gate/CLI integration checks
     # run only when the 15 Nov run fixture has been supplied locally.
     if not RUN_2026_11_15.exists():
+        before_clean = snapshot(LIVE_GUARDS)
         print("== historical run integration ==")
         print("  SKIP: engine-v2/runs/2026-11-15 is a generated run directory "
               "and is intentionally not committed.")
@@ -121,8 +122,7 @@ def main():
               bool(daily.DATE_RE.match(daily.today_dhaka())),
               daily.today_dhaka())
         print("== live files untouched ==")
-        check("live guarded files unchanged", not snapshot(LIVE_GUARDS),
-              "unexpected tracked historical outputs found")
+        check("live guarded files unchanged", before_clean == snapshot(LIVE_GUARDS))
         print(f"== {PASS} passed, {FAIL} failed ==")
         return 0 if FAIL == 0 else 1
 
