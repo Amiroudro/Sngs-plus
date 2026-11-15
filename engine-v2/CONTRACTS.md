@@ -67,6 +67,17 @@ dry-run-first sync_rights_registry.py exports its latest reviewed rows into
 both the Engine rights policy and route-audit JSON snapshots. It is not scheduled; changes in the DB do
 not reach the collector until the export is reviewed and written.
 
+## Metadata-only archive (no article body)
+
+When a story passes editorial triage but its article body is unavailable or
+not licensed, Step 4 writes a separate metadata-only archive record. It may
+contain the headline, publisher, canonical URL, publication date, archive
+status and body-fetch reason. RSS descriptions are excerpts, not basic
+bibliographic metadata, so Step 1 strips them unless a separate excerpt
+permission is later implemented. Metadata-only records must not contain
+article body text, extracted facts, generated translation, questions or MCQs.
+They are archive entries, not completed study notes.
+
 ## Step 2 output (article + two fields)
 - `priority`: "normal" | "low"
 - `prefilter_reason`: "" | e.g. "crime-section" | "keyword-let-through"
