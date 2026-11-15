@@ -1208,7 +1208,7 @@
     "sonalisangbad.com": {
       "publisher": "Sonali Sangbad",
       "domain_evidence": "https://sonalisangbad.com/ (publisher homepage with 14 Nov 2026 article and e-paper edition dated 11 Nov 2026 observed; feed route not verified)",
-      "domain_status": "publisher_homepage_and_recent_edition_confirmed_feed_unverified",
+      "domain_status": "publisher_site_active_feed_lead_unverified_rights_pending",
       "metadata_status": "pending",
       "metadata_scope": "",
       "metadata_evidence": "",
@@ -1226,7 +1226,11 @@
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
       "automated_processing_evidence": "",
-      "source_enabled": false
+      "source_enabled": false,
+      "feed_route_lead": "https://sonalisangbad.com/feed",
+      "feed_route_status": "rss_content_type_seen_payload_unparsed",
+      "robots_status": "unverified",
+      "terms_status": "not_located"
     }
   },
   "unmapped_candidates": []
