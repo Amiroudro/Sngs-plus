@@ -61,6 +61,13 @@ check(
     [(e.get("edition_date"), e.get("status")) for e in source_entries] ==
     [(e.get("edition_date"), e.get("status")) for e in asset_entries],
     "app index dates/statuses match canonical index")
+check(
+    asset_index.get("correct_consecutive_editions") ==
+    source_index.get("correct_consecutive_editions"),
+    "app index carries canonical tracker count")
+check(
+    asset_index.get("correct_rule") == source_index.get("correct_rule"),
+    "app index carries canonical tracker rule")
 _asset_names = [e["file"] for e in source_entries]
 for name in _asset_names:
     check(md5(SRC / name) == md5(ASSETS / name), f"{name} identical")
