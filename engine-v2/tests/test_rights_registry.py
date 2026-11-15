@@ -22,6 +22,7 @@ def registry():
                 "metadata_scope": "headline, canonical URL and publication date",
                 "metadata_evidence": "https://example.com/terms",
                 "page_metadata_status": "pending",
+                "page_metadata_scope": "",
                 "page_metadata_evidence": "",
                 "body_status": "not_permitted",
                 "body_scope": "",
@@ -44,6 +45,7 @@ def main():
 
     reg["publishers"]["example.com"].update({
         "page_metadata_status": "approved",
+        "page_metadata_scope": "canonical headline and publish date",
         "page_metadata_evidence": "https://example.com/terms"
     })
     assert rr.page_metadata_decision(url, reg)[0] is True
@@ -75,9 +77,24 @@ def main():
     assert not rr.discovery_host_allowed("https://example.com/feed", registry())
     print("PASS: aggregator discovery host allowlist is separate from publisher rights")
 
+    import step1_collect as collector
+    report = {}
+    assert collector._fetch_route(
+        "https://www.prothomalo.com/feed", "Prothom Alo", report,
+        "rss", {}) is None
+    assert "blocked by rights registry" in report["Prothom Alo"]["status"]
+    print("PASS: collector blocks direct publisher feeds until metadata approval")
+
+    kept = [{"url": "https://www.tbsnews.net/news/example", "title": "Test"}]
+    ok, tried = collector.fetch_bodies_for_kept(kept)
+    assert (ok, tried) == (0, 0)
+    assert kept[0]["body_text"] == ""
+    assert "rights registry" in kept[0]["body_error"]
+    print("PASS: collector never fetches article bodies without a licence")
+
     # Production registry must deny every currently unreviewed known publisher.
     prod = rr.load_registry()
-    assert rr.metadata_decision("https://www.prothom-alo.com/news/test", prod)[0] is False
+    assert rr.metadata_decision("https://www.prothomalo.com/news/test", prod)[0] is False
     assert rr.body_decision("https://www.tbsnews.net/news/test", prod)[0] is False
     print("PASS: current candidate publishers remain disabled pending evidence")
 
