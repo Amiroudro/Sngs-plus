@@ -48,8 +48,9 @@ and automated-processing approval. Article-body fetching requires a current
 licence with explicit scope/evidence and automated-processing approval. Robots rules are enforced independently, and robots.txt fetch
 failures are fail-closed.
 
-The 16 November 2026 source audit records 49 domain leads for the 50 candidate
-publishers; Sonali Sangbad remains unresolved. The registry includes aliases
+The 16 November 2026 source audit now has domain leads for all 50 candidates.
+Sonali Sangbad's homepage is identified, but its feed and reuse rights remain
+unverified. The registry includes aliases
 and BSS/UNB. Third-party feed-verification claims are discovery leads, not
 publisher permission. All metadata and page-metadata statuses remain pending. Automated-processing status is pending or restricted for flagged sources; article-body processing remains not permitted.
 No publisher is enabled.
