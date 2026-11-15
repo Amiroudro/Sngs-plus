@@ -48,7 +48,7 @@ failures are fail-closed.
 The 16 November 2026 source audit records 49 domain leads for the 50 candidate
 publishers; Sonali Sangbad remains unresolved. The registry includes aliases
 and BSS/UNB. Third-party feed-verification claims are discovery leads, not
-publisher permission. All rights statuses remain pending or not permitted.
+publisher permission. All metadata, page-metadata and automated-processing statuses remain pending; article-body processing remains not permitted.
 No publisher is enabled.
 
 The JSON registry is currently the Engine's operational source of truth.
