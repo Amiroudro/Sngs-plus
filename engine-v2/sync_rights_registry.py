@@ -53,7 +53,7 @@ def export_registry(db_path, registry_path=None, write=False):
                 + ", ".join(sorted(missing))
             )
         rows = conn.execute("""
-            SELECT s.name AS source_name, r.*
+            SELECT s.name AS source_name, s.enabled AS source_enabled, r.*
             FROM source_rights_reviews r
             JOIN sources s ON s.id = r.source_id
             WHERE r.id = (
@@ -107,6 +107,7 @@ def export_registry(db_path, registry_path=None, write=False):
             page_status = "restricted"
             processing_status = "restricted"
 
+        record["source_enabled"] = bool(row["source_enabled"])
         record["metadata_status"] = metadata_status or "pending"
         record["metadata_scope"] = row["metadata_scope"] or ""
         record["metadata_evidence"] = row["metadata_evidence"] or ""
