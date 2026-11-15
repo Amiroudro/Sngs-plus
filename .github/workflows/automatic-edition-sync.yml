@@ -1,0 +1,138 @@
+name: Automatic edition sync
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 08:00 and 18:00 Asia/Dhaka
+    - cron: "0 2,12 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: edition-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout app
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Checkout public editions source
+        uses: actions/checkout@v4
+        with:
+          repository: Amiroudro/sarangsho-plus-editions
+          ref: main
+          path: source-editions
+
+      - name: Sync and validate published editions
+        run: |
+          python - <<'PY'
+          import json
+          import re
+          import shutil
+          from pathlib import Path
+
+          source = Path("source-editions/editions")
+          target = Path("editions")
+          bn_target = Path("app/assets/editions")
+          target.mkdir(parents=True, exist_ok=True)
+          bn_target.mkdir(parents=True, exist_ok=True)
+
+          index_path = source / "index.json"
+          index = json.loads(index_path.read_text(encoding="utf-8"))
+          if not isinstance(index.get("editions"), list):
+              raise SystemExit("Source index has no editions list")
+
+          published = []
+          for entry in index["editions"]:
+              if entry.get("status") != "published":
+                  continue
+              day = entry.get("edition_date", "")
+              if not re.fullmatch(r"\\d{4}-\\d{2}-\\d{2}", day):
+                  raise SystemExit(f"Invalid edition date: {day!r}")
+              en_name = f"data-{day}.json"
+              bn_name = f"bn-{day}.json"
+              en_path = source / en_name
+              bn_path = source / bn_name
+              if not en_path.is_file():
+                  raise SystemExit(f"Missing English edition: {en_name}")
+              en = json.loads(en_path.read_text(encoding="utf-8"))
+              if en.get("edition_date") != day or en.get("status") != "published":
+                  raise SystemExit(f"English edition metadata mismatch: {day}")
+              if not isinstance(en.get("stories"), list) or not en["stories"]:
+                  raise SystemExit(f"Empty or invalid stories: {day}")
+              shutil.copy2(en_path, target / en_name)
+              published.append(entry)
+
+              if bn_path.is_file():
+                  bn = json.loads(bn_path.read_text(encoding="utf-8"))
+                  if bn.get("edition_date") != day or bn.get("language") != "bn":
+                      raise SystemExit(f"Bangla edition metadata mismatch: {day}")
+                  stories = bn.get("stories")
+                  if isinstance(stories, dict):
+                      for story_id, story in stories.items():
+                          if not isinstance(story, dict):
+                              continue
+                          # This is a structural gate, not a claim of human or factual verification.
+                          required = ("headline", "summary", "why_it_matters")
+                          if all(isinstance(story.get(k), str) and story[k].strip() for k in required):
+                              story["translation_status"] = "automated_checks_passed"
+                          else:
+                              story.pop("translation_status", None)
+                  elif isinstance(stories, list):
+                      for story in stories:
+                          if not isinstance(story, dict):
+                              continue
+                          required = ("headline", "summary", "why_it_matters")
+                          if all(isinstance(story.get(k), str) and story[k].strip() for k in required):
+                              story["translation_status"] = "automated_checks_passed"
+                          else:
+                              story.pop("translation_status", None)
+                  else:
+                      raise SystemExit(f"Invalid Bangla stories shape: {day}")
+                  (bn_target / bn_name).write_text(
+                      json.dumps(bn, ensure_ascii=False, indent=2) + "\\n",
+                      encoding="utf-8"
+                  )
+
+          # Preserve the source publication registry, but only include files actually copied.
+          dates = {e["edition_date"] for e in published}
+          clean = dict(index)
+          clean["editions"] = published
+          (target / "index.json").write_text(
+              json.dumps(clean, ensure_ascii=False, indent=2) + "\\n",
+              encoding="utf-8"
+          )
+          (bn_target / "index.json").write_text(
+              json.dumps({"editions": [{"edition_date": d, "status": "published"} for d in sorted(dates)]},
+                         ensure_ascii=False, indent=2) + "\\n",
+              encoding="utf-8"
+          )
+
+          # Re-parse every copied JSON file before commit.
+          for path in list(target.glob("data-*.json")) + list(bn_target.glob("bn-*.json")):
+              json.loads(path.read_text(encoding="utf-8"))
+          print(f"Synced {len(published)} published editions.")
+          PY
+
+      - name: Run backend checks
+        run: |
+          python -m compileall -q backend/app
+          python -m unittest discover -s backend/tests -v
+
+      - name: Commit synced editions
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add editions app/assets/editions
+          if git diff --cached --quiet; then
+            echo "No edition changes to publish."
+            exit 0
+          fi
+          git commit -m "chore: sync automatically validated editions"
+          git push origin HEAD:main
