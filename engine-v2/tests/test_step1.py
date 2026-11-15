@@ -282,8 +282,8 @@ def main():
     cutoff = datetime(2026, 11, 12, tzinfo=timezone.utc)
     plain = s1.parse_plain_sitemap(plain_xml, "The Business Standard",
                                    "sitemap", cutoff=cutoff)
-    check("parse_plain_sitemap keeps only in-window, non-video, "
-          "non-sports items", len(plain) == 1,
+    check("parse_plain_sitemap keeps in-window article pages, including sports, "
+          "while excluding video endpoints", len(plain) == 2,
           f"kept={len(plain)}")
     if plain:
         check("parse_plain_sitemap title comes from the slug",
@@ -295,6 +295,9 @@ def main():
         check("parse_plain_sitemap keeps lastmod as published",
               plain[0]["published"] == "2026-11-14T10:00:00+06:00",
               plain[0]["published"])
+        check("sports article is retained for relevance scoring",
+              any("/sports/" in item["url"] for item in plain),
+              [item["url"] for item in plain])
     section_html = """<div class="card"><a href="/news/bangladesh/news/eatery-vandalised-over-seating-row-4323221" aria-label="Eatery vandalised over seating row"></a><div class="card-info"><time class="rsi-ago" datetime="2026-11-14T00:00:00+06:00">2 HOUR(s)</time></div></div>
 <div class="card"><a href="/news/bangladesh/news/undated-story-1"></a><div></div></div>
 <div class="card"><a href="/news/bangladesh/news/old-story-2" aria-label="Old story"></a><div><time datetime="2026-11-01T00:00:00+06:00"></time></div></div>"""
