@@ -253,3 +253,21 @@ A comparison of the imported `step1_collect.py` constants with the original sour
 The top of `step1_collect.py` now labels its route notes as historical original-VM observations, not current deployment verification. This fixes the misleading phrase “verified live from this VM” and removes a reference to a route report that is not present in this imported repository. Historical 403/404/stale observations remain visible; they are not bypassed or silently reclassified.
 
 **Current status after reconciliation:** 55 publisher hosts; 8 third-party route leads; 19 historical/configured collector routes; 0 deployment-verified routes; 0 enabled publishers; 0 article-body permissions. This is a better inventory, not an activation event.
+
+
+## Official terms and copyright-page review (16 Nov 2026)
+
+This is a first-pass reading of publisher-controlled pages, not a legal opinion and not a licence. It records restrictions or uncertainty so that RSS discovery is never mistaken for permission to process or republish.
+
+| Publisher | Official page reviewed | What the page says / what remains unclear | Disposition |
+|---|---|---|---|
+| Prothom Alo (Bangla and English) | https://www.prothomalo.com/terms and https://en.prothomalo.com/terms | Reserves its IP, prohibits derivative works and prohibits sharing modified content. RSS is listed as an access channel, not as a grant to create summaries or republish. | Keep disabled; written permission/legal review required for planned derivative summaries. |
+| The Financial Express | https://thefinancialexpress.com.bd/terms | Copyright notice says site material is protected, use is personal/non-commercial, and reproduction requires prior written approval. | Keep disabled; seek written approval for the intended use. |
+| UNB | https://unb.com.bd/privacy-policy/ | Its policy says website news, photos, graphics and videos are UNB property and unauthorised use, reproduction, distribution, display or transmission is prohibited. | Keep disabled; obtain explicit permission. |
+| Jugantor | https://www.jugantor.com/terms | Official terms page found. The reviewed text covers access, third-party links, termination and Bangladesh governing law; it does not expressly grant automated collection, summarisation or republication rights. | Keep disabled; rights scope unresolved. |
+| Banglanews24 | https://www.banglanews24.com/policy | Official policy describes content as for personal information only, says it is not for commercial use, and describes reader access as reading-only. | Keep disabled; no automated reuse permission identified. |
+| The Daily Star | https://www.thedailystar.net/privacypolicy | Official privacy policy says it forms part of the Terms of Use, but the full terms page was not retrievable in this review. | Keep disabled; full terms and permission scope unresolved. |
+| Dhaka Tribune | https://www.dhakatribune.com/footer | Official footer advertises a Terms of Use link, but the destination text was not retrievable in this review. | Keep disabled; full terms and permission scope unresolved. |
+| The Business Standard | https://epaper.tbsnews.net/terms-conditions | The located terms concern e-paper subscription billing/cancellation, not general article-content reuse or automated processing. | Keep disabled; general content terms and permission scope unresolved. |
+
+**Important distinction:** the BSS copyright footer and any publisher copyright notice are ownership/attribution evidence, not permission to collect or generate derivative study material. No rights-registry permission fields were changed by this review. All sources remain disabled and article-body processing remains prohibited.
