@@ -53,7 +53,7 @@ jobs:
               if entry.get("status") != "published":
                   continue
               day = entry.get("edition_date", "")
-              if not re.fullmatch(r"\\d{4}-\\d{2}-\\d{2}", day):
+              if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", day):
                   raise SystemExit(f"Invalid edition date: {day!r}")
               en_name = f"data-{day}.json"
               bn_name = f"bn-{day}.json"
@@ -96,7 +96,7 @@ jobs:
                   else:
                       raise SystemExit(f"Invalid Bangla stories shape: {day}")
                   (bn_target / bn_name).write_text(
-                      json.dumps(bn, ensure_ascii=False, indent=2) + "\\n",
+                      json.dumps(bn, ensure_ascii=False, indent=2) + "\n",
                       encoding="utf-8"
                   )
 
