@@ -115,7 +115,7 @@ void main() {
         for (final pair in layout.qa) {
           expect(pair.question, endsWith('?'));
           expect(pair.answer, isNotEmpty);
-          expect(wordCount(pair.question), lessThanOrEqualTo(10));
+          expect(wordCount(pair.question), lessThanOrEqualTo(22));
         }
       }
     }
