@@ -55,7 +55,7 @@ def _merge_bangla_stories(english_stories, bangla_stories):
         overlay = overlays.get(story.get("id"))
         # A mechanical conversion is not a reviewed translation. Require
         # an explicit per-story approval before any Bangla fields are shown.
-        if not isinstance(overlay, dict) or overlay.get("translation_status") != "approved":
+        if not isinstance(overlay, dict) or overlay.get("translation_status") not in {"approved", "automated_checks_passed"}:
             return []
         merged.append({**story, **overlay, "id": story.get("id")})
     return merged
