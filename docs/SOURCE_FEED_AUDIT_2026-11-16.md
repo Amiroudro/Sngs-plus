@@ -271,3 +271,19 @@ This is a first-pass reading of publisher-controlled pages, not a legal opinion 
 | The Business Standard | https://epaper.tbsnews.net/terms-conditions | The located terms concern e-paper subscription billing/cancellation, not general article-content reuse or automated processing. | Keep disabled; general content terms and permission scope unresolved. |
 
 **Important distinction:** the BSS copyright footer and any publisher copyright notice are ownership/attribution evidence, not permission to collect or generate derivative study material. No rights-registry permission fields were changed by this review. All sources remain disabled and article-body processing remains prohibited.
+
+
+## Additional official terms review: Bangladesh Pratidin and Bangla Tribune (16 Nov 2026)
+
+This review records publisher-controlled terms, not a legal opinion or permission grant.
+
+| Publisher | Official terms page | Findings | Disposition |
+|---|---|---|---|
+| Bangladesh Pratidin | https://www.bd-pratidin.com/page/terms | The site grants personal viewing/downloading/printing only, prohibits republication, commercial use, editing/modification and unauthorised redistribution, and expressly prohibits automated data collection (including scraping, data mining and harvesting) without permission. | Keep disabled. Obtain express written permission covering automated collection and the intended downstream processing/display. |
+| Bangla Tribune | https://www.banglatribune.com/terms | The terms prohibit systematic or automated data collection without express written consent, and prohibit republication, commercial exploitation, modification and redistribution except where content is expressly made available for redistribution (then limited to within the organisation). | Keep disabled. Obtain express written consent and confirm that it covers automated processing, study summaries and public app display. |
+
+The terms do not establish that headline-only metadata collection is permitted. Do not infer a narrower permission from the fact that a page or feed is publicly reachable. No rights-registry permission fields were changed.
+
+References:
+- Bangladesh Pratidin official terms: https://www.bd-pratidin.com/page/terms
+- Bangla Tribune official terms: https://www.banglatribune.com/terms
