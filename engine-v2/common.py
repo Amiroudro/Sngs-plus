@@ -341,7 +341,7 @@ def robots_allowed(url):
 
 def robots_fetch_failures():
     """Copy of {host: error} for robots.txt fetches that failed
-    (those hosts were treated as allowed, fail-closed)."""
+    (those hosts were denied, fail-closed)."""
     return dict(ROBOTS_FETCH_FAILURES)
 
 
