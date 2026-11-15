@@ -31,7 +31,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "tbsnews.net": {
       "publisher": "The Business Standard",
@@ -51,7 +52,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "dhakatribune.com": {
       "publisher": "Dhaka Tribune",
@@ -71,7 +73,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "thefinancialexpress.com.bd": {
       "publisher": "The Financial Express",
@@ -91,7 +94,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "en.prothomalo.com": {
       "publisher": "Prothom Alo English",
@@ -111,7 +115,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "prothomalo.com": {
       "publisher": "Prothom Alo Bangla",
@@ -131,7 +136,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "jugantor.com": {
       "publisher": "Jugantor",
@@ -151,7 +157,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "bssnews.net": {
       "publisher": "Bangladesh Sangbad Sangstha (BSS)",
@@ -171,7 +178,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "bd-pratidin.com": {
       "publisher": "Bangladesh Pratidin",
@@ -193,7 +201,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "kalerkantho.com": {
       "publisher": "Kaler Kantho",
@@ -215,7 +224,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "ittefaq.com.bd": {
       "publisher": "Ittefaq",
@@ -237,7 +247,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "samakal.com": {
       "publisher": "Samakal",
@@ -259,7 +270,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "dailyjanakantha.com": {
       "publisher": "Janakantha",
@@ -281,7 +293,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "mzamin.com": {
       "publisher": "Manabzamin",
@@ -303,7 +316,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "dailynayadiganta.com": {
       "publisher": "Naya Diganta",
@@ -325,7 +339,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "dailyinqilab.com": {
       "publisher": "Inqilab",
@@ -349,7 +364,8 @@
       "automated_processing_status": "restricted",
       "automated_processing_scope": "",
       "automated_processing_evidence": "",
-      "automated_processing_restriction_reason": "Third-party registry reports robots.txt disallows multiple named AI crawlers; recheck publisher-controlled robots.txt and terms before any automated processing."
+      "automated_processing_restriction_reason": "Third-party registry reports robots.txt disallows multiple named AI crawlers; recheck publisher-controlled robots.txt and terms before any automated processing.",
+      "source_enabled": false
     },
     "bonikbarta.net": {
       "publisher": "Bonik Barta",
@@ -371,7 +387,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "deshrupantor.com": {
       "publisher": "Desh Rupantor",
@@ -393,7 +410,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "ajkerpatrika.com": {
       "publisher": "Ajker Patrika",
@@ -415,7 +433,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "kalbela.com": {
       "publisher": "Kalbela",
@@ -435,7 +454,8 @@
       "review_due_at": "",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "jaijaidinbd.com": {
       "publisher": "Jaijaidin",
@@ -455,7 +475,8 @@
       "review_due_at": "",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "dailysangram.com": {
       "publisher": "Sangram",
@@ -475,7 +496,8 @@
       "review_due_at": "",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "amardeshonline.com": {
       "publisher": "Amar Desh",
@@ -495,7 +517,8 @@
       "review_due_at": "",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "amarsangbad.com": {
       "publisher": "Amar Sangbad",
@@ -515,7 +538,8 @@
       "review_due_at": "",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "dainikdinkal.net": {
       "publisher": "Dinkal Digital",
@@ -535,7 +559,8 @@
       "review_due_at": "",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "sharebiz.net": {
       "publisher": "Share Biz",
@@ -555,7 +580,8 @@
       "review_due_at": "",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "businesspostbd.com": {
       "publisher": "The Business Post",
@@ -577,7 +603,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "daily-sun.com": {
       "publisher": "Daily Sun",
@@ -599,7 +626,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "observerbd.com": {
       "publisher": "The Daily Observer",
@@ -621,7 +649,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "bangladeshpost.net": {
       "publisher": "Bangladesh Post",
@@ -641,7 +670,8 @@
       "review_due_at": "",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "thebangladeshtoday.com": {
       "publisher": "The Bangladesh Today",
@@ -661,7 +691,8 @@
       "review_due_at": "",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "dailyasianage.com": {
       "publisher": "The Asian Age",
@@ -681,7 +712,8 @@
       "review_due_at": "",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "bdnews24.com": {
       "publisher": "bdnews24.com",
@@ -703,7 +735,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "banglanews24.com": {
       "publisher": "Banglanews24",
@@ -723,7 +756,8 @@
       "review_due_at": "",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "jagonews24.com": {
       "publisher": "Jago News 24",
@@ -745,7 +779,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "banglatribune.com": {
       "publisher": "Bangla Tribune",
@@ -767,7 +802,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "dhakapost.com": {
       "publisher": "Dhaka Post",
@@ -789,7 +825,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "risingbd.com": {
       "publisher": "Risingbd",
@@ -813,7 +850,8 @@
       "automated_processing_status": "restricted",
       "automated_processing_scope": "",
       "automated_processing_evidence": "",
-      "automated_processing_restriction_reason": "Third-party registry reports robots.txt disallows multiple named AI crawlers; recheck publisher-controlled robots.txt and terms before any automated processing."
+      "automated_processing_restriction_reason": "Third-party registry reports robots.txt disallows multiple named AI crawlers; recheck publisher-controlled robots.txt and terms before any automated processing.",
+      "source_enabled": false
     },
     "barta24.com": {
       "publisher": "Barta24",
@@ -835,7 +873,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "sarabangla.net": {
       "publisher": "Sarabangla",
@@ -855,7 +894,8 @@
       "review_due_at": "",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "newsbangla24.com": {
       "publisher": "NewsBangla24",
@@ -875,7 +915,8 @@
       "review_due_at": "",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "daily-bangladesh.com": {
       "publisher": "Daily Bangladesh",
@@ -895,7 +936,8 @@
       "review_due_at": "",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "dainikazadi.com": {
       "publisher": "Dainik Azadi",
@@ -917,7 +959,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "dainikpurbokone.net": {
       "publisher": "Dainik Purbokone",
@@ -937,7 +980,8 @@
       "review_due_at": "",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "karatoa.com.bd": {
       "publisher": "Karatoa",
@@ -957,7 +1001,8 @@
       "review_due_at": "",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "unb.com.bd": {
       "publisher": "United News of Bangladesh (UNB)",
@@ -979,7 +1024,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "dainikbangla.com.bd": {
       "publisher": "Dainik Bangla",
@@ -999,7 +1045,8 @@
       "review_due_at": "",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "sangbad.net": {
       "publisher": "The Sangbad",
@@ -1021,7 +1068,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "shomoyeralo.com": {
       "publisher": "Shomoyer Alo",
@@ -1041,7 +1089,8 @@
       "review_due_at": "",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "alokitobangladesh.com": {
       "publisher": "Alokito Bangladesh",
@@ -1061,7 +1110,8 @@
       "review_due_at": "",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "amadershomoys.com": {
       "publisher": "Amader Shomoy",
@@ -1083,7 +1133,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "newagebd.net": {
       "publisher": "New Age",
@@ -1105,7 +1156,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "dainikazadi.net": {
       "publisher": "Dainik Azadi",
@@ -1127,7 +1179,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     },
     "sangbad.net.bd": {
       "publisher": "The Sangbad",
@@ -1149,7 +1202,8 @@
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "automated_processing_status": "pending",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "source_enabled": false
     }
   },
   "unmapped_candidates": [
