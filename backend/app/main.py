@@ -24,6 +24,36 @@ app.add_middleware(
 )
 
 
+def _merge_bangla_stories(english_stories, bangla_stories):
+    """Return an ordered story list with Bangla fields overlaid by story ID.
+
+    The v2 converter stores Bangla stories as an ID-keyed object, while
+    the English edition stores an ordered list. Older app-format editions
+    may instead provide a Bangla list, so both shapes are accepted.
+    """
+    if not isinstance(english_stories, list) or not english_stories:
+        return []
+    if isinstance(bangla_stories, dict):
+        overlays = bangla_stories
+    elif isinstance(bangla_stories, list):
+        overlays = {
+            story.get("id"): story for story in bangla_stories
+            if isinstance(story, dict) and story.get("id")
+        }
+    else:
+        return []
+
+    merged = []
+    for story in english_stories:
+        if not isinstance(story, dict):
+            continue
+        overlay = overlays.get(story.get("id"), {})
+        if not isinstance(overlay, dict):
+            overlay = {}
+        merged.append({**story, **overlay, "id": story.get("id")})
+    return merged
+
+
 @app.get("/health")
 def health():
     editions = list_editions()
@@ -73,12 +103,23 @@ def briefing(language: str = Query(default="en", pattern="^(en|bn)$")):
     except (EditionNotFound, ValueError) as exc:
         raise HTTPException(status_code=503, detail=f"Latest edition unavailable: {exc}")
 
-    if language == "bn" and result["bangla"] is not None:
-        data = result["bangla"]
-        resolved_language = "bn"
-    else:
-        data = result["edition"]
-        resolved_language = "en"
+    english_data = result["edition"]
+    english_stories = english_data.get("stories", [])
+    bangla_data = result.get("bangla")
+    stories = english_stories
+    data = english_data
+    resolved_language = "en"
+
+    if language == "bn" and isinstance(bangla_data, dict):
+        bangla_stories = _merge_bangla_stories(
+            english_stories, bangla_data.get("stories")
+        )
+        if bangla_stories and any(
+            story != english for story, english in zip(bangla_stories, english_stories)
+        ):
+            stories = bangla_stories
+            data = bangla_data
+            resolved_language = "bn"
 
     return {
         "status": "published",
@@ -86,5 +127,5 @@ def briefing(language: str = Query(default="en", pattern="^(en|bn)$")):
         "language": resolved_language,
         "fallback_language": "en" if language == "bn" and resolved_language == "en" else None,
         "data": data,
-        "stories": data.get("stories", []),
+        "stories": stories,
     }
