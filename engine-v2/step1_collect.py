@@ -188,9 +188,10 @@ DROPPED = [
      "is wired directly instead (rechecked 15 Nov 2026)"),
 ]
 
-SKIP_URL_PARTS = ["/sports/", "/sports", "/entertainment/", "/lifestyle/",
-                  "/fashion/", "/opinion/cartoon", "/videos/",
-                  "/author/", "/govt-ad/"]
+# Exclude non-article endpoints only. Sports, entertainment, lifestyle and
+# fashion are genuine editorial sections and must remain collectable; Step 2
+# and the relevance rubric decide their study priority instead.
+SKIP_URL_PARTS = ["/opinion/cartoon", "/videos/", "/author/", "/govt-ad/"]
 
 DOMAIN_SOURCES = {
     "thedailystar.net": "The Daily Star",
