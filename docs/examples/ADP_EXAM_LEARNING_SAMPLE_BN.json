@@ -1,0 +1,423 @@
+{
+  "topic": "ADP, public investment and development-project implementation",
+  "as_of_date": "2026-11-16",
+  "content_status": "editorial_sample_not_published",
+  "note": "A source-backed learning-layer sample. It is not attached to a published edition or a live story ID.",
+  "exam_learning_bn": {
+    "concepts": [
+      {
+        "title": "বার্ষিক উন্নয়ন কর্মসূচি (ADP)",
+        "body": "ADP হলো সরকারের এক অর্থবছরের উন্নয়ন বাজেট। এতে বিভিন্ন খাতের উন্নয়ন প্রকল্প এবং সেগুলোর জন্য বরাদ্দ অন্তর্ভুক্ত থাকে। এটি সরকারের উন্নয়ন অগ্রাধিকারকে বার্ষিক অর্থ বরাদ্দের সঙ্গে যুক্ত করে।",
+        "source_refs": [
+          {
+            "title": "Strategic ADP Guideline",
+            "publisher": "Programming Division, Bangladesh Planning Commission",
+            "url": "https://plancomm.gov.bd/sites/default/files/files/plancomm.portal.gov.bd/files/1209fd08_fcce_4774_ab1c_2219ff0e73ce/2024-09-24-09-26-5caad0a12e99b95cd533525ee528b242.pdf",
+            "published_date": "2024-05",
+            "accessed_date": "2026-11-16",
+            "source_type": "primary"
+          },
+          {
+            "title": "General Financial Rules, paragraphs 87–92",
+            "publisher": "Government of Bangladesh",
+            "url": "https://bangladesh.gov.bd/sites/default/files/files/bangladesh.gov.bd/gurd_file_new/acafee56_d5a0_4eb7_b861_39d405c4d096/General%20Financial%20Rules.pdf",
+            "accessed_date": "2026-11-16",
+            "source_type": "primary"
+          }
+        ]
+      },
+      {
+        "title": "সংশোধিত বার্ষিক উন্নয়ন কর্মসূচি (RADP)",
+        "body": "অর্থবছরের মধ্যে প্রকল্পের অগ্রগতি, সম্পদের প্রাপ্যতা ও অগ্রাধিকারের পরিবর্তন বিবেচনায় ADP সংশোধন করে RADP তৈরি করা হয়। ADP ও RADP একই নয়: একটি মূল কর্মসূচি, অন্যটি সংশোধিত কর্মসূচি।",
+        "source_refs": [
+          {
+            "title": "Strategic ADP Guideline, ADP/RADP cycle",
+            "publisher": "Bangladesh Planning Commission",
+            "url": "https://plancomm.gov.bd/sites/default/files/files/plancomm.portal.gov.bd/files/1209fd08_fcce_4774_ab1c_2219ff0e73ce/2024-09-24-09-26-5caad0a12e99b95cd533525ee528b242.pdf",
+            "published_date": "2024-05",
+            "accessed_date": "2026-11-16",
+            "source_type": "primary"
+          }
+        ]
+      },
+      {
+        "title": "বাস্তবায়ন পরিবীক্ষণ ও মূল্যায়ন বিভাগ (IMED)",
+        "body": "IMED হলো পরিকল্পনা মন্ত্রণালয়ের একটি বিভাগ। এটি উন্নয়ন প্রকল্পের বাস্তবায়ন পর্যবেক্ষণ ও মূল্যায়ন করে। প্রকল্পের অর্থব্যয়, বাস্তব অগ্রগতি, সময় ও গুণগত মান সম্পর্কে তথ্য বিশ্লেষণ করে বাস্তবায়ন-সংক্রান্ত সমস্যা শনাক্ত করতে সহায়তা করে।",
+        "source_refs": [
+          {
+            "title": "Implementation Monitoring and Evaluation Division (IMED), institutional description",
+            "publisher": "Government of Bangladesh",
+            "url": "https://file.portal.gov.bd/uploads/3dcd66e7-10a4-41f9-8f5f-c2777d4103fb/63d/202/2d7/63d2022d74258765782310.pdf",
+            "accessed_date": "2026-11-16",
+            "source_type": "primary"
+          },
+          {
+            "title": "IMED dashboard",
+            "publisher": "Bangladesh National Dashboard",
+            "url": "https://dashboard.gov.bd/ndf/dashboard/imed/",
+            "accessed_date": "2026-11-16",
+            "source_type": "official_data"
+          }
+        ]
+      },
+      {
+        "title": "উন্নয়ন প্রকল্প প্রস্তাব (DPP)",
+        "body": "DPP-এর বর্তমান Planning Commission handbook-এ ব্যবহৃত পূর্ণরূপ Development Project Proposal। এতে প্রকল্পের উদ্দেশ্য, ব্যয়, বাস্তবায়নকাল, অর্থায়ন, অবস্থান, ব্যবস্থাপনা, ক্রয় পরিকল্পনা এবং সম্ভাব্যতা-সংক্রান্ত তথ্য উপস্থাপন করা হয়। ২০২৪ সালের সরকারি handbook-এর পরিভাষা অনুসরণ করে এখানে 'Project Proposal' ব্যবহার করা হয়েছে।",
+        "source_refs": [
+          {
+            "title": "Handbook for DPP Preparation",
+            "publisher": "Programming Division, Bangladesh Planning Commission, Ministry of Planning",
+            "url": "https://plancomm.gov.bd/sites/default/files/files/plancomm.portal.gov.bd/files/1209fd08_fcce_4774_ab1c_2219ff0e73ce/2024-09-24-09-25-eb9db9d549978f61a27773103f31b492.pdf",
+            "published_date": "2024-05",
+            "accessed_date": "2026-11-16",
+            "source_type": "primary"
+          }
+        ]
+      },
+      {
+        "title": "সরকারি বিনিয়োগ ব্যবস্থাপনা (Public Investment Management, PIM)",
+        "body": "সরকারি বিনিয়োগ ব্যবস্থাপনা বলতে উন্নয়ন প্রকল্প শনাক্ত ও নির্বাচন, মূল্যায়ন, অগ্রাধিকার নির্ধারণ, বাজেট বরাদ্দ, বাস্তবায়ন, পরিবীক্ষণ এবং ফলাফল মূল্যায়নের সামগ্রিক প্রক্রিয়াকে বোঝায়। ভালো PIM সীমিত সরকারি সম্পদকে অগ্রাধিকারপ্রাপ্ত ও বাস্তবায়নযোগ্য প্রকল্পে ব্যবহার করতে সহায়তা করে।",
+        "source_refs": [
+          {
+            "title": "Strategic ADP Guideline",
+            "publisher": "Bangladesh Planning Commission",
+            "url": "https://plancomm.gov.bd/sites/default/files/files/plancomm.portal.gov.bd/files/1209fd08_fcce_4774_ab1c_2219ff0e73ce/2024-09-24-09-26-5caad0a12e99b95cd533525ee528b242.pdf",
+            "published_date": "2024-05",
+            "accessed_date": "2026-11-16",
+            "source_type": "primary"
+          }
+        ]
+      }
+    ],
+    "institutions": [
+      {
+        "title": "বাংলাদেশ পরিকল্পনা কমিশন",
+        "body": "ADP/RADP প্রস্তুতি ও উন্নয়ন প্রকল্পের অগ্রাধিকার নির্ধারণে পরিকল্পনা কমিশন কেন্দ্রীয় ভূমিকা পালন করে। এর Programming Division ADP/RADP প্রক্রিয়ার গুরুত্বপূর্ণ ধাপগুলো পরিচালনা করে।",
+        "source_refs": [
+          {
+            "title": "Strategic ADP Guideline",
+            "publisher": "Bangladesh Planning Commission",
+            "url": "https://plancomm.gov.bd/sites/default/files/files/plancomm.portal.gov.bd/files/1209fd08_fcce_4774_ab1c_2219ff0e73ce/2024-09-24-09-26-5caad0a12e99b95cd533525ee528b242.pdf",
+            "published_date": "2024-05",
+            "accessed_date": "2026-11-16",
+            "source_type": "primary"
+          }
+        ]
+      },
+      {
+        "title": "জাতীয় অর্থনৈতিক পরিষদ (NEC)",
+        "body": "পরিকল্পনা কমিশনের প্রস্তুত করা ADP/RADP প্রক্রিয়ার নির্ধারিত পর্যায়ে NEC অনুমোদন দেয়। ২০২৪ সালের Strategic ADP Guideline অনুযায়ী মে মাসে NEC ADP অনুমোদন করে; জুনে জাতীয় সংসদ জাতীয় বাজেটের সঙ্গে ADP অনুমোদন করে।",
+        "source_refs": [
+          {
+            "title": "Strategic ADP Guideline, ADP/RADP preparation timeline",
+            "publisher": "Bangladesh Planning Commission",
+            "url": "https://plancomm.gov.bd/sites/default/files/files/plancomm.portal.gov.bd/files/1209fd08_fcce_4774_ab1c_2219ff0e73ce/2024-09-24-09-26-5caad0a12e99b95cd533525ee528b242.pdf",
+            "published_date": "2024-05",
+            "accessed_date": "2026-11-16",
+            "source_type": "primary"
+          }
+        ]
+      },
+      {
+        "title": "অর্থ বিভাগ (Finance Division)",
+        "body": "জাতীয় বাজেট ও Medium-Term Budget Framework (MTBF) প্রণয়নে অর্থ বিভাগের ভূমিকা রয়েছে। ADP প্রক্রিয়ায় উন্নয়ন বাজেটের indicative ceiling নির্ধারণ এবং সংশ্লিষ্ট আলোচনায় অর্থ বিভাগ অংশ নেয়।",
+        "source_refs": [
+          {
+            "title": "Strategic ADP Guideline, Finance Division responsibilities",
+            "publisher": "Bangladesh Planning Commission",
+            "url": "https://plancomm.gov.bd/sites/default/files/files/plancomm.portal.gov.bd/files/1209fd08_fcce_4774_ab1c_2219ff0e73ce/2024-09-24-09-26-5caad0a12e99b95cd533525ee528b242.pdf",
+            "published_date": "2024-05",
+            "accessed_date": "2026-11-16",
+            "source_type": "primary"
+          }
+        ]
+      }
+    ],
+    "distinctions": [
+      {
+        "title": "ADP ও RADP",
+        "left": "ADP: অর্থবছরের মূল উন্নয়ন কর্মসূচি ও বরাদ্দ",
+        "right": "RADP: অগ্রগতি, সম্পদের প্রাপ্যতা ও অগ্রাধিকার বিবেচনায় সংশোধিত উন্নয়ন কর্মসূচি",
+        "source_refs": [
+          {
+            "title": "Strategic ADP Guideline",
+            "publisher": "Bangladesh Planning Commission",
+            "url": "https://plancomm.gov.bd/sites/default/files/files/plancomm.portal.gov.bd/files/1209fd08_fcce_4774_ab1c_2219ff0e73ce/2024-09-24-09-26-5caad0a12e99b95cd533525ee528b242.pdf",
+            "published_date": "2024-05",
+            "accessed_date": "2026-11-16",
+            "source_type": "primary"
+          }
+        ]
+      },
+      {
+        "title": "আর্থিক অগ্রগতি ও ভৌত অগ্রগতি",
+        "left": "আর্থিক অগ্রগতি: বরাদ্দের বিপরীতে কত টাকা ব্যয় হয়েছে",
+        "right": "ভৌত অগ্রগতি: প্রকল্পের বাস্তব কাজ কতটুকু সম্পন্ন হয়েছে",
+        "points": [
+          "দুটি সূচক এক নয়; বেশি অর্থব্যয় মানেই সমপরিমাণ বাস্তব কাজ সম্পন্ন হয়েছে, এমন নয়।",
+          "প্রকল্প মূল্যায়নে অর্থব্যয়, সময়, গুণগত মান ও বাস্তব ফলাফল একসঙ্গে দেখা প্রয়োজন।"
+        ],
+        "source_refs": [
+          {
+            "title": "IMED dashboard",
+            "publisher": "Bangladesh National Dashboard",
+            "url": "https://dashboard.gov.bd/ndf/dashboard/imed/",
+            "accessed_date": "2026-11-16",
+            "source_type": "official_data"
+          },
+          {
+            "title": "Handbook for DPP Preparation",
+            "publisher": "Bangladesh Planning Commission",
+            "url": "https://plancomm.gov.bd/sites/default/files/files/plancomm.portal.gov.bd/files/1209fd08_fcce_4774_ab1c_2219ff0e73ce/2024-09-24-09-25-eb9db9d549978f61a27773103f31b492.pdf",
+            "published_date": "2024-05",
+            "accessed_date": "2026-11-16",
+            "source_type": "primary"
+          }
+        ]
+      }
+    ],
+    "exam_notes": [
+      {
+        "text": "ADP হলো সরকারের Development Budget; এটি Revenue Budget-এর সমার্থক নয়।",
+        "source_refs": [
+          {
+            "title": "Strategic ADP Guideline",
+            "publisher": "Bangladesh Planning Commission",
+            "url": "https://plancomm.gov.bd/sites/default/files/files/plancomm.portal.gov.bd/files/1209fd08_fcce_4774_ab1c_2219ff0e73ce/2024-09-24-09-26-5caad0a12e99b95cd533525ee528b242.pdf",
+            "published_date": "2024-05",
+            "accessed_date": "2026-11-16",
+            "source_type": "primary"
+          }
+        ]
+      },
+      {
+        "text": "২০২৪ সালের Planning Commission handbook-এ DPP-এর পূর্ণরূপ Development Project Proposal; পুরোনো কিছু নথিতে Proforma শব্দটি দেখা যেতে পারে।",
+        "source_refs": [
+          {
+            "title": "Handbook for DPP Preparation",
+            "publisher": "Bangladesh Planning Commission",
+            "url": "https://plancomm.gov.bd/sites/default/files/files/plancomm.portal.gov.bd/files/1209fd08_fcce_4774_ab1c_2219ff0e73ce/2024-09-24-09-25-eb9db9d549978f61a27773103f31b492.pdf",
+            "published_date": "2024-05",
+            "accessed_date": "2026-11-16",
+            "source_type": "primary"
+          }
+        ]
+      },
+      {
+        "text": "NEC অনুমোদন এবং জাতীয় সংসদের বাজেট অনুমোদন আলাদা ধাপ; পরীক্ষার উত্তরে দুটিকে এক করে লেখা যাবে না।",
+        "source_refs": [
+          {
+            "title": "Strategic ADP Guideline",
+            "publisher": "Bangladesh Planning Commission",
+            "url": "https://plancomm.gov.bd/sites/default/files/files/plancomm.portal.gov.bd/files/1209fd08_fcce_4774_ab1c_2219ff0e73ce/2024-09-24-09-26-5caad0a12e99b95cd533525ee528b242.pdf",
+            "published_date": "2024-05",
+            "accessed_date": "2026-11-16",
+            "source_type": "primary"
+          }
+        ]
+      }
+    ],
+    "mcqs": [
+      {
+        "question": "বাংলাদেশের ADP মূলত কোন বাজেটের অংশ?",
+        "options": {"ক": "উন্নয়ন বাজেট", "খ": "রাজস্ব বাজেট", "গ": "পরিপূরক বাজেট", "ঘ": "স্থানীয় সরকার বাজেট"},
+        "answer": "ক",
+        "explanation": "Planning Commission-এর Strategic ADP Guideline ADP-কে সরকারের Development Budget হিসেবে বর্ণনা করেছে।",
+        "source_refs": [
+          {
+            "title": "Strategic ADP Guideline",
+            "publisher": "Bangladesh Planning Commission",
+            "url": "https://plancomm.gov.bd/sites/default/files/files/plancomm.portal.gov.bd/files/1209fd08_fcce_4774_ab1c_2219ff0e73ce/2024-09-24-09-26-5caad0a12e99b95cd533525ee528b242.pdf",
+            "published_date": "2024-05",
+            "accessed_date": "2026-11-16",
+            "source_type": "primary"
+          }
+        ]
+      },
+      {
+        "question": "ADP-এর সংশোধিত সংস্করণকে কী বলা হয়?",
+        "options": {"ক": "MTBF", "খ": "RADP", "গ": "MYPIP", "ঘ": "DPP"},
+        "answer": "খ",
+        "explanation": "RADP-এর পূর্ণরূপ Revised Annual Development Programme।",
+        "source_refs": [
+          {
+            "title": "Strategic ADP Guideline",
+            "publisher": "Bangladesh Planning Commission",
+            "url": "https://plancomm.gov.bd/sites/default/files/files/plancomm.portal.gov.bd/files/1209fd08_fcce_4774_ab1c_2219ff0e73ce/2024-09-24-09-26-5caad0a12e99b95cd533525ee528b242.pdf",
+            "published_date": "2024-05",
+            "accessed_date": "2026-11-16",
+            "source_type": "primary"
+          }
+        ]
+      },
+      {
+        "question": "বাংলাদেশের ২০২৪ সালের Planning Commission handbook অনুযায়ী DPP-এর পূর্ণরূপ কী?",
+        "options": {"ক": "Development Policy Programme", "খ": "District Planning Proposal", "গ": "Development Project Proposal", "ঘ": "Development Project Programme"},
+        "answer": "গ",
+        "explanation": "২০২৪ সালের Handbook for DPP Preparation-এ Development Project Proposal পরিভাষাটি ব্যবহৃত হয়েছে।",
+        "source_refs": [
+          {
+            "title": "Handbook for DPP Preparation",
+            "publisher": "Bangladesh Planning Commission",
+            "url": "https://plancomm.gov.bd/sites/default/files/files/plancomm.portal.gov.bd/files/1209fd08_fcce_4774_ab1c_2219ff0e73ce/2024-09-24-09-25-eb9db9d549978f61a27773103f31b492.pdf",
+            "published_date": "2024-05",
+            "accessed_date": "2026-11-16",
+            "source_type": "primary"
+          }
+        ]
+      },
+      {
+        "question": "বাংলাদেশে উন্নয়ন প্রকল্পের বাস্তবায়ন পরিবীক্ষণ ও মূল্যায়নের দায়িত্বপ্রাপ্ত বিভাগ কোনটি?",
+        "options": {"ক": "ERD", "খ": "BBS", "গ": "IMED", "ঘ": "NBR"},
+        "answer": "গ",
+        "explanation": "IMED উন্নয়ন প্রকল্পের বাস্তবায়ন পর্যবেক্ষণ ও মূল্যায়ন করে।",
+        "source_refs": [
+          {
+            "title": "IMED institutional description",
+            "publisher": "Government of Bangladesh",
+            "url": "https://file.portal.gov.bd/uploads/3dcd66e7-10a4-41f9-8f5f-c2777d4103fb/63d/202/2d7/63d2022d74258765782310.pdf",
+            "accessed_date": "2026-11-16",
+            "source_type": "primary"
+          }
+        ]
+      },
+      {
+        "question": "Strategic ADP Guideline অনুযায়ী ADP অনুমোদনের সঙ্গে কোন পরিষদ যুক্ত?",
+        "options": {"ক": "জাতীয় অর্থনৈতিক পরিষদ (NEC)", "খ": "বাংলাদেশ ব্যাংকের পরিচালনা পর্ষদ", "গ": "নির্বাচন কমিশন", "ঘ": "জাতীয় রাজস্ব বোর্ড"},
+        "answer": "ক",
+        "explanation": "২০২৪ সালের Strategic ADP Guideline-এর সময়সূচিতে মে মাসে NEC-এর ADP অনুমোদন এবং জুনে জাতীয় সংসদের বাজেট অনুমোদন আলাদা ধাপ হিসেবে দেখানো হয়েছে।",
+        "source_refs": [
+          {
+            "title": "Strategic ADP Guideline",
+            "publisher": "Bangladesh Planning Commission",
+            "url": "https://plancomm.gov.bd/sites/default/files/files/plancomm.portal.gov.bd/files/1209fd08_fcce_4774_ab1c_2219ff0e73ce/2024-09-24-09-26-5caad0a12e99b95cd533525ee528b242.pdf",
+            "published_date": "2024-05",
+            "accessed_date": "2026-11-16",
+            "source_type": "primary"
+          }
+        ]
+      }
+    ],
+    "short_questions": [
+      {
+        "question": "ADP-এর পূর্ণরূপ কী?",
+        "answer": "Annual Development Programme."
+      },
+      {
+        "question": "RADP-এর পূর্ণরূপ কী?",
+        "answer": "Revised Annual Development Programme."
+      },
+      {
+        "question": "IMED কোন মন্ত্রণালয়ের বিভাগ?",
+        "answer": "পরিকল্পনা মন্ত্রণালয়।"
+      },
+      {
+        "question": "DPP-তে সাধারণত কী ধরনের তথ্য থাকে?",
+        "answer": "প্রকল্পের উদ্দেশ্য, ব্যয়, সময়কাল, অর্থায়ন, অবস্থান, ব্যবস্থাপনা, ক্রয় পরিকল্পনা ও সম্ভাব্যতা-সংক্রান্ত তথ্য।"
+      }
+    ],
+    "analytical_questions": [
+      {
+        "question": "ADP বাস্তবায়নের হার কম হলে সরকারি উন্নয়ন ও অর্থনৈতিক কর্মকাণ্ডে কী ধরনের প্রভাব পড়তে পারে?",
+        "answer_outline": "প্রকল্পের কাজ ও সেবা বিলম্বিত হতে পারে; অবকাঠামো ও সামাজিক খাতে প্রত্যাশিত সুফল পিছিয়ে যেতে পারে; বরাদ্দের ব্যবহার ও প্রকল্প ব্যবস্থাপনা নিয়ে প্রশ্ন তৈরি হয়। তবে কেবল ব্যয়ের হার দিয়ে প্রকল্পের গুণগত ফলাফল নির্ধারণ করা যায় না। আর্থিক ও ভৌত অগ্রগতি, সময়, ব্যয়, গুণগত মান এবং প্রকল্পের ফলাফল একসঙ্গে বিশ্লেষণ করতে হয়।"
+      },
+      {
+        "question": "ADP প্রস্তুতি ও বাস্তবায়নে Planning Commission, Finance Division, মন্ত্রণালয়/বাস্তবায়নকারী সংস্থা এবং IMED-এর ভূমিকা ব্যাখ্যা করুন।",
+        "answer_outline": "Planning Commission ADP/RADP প্রস্তুতি ও অগ্রাধিকার নির্ধারণে নেতৃত্ব দেয়; মন্ত্রণালয় ও বাস্তবায়নকারী সংস্থা প্রকল্প প্রস্তাব ও বাস্তবায়নের দায়িত্ব পালন করে; Finance Division বাজেট কাঠামো ও উন্নয়ন বাজেটের ceiling-এ অংশ নেয়; IMED বাস্তবায়ন পর্যবেক্ষণ ও মূল্যায়ন করে।"
+      }
+    ],
+    "vocabulary": [
+      {
+        "term": "allocation",
+        "pronunciation_bn": "অ্যালোকেশন",
+        "part_of_speech": "noun",
+        "meaning_bn": "বরাদ্দ; নির্দিষ্ট উদ্দেশ্যে অর্থ বা সম্পদ নির্ধারণ",
+        "definition": "An amount of money or resources assigned for a particular purpose.",
+        "synonyms": ["allotment", "appropriation"],
+        "antonyms": ["withholding", "withdrawal"],
+        "example": "The revised programme reduced the allocation for several delayed projects."
+      },
+      {
+        "term": "expenditure",
+        "pronunciation_bn": "এক্সপেন্ডিচার",
+        "part_of_speech": "noun",
+        "meaning_bn": "ব্যয়; অর্থ খরচ",
+        "definition": "Money spent by an organisation or government.",
+        "synonyms": ["spending", "outlay"],
+        "antonyms": ["income", "receipt"],
+        "example": "Public expenditure on development projects is monitored throughout the fiscal year."
+      },
+      {
+        "term": "implementation",
+        "pronunciation_bn": "ইমপ্লিমেন্টেশন",
+        "part_of_speech": "noun",
+        "meaning_bn": "বাস্তবায়ন; পরিকল্পনা বা সিদ্ধান্ত কার্যকর করা",
+        "definition": "The process of putting a plan or decision into effect.",
+        "synonyms": ["execution", "delivery"],
+        "antonyms": ["abandonment", "cancellation"],
+        "example": "Weak project management can delay implementation."
+      },
+      {
+        "term": "appraisal",
+        "pronunciation_bn": "অ্যাপ্রেইজাল",
+        "part_of_speech": "noun",
+        "meaning_bn": "প্রকল্প মূল্যায়ন; প্রস্তাবের যৌক্তিকতা ও সম্ভাব্যতা যাচাই",
+        "definition": "A careful assessment of the value, quality or feasibility of a proposal.",
+        "synonyms": ["assessment", "evaluation"],
+        "antonyms": ["neglect", "disregard"],
+        "example": "A project appraisal should examine costs, benefits and implementation risks."
+      },
+      {
+        "term": "feasibility",
+        "pronunciation_bn": "ফিজিবিলিটি",
+        "part_of_speech": "noun",
+        "meaning_bn": "সম্ভাব্যতা; কোনো কাজ বাস্তবে করা সম্ভব কি না",
+        "definition": "The practicality or likelihood of successfully carrying something out.",
+        "synonyms": ["practicability", "viability"],
+        "antonyms": ["impracticability", "infeasibility"],
+        "example": "The feasibility study identified financial and environmental risks."
+      }
+    ],
+    "revision": [
+      {"prompt": "ADP কী?", "answer": "সরকারের বার্ষিক উন্নয়ন বাজেট।"},
+      {"prompt": "RADP কী?", "answer": "সংশোধিত বার্ষিক উন্নয়ন কর্মসূচি।"},
+      {"prompt": "IMED-এর কাজ?", "answer": "উন্নয়ন প্রকল্পের বাস্তবায়ন পরিবীক্ষণ ও মূল্যায়ন।"},
+      {"prompt": "DPP-এর বর্তমান সরকারি পূর্ণরূপ?", "answer": "Development Project Proposal."},
+      {"prompt": "আর্থিক অগ্রগতি আর ভৌত অগ্রগতি কি একই?", "answer": "না; একটি ব্যয়ের, অন্যটি বাস্তব কাজের অগ্রগতি মাপে।"}
+    ]
+  },
+  "sources": [
+    {
+      "title": "Strategic ADP Guideline",
+      "publisher": "Programming Division, Bangladesh Planning Commission",
+      "url": "https://plancomm.gov.bd/sites/default/files/files/plancomm.portal.gov.bd/files/1209fd08_fcce_4774_ab1c_2219ff0e73ce/2024-09-24-09-26-5caad0a12e99b95cd533525ee528b242.pdf",
+      "published_date": "2024-05",
+      "accessed_date": "2026-11-16"
+    },
+    {
+      "title": "Handbook for DPP Preparation",
+      "publisher": "Programming Division, Bangladesh Planning Commission",
+      "url": "https://plancomm.gov.bd/sites/default/files/files/plancomm.portal.gov.bd/files/1209fd08_fcce_4774_ab1c_2219ff0e73ce/2024-09-24-09-25-eb9db9d549978f61a27773103f31b492.pdf",
+      "published_date": "2024-05",
+      "accessed_date": "2026-11-16"
+    },
+    {
+      "title": "General Financial Rules",
+      "publisher": "Government of Bangladesh",
+      "url": "https://bangladesh.gov.bd/sites/default/files/files/bangladesh.gov.bd/gurd_file_new/acafee56_d5a0_4eb7_b861_39d405c4d096/General%20Financial%20Rules.pdf",
+      "accessed_date": "2026-11-16"
+    },
+    {
+      "title": "IMED institutional description",
+      "publisher": "Government of Bangladesh",
+      "url": "https://file.portal.gov.bd/uploads/3dcd66e7-10a4-41f9-8f5f-c2777d4103fb/63d/202/2d7/63d2022d74258765782310.pdf",
+      "accessed_date": "2026-11-16"
+    },
+    {
+      "title": "IMED dashboard",
+      "publisher": "Bangladesh National Dashboard",
+      "url": "https://dashboard.gov.bd/ndf/dashboard/imed/",
+      "accessed_date": "2026-11-16"
+    }
+  ]
+}
