@@ -221,7 +221,7 @@ DOMAIN_SOURCES = {
 }
 
 # Main-article ranking tiers (official first, then dailies, then portals).
-OFFICIAL_SOURCES = {"BSS", "Bangladesh Sangbad Sangstha"}
+OFFICIAL_SOURCES = {"BSS", "Bangladesh Sangbad Sangstha", "Bangladesh Sangbad Sangstha (BSS)"}
 DAILY_SOURCES = {
     "The Daily Star", "The Business Standard", "Dhaka Tribune",
     "The Financial Express", "Prothom Alo English", "Prothom Alo",
@@ -246,6 +246,9 @@ def source_from_url(url):
     host = host[4:] if host.startswith("www.") else host
     if host in DOMAIN_SOURCES:
         return DOMAIN_SOURCES[host]
+    registered_name = rights_registry.publisher_name(url)
+    if registered_name:
+        return registered_name
     for dom, name in DOMAIN_SOURCES.items():
         if host.endswith("." + dom):
             return name
