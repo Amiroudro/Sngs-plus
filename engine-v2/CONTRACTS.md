@@ -47,11 +47,13 @@ must keep these permissions separate:
   non-empty automated_processing_scope, evidence and a current review window.
   Metadata permission alone does not authorise AI/automated study processing.
 - Article-page headline extraction: page_metadata_status=approved with
-  separate page_metadata_scope/evidence and a current review window, or a
-  body licence that explicitly covers page processing.
+  separate page_metadata_scope/evidence and a current review window, plus
+  approved automated-processing scope/evidence, or a body licence that
+  explicitly covers page processing and automated use.
 - Article-body fetching: body_status=licensed, non-empty body_scope,
-  permission evidence, and a current review window. A metadata-only or
-  RSS-headline permission never unlocks article bodies.
+  permission evidence, and a current review window, plus approved
+  automated-processing scope/evidence. A metadata-only or RSS-headline
+  permission never unlocks article bodies.
 - Aggregator discovery: Bing/Google News are discovery hosts only. Every
   resolved publisher URL must pass the publisher metadata gate before it is
   retained in the collected article set.
