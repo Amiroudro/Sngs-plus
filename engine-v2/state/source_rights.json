@@ -346,9 +346,10 @@
       "third_party_feed_registry_status": "listed_as_feed_verified_2026-10-17",
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "ai_crawler_note": "Inkline reports robots.txt disallows eight AI crawlers in its 16 Aug 2026 scan; verify the live publisher robots policy before automated processing.",
-      "automated_processing_status": "pending",
+      "automated_processing_status": "restricted",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "automated_processing_restriction_reason": "Third-party registry reports robots.txt disallows multiple named AI crawlers; recheck publisher-controlled robots.txt and terms before any automated processing."
     },
     "bonikbarta.net": {
       "publisher": "Bonik Barta",
@@ -809,9 +810,10 @@
       "third_party_feed_registry_status": "listed_as_feed_verified_2026-10-17",
       "third_party_feed_registry_url": "https://inklinenews.com/feeds/bangladesh/",
       "ai_crawler_note": "Inkline reports robots.txt disallows eight AI crawlers in its 16 Aug 2026 scan; verify the live publisher robots policy before automated processing.",
-      "automated_processing_status": "pending",
+      "automated_processing_status": "restricted",
       "automated_processing_scope": "",
-      "automated_processing_evidence": ""
+      "automated_processing_evidence": "",
+      "automated_processing_restriction_reason": "Third-party registry reports robots.txt disallows multiple named AI crawlers; recheck publisher-controlled robots.txt and terms before any automated processing."
     },
     "barta24.com": {
       "publisher": "Barta24",
