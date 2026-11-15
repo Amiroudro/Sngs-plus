@@ -1,0 +1,2381 @@
+{
+  "phrases": [
+    {
+      "bn": "রাজস্ব নীতি",
+      "explanation": "How a government taxes and spends to manage the economy.",
+      "p": "fiscal policy",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "মুদ্রানীতি",
+      "explanation": "How a central bank sets interest rates and money supply.",
+      "p": "monetary policy",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "বাণিজ্য ঘাটতি",
+      "explanation": "When a country imports more than it exports.",
+      "p": "trade deficit",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "বৈদেশিক মুদ্রা",
+      "explanation": "Money in foreign currencies, held or traded by a country.",
+      "p": "foreign exchange",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "প্রত্যক্ষ বিদেশি বিনিয়োগ",
+      "explanation": "Investment by a foreign company in a country's businesses.",
+      "p": "foreign direct investment",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "সুদের হার",
+      "explanation": "The cost of borrowing money, set by banks or the central bank.",
+      "p": "interest rate",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "মূল্যস্ফীতির হার",
+      "explanation": "How fast prices are rising over a year.",
+      "p": "inflation rate",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "মোট দেশজ উৎপাদন",
+      "explanation": "The total value of goods and services a country produces.",
+      "p": "gross domestic product",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "মাথাপিছু আয়",
+      "explanation": "Average income per person in a country.",
+      "p": "per capita income",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "সরকারি ক্রয়",
+      "explanation": "How the government buys goods and services.",
+      "p": "public procurement",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "আইনের শাসন",
+      "explanation": "The principle that everyone, including leaders, obeys the law.",
+      "p": "rule of law",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "মানবাধিকার",
+      "explanation": "Basic rights every person has, such as life and free speech.",
+      "p": "human rights",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "জলবায়ু পরিবর্তন",
+      "explanation": "Long-term change in the earth's climate, mostly from human activity.",
+      "p": "climate change",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "বৈশ্বিক উষ্ণায়ন",
+      "explanation": "The rise in the earth's average temperature.",
+      "p": "global warming",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "কার্বন নির্গমন",
+      "explanation": "Carbon dioxide and other gases released into the air.",
+      "p": "carbon emission",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "নবায়নযোগ্য শক্তি",
+      "explanation": "Energy from sources that do not run out, like sun and wind.",
+      "p": "renewable energy",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "খাদ্য নিরাপত্তা",
+      "explanation": "When all people have enough safe food at all times.",
+      "p": "food security",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "জাতীয় নিরাপত্তা",
+      "explanation": "Protecting a country from threats to its safety.",
+      "p": "national security",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "জনস্বাস্থ্য",
+      "explanation": "The health of the whole population, and the services that protect it.",
+      "p": "public health",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "উচ্চশিক্ষা",
+      "explanation": "Education at university level.",
+      "p": "higher education",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "প্রাথমিক শিক্ষা",
+      "explanation": "The first years of school education.",
+      "p": "primary education",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "সমাজকল্যাণ",
+      "explanation": "Government help for people in need.",
+      "p": "social welfare",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "দারিদ্র্য বিমোচন",
+      "explanation": "Reducing the number of people living in poverty.",
+      "p": "poverty alleviation",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "অর্থনৈতিক প্রবৃদ্ধি",
+      "explanation": "An increase in a country's production over time.",
+      "p": "economic growth",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "টেকসই উন্নয়ন",
+      "explanation": "Development that meets today's needs without harming the future.",
+      "p": "sustainable development",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "আইনশৃঙ্খলা",
+      "explanation": "A situation where laws are obeyed and society is calm.",
+      "p": "law and order",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "আইন প্রয়োগ",
+      "explanation": "The police and agencies that make people obey the law.",
+      "p": "law enforcement",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "সাধারণ নির্বাচন",
+      "explanation": "An election in which all voters choose their representatives.",
+      "p": "general election",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "অন্তর্বর্তীকালীন সরকার",
+      "explanation": "A temporary government until an elected one takes over.",
+      "p": "interim government",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "সুপ্রিম কোর্ট; সর্বোচ্চ আদালত",
+      "explanation": "The highest court in a country.",
+      "p": "supreme court",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "হাইকোর্ট; উচ্চ আদালত",
+      "explanation": "A senior court below the supreme court.",
+      "p": "high court",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "কেন্দ্রীয় ব্যাংক",
+      "explanation": "The bank that controls a country's money and interest rates.",
+      "p": "central bank",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "বাণিজ্যিক ব্যাংক",
+      "explanation": "A bank that serves the public and businesses.",
+      "p": "commercial bank",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "শেয়ার বাজার",
+      "explanation": "The market where company shares are bought and sold.",
+      "p": "stock market",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "পুঁজিবাজার",
+      "explanation": "The market for long-term finance, shares and bonds.",
+      "p": "capital market",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "শ্রমবাজার",
+      "explanation": "The supply of workers and the jobs available to them.",
+      "p": "labour market",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "পোশাক খাত",
+      "explanation": "The clothing industry, Bangladesh's largest export earner.",
+      "p": "garment sector",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "তৈরি পোশাক",
+      "explanation": "Factory-made clothing, made for sale rather than to order.",
+      "p": "ready-made garment",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "রপ্তানি আয়",
+      "explanation": "Money a country earns from selling goods abroad.",
+      "p": "export earnings",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "রেমিট্যান্স প্রবাহ",
+      "explanation": "Money flowing in from citizens working abroad.",
+      "p": "remittance inflow",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "বাজেট ঘাটতি",
+      "explanation": "When government spending is more than its revenue.",
+      "p": "budget deficit",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "রাজস্ব আদায়",
+      "explanation": "Gathering taxes and other income for the government.",
+      "p": "revenue collection",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "অর্থ পাচার",
+      "explanation": "Hiding illegally earned money by moving it through legal channels.",
+      "p": "money laundering",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "সীমান্ত নিরাপত্তা",
+      "explanation": "Protecting a country's borders from illegal crossing.",
+      "p": "border security",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "দ্বিপাক্ষিক সম্পর্ক",
+      "explanation": "The relationship between two countries.",
+      "p": "bilateral relations",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "কূটনৈতিক সম্পর্ক",
+      "explanation": "Formal relations between two countries' governments.",
+      "p": "diplomatic relations",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "শান্তি চুক্তি",
+      "explanation": "An agreement to end fighting between parties.",
+      "p": "peace agreement",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "যুদ্ধবিরতি চুক্তি",
+      "explanation": "An agreement to stop fighting for a time.",
+      "p": "ceasefire agreement",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "প্রধানমন্ত্রী",
+      "explanation": "The head of government in a parliamentary system.",
+      "p": "prime minister",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "প্রধান উপদেষ্টা",
+      "explanation": "The head of an interim government in Bangladesh.",
+      "p": "chief adviser",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "সংবাদ সম্মেলন",
+      "explanation": "A meeting where officials give news to journalists.",
+      "p": "press conference",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "যৌথ বিবৃতি",
+      "explanation": "A statement issued together by two or more parties.",
+      "p": "joint statement",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "সমঝোতা স্মারক",
+      "explanation": "A written agreement between parties before a formal deal.",
+      "p": "memorandum of understanding",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "মুক্ত বাণিজ্য চুক্তি",
+      "explanation": "An agreement to trade between countries with little or no tax.",
+      "p": "free trade agreement",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "জলবায়ু অর্থায়ন",
+      "explanation": "Money given to help countries deal with climate change.",
+      "p": "climate finance",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "ক্ষতি ও ক্ষতিপূরণ",
+      "explanation": "Losses from climate change and payments for them.",
+      "p": "loss and damage",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "সরকারি খাত",
+      "explanation": "Businesses and services owned by the government.",
+      "p": "public sector",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "বেসরকারি খাত",
+      "explanation": "Businesses and services owned by private people.",
+      "p": "private sector",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "সুশীল সমাজ",
+      "explanation": "Citizens' groups outside government and business.",
+      "p": "civil society",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "সরবরাহ শৃঙ্খল",
+      "explanation": "The chain of steps that brings goods from maker to buyer.",
+      "p": "supply chain",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "জীবনযাত্রার ব্যয়",
+      "explanation": "The cost of living in a place.",
+      "p": "cost of living",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "নির্বাচন কমিশন",
+      "explanation": "The body that runs elections in a country.",
+      "p": "election commission",
+      "type": "Noun phrase"
+    },
+    {
+      "bn": "দুর্নীতি দমন কমিশন",
+      "explanation": "The body that investigates and prosecutes corruption.",
+      "p": "anti-corruption commission",
+      "type": "Noun phrase"
+    },
+    {
+      "p": "bangladesh bank",
+      "bn": "বাংলাদেশ ব্যাংক",
+      "explanation": "The central bank of Bangladesh.",
+      "type": "Noun phrase"
+    },
+    {
+      "p": "state minister",
+      "bn": "প্রতিমন্ত্রী",
+      "explanation": "A junior minister below a full minister.",
+      "type": "Noun phrase"
+    },
+    {
+      "p": "good governance",
+      "bn": "সুশাসন",
+      "explanation": "Governing that is fair, open and accountable.",
+      "type": "Noun phrase"
+    },
+    {
+      "p": "law enforcers",
+      "bn": "আইনশৃঙ্খলা রক্ষাকারী বাহিনী",
+      "explanation": "Police and others who enforce the law.",
+      "type": "Noun phrase"
+    },
+    {
+      "p": "per share",
+      "bn": "প্রতি শেয়ার",
+      "explanation": "For each single share of a company.",
+      "type": "Noun phrase"
+    }
+  ],
+  "words": [
+    {
+      "bn": "অধ্যাদেশ",
+      "def": "A law made by the government when parliament is not in session.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "ordinance"
+    },
+    {
+      "bn": "ট্রাইব্যুনাল; বিশেষ আদালত",
+      "def": "A special court that settles disputes or tries particular cases.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "tribunal"
+    },
+    {
+      "bn": "রায়",
+      "def": "The formal decision of a court or jury on a case.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "verdict"
+    },
+    {
+      "bn": "আইন প্রণয়ন; আইন",
+      "def": "Laws made by a parliament or similar body.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "legislation"
+    },
+    {
+      "bn": "সংশোধনী",
+      "def": "A change made to a law, bill or constitution.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "amendment"
+    },
+    {
+      "bn": "অনুমোদন দেওয়া; অনুমোদন করা",
+      "def": "To formally approve an agreement or treaty.",
+      "diff": "Advanced",
+      "pos": "Verb",
+      "w": "ratify"
+    },
+    {
+      "bn": "এখতিয়ার; বিচারিক ক্ষমতা",
+      "def": "The legal power of a court or authority over a place or matter.",
+      "diff": "Advanced",
+      "pos": "Noun",
+      "w": "jurisdiction"
+    },
+    {
+      "bn": "প্রসিকিউটর; অভিযোগকারী পক্ষের আইনজীবী",
+      "def": "A lawyer who brings a criminal case against someone.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "prosecutor"
+    },
+    {
+      "bn": "অভিযোগ",
+      "def": "A claim that someone has done something wrong, without proof yet.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "allegation"
+    },
+    {
+      "bn": "অভিযোগপত্র",
+      "def": "A formal charge that someone has committed a crime.",
+      "diff": "Advanced",
+      "pos": "Noun",
+      "w": "indictment"
+    },
+    {
+      "bn": "দোষী সাব্যস্তকরণ",
+      "def": "A court's decision that someone is guilty of a crime.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "conviction"
+    },
+    {
+      "bn": "খালাস",
+      "def": "A court's decision that someone is not guilty.",
+      "diff": "Advanced",
+      "pos": "Noun",
+      "w": "acquittal"
+    },
+    {
+      "bn": "গণভোট",
+      "def": "A vote by all the people on an important public question.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "referendum"
+    },
+    {
+      "bn": "নির্বাচনী এলাকা",
+      "def": "An area whose voters elect one representative.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "constituency"
+    },
+    {
+      "bn": "ইশতেহার",
+      "def": "A public statement of a party's aims and policies.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "manifesto"
+    },
+    {
+      "bn": "জোট",
+      "def": "An alliance of parties or groups formed to govern together.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "coalition"
+    },
+    {
+      "bn": "মন্ত্রিসভা",
+      "def": "The group of ministers who run the government.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "cabinet"
+    },
+    {
+      "bn": "আমলাতন্ত্র",
+      "def": "The system of officials who administer government.",
+      "diff": "Advanced",
+      "pos": "Noun",
+      "w": "bureaucracy"
+    },
+    {
+      "bn": "শাসন; সুশাসন",
+      "def": "The way a country or organisation is governed.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "governance"
+    },
+    {
+      "bn": "স্বচ্ছতা",
+      "def": "Openness about decisions and actions, so they can be checked.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "transparency"
+    },
+    {
+      "bn": "জবাবদিহি",
+      "def": "Being responsible for decisions and answerable for them.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "accountability"
+    },
+    {
+      "bn": "দুর্নীতি",
+      "def": "Dishonest use of power for personal gain.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "corruption"
+    },
+    {
+      "bn": "আত্মসাৎ",
+      "def": "Stealing money that one is trusted to look after.",
+      "diff": "Advanced",
+      "pos": "Noun",
+      "w": "embezzlement"
+    },
+    {
+      "bn": "ভিন্নমত; বিরোধিতা",
+      "def": "Disagreement with an official opinion or decision.",
+      "diff": "Advanced",
+      "pos": "Noun",
+      "w": "dissent"
+    },
+    {
+      "bn": "অস্থিরতা; বিক্ষোভ",
+      "def": "A state of protest and disorder in a society.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "unrest"
+    },
+    {
+      "bn": "কঠোর অভিযান; দমন",
+      "def": "Strong action to stop illegal or unwanted activity.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "crackdown"
+    },
+    {
+      "bn": "কারফিউ",
+      "def": "An order forbidding people to be outside after a set time.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "curfew"
+    },
+    {
+      "bn": "নিষেধাজ্ঞা",
+      "def": "A penalty imposed on a country to make it obey a rule.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "sanction"
+    },
+    {
+      "bn": "নিষেধাজ্ঞা; বাণিজ্য অবরোধ",
+      "def": "An official ban on trade with a country.",
+      "diff": "Advanced",
+      "pos": "Noun",
+      "w": "embargo"
+    },
+    {
+      "bn": "চুক্তি",
+      "def": "A formal agreement between countries.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "treaty"
+    },
+    {
+      "bn": "কূটনীতি",
+      "def": "Managing relations between countries by negotiation.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "diplomacy"
+    },
+    {
+      "bn": "দূত",
+      "def": "A person sent by a government to represent it abroad.",
+      "diff": "Advanced",
+      "pos": "Noun",
+      "w": "envoy"
+    },
+    {
+      "bn": "প্রতিনিধি দল",
+      "def": "A group sent to represent others at a meeting.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "delegation"
+    },
+    {
+      "bn": "শীর্ষ সম্মেলন",
+      "def": "A meeting of heads of government.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "summit"
+    },
+    {
+      "bn": "দ্বিপাক্ষিক",
+      "def": "Involving two sides or countries.",
+      "diff": "Intermediate",
+      "pos": "Adjective",
+      "w": "bilateral"
+    },
+    {
+      "bn": "বহুপাক্ষিক",
+      "def": "Involving several countries or parties.",
+      "diff": "Advanced",
+      "pos": "Adjective",
+      "w": "multilateral"
+    },
+    {
+      "bn": "মূল্যস্ফীতি",
+      "def": "A general rise in prices over time.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "inflation"
+    },
+    {
+      "bn": "ঘাটতি",
+      "def": "The amount by which spending is more than income.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "deficit"
+    },
+    {
+      "bn": "উদ্বৃত্ত",
+      "def": "An amount left over after spending.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "surplus"
+    },
+    {
+      "bn": "রাজস্ব; আয়",
+      "def": "Income received by a government or business.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "revenue"
+    },
+    {
+      "bn": "ভর্তুকি",
+      "def": "Money paid by a government to keep prices low.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "subsidy"
+    },
+    {
+      "bn": "শুল্ক",
+      "def": "A tax on imported goods.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "tariff"
+    },
+    {
+      "bn": "রেমিট্যান্স; প্রবাসী আয়",
+      "def": "Money sent home by people working abroad.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "remittance"
+    },
+    {
+      "bn": "তারল্য",
+      "def": "How easily assets can be turned into cash.",
+      "diff": "Advanced",
+      "pos": "Noun",
+      "w": "liquidity"
+    },
+    {
+      "bn": "দেউলিয়াত্ব",
+      "def": "Being unable to pay debts when they are due.",
+      "diff": "Advanced",
+      "pos": "Noun",
+      "w": "insolvency"
+    },
+    {
+      "bn": "রাজস্বসংক্রান্ত",
+      "def": "Relating to government spending and tax.",
+      "diff": "Intermediate",
+      "pos": "Adjective",
+      "w": "fiscal"
+    },
+    {
+      "bn": "মুদ্রাসংক্রান্ত",
+      "def": "Relating to money and interest rates.",
+      "diff": "Intermediate",
+      "pos": "Adjective",
+      "w": "monetary"
+    },
+    {
+      "bn": "বরাদ্দ",
+      "def": "An amount of money or resources given for a purpose.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "allocation"
+    },
+    {
+      "bn": "কঠোর সাশ্রয়",
+      "def": "Strict cuts in government spending.",
+      "diff": "Advanced",
+      "pos": "Noun",
+      "w": "austerity"
+    },
+    {
+      "bn": "প্রণোদনা",
+      "def": "Something that encourages economic activity.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "stimulus"
+    },
+    {
+      "bn": "মন্দা",
+      "def": "A period when the economy shrinks.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "recession"
+    },
+    {
+      "bn": "রপ্তানি",
+      "def": "Goods sold to another country.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "export"
+    },
+    {
+      "bn": "আমদানি",
+      "def": "Goods bought from another country.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "import"
+    },
+    {
+      "bn": "পোশাক",
+      "def": "An item of clothing; also the clothing industry.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "garment"
+    },
+    {
+      "bn": "কৃষি",
+      "def": "Farming and growing crops.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "agriculture"
+    },
+    {
+      "bn": "ফসল তোলা; ফসল",
+      "def": "The gathering of ripe crops.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "harvest"
+    },
+    {
+      "bn": "দারিদ্র্য",
+      "def": "The state of being very poor.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "poverty"
+    },
+    {
+      "bn": "বেকারত্ব",
+      "def": "The state of being without a job although able to work.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "unemployment"
+    },
+    {
+      "bn": "পেনশন; অবসর ভাতা",
+      "def": "Regular money paid to someone after retirement.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "pension"
+    },
+    {
+      "bn": "জলবায়ু",
+      "def": "The usual weather of a place over a long time.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "climate"
+    },
+    {
+      "bn": "নির্গমন",
+      "def": "Gas or heat sent out into the air.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "emission"
+    },
+    {
+      "bn": "দূষণ",
+      "def": "Harmful substances in air, water or land.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "pollution"
+    },
+    {
+      "bn": "ঘূর্ণিঝড়",
+      "def": "A violent tropical storm with strong winds.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "cyclone"
+    },
+    {
+      "bn": "খরা",
+      "def": "A long period with no rain.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "drought"
+    },
+    {
+      "bn": "মহামারী",
+      "def": "Many cases of a disease in one area at one time.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "epidemic"
+    },
+    {
+      "bn": "বৈশ্বিক মহামারী",
+      "def": "A disease spreading across whole countries or the world.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "pandemic"
+    },
+    {
+      "bn": "টিকা",
+      "def": "A substance that protects against a disease.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "vaccine"
+    },
+    {
+      "bn": "প্রাদুর্ভাব",
+      "def": "The sudden start of a disease or violence.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "outbreak"
+    },
+    {
+      "bn": "মৃত্যুহার",
+      "def": "The number of deaths in a group over a time.",
+      "diff": "Advanced",
+      "pos": "Noun",
+      "w": "mortality"
+    },
+    {
+      "bn": "অপুষ্টি",
+      "def": "Poor health from not eating enough or the right food.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "malnutrition"
+    },
+    {
+      "bn": "পয়ঃনিষ্কাশন; স্বাস্থ্যবিধি",
+      "def": "Clean water and waste systems that protect health.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "sanitation"
+    },
+    {
+      "bn": "দুর্যোগ",
+      "def": "A sudden event causing great damage or loss.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "disaster"
+    },
+    {
+      "bn": "ত্রাণ",
+      "def": "Help given to people in trouble or after a disaster.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "relief"
+    },
+    {
+      "bn": "পুনর্বাসন",
+      "def": "Helping people return to normal life after harm or illness.",
+      "diff": "Advanced",
+      "pos": "Noun",
+      "w": "rehabilitation"
+    },
+    {
+      "bn": "পাঠ্যক্রম",
+      "def": "The subjects taught in a school or course.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "curriculum"
+    },
+    {
+      "bn": "ভর্তি",
+      "def": "Being allowed to enter a school, university or hospital.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "admission"
+    },
+    {
+      "bn": "বৃত্তি",
+      "def": "Money given to a student to pay for study.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "scholarship"
+    },
+    {
+      "bn": "সিলেবাস; পাঠ্যসূচি",
+      "def": "The list of topics in a course or exam.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "syllabus"
+    },
+    {
+      "bn": "সাক্ষরতা",
+      "def": "The ability to read and write.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "literacy"
+    },
+    {
+      "bn": "ভর্তি; নথিভুক্তি",
+      "def": "The act of joining a school or course.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "enrolment"
+    },
+    {
+      "bn": "উপবৃত্তি",
+      "def": "A regular small payment to a student or trainee.",
+      "diff": "Advanced",
+      "pos": "Noun",
+      "w": "stipend"
+    },
+    {
+      "bn": "চৌর্যবৃত্তি",
+      "def": "Copying someone else's work and calling it your own.",
+      "diff": "Advanced",
+      "pos": "Noun",
+      "w": "plagiarism"
+    },
+    {
+      "bn": "তীব্রতর হওয়া; দ্রুত বেড়ে যাওয়া",
+      "def": "To become more intense or serious; to increase rapidly.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "escalate"
+    },
+    {
+      "bn": "লাঘব করা; কমানো",
+      "def": "To make pain or a problem less severe.",
+      "diff": "Advanced",
+      "pos": "Verb",
+      "w": "alleviate"
+    },
+    {
+      "bn": "অবনতি হওয়া",
+      "def": "To become worse over time.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "deteriorate"
+    },
+    {
+      "bn": "আরও খারাপ করা",
+      "def": "To make a bad situation worse.",
+      "diff": "Advanced",
+      "pos": "Verb",
+      "w": "exacerbate"
+    },
+    {
+      "bn": "প্রশমিত করা; কমানো",
+      "def": "To make something less harmful or serious.",
+      "diff": "Advanced",
+      "pos": "Verb",
+      "w": "mitigate"
+    },
+    {
+      "bn": "অনিবার্য",
+      "def": "Certain to happen; impossible to avoid.",
+      "diff": "Intermediate",
+      "pos": "Adjective",
+      "w": "inevitable"
+    },
+    {
+      "bn": "নজিরবিহীন",
+      "def": "Never having happened before.",
+      "diff": "Advanced",
+      "pos": "Adjective",
+      "w": "unprecedented"
+    },
+    {
+      "bn": "ব্যাপক; সর্বাঙ্গীণ",
+      "def": "Covering everything; complete.",
+      "diff": "Intermediate",
+      "pos": "Adjective",
+      "w": "comprehensive"
+    },
+    {
+      "bn": "উল্লেখযোগ্য",
+      "def": "Large or important enough to matter.",
+      "diff": "Intermediate",
+      "pos": "Adjective",
+      "w": "significant"
+    },
+    {
+      "bn": "বিপুল; যথেষ্ট",
+      "def": "Large in size or amount.",
+      "diff": "Intermediate",
+      "pos": "Adjective",
+      "w": "substantial"
+    },
+    {
+      "bn": "অত্যন্ত গুরুত্বপূর্ণ",
+      "def": "Very important; deciding success or failure.",
+      "diff": "Intermediate",
+      "pos": "Adjective",
+      "w": "crucial"
+    },
+    {
+      "bn": "সম্ভব; বাস্তবায়নযোগ্য",
+      "def": "Possible to do.",
+      "diff": "Advanced",
+      "pos": "Adjective",
+      "w": "feasible"
+    },
+    {
+      "bn": "টেকসই",
+      "def": "Able to continue over time without harm.",
+      "diff": "Intermediate",
+      "pos": "Adjective",
+      "w": "sustainable"
+    },
+    {
+      "bn": "সহনশীল; ঘুরে দাঁড়াতে সক্ষম",
+      "def": "Able to recover quickly from difficulties.",
+      "diff": "Advanced",
+      "pos": "Adjective",
+      "w": "resilient"
+    },
+    {
+      "bn": "ঝুঁকিপূর্ণ; অসুরক্ষিত",
+      "def": "Easy to harm or attack.",
+      "diff": "Intermediate",
+      "pos": "Adjective",
+      "w": "vulnerable"
+    },
+    {
+      "bn": "প্রচলিত; ব্যাপক",
+      "def": "Common in a place or at a time.",
+      "diff": "Advanced",
+      "pos": "Adjective",
+      "w": "prevalent"
+    },
+    {
+      "bn": "কঠোর",
+      "def": "Very strict.",
+      "diff": "Advanced",
+      "pos": "Adjective",
+      "w": "stringent"
+    },
+    {
+      "bn": "মজবুত; শক্তিশালী",
+      "def": "Strong and able to work well.",
+      "diff": "Advanced",
+      "pos": "Adjective",
+      "w": "robust"
+    },
+    {
+      "bn": "ভঙ্গুর; নাজুক",
+      "def": "Easily broken or damaged.",
+      "diff": "Intermediate",
+      "pos": "Adjective",
+      "w": "fragile"
+    },
+    {
+      "bn": "স্থবির",
+      "def": "Not growing or changing.",
+      "diff": "Advanced",
+      "pos": "Adjective",
+      "w": "stagnant"
+    },
+    {
+      "bn": "ঢেউ; হঠাৎ বৃদ্ধি",
+      "def": "A sudden large increase.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "surge"
+    },
+    {
+      "bn": "হঠাৎ পড়ে যাওয়া",
+      "def": "To fall suddenly and steeply.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "plunge"
+    },
+    {
+      "bn": "শক্তিশালী করা",
+      "def": "To strengthen or support something.",
+      "diff": "Advanced",
+      "pos": "Verb",
+      "w": "bolster"
+    },
+    {
+      "bn": "দুর্বল করা; ক্ষুণ্ন করা",
+      "def": "To weaken something gradually.",
+      "diff": "Advanced",
+      "pos": "Verb",
+      "w": "undermine"
+    },
+    {
+      "bn": "বাধা দেওয়া",
+      "def": "To make it harder for something to happen.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "hinder"
+    },
+    {
+      "bn": "সহজ করা; সহায়তা করা",
+      "def": "To make a process easier.",
+      "diff": "Advanced",
+      "pos": "Verb",
+      "w": "facilitate"
+    },
+    {
+      "bn": "বাস্তবায়ন করা",
+      "def": "To put a plan or decision into effect.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "implement"
+    },
+    {
+      "bn": "কার্যকর করা; বলবৎ করা",
+      "def": "To make people obey a law or rule.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "enforce"
+    },
+    {
+      "bn": "মেনে চলা",
+      "def": "To act as a rule or request asks.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "comply"
+    },
+    {
+      "bn": "লঙ্ঘন করা",
+      "def": "To break a law, rule or agreement.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "violate"
+    },
+    {
+      "bn": "নিরুৎসাহিত করা",
+      "def": "To discourage someone from doing something.",
+      "diff": "Advanced",
+      "pos": "Verb",
+      "w": "deter"
+    },
+    {
+      "bn": "উসকে দেওয়া",
+      "def": "To cause a strong reaction, often anger.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "provoke"
+    },
+    {
+      "bn": "নিন্দা করা",
+      "def": "To say strongly that something is wrong.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "condemn"
+    },
+    {
+      "bn": "অঙ্গীকার করা",
+      "def": "To make a serious promise.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "pledge"
+    },
+    {
+      "bn": "আগে থেকে অনুমান করা",
+      "def": "To expect something to happen.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "anticipate"
+    },
+    {
+      "bn": "পূর্বাভাস দেওয়া",
+      "def": "To predict what will happen.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "forecast"
+    },
+    {
+      "bn": "প্রকাশ করা",
+      "def": "To make known something that was hidden.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "reveal"
+    },
+    {
+      "bn": "প্রকাশ করা",
+      "def": "To make secret information known.",
+      "diff": "Advanced",
+      "pos": "Verb",
+      "w": "disclose"
+    },
+    {
+      "bn": "উন্মোচন করা",
+      "def": "To show or announce something new in public.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "unveil"
+    },
+    {
+      "bn": "শুরু করা; চালু করা",
+      "def": "To start something new.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "launch"
+    },
+    {
+      "bn": "উদ্বোধন করা",
+      "def": "To open something formally for the first time.",
+      "diff": "Advanced",
+      "pos": "Verb",
+      "w": "inaugurate"
+    },
+    {
+      "bn": "স্থগিত করা",
+      "def": "To stop something temporarily.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "suspend"
+    },
+    {
+      "bn": "আবার শুরু করা",
+      "def": "To start again after a pause.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "resume"
+    },
+    {
+      "bn": "পিছিয়ে দেওয়া",
+      "def": "To delay something to a later time.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "postpone"
+    },
+    {
+      "bn": "দীর্ঘায়িত করা",
+      "def": "To make something last longer.",
+      "diff": "Advanced",
+      "pos": "Verb",
+      "w": "prolong"
+    },
+    {
+      "bn": "কমে যাওয়া; হ্রাস পাওয়া",
+      "def": "To become smaller or worse.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "decline"
+    },
+    {
+      "bn": "ঘুরে দাঁড়ানো",
+      "def": "To recover after a fall.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "rebound"
+    },
+    {
+      "bn": "উন্নতি করা",
+      "def": "To grow or succeed strongly.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "thrive"
+    },
+    {
+      "bn": "সহ্য করা; টিকে থাকা",
+      "def": "To suffer through something difficult.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "endure"
+    },
+    {
+      "bn": "প্রতিরোধ করা; সহ্য করা",
+      "def": "To resist damage or pressure.",
+      "diff": "Advanced",
+      "pos": "Verb",
+      "w": "withstand"
+    },
+    {
+      "bn": "ঘোষণা করা",
+      "def": "To make something known publicly.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "announce"
+    },
+    {
+      "bn": "ঘোষণা দেওয়া",
+      "def": "To state something officially.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "declare"
+    },
+    {
+      "bn": "প্রস্তাব দেওয়া",
+      "def": "To suggest a plan for others to consider.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "propose"
+    },
+    {
+      "bn": "অনুমোদন দেওয়া",
+      "def": "To agree to something officially.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "approve"
+    },
+    {
+      "bn": "দাবি করা",
+      "def": "To ask firmly for something.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "demand"
+    },
+    {
+      "bn": "সতর্ক করা",
+      "def": "To tell someone of possible danger.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "warn"
+    },
+    {
+      "bn": "নিশ্চিত করা; আশ্বস্ত করা",
+      "def": "To tell someone firmly that something is true.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "assure"
+    },
+    {
+      "bn": "নিশ্চিত করা",
+      "def": "To say that something is true or will happen.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "confirm"
+    },
+    {
+      "bn": "অস্বীকার করা",
+      "def": "To say that something is not true.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "deny"
+    },
+    {
+      "bn": "স্বীকার করা",
+      "def": "To agree that something is true, often unwillingly.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "admit"
+    },
+    {
+      "bn": "দাবি করা",
+      "def": "To say that something is true without proof.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "claim"
+    },
+    {
+      "bn": "যুক্তি দেওয়া",
+      "def": "To give reasons for or against something.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "argue"
+    },
+    {
+      "bn": "জোর দিয়ে বলা",
+      "def": "To demand firmly that something must happen.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "insist"
+    },
+    {
+      "bn": "আশা করা",
+      "def": "To think something will happen.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "expect"
+    },
+    {
+      "bn": "খোঁজা; চাওয়া",
+      "def": "To try to find or get something.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "seek"
+    },
+    {
+      "bn": "লক্ষ্য করা",
+      "def": "To intend to achieve something.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "aim"
+    },
+    {
+      "bn": "সিদ্ধান্ত নেওয়া",
+      "def": "To choose what to do.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "decide"
+    },
+    {
+      "bn": "সম্মত হওয়া",
+      "def": "To have the same opinion as someone.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "agree"
+    },
+    {
+      "bn": "অস্বীকার করা",
+      "def": "To say no to something.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "refuse"
+    },
+    {
+      "bn": "অর্জন করা",
+      "def": "To succeed in reaching a goal.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "achieve"
+    },
+    {
+      "bn": "বাড়ানো; বৃদ্ধি পাওয়া",
+      "def": "To become larger in number or amount.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "increase"
+    },
+    {
+      "bn": "কমানো; হ্রাস পাওয়া",
+      "def": "To become smaller.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "decrease"
+    },
+    {
+      "bn": "উন্নত করা",
+      "def": "To make something better.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "improve"
+    },
+    {
+      "bn": "সম্প্রসারিত করা",
+      "def": "To make something larger.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "expand"
+    },
+    {
+      "bn": "কমানো",
+      "def": "To make something smaller.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "reduce"
+    },
+    {
+      "bn": "বাড়ানো; তোলা",
+      "def": "To increase something.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "raise"
+    },
+    {
+      "bn": "বাড়িয়ে দেওয়া",
+      "def": "To increase something suddenly.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "boost"
+    },
+    {
+      "bn": "সমর্থন করা",
+      "def": "To help or agree with someone.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "support"
+    },
+    {
+      "bn": "বিরোধিতা করা",
+      "def": "To disagree with something strongly.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "oppose"
+    },
+    {
+      "bn": "সমালোচনা করা",
+      "def": "To say what is wrong with something.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "criticise"
+    },
+    {
+      "bn": "দোষ দেওয়া",
+      "def": "To say someone is responsible for something bad.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "blame"
+    },
+    {
+      "bn": "অভিযুক্ত করা",
+      "def": "To say someone did something wrong.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "accuse"
+    },
+    {
+      "bn": "গ্রেপ্তার করা",
+      "def": "To seize someone by law.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "arrest"
+    },
+    {
+      "bn": "মুক্তি দেওয়া",
+      "def": "To set someone free.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "release"
+    },
+    {
+      "bn": "তদন্ত করা",
+      "def": "To examine something carefully to find the truth.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "investigate"
+    },
+    {
+      "bn": "নিয়োগ দেওয়া",
+      "def": "To choose someone for a job.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "appoint"
+    },
+    {
+      "bn": "নির্বাচিত করা",
+      "def": "To choose someone by voting.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "elect"
+    },
+    {
+      "bn": "বরখাস্ত করা",
+      "def": "To remove someone from a job.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "dismiss"
+    },
+    {
+      "bn": "পদত্যাগ করা",
+      "def": "To leave a job or position formally.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "resign"
+    },
+    {
+      "bn": "প্রতিষ্ঠা করা",
+      "def": "To start or create something that lasts.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "establish"
+    },
+    {
+      "bn": "সৃষ্টি করা",
+      "def": "To make something new.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "create"
+    },
+    {
+      "bn": "সরবরাহ করা",
+      "def": "To give something that is needed.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "provide"
+    },
+    {
+      "bn": "সরবরাহ করা",
+      "def": "To give goods that are needed.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "supply"
+    },
+    {
+      "bn": "বিনিয়োগ করা",
+      "def": "To put money into something for profit.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "invest"
+    },
+    {
+      "bn": "ধার নেওয়া",
+      "def": "To take money that must be paid back.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "borrow"
+    },
+    {
+      "bn": "আলোচনা করা",
+      "def": "To talk about something.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "discuss"
+    },
+    {
+      "bn": "নিশ্চিত করা",
+      "def": "To make certain that something happens.",
+      "diff": "Intermediate",
+      "pos": "Verb",
+      "w": "ensure"
+    },
+    {
+      "bn": "সম্পূর্ণ করা",
+      "def": "To finish something.",
+      "diff": "Basic",
+      "pos": "Verb",
+      "w": "complete"
+    },
+    {
+      "bn": "মন্ত্রী",
+      "def": "A senior member of the government.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "minister"
+    },
+    {
+      "bn": "রাষ্ট্রপতি; সভাপতি",
+      "def": "The head of a country or organisation.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "president"
+    },
+    {
+      "bn": "কর্মকর্তা",
+      "def": "A person in a position of authority.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "official"
+    },
+    {
+      "bn": "কর্তৃপক্ষ",
+      "def": "The power or right to control; an official body.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "authority"
+    },
+    {
+      "bn": "কমিটি",
+      "def": "A group chosen to deal with a matter.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "committee"
+    },
+    {
+      "bn": "পরিষদ",
+      "def": "A group that makes decisions for an area.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "council"
+    },
+    {
+      "bn": "অধিবেশন",
+      "def": "A meeting of a parliament or court.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "session"
+    },
+    {
+      "bn": "সভা",
+      "def": "When people gather to discuss something.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "meeting"
+    },
+    {
+      "bn": "সম্মেলন",
+      "def": "A large meeting for discussion.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "conference"
+    },
+    {
+      "bn": "চুক্তি",
+      "def": "An arrangement between people or countries.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "agreement"
+    },
+    {
+      "bn": "চুক্তি",
+      "def": "An agreement, especially in business or politics.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "deal"
+    },
+    {
+      "bn": "চুক্তি",
+      "def": "A written legal agreement.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "contract"
+    },
+    {
+      "bn": "প্রকল্প",
+      "def": "A planned piece of work.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "project"
+    },
+    {
+      "bn": "কর্মসূচি",
+      "def": "A planned series of events or activities.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "programme"
+    },
+    {
+      "bn": "পরিকল্পনা",
+      "def": "An official plan or arrangement.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "scheme"
+    },
+    {
+      "bn": "নীতি",
+      "def": "A set of ideas or plans used as a basis for decisions.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "policy"
+    },
+    {
+      "bn": "কৌশল",
+      "def": "A plan to achieve a long-term aim.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "strategy"
+    },
+    {
+      "bn": "সংস্কার",
+      "def": "A change made to improve a system.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "reform"
+    },
+    {
+      "bn": "পদক্ষেপ",
+      "def": "An action taken to achieve a purpose.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "measure"
+    },
+    {
+      "bn": "সিদ্ধান্ত",
+      "def": "A choice made after thinking.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "decision"
+    },
+    {
+      "bn": "বিবৃতি",
+      "def": "Something said officially.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "statement"
+    },
+    {
+      "bn": "প্রতিবেদন",
+      "def": "A written account of something.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "report"
+    },
+    {
+      "bn": "জরিপ",
+      "def": "A study of people's opinions or facts.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "survey"
+    },
+    {
+      "bn": "গবেষণা; পড়াশোনা",
+      "def": "Careful examination of a subject.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "study"
+    },
+    {
+      "bn": "তথ্য",
+      "def": "Facts and figures collected together.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "data"
+    },
+    {
+      "bn": "সংখ্যা",
+      "def": "A number, especially in statistics.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "figure"
+    },
+    {
+      "bn": "পরিমাণ",
+      "def": "How much there is of something.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "amount"
+    },
+    {
+      "bn": "স্তর",
+      "def": "A position on a scale.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "level"
+    },
+    {
+      "bn": "হার",
+      "def": "A measure of how often or how much.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "rate"
+    },
+    {
+      "bn": "দাম",
+      "def": "The money needed to buy something.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "price"
+    },
+    {
+      "bn": "খরচ",
+      "def": "The money needed to do or buy something.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "cost"
+    },
+    {
+      "bn": "মূল্য",
+      "def": "How much something is worth.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "value"
+    },
+    {
+      "bn": "বাজার",
+      "def": "A place or system for buying and selling.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "market"
+    },
+    {
+      "bn": "খাত",
+      "def": "A part of the economy or society.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "sector"
+    },
+    {
+      "bn": "কারখানা",
+      "def": "A place where goods are made.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "factory"
+    },
+    {
+      "bn": "কোম্পানি",
+      "def": "A business organisation.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "company"
+    },
+    {
+      "bn": "শ্রমিক",
+      "def": "A person who works, especially physically.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "worker"
+    },
+    {
+      "bn": "নিয়োগকর্তা",
+      "def": "A person or company that employs people.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "employer"
+    },
+    {
+      "bn": "শ্রম",
+      "def": "Work, especially physical work.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "labour"
+    },
+    {
+      "bn": "কর্মসংস্থান",
+      "def": "Having a job.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "employment"
+    },
+    {
+      "bn": "বেতন",
+      "def": "Money paid monthly for work.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "salary"
+    },
+    {
+      "bn": "আয়",
+      "def": "Money received regularly.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "income"
+    },
+    {
+      "bn": "মুনাফা",
+      "def": "Money gained after costs.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "profit"
+    },
+    {
+      "bn": "ক্ষতি",
+      "def": "Money or advantage lost.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "loss"
+    },
+    {
+      "bn": "ঋণ",
+      "def": "Money that is owed.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "debt"
+    },
+    {
+      "bn": "ঋণ",
+      "def": "Money borrowed that must be repaid.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "loan"
+    },
+    {
+      "bn": "ঋণ; ধার",
+      "def": "Money lent, or trust in paying later.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "credit"
+    },
+    {
+      "bn": "কর",
+      "def": "Money paid to the government.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "tax"
+    },
+    {
+      "bn": "শুল্ক",
+      "def": "A tax on imported goods.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "duty"
+    },
+    {
+      "bn": "ফি",
+      "def": "Money paid for a service.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "fee"
+    },
+    {
+      "bn": "পুরস্কার",
+      "def": "Something given for achievement.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "award"
+    },
+    {
+      "bn": "সম্মান",
+      "def": "Great respect or a prize for respect.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "honour"
+    },
+    {
+      "bn": "অনুষ্ঠান",
+      "def": "A formal event.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "ceremony"
+    },
+    {
+      "bn": "স্বাস্থ্য",
+      "def": "The state of the body.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "health"
+    },
+    {
+      "bn": "রোগ",
+      "def": "An illness.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "disease"
+    },
+    {
+      "bn": "হাসপাতাল",
+      "def": "A place where sick people are treated.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "hospital"
+    },
+    {
+      "bn": "ডাক্তার",
+      "def": "A person who treats sick people.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "doctor"
+    },
+    {
+      "bn": "রোগী",
+      "def": "A person receiving medical treatment.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "patient"
+    },
+    {
+      "bn": "খাদ্য",
+      "def": "What people eat.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "food"
+    },
+    {
+      "bn": "পানি",
+      "def": "The clear liquid needed for life.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "water"
+    },
+    {
+      "bn": "বিদ্যুৎ",
+      "def": "Power that runs lights and machines.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "electricity"
+    },
+    {
+      "bn": "গ্যাস",
+      "def": "Fuel used for cooking and heating.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "gas"
+    },
+    {
+      "bn": "জ্বালানি",
+      "def": "Material burned for energy.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "fuel"
+    },
+    {
+      "bn": "পরিবহন",
+      "def": "Moving people or goods.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "transport"
+    },
+    {
+      "bn": "সড়ক",
+      "def": "A way for vehicles to travel.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "road"
+    },
+    {
+      "bn": "সেতু",
+      "def": "A structure over a river or road.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "bridge"
+    },
+    {
+      "bn": "বিমানবন্দর",
+      "def": "A place where planes take off and land.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "airport"
+    },
+    {
+      "bn": "বন্দর",
+      "def": "A place where ships load and unload.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "port"
+    },
+    {
+      "bn": "পর্যটন",
+      "def": "Travelling for pleasure and the industry around it.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "tourism"
+    },
+    {
+      "bn": "শিক্ষা",
+      "def": "Learning and teaching.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "education"
+    },
+    {
+      "bn": "বিদ্যালয়",
+      "def": "A place where children learn.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "school"
+    },
+    {
+      "bn": "কলেজ",
+      "def": "A place for higher education after school.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "college"
+    },
+    {
+      "bn": "বিশ্ববিদ্যালয়",
+      "def": "A place of higher education and research.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "university"
+    },
+    {
+      "bn": "শিক্ষার্থী",
+      "def": "A person who studies.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "student"
+    },
+    {
+      "bn": "শিক্ষক",
+      "def": "A person who teaches.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "teacher"
+    },
+    {
+      "bn": "পরীক্ষা",
+      "def": "A test of knowledge.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "examination"
+    },
+    {
+      "bn": "ফলাফল",
+      "def": "What happens because of something; exam outcome.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "result"
+    },
+    {
+      "bn": "ডিগ্রি",
+      "def": "A qualification from a university.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "degree"
+    },
+    {
+      "bn": "কোর্স",
+      "def": "A series of lessons on a subject.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "course"
+    },
+    {
+      "bn": "বিজ্ঞান",
+      "def": "Knowledge from studying nature.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "science"
+    },
+    {
+      "bn": "প্রযুক্তি",
+      "def": "Using science for practical purposes.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "technology"
+    },
+    {
+      "bn": "গণমাধ্যম",
+      "def": "Newspapers, TV and radio together.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "media"
+    },
+    {
+      "bn": "সমাজ",
+      "def": "People living together in a community.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "society"
+    },
+    {
+      "bn": "পরিবার",
+      "def": "A group of related people.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "family"
+    },
+    {
+      "bn": "শিশু",
+      "def": "A young person.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "child"
+    },
+    {
+      "bn": "নারী",
+      "def": "An adult female person.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "woman"
+    },
+    {
+      "bn": "যুবক; তরুণ",
+      "def": "Young people.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "youth"
+    },
+    {
+      "bn": "শহর",
+      "def": "A large town.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "city"
+    },
+    {
+      "bn": "জেলা",
+      "def": "An area of a country.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "district"
+    },
+    {
+      "bn": "অঞ্চল",
+      "def": "A large area of land.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "region"
+    },
+    {
+      "bn": "সীমান্ত",
+      "def": "The line between two countries.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "border"
+    },
+    {
+      "bn": "নদী",
+      "def": "A large stream of water.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "river"
+    },
+    {
+      "bn": "বন",
+      "def": "A large area of trees.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "forest"
+    },
+    {
+      "bn": "আবহাওয়া",
+      "def": "Rain, sun, wind and temperature.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "weather"
+    },
+    {
+      "bn": "বৃষ্টি",
+      "def": "Water falling from clouds.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "rain"
+    },
+    {
+      "bn": "ঝড়",
+      "def": "Very bad weather with strong wind.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "storm"
+    },
+    {
+      "bn": "ব্যাংক",
+      "def": "An organisation that keeps money and lends it.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "bank"
+    },
+    {
+      "bn": "রাষ্ট্র",
+      "def": "A country or its government.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "state"
+    },
+    {
+      "bn": "সহযোগিতা",
+      "def": "Working together.",
+      "diff": "Intermediate",
+      "pos": "Noun",
+      "w": "cooperation"
+    },
+    {
+      "bn": "রাজনৈতিক",
+      "def": "Relating to government and politics.",
+      "diff": "Basic",
+      "pos": "Adjective",
+      "w": "political"
+    },
+    {
+      "bn": "মজুরি",
+      "def": "Money paid for work, usually daily or weekly.",
+      "diff": "Basic",
+      "pos": "Noun",
+      "w": "wage"
+    }
+  ]
+}
