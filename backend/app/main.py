@@ -61,6 +61,36 @@ def _merge_bangla_stories(english_stories, bangla_stories):
     return merged
 
 
+def _merge_bangla_mcqs(english_mcqs, bangla_mcqs):
+    """Overlay only reviewed Bangla MCQ text while retaining the answer key.
+
+    English MCQs are never exposed as a fallback in a Bangla briefing.
+    A question appears in the Bangla payload only when its matching
+    translated question exists in the approved Bangla overlay.
+    """
+    if isinstance(english_mcqs, list):
+        base = english_mcqs
+    else:
+        base = []
+    if isinstance(bangla_mcqs, list):
+        overlays = {str(item.get("no")): item for item in bangla_mcqs
+                    if isinstance(item, dict) and item.get("no") is not None}
+    elif isinstance(bangla_mcqs, dict):
+        overlays = {str(key): value for key, value in bangla_mcqs.items()
+                    if isinstance(value, dict)}
+    else:
+        overlays = {}
+    merged = []
+    for question in base:
+        if not isinstance(question, dict):
+            continue
+        overlay = overlays.get(str(question.get("no", "")))
+        if not isinstance(overlay, dict) or not overlay.get("question"):
+            continue
+        merged.append({**question, **overlay})
+    return merged
+
+
 @app.get("/health")
 def health():
     editions = list_editions()
@@ -93,7 +123,7 @@ def edition_detail(edition_date: str):
 
 
 @app.get("/api/v1/briefing")
-def briefing(language: str = Query(default="en", pattern="^(en|bn)$")):
+def briefing(language: str = Query(default="bn", pattern="^(en|bn)$")):
     entries = list_editions()
     if not entries:
         return {
@@ -117,22 +147,38 @@ def briefing(language: str = Query(default="en", pattern="^(en|bn)$")):
     data = english_data
     resolved_language = "en"
 
-    if language == "bn" and isinstance(bangla_data, dict):
+    if language == "bn":
         bangla_stories = _merge_bangla_stories(
-            english_stories, bangla_data.get("stories")
+            english_stories, bangla_data.get("stories") if isinstance(bangla_data, dict) else None
         )
-        if bangla_stories and any(
-            story != english for story, english in zip(bangla_stories, english_stories)
-        ):
-            stories = bangla_stories
-            data = bangla_data
-            resolved_language = "bn"
+        if not bangla_stories:
+            return {
+                "status": "translation_pending",
+                "message": "The Bangla edition has not passed editorial approval.",
+                "edition_date": edition_date,
+                "language": "bn",
+                "fallback_language": None,
+                "data": {},
+                "stories": [],
+            }
+        stories = bangla_stories
+        resolved_language = "bn"
+        data = {
+            **english_data,
+            **{key: value for key, value in bangla_data.items()
+               if key not in {"stories", "mcqs"}},
+            "stories": bangla_stories,
+            "mcqs": _merge_bangla_mcqs(
+                english_data.get("mcqs", []),
+                bangla_data.get("mcqs") if isinstance(bangla_data, dict) else None,
+            ),
+        }
 
     return {
         "status": "published",
         "edition_date": edition_date,
         "language": resolved_language,
-        "fallback_language": "en" if language == "bn" and resolved_language == "en" else None,
+        "fallback_language": None,
         "data": data,
         "stories": stories,
     }

@@ -510,6 +510,9 @@ def build_story_fields(item, article, day_iso, items_by_id):
         "recall_cards": recall_en,
         "keywords": keywords,
         "detail": detail,
+        # Optional editor-researched study layer. This is passed through only
+        # when supplied in the source item; the converter never invents it.
+        "exam_learning": item.get("exam_learning_en") or item.get("exam_learning") or {},
     }
     bn_key_facts = []
     for i, kf in enumerate(key_facts):
@@ -532,6 +535,8 @@ def build_story_fields(item, article, day_iso, items_by_id):
         "recall_cards": recall_bn,
         "keywords": [bn_sanitise(k) for k in keywords],
         "detail": bn_sanitise(clean(item.get("focus_paragraph", ""))) or bn_text,
+        # Bangla learning notes remain review-gated with the rest of this overlay.
+        "exam_learning": item.get("exam_learning_bn") or {},
     }
     if not bn_story["one_liner"]:
         bn_story["one_liner"] = bn_sanitise(truncate_words(headline, 20))
