@@ -117,8 +117,8 @@ class StudyMigrationTests(unittest.TestCase):
         _, article_id = self._insert_article()
         self.db.execute(
             "INSERT INTO article_exam_assessments "
-            "(article_id, exam_relevance_score, exam_relevance_reason, retention_status) "
-            "VALUES (?, 8, 'Core public policy topic', 'full_note')",
+            "(article_id, exam_relevance_score, exam_relevance_reason, retention_status, topic_tags_json) "
+            "VALUES (?, 8, 'Core public policy topic', 'full_note', '[\"BD-GOVERNANCE\"]')",
             (article_id,),
         )
         with self.assertRaises(sqlite3.IntegrityError):
