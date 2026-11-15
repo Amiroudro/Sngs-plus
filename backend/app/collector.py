@@ -20,7 +20,7 @@ import feedparser
 
 ROOT = Path(__file__).resolve().parents[2]
 DB_PATH = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "data" / "sarangsho.db"
-SCHEMA_PATH = ROOT.parent / "database" / "schema.sql"
+SCHEMA_PATH = ROOT / "database" / "schema.sql"
 USER_AGENT = "SarangshoPlusBot/0.1 (+https://github.com/Amiroudro/Sngs-plus)"
 TIMEOUT_SECONDS = 15
 MAX_FEED_BYTES = 5_000_000
