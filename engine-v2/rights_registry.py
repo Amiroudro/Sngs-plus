@@ -111,7 +111,10 @@ def metadata_decision(url, registry=None):
         return False, "publisher metadata permission is not approved"
     if not _has_evidence(record, "metadata_scope", "metadata_evidence"):
         return False, "metadata permission lacks scope, evidence or is expired"
-    return True, "metadata permission approved"
+    if record.get("automated_processing_status") != "approved" or not _has_evidence(
+            record, "automated_processing_scope", "automated_processing_evidence"):
+        return False, "automated processing permission is not approved with current scope/evidence"
+    return True, "metadata and automated processing permissions approved"
 
 
 def page_metadata_decision(url, registry=None):
@@ -122,8 +125,10 @@ def page_metadata_decision(url, registry=None):
         return False, "publisher domain is not mapped in rights registry"
     if record.get("page_metadata_status") == "approved" and (
             record.get("page_metadata_scope") or "").strip() and (
-            record.get("page_metadata_evidence") or "").strip() and _review_current(record):
-        return True, "page metadata permission approved"
+            record.get("page_metadata_evidence") or "").strip() and _review_current(record) and (
+            record.get("automated_processing_status") == "approved") and _has_evidence(
+            record, "automated_processing_scope", "automated_processing_evidence"):
+        return True, "page metadata and automated processing permissions approved"
     if body_decision(url, registry)[0]:
         return True, "licensed article-page processing"
     return False, "article-page metadata extraction is not approved"
@@ -139,7 +144,10 @@ def body_decision(url, registry=None):
         return False, "article-body licence is not approved"
     if not _has_evidence(record, "body_scope", "body_evidence"):
         return False, "article-body licence lacks scope, evidence or is expired"
-    return True, "article-body licence approved"
+    if record.get("automated_processing_status") != "approved" or not _has_evidence(
+            record, "automated_processing_scope", "automated_processing_evidence"):
+        return False, "automated processing permission is not approved with current scope/evidence"
+    return True, "article-body and automated processing permissions approved"
 
 
 def filter_metadata_items(items, registry=None):
