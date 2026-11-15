@@ -20,6 +20,7 @@ Planned flow after the external cron is switched: engine-v2 → 15-check gate �
 - **Daily schedule:** the v2 cron instructions say the external cron was NOT edited. The existing 08:00 daily job must not be described as v2 until that change is independently verified.
 - **Publisher rights:** the v2 rights registry contains 55 candidate publisher records, all currently disabled. The collector now enforces this registry at feed, page-title and article-body stages. No newspaper publisher should be treated as an active v2 source until the required permission records are approved and enabled.
 - **Publishing:** the local publisher refuses to write an edition without both a 15/15 gate report and an approval file. A synthetic CI fixture tests the publish mechanism; it is not evidence that a real daily edition has passed the gate or been published.
+- **Existing archive:** the 1–15 November editorial revisions are not independent fact verification or rights clearance. The public index marks independent fact-checking as pending and publisher reuse rights as not re-cleared in this renovation pass.
 
 ## What is NOT in this repo (by design)
 
