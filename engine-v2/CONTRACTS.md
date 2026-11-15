@@ -243,7 +243,7 @@ brackets. Bengali digits in Bangla text.
   query params; drop fragments.
 - `ngrams(text, n)`: character n-grams of normalised text.
 - `robots_allowed(url)`: fetch + parse robots.txt (cached per host per run),
-  respect User-agent: * rules; on fetch failure, allow (fail-open) and record.
+  respect User-agent: * rules; on fetch failure, deny (fail-closed) and record.
 - `today_dhaka()` → YYYY-MM-DD in Asia/Dhaka.
 
 ## V2 publish gate
