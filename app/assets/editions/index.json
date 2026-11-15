@@ -60,5 +60,7 @@
       "edition_date": "2026-11-15",
       "status": "published"
     }
-  ]
+  ],
+  "correct_consecutive_editions": 7,
+  "correct_rule": "An edition counts as correct only if published after passing the full review checklist with no failures (17 checks since the 2026-11-11 audit fixes; 12 checks before). Backfilled editions Nov 1-6 each passed 12/12 but do not form a 7-long consecutive run with the forward editions (Nov 7 was not formally review-gated; Nov 8 was 11/12). Editions 9-15 Nov 2026 each passed 17/17 and are published, so the run is 7."
 }
