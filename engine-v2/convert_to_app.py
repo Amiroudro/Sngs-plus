@@ -857,6 +857,43 @@ def save_json(path, data):
     return path
 
 
+def validate_exam_learning_sidecar(doc, expected_date):
+    """Validate the optional editor-authored learning sidecar structure."""
+    if not isinstance(doc, dict):
+        raise ValueError("exam-learning sidecar must be a JSON object")
+    if doc.get("edition_date") != expected_date:
+        raise ValueError("exam-learning sidecar edition_date does not match the run")
+    stories = doc.get("stories")
+    if not isinstance(stories, dict):
+        raise ValueError("exam-learning sidecar must contain a stories object")
+    for story_id, entry in stories.items():
+        if not isinstance(story_id, str) or not story_id.strip():
+            raise ValueError("exam-learning sidecar contains an empty story ID")
+        if not isinstance(entry, dict):
+            raise ValueError(f"exam-learning entry for {story_id} must be an object")
+        for language in ("en", "bn"):
+            layer = entry.get(language, {})
+            if layer is not None and not isinstance(layer, dict):
+                raise ValueError(f"{story_id}.{language} learning layer must be an object")
+    return stories
+
+
+def attach_exam_learning(en_story, bn_story, source_story_id, sidecar_stories):
+    """Attach researched learning notes by original v2 story ID.
+
+    The converter passes content through; it does not research, translate,
+    approve, or invent any learning material.
+    """
+    entry = sidecar_stories.get(source_story_id, {})
+    if not isinstance(entry, dict):
+        return False, False
+    en_layer = entry.get("en") or en_story.get("exam_learning") or {}
+    bn_layer = entry.get("bn") or bn_story.get("exam_learning") or {}
+    en_story["exam_learning"] = en_layer if isinstance(en_layer, dict) else {}
+    bn_story["exam_learning"] = bn_layer if isinstance(bn_layer, dict) else {}
+    return bool(en_story["exam_learning"]), bool(bn_story["exam_learning"])
+
+
 def pick_distractors(correct_text, pool, used=None):
     """3 distractor records from ``pool`` (records with a 'text' key).
     Prefer definitions LONGER than the correct one, so the correct
@@ -889,7 +926,7 @@ def convert(date_str, run_dir, staging_dir):
     staging_dir = Path(staging_dir)
     report = {"date": day_iso, "mapping": [], "empty_fields": [],
               "repairs": [], "mcq": {}, "editorial": {}, "bn": {},
-              "self_checks": [], "unmeetable": [], "notes": []}
+              "exam_learning": {}, "self_checks": [], "unmeetable": [], "notes": []}
     log(f"converting v2 run {run_dir} -> staging {staging_dir}")
 
     page = load_json(run_dir / f"page-{date_str}.json")
@@ -914,6 +951,25 @@ def convert(date_str, run_dir, staging_dir):
             "before run_v2.py persisted final_items). BN key_fact labels "
             "are sanitised English 'what' text; from the next run the "
             "items file supplies Bangla structured facts.")
+    learning_path = run_dir / f"exam-learning-{date_str}.json"
+    learning_stories = {}
+    if learning_path.is_file():
+        try:
+            learning_doc = load_json(learning_path)
+            learning_stories = validate_exam_learning_sidecar(learning_doc, day_iso)
+        except (ValueError, json.JSONDecodeError) as exc:
+            raise SystemExit(f"invalid exam-learning sidecar: {exc}")
+        log(f"exam-learning sidecar loaded: {len(learning_stories)} story entries")
+    else:
+        log("no exam-learning sidecar; no external topic notes will be attached")
+    report["exam_learning"] = {
+        "input": learning_path.name if learning_path.is_file() else None,
+        "story_entries": len(learning_stories),
+        "english_layers": 0,
+        "bangla_layers": 0,
+        "generated_by_converter": False,
+    }
+
     metadata_path = run_dir / f"metadata-only-{date_str}.json"
     metadata_doc = load_json(metadata_path) if metadata_path.exists() else {
         "date": date_str, "items": []
@@ -1039,6 +1095,10 @@ def convert(date_str, run_dir, staging_dir):
         en, bn, notes = build_story_fields(
             item, by_id.get(item["id"], {}), day_iso, items_by_id)
         en["id"] = ca
+        has_en_learning, has_bn_learning = attach_exam_learning(
+            en, bn, item["id"], learning_stories)
+        report["exam_learning"]["english_layers"] += int(has_en_learning)
+        report["exam_learning"]["bangla_layers"] += int(has_bn_learning)
         stories_en.append(en)
         stories_bn[ca] = bn
         story_notes[ca] = notes
