@@ -151,6 +151,13 @@ def main():
     assert rr.body_decision("https://sonalisangbad.com/news/example", prod)[0] is False
     assert prod["publishers"]["sonalisangbad.com"]["source_enabled"] is False
     print("PASS: newly resolved Sonali Sangbad domain is mapped but remains disabled")
+    # Global production invariant: adding a domain must never activate it.
+    assert len(prod["publishers"]) == 55
+    for domain, record in prod["publishers"].items():
+        assert record.get("source_enabled") is False, domain
+        assert record.get("body_status") != "licensed", domain
+        assert record.get("metadata_status") != "approved", domain
+    print("PASS: all 55 production host records remain disabled with no body licence")
     print("PASS: current candidate publishers remain disabled pending evidence")
 
 
