@@ -296,3 +296,15 @@ The publisher-controlled [Ajker Patrika terms page](https://www.ajkerpatrika.com
 **Disposition:** keep Ajker Patrika disabled. Obtain written permission for the precise collection, automated-processing and display workflow before considering activation. This is a terms review, not a legal opinion or permission grant.
 
 Daily Ittefaq's located [Privacy Policy](https://www.ittefaq.com.bd/privacy-policy/) concerns personal-data handling and is not a general article-content licence. Its general content terms remain unreviewed; do not treat the privacy policy as permission or as a content restriction finding.
+
+
+## Additional official terms review: Daily Ittefaq and Samakal (16 Nov 2026)
+
+| Publisher | Official page | Finding | Disposition |
+|---|---|---|---|
+| Daily Ittefaq | https://www.ittefaq.com.bd/terms | Terms state that its content and related IP belong to Ittefaq/licensors; users receive read-only, personal/private/non-commercial access; users may not make derivative works or share modified/altered content on other digital platforms. No licence for automated collection, derivative study notes or app redistribution is granted. | Keep disabled. Written permission is required for the proposed workflow. |
+| Samakal | https://onlinebn.samakal24.com/terms | The located page contains general disclaimers, comment rules and communications provisions. The reviewed text does not clearly grant or expressly address automated collection, summarisation or app redistribution. | Review inconclusive. Keep disabled; seek written clarification/permission before processing. |
+
+A third-party feed directory lists Samakal and Ittefaq as feed-verified in its 17 October 2026 registry pass. This is only a third-party directory claim, not direct verification from our deployment environment and not a content-use licence.
+
+No source permissions were activated by this review.
