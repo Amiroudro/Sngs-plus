@@ -17,6 +17,17 @@ def main():
     assert counts["route_leads"] == sum(bool(row["feed_url_lead"]) for row in sources) == 8
     assert counts["directly_verified"] == 0
     assert counts["enabled"] == 0
+    collector_routes = ledger["collector_route_inventory"]
+    assert len(collector_routes) == counts["collector_route_records"] == 19
+    for route in collector_routes:
+        assert route["evidence_date"] == "2026-11-15"
+        assert route["evidence_environment"] == "original_engine_development_vm"
+        assert route["deployment_environment_verified"] is False
+        assert route["current_reachability"] == "not_verified"
+        assert route["robots_status"] == "not_rechecked_for_deployment"
+        assert route["rights_approved"] is False
+        assert route["source_enabled"] is False
+        assert route["url"].startswith("https://")
     for row in sources:
         assert row["source_enabled"] is False, row["host"]
         assert row["direct_fetch_status"] == "not_verified_in_deployment_environment"
