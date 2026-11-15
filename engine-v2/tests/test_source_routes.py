@@ -19,6 +19,7 @@ def main():
         assert row["source_enabled"] is False, row["host"]
         assert row["direct_fetch_status"] == "not_verified_in_deployment_environment"
         assert row["body_status"] == "not_permitted"
+        assert row["automated_processing_status"] != "approved", row["host"]
         if row["feed_url_lead"]:
             assert row["feed_route_status"] in {
                 "third_party_directory_lead_not_directly_verified",
