@@ -23,6 +23,9 @@ places them at the expected paths. Python modules are placed under
 ## Not yet connected
 
 - A read-only API now reads human-published editions from `editions/index.json`; it does not read staging output.
+- A SQLite migration adds source-health history, fact evidence, questions/options, vocabulary occurrences, review progress and editorial correction history.
+- A 50-publisher candidate directory records the intended source pool without falsely marking candidates as verified or active.
+- The collector no longer excludes sports, entertainment and lifestyle sections at URL-filter time; their priority is left to editorial scoring.
 - No database ingestion for engine events, source contributions, facts,
   vocabulary or questions.
 - No frontend Today/Topics/Exam Desk data binding.
