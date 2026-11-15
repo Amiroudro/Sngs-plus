@@ -46,7 +46,7 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
-The API exposes `/health`, `/api/v1/editions`, `/api/v1/editions/{YYYY-MM-DD}` and `/api/v1/briefing?language=en|bn`. It reads only files listed in the published edition index. With the initial empty index, the briefing correctly returns a demo status and no stories.
+The API exposes `/health`, `/api/v1/editions`, `/api/v1/editions/{YYYY-MM-DD}` and `/api/v1/briefing?language=en|bn`. It reads only files listed in the published edition index. With the initial empty index, the briefing correctly returns a demo status and no stories. The `/today` page consumes this API; set `PUBLIC_API_BASE_URL` at frontend build time when the API is on a separate origin, and set `SARANGSHO_CORS_ORIGINS` on the API to the exact frontend origin(s).
 
 ## Initial publishers to evaluate
 
