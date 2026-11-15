@@ -161,11 +161,13 @@
       "feed_route_status": "not_yet_audited",
       "direct_fetch_status": "not_verified_in_deployment_environment",
       "robots_status": "not_rechecked_in_this_route_matrix",
-      "terms_status": "not_reviewed_or_not_recorded",
+      "terms_status": "official_terms_reviewed_automated_collection_and_reuse_restricted_without_permission",
       "automated_processing_status": "pending",
       "body_status": "not_permitted",
       "metadata_status": "pending",
-      "page_metadata_status": "pending"
+      "page_metadata_status": "pending",
+      "terms_url": "https://www.bd-pratidin.com/page/terms",
+      "terms_observation": "Official terms limit use to personal viewing/downloading/printing, prohibit republication, commercial use, editing/modification and unauthorised redistribution, and expressly prohibit automated data collection without permission."
     },
     {
       "host": "kalerkantho.com",
@@ -568,11 +570,13 @@
       "feed_route_status": "not_yet_audited",
       "direct_fetch_status": "not_verified_in_deployment_environment",
       "robots_status": "not_rechecked_in_this_route_matrix",
-      "terms_status": "not_reviewed_or_not_recorded",
+      "terms_status": "official_terms_reviewed_automated_collection_requires_express_written_consent",
       "automated_processing_status": "pending",
       "body_status": "not_permitted",
       "metadata_status": "pending",
-      "page_metadata_status": "pending"
+      "page_metadata_status": "pending",
+      "terms_url": "https://www.banglatribune.com/terms",
+      "terms_observation": "Official terms prohibit systematic or automated data collection without express written consent and prohibit republication, commercial exploitation, modification and redistribution except expressly authorised internal redistribution."
     },
     {
       "host": "dhakapost.com",
