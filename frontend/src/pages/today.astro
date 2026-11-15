@@ -40,6 +40,21 @@ import '../styles/global.css';
 
       <p id="fallback-notice" class="fallback-notice" hidden></p>
       <section id="story-list" class="story-list" aria-live="polite" aria-label="Latest news stories"></section>
+      <section class="archive-panel" aria-labelledby="archive-title">
+        <div class="archive-heading">
+          <h2 id="archive-title">Search the metadata archive</h2>
+          <p id="archive-note">Find retained headlines and publisher records that do not have accessible article text. These are archive records, not study notes.</p>
+        </div>
+        <form id="archive-form">
+          <label for="archive-query" id="archive-label">Search headline or publisher</label>
+          <div class="archive-controls">
+            <input id="archive-query" name="q" type="search" maxlength="160" placeholder="e.g. Bangladesh Bank, climate, budget" />
+            <button id="archive-submit" type="submit">Search archive</button>
+          </div>
+        </form>
+        <p id="archive-status" class="archive-status" role="status"></p>
+        <div id="archive-results" class="archive-results"></div>
+      </section>
       <section id="empty-state" class="empty-state" hidden>
         <span class="empty-mark">S+</span>
         <h2 id="empty-title">No approved edition yet</h2>
@@ -71,7 +86,17 @@ import '../styles/global.css';
           emptyCopy: 'The content pipeline is being connected. This page will show stories only after an edition passes review and is published.',
           connecting: 'Connecting', live: 'Published edition', unavailable: 'Not published',
           story: 'Story', why: 'Why it matters', facts: 'Key facts', source: 'Read original report',
-          back: 'Back to home', fallback: 'Bangla translation is awaiting editorial review. The English edition is shown for now.'
+          back: 'Back to home', fallback: 'Bangla translation is awaiting editorial review. The English edition is shown for now.',
+          archiveTitle: 'Search the metadata archive',
+          archiveNote: 'Find retained headlines and publisher records that do not have accessible article text. These are archive records, not study notes.',
+          archiveLabel: 'Search headline or publisher',
+          archivePlaceholder: 'e.g. Bangladesh Bank, climate, budget',
+          archiveButton: 'Search archive',
+          archiveLoading: 'Searching the published archive…',
+          archiveEmpty: 'No matching metadata-only records were found.',
+          archiveError: 'The archive could not be reached. Please try again later.',
+          archiveNoNotes: 'Metadata only · No study notes',
+          archiveOpen: 'Open publisher page'
         },
         bn: {
           title: 'আজকের সংবাদসংকলন', eyebrow: 'সারাংশ ডেস্ক · দৈনিক সংস্করণ',
@@ -80,7 +105,17 @@ import '../styles/global.css';
           emptyCopy: 'সংবাদ প্রক্রিয়াটি যুক্ত করা হচ্ছে। পর্যালোচনা ও প্রকাশের পরই এখানে সংবাদ দেখানো হবে।',
           connecting: 'সংযোগ করা হচ্ছে', live: 'প্রকাশিত সংস্করণ', unavailable: 'প্রকাশিত হয়নি',
           story: 'সংবাদ', why: 'কেন গুরুত্বপূর্ণ', facts: 'মূল তথ্য', source: 'মূল প্রতিবেদন পড়ুন',
-          back: 'প্রচ্ছদে ফিরুন', fallback: 'বাংলা অনুবাদের মানবীয় পর্যালোচনা এখনো সম্পন্ন হয়নি। আপাতত ইংরেজি সংস্করণ দেখানো হচ্ছে।'
+          back: 'প্রচ্ছদে ফিরুন', fallback: 'বাংলা অনুবাদের মানবীয় পর্যালোচনা এখনো সম্পন্ন হয়নি। আপাতত ইংরেজি সংস্করণ দেখানো হচ্ছে।',
+          archiveTitle: 'সংরক্ষিত সংবাদ-তথ্য খুঁজুন',
+          archiveNote: 'যেসব সংবাদের পূর্ণ লেখা পাওয়া যায়নি, সেগুলোর শিরোনাম ও প্রকাশক-তথ্য এখানে খুঁজুন। এগুলো শুধু আর্কাইভ রেকর্ড, পড়ার নোট নয়।',
+          archiveLabel: 'শিরোনাম বা পত্রিকার নাম দিয়ে খুঁজুন',
+          archivePlaceholder: 'যেমন: বাংলাদেশ ব্যাংক, জলবায়ু, বাজেট',
+          archiveButton: 'আর্কাইভ খুঁজুন',
+          archiveLoading: 'প্রকাশিত আর্কাইভে খোঁজা হচ্ছে…',
+          archiveEmpty: 'মিল পাওয়া যায়নি।',
+          archiveError: 'আর্কাইভে সংযোগ করা যায়নি। পরে আবার চেষ্টা করুন।',
+          archiveNoNotes: 'শুধু সংবাদ-তথ্য · পড়ার নোট নেই',
+          archiveOpen: 'প্রকাশকের ওয়েবসাইট খুলুন'
         }
       };
       let language = 'en';
@@ -172,6 +207,50 @@ import '../styles/global.css';
         }
       }
 
+      async function searchArchive(query) {
+        const words = labels[language];
+        const statusNode = document.querySelector('#archive-status');
+        const resultsNode = document.querySelector('#archive-results');
+        statusNode.textContent = words.archiveLoading;
+        resultsNode.replaceChildren();
+        try {
+          const url = API_BASE + '/api/v1/archive?q=' + encodeURIComponent(query) + '&limit=30';
+          const response = await fetch(url, { headers: { Accept: 'application/json' } });
+          if (!response.ok) throw new Error('Archive API returned ' + response.status);
+          const payload = await response.json();
+          const items = Array.isArray(payload.items) ? payload.items : [];
+          if (!items.length) {
+            statusNode.textContent = words.archiveEmpty;
+            return;
+          }
+          statusNode.textContent = String(payload.total) + (language === 'bn' ? 'টি আর্কাইভ রেকর্ড পাওয়া গেছে' : ' archive records found');
+          items.forEach(item => {
+            const card = element('article', 'archive-item');
+            const meta = element('div', 'archive-meta');
+            meta.append(element('span', 'archive-source', item.source || 'Unknown publisher'));
+            meta.append(element('span', 'archive-kind', words.archiveNoNotes));
+            card.append(meta);
+            card.append(element('h3', 'archive-title-text', item.headline || 'Untitled headline'));
+            if (item.published) card.append(element('time', 'archive-date', item.published));
+            if (item.url && /^https?:\\/\\//i.test(item.url)) {
+              const link = element('a', 'archive-link', words.archiveOpen);
+              link.href = item.url;
+              link.target = '_blank';
+              link.rel = 'noopener noreferrer';
+              card.append(link);
+            }
+            resultsNode.append(card);
+          });
+        } catch (err) {
+          statusNode.textContent = words.archiveError;
+        }
+      }
+
+      document.querySelector('#archive-form').addEventListener('submit', event => {
+        event.preventDefault();
+        searchArchive(document.querySelector('#archive-query').value || '');
+      });
+
       function setLanguage(next) {
         language = next;
         const words = labels[language];
@@ -182,6 +261,11 @@ import '../styles/global.css';
         document.querySelector('#page-title').textContent = words.title;
         document.querySelector('#eyebrow').textContent = words.eyebrow;
         document.querySelector('#intro-copy').textContent = words.intro;
+        document.querySelector('#archive-title').textContent = words.archiveTitle;
+        document.querySelector('#archive-note').textContent = words.archiveNote;
+        document.querySelector('#archive-label').textContent = words.archiveLabel;
+        document.querySelector('#archive-query').placeholder = words.archivePlaceholder;
+        document.querySelector('#archive-submit').textContent = words.archiveButton;
         document.querySelector('footer a:last-child').textContent = words.back;
         loadEdition();
       }
@@ -198,6 +282,23 @@ import '../styles/global.css';
       .edition-date { color: var(--muted, #667085); margin: 0; }
       .today-intro { max-width: 660px; color: var(--muted, #667085); line-height: 1.7; margin: 1.4rem 0 0; }
       .story-list { display: grid; gap: 1rem; }
+      .archive-panel { margin-top: 3rem; padding: clamp(1.2rem, 4vw, 2rem); border: 1px solid var(--line, #dce2e9); border-radius: 18px; background: #fff; }
+      .archive-heading h2 { margin: 0 0 .5rem; color: var(--ink, #14243f); font: 700 clamp(1.5rem, 4vw, 2rem)/1.2 Georgia, serif; }
+      .archive-heading p { margin: 0 0 1.25rem; max-width: 680px; color: var(--muted, #667085); line-height: 1.65; }
+      .archive-panel label { display: block; margin-bottom: .45rem; color: var(--ink, #14243f); font-size: .9rem; font-weight: 700; }
+      .archive-controls { display: flex; gap: .6rem; }
+      .archive-controls input { min-width: 0; flex: 1; border: 1px solid #cbd5e1; border-radius: 10px; padding: .8rem .9rem; font: inherit; }
+      .archive-controls button { border: 0; border-radius: 10px; padding: .8rem 1rem; background: #14243f; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+      .archive-status { color: var(--muted, #667085); font-size: .9rem; }
+      .archive-results { display: grid; gap: .7rem; }
+      .archive-item { border-top: 1px solid var(--line, #dce2e9); padding: 1rem 0 .3rem; }
+      .archive-meta { display: flex; flex-wrap: wrap; gap: .6rem; color: var(--muted, #667085); font-size: .75rem; }
+      .archive-source { font-weight: 800; color: #315b82; }
+      .archive-kind { border: 1px solid #e2e8f0; border-radius: 99px; padding: .1rem .5rem; }
+      .archive-title-text { margin: .5rem 0; color: var(--ink, #14243f); font: 700 1.1rem/1.4 Georgia, serif; }
+      .archive-date { display: block; color: var(--muted, #667085); font-size: .8rem; }
+      .archive-link { display: inline-block; margin-top: .5rem; color: #315b82; font-size: .88rem; font-weight: 700; text-decoration: none; }
+      .archive-link:hover { text-decoration: underline; }
       .fallback-notice { border-left: 3px solid #b9864b; padding: .75rem 1rem; margin: 0 0 1rem; color: #475467; background: #faf7f2; line-height: 1.6; border-radius: 0 10px 10px 0; }
       .story-card { background: #fff; border: 1px solid var(--line, #dce2e9); border-radius: 18px; padding: clamp(1.2rem, 4vw, 2rem); box-shadow: 0 8px 28px rgba(20,36,63,.045); }
       .story-meta { display: flex; align-items: center; flex-wrap: wrap; gap: .75rem; color: var(--muted, #667085); font-size: .76rem; letter-spacing: .06em; text-transform: uppercase; }
