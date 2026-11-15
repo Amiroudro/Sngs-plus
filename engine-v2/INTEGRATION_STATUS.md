@@ -81,3 +81,8 @@ The integration does not publish or activate any article. PR #4 must remain unme
 - Corrected a stale collector diagnostic that described robots fetch failures as fail-open; the runtime policy and regression tests are fail-closed.
 
 This ledger is an audit tracker, not a live probe result. Direct fetch, parse, freshness, robots and rights evidence must be populated from the actual deployment environment before any source can be reviewed for activation.
+
+
+## Rights and route ledger synchronisation
+
+The SQLite-to-JSON rights export now updates both `state/source_rights.json` and the adjacent `state/source_routes.json` ledger when the latter exists. The route ledger mirrors the current metadata, page-metadata, automated-processing, body-rights and enabled states for mapped hosts, and recalculates its enabled count. Dry-run remains the default; `--write` is still required to change either file. The sync regression test verifies dry-run immutability, metadata-only grants, later body/page grants, and restrictive-review revocation across both ledgers.
