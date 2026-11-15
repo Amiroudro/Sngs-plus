@@ -1204,6 +1204,29 @@
       "automated_processing_scope": "",
       "automated_processing_evidence": "",
       "source_enabled": false
+    },
+    "sonalisangbad.com": {
+      "publisher": "Sonali Sangbad",
+      "domain_evidence": "https://sonalisangbad.com/ (publisher homepage and current e-paper route observed 2026-11-16)",
+      "domain_status": "publisher_homepage_found_feed_unverified",
+      "metadata_status": "pending",
+      "metadata_scope": "",
+      "metadata_evidence": "",
+      "page_metadata_status": "pending",
+      "page_metadata_scope": "",
+      "page_metadata_evidence": "",
+      "body_status": "not_permitted",
+      "body_scope": "",
+      "body_evidence": "",
+      "expires_at": "",
+      "reviewed_at": "",
+      "review_due_at": "",
+      "third_party_feed_registry_status": "not_found_in_checked_inkline_registry",
+      "third_party_feed_registry_url": "",
+      "automated_processing_status": "pending",
+      "automated_processing_scope": "",
+      "automated_processing_evidence": "",
+      "source_enabled": false
     }
   },
   "unmapped_candidates": [
