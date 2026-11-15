@@ -31,6 +31,9 @@ jobs:
       - name: Run collection policy regression test
         working-directory: engine-v2
         run: python tests/test_collection_policy.py
+      - name: Run fail-closed robots policy tests
+        working-directory: engine-v2
+        run: python tests/test_robots_policy.py
       - name: Run deterministic prefilter tests
         working-directory: engine-v2
         run: python tests/test_step2.py
