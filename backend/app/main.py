@@ -3,7 +3,12 @@ import os
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
-from .edition_store import (EditionNotFound, list_editions, load_edition,\n                            search_metadata_archive)
+from .edition_store import (
+    EditionNotFound,
+    list_editions,
+    load_edition,
+    search_metadata_archive,
+)
 
 app = FastAPI(
     title="Sarangsho Plus API",
