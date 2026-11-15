@@ -132,6 +132,22 @@ def export_registry(db_path, registry_path=None, write=False, routes_path=None):
     report["domains_updated"] = sorted(
         key for key in assignments if key not in conflicting_keys
     )
+    if routes_data is not None:
+        route_by_host = {item["host"]: item for item in routes_data.get("sources", [])}
+        for key in report["domains_updated"]:
+            route = route_by_host.get(key)
+            if route is None:
+                continue
+            source = data["publishers"][key]
+            route["source_enabled"] = source.get("source_enabled") is True
+            route["metadata_status"] = source.get("metadata_status", "pending")
+            route["page_metadata_status"] = source.get("page_metadata_status", "pending")
+            route["automated_processing_status"] = source.get(
+                "automated_processing_status", "pending")
+            route["body_status"] = source.get("body_status", "not_permitted")
+        routes_data["counts"]["enabled"] = sum(
+            1 for item in routes_data.get("sources", [])
+            if item.get("source_enabled") is True)
     if write and report["conflicts"]:
         raise RuntimeError(
             "conflicting database reviews map to the same registry domain; "
@@ -142,6 +158,12 @@ def export_registry(db_path, registry_path=None, write=False, routes_path=None):
             encoding="utf-8"
         )
         report["written_to"] = str(registry_file)
+        if routes_data is not None:
+            routes_file.write_text(
+                json.dumps(routes_data, ensure_ascii=False, indent=2) + "\\n",
+                encoding="utf-8"
+            )
+            report["routes_written_to"] = str(routes_file)
     else:
         report["written_to"] = None
     return data, report
