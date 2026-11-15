@@ -27,11 +27,13 @@
       "feed_route_status": "third_party_directory_lead_not_directly_verified",
       "direct_fetch_status": "not_verified_in_deployment_environment",
       "robots_status": "not_rechecked_in_this_route_matrix",
-      "terms_status": "not_reviewed_or_not_recorded",
+      "terms_status": "terms_referenced_but_full_terms_not_retrieved",
       "automated_processing_status": "pending",
       "body_status": "not_permitted",
       "metadata_status": "pending",
-      "page_metadata_status": "pending"
+      "page_metadata_status": "pending",
+      "terms_url": "https://www.thedailystar.net/privacypolicy",
+      "terms_observation": "Official privacy policy says it forms part of Terms of Use, but the full terms were not retrieved in this review."
     },
     {
       "host": "tbsnews.net",
@@ -42,11 +44,13 @@
       "feed_route_status": "not_yet_audited",
       "direct_fetch_status": "not_verified_in_deployment_environment",
       "robots_status": "not_rechecked_in_this_route_matrix",
-      "terms_status": "not_reviewed_or_not_recorded",
+      "terms_status": "epaper_subscription_terms_only_general_content_terms_unlocated",
       "automated_processing_status": "pending",
       "body_status": "not_permitted",
       "metadata_status": "pending",
-      "page_metadata_status": "pending"
+      "page_metadata_status": "pending",
+      "terms_url": "https://epaper.tbsnews.net/terms-conditions",
+      "terms_observation": "Located terms are for e-paper subscription billing/cancellation, not a general licence for article content or automated processing."
     },
     {
       "host": "dhakatribune.com",
@@ -57,11 +61,13 @@
       "feed_route_status": "not_yet_audited",
       "direct_fetch_status": "not_verified_in_deployment_environment",
       "robots_status": "not_rechecked_in_this_route_matrix",
-      "terms_status": "not_reviewed_or_not_recorded",
+      "terms_status": "terms_link_advertised_but_destination_not_retrieved",
       "automated_processing_status": "pending",
       "body_status": "not_permitted",
       "metadata_status": "pending",
-      "page_metadata_status": "pending"
+      "page_metadata_status": "pending",
+      "terms_url": "https://www.dhakatribune.com/footer",
+      "terms_observation": "Official footer advertises a Terms of Use link; the destination text was not retrievable in this review."
     },
     {
       "host": "thefinancialexpress.com.bd",
@@ -72,11 +78,13 @@
       "feed_route_status": "not_yet_audited",
       "direct_fetch_status": "not_verified_in_deployment_environment",
       "robots_status": "not_rechecked_in_this_route_matrix",
-      "terms_status": "not_reviewed_or_not_recorded",
+      "terms_status": "official_terms_reviewed_prior_written_approval_required_for_reproduction",
       "automated_processing_status": "pending",
       "body_status": "not_permitted",
       "metadata_status": "pending",
-      "page_metadata_status": "pending"
+      "page_metadata_status": "pending",
+      "terms_url": "https://thefinancialexpress.com.bd/terms",
+      "terms_observation": "Official terms state site material is copyright-protected, use is personal/non-commercial, and reproduction requires prior written approval."
     },
     {
       "host": "en.prothomalo.com",
@@ -87,11 +95,13 @@
       "feed_route_status": "not_yet_audited",
       "direct_fetch_status": "not_verified_in_deployment_environment",
       "robots_status": "not_rechecked_in_this_route_matrix",
-      "terms_status": "not_reviewed_or_not_recorded",
+      "terms_status": "official_terms_reviewed_restrictive_derivative_and_modified_sharing_prohibited",
       "automated_processing_status": "pending",
       "body_status": "not_permitted",
       "metadata_status": "pending",
-      "page_metadata_status": "pending"
+      "page_metadata_status": "pending",
+      "terms_url": "https://en.prothomalo.com/terms",
+      "terms_observation": "Same publisher terms apply to associated websites; no derivative-work or modified redistribution permission identified."
     },
     {
       "host": "prothomalo.com",
@@ -102,11 +112,13 @@
       "feed_route_status": "third_party_directory_lead_not_directly_verified",
       "direct_fetch_status": "not_verified_in_deployment_environment",
       "robots_status": "not_rechecked_in_this_route_matrix",
-      "terms_status": "not_reviewed_or_not_recorded",
+      "terms_status": "official_terms_reviewed_restrictive_derivative_and_modified_sharing_prohibited",
       "automated_processing_status": "pending",
       "body_status": "not_permitted",
       "metadata_status": "pending",
-      "page_metadata_status": "pending"
+      "page_metadata_status": "pending",
+      "terms_url": "https://www.prothomalo.com/terms",
+      "terms_observation": "Official terms explicitly reserve Prothom Alo IP and prohibit derivative works and sharing modified content; RSS availability is not a reuse licence."
     },
     {
       "host": "jugantor.com",
@@ -117,11 +129,13 @@
       "feed_route_status": "third_party_directory_lead_not_directly_verified",
       "direct_fetch_status": "not_verified_in_deployment_environment",
       "robots_status": "not_rechecked_in_this_route_matrix",
-      "terms_status": "not_reviewed_or_not_recorded",
+      "terms_status": "official_terms_found_reuse_scope_not_granted_or_explained",
       "automated_processing_status": "pending",
       "body_status": "not_permitted",
       "metadata_status": "pending",
-      "page_metadata_status": "pending"
+      "page_metadata_status": "pending",
+      "terms_url": "https://www.jugantor.com/terms",
+      "terms_observation": "Official terms page located; reviewed text covers access, third-party links, termination and governing law but does not grant automated reuse or republication rights."
     },
     {
       "host": "bssnews.net",
@@ -522,11 +536,13 @@
       "feed_route_status": "third_party_directory_lead_not_directly_verified",
       "direct_fetch_status": "not_verified_in_deployment_environment",
       "robots_status": "not_rechecked_in_this_route_matrix",
-      "terms_status": "not_reviewed_or_not_recorded",
+      "terms_status": "official_privacy_policy_read_only_personal_use_no_commercial_use",
       "automated_processing_status": "pending",
       "body_status": "not_permitted",
       "metadata_status": "pending",
-      "page_metadata_status": "pending"
+      "page_metadata_status": "pending",
+      "terms_url": "https://www.banglanews24.com/policy",
+      "terms_observation": "Official policy describes site content as personal information only, non-commercial, and reader access as reading-only; no automated reuse grant identified."
     },
     {
       "host": "jagonews24.com",
@@ -702,11 +718,13 @@
       "feed_route_status": "not_yet_audited",
       "direct_fetch_status": "not_verified_in_deployment_environment",
       "robots_status": "not_rechecked_in_this_route_matrix",
-      "terms_status": "not_reviewed_or_not_recorded",
+      "terms_status": "official_privacy_policy_copyright_notice_unauthorised_reuse_prohibited",
       "automated_processing_status": "pending",
       "body_status": "not_permitted",
       "metadata_status": "pending",
-      "page_metadata_status": "pending"
+      "page_metadata_status": "pending",
+      "terms_url": "https://unb.com.bd/privacy-policy/",
+      "terms_observation": "Official policy says website news, photos, graphics and videos are UNB property and unauthorised use, reproduction, distribution, display or transmission is prohibited."
     },
     {
       "host": "dainikbangla.com.bd",
