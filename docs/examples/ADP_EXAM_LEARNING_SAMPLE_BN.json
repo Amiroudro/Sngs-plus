@@ -28,7 +28,7 @@
       },
       {
         "title": "সংশোধিত বার্ষিক উন্নয়ন কর্মসূচি (RADP)",
-        "body": "অর্থবছরের মধ্যে প্রকল্পের অগ্রগতি, সম্পদের প্রাপ্যতা ও অগ্রাধিকারের পরিবর্তন বিবেচনায় ADP সংশোধন করে RADP তৈরি করা হয়। ADP ও RADP একই নয়: একটি মূল কর্মসূচি, অন্যটি সংশোধিত কর্মসূচি।",
+        "body": "অর্থবছরের মধ্যে ADP পর্যালোচনা করে প্রকল্পভিত্তিক বরাদ্দ বা কর্মসূচি সংশোধন করা হলে RADP তৈরি হয়। ADP ও RADP একই নয়: একটি মূল কর্মসূচি, অন্যটি সংশোধিত কর্মসূচি।",
         "source_refs": [
           {
             "title": "Strategic ADP Guideline, ADP/RADP cycle",
@@ -344,7 +344,6 @@
         "meaning_bn": "ব্যয়; অর্থ খরচ",
         "definition": "Money spent by an organisation or government.",
         "synonyms": ["spending", "outlay"],
-        "antonyms": ["income", "receipt"],
         "example": "Public expenditure on development projects is monitored throughout the fiscal year."
       },
       {
@@ -364,7 +363,6 @@
         "meaning_bn": "প্রকল্প মূল্যায়ন; প্রস্তাবের যৌক্তিকতা ও সম্ভাব্যতা যাচাই",
         "definition": "A careful assessment of the value, quality or feasibility of a proposal.",
         "synonyms": ["assessment", "evaluation"],
-        "antonyms": ["neglect", "disregard"],
         "example": "A project appraisal should examine costs, benefits and implementation risks."
       },
       {
