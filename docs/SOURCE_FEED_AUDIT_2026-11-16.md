@@ -164,3 +164,30 @@ The registry's third-party feed claim is deliberately distinct from direct verif
 Sarangsho Plus uses automated classification, fact extraction, translation, question generation and summarisation. Permission to read a public feed or collect a headline does not, by itself, establish permission for these processing steps. The operational registry therefore requires a separate automated_processing_status=approved record with a defined automated_processing_scope, evidence and a current review date before metadata enters the Engine. Article-page extraction and article-body processing retain their additional, separate gates.
 
 Daily Inqilab and Risingbd have a third-party reported AI-crawler robots warning in Inkline's 16 August 2026 scan. This is recorded as a review warning, not as a final legal conclusion. Their current publisher-controlled robots.txt and terms must be checked directly before any automated processing is considered. The custom collector User-Agent must never be used to work around a restriction aimed at AI crawlers.
+
+
+## Follow-up domain resolution: Sonali Sangbad (16 Nov 2026)
+
+The previously unresolved regional candidate now has a credible canonical-domain lead: **https://sonalisangbad.com/**. The publisher-controlled homepage is indexed with current headlines, and its e-paper page shows an edition dated 11 November 2026. This is sufficient to resolve the domain-lead gap, but not to verify a feed, robots compatibility, automated-processing permission or article-body rights.
+
+- Publisher homepage: https://sonalisangbad.com/
+- Publisher e-paper: https://sonalisangbad.com/epaper/
+- Current indexed e-paper date observed: 11 November 2026.
+- Independent corroboration: the Media Resources Development Initiative lists Sonali Sangbad among online media; a 2026 newspaper directory identifies sonalisangbad.com as its official site.
+- Audit disposition: `domain_lead_found`; feed route, robots, terms and rights remain unverified/pending. Do not activate.
+
+References:
+- Publisher homepage: https://sonalisangbad.com/
+- Publisher e-paper: https://sonalisangbad.com/epaper/
+- MRDI media list: https://mrdibd.org/paonlmedia/
+- KhoborBox directory (27 Sep 2026): https://khoborbox.com/bangladesh-newspaper-directory/
+
+## Additional feed discovery leads (not direct verification)
+
+A fresh third-party discovery pass found a public list of eight Bangladesh RSS candidates: The Daily Star, bdnews24.com, Banglanews24, Jugantor, Jago News 24, Kaler Kantho and Prothom Alo, plus BD24Live. These exact routes are leads only; they do not override our earlier direct-route observations (including stale Banglanews24 output and preview access errors for some feeds). Inkline's 43-source registry remains a useful independent discovery catalogue but is not publisher permission and does not establish freshness at our deployment.
+
+- Chetmail feed directory: https://www.chetmail.com/feeds/local-news/bangladesh
+- Inkline Bangladesh registry: https://inklinenews.com/feeds/bangladesh/
+- FeedSpot directory: https://rss.feedspot.com/bangladesh_news_rss_feeds/
+
+**Audit decision:** domain coverage is now 50/50 at the candidate-lead level. Direct publisher feed verification and rights clearance remain a separate, incomplete workstream. No status in the operational rights registry is changed by this research.
