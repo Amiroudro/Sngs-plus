@@ -64,7 +64,7 @@ must keep these permissions separate:
 
 The SQLite source_rights_reviews table is the review ledger. The manual
 dry-run-first sync_rights_registry.py exports its latest reviewed rows into
-the Engine JSON policy snapshot. It is not scheduled; changes in the DB do
+both the Engine rights policy and route-audit JSON snapshots. It is not scheduled; changes in the DB do
 not reach the collector until the export is reviewed and written.
 
 ## Step 2 output (article + two fields)
