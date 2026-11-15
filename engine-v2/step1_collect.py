@@ -18,7 +18,9 @@ tools/collector/ROUTES.md for the full table):
     for generic crawlers, so a strict robots check marks this
     route dead — recorded honestly in the per-source report
     rather than fetched anyway.
-  * Prothom Alo English /feed — RSS, direct URLs, bodies fetchable.
+  * Prothom Alo English /feed — RSS route configured; metadata collection
+    is blocked until the publisher registry records permission scope/evidence.
+    Article-body access requires a separate current licence.
   * Prothom Alo news sitemap — the sitemap leg of the per-paper
     chain (RSS first, then news sitemap, then section links).
   * TBS sitemap index — the index loads; its 2026 children
@@ -59,9 +61,14 @@ publish dates in the static HTML, so same-day cannot be
 verified), Daily Star sitemap index (IncompleteRead — the 2026
 child is wired directly instead).
 
-Robots: common.robots_allowed() is checked before ANY fetch
-(source feeds, sitemaps, and article bodies). A disallowed
-source is recorded dead with that reason, not fetched.
+Policy gates: direct publisher feeds/sitemaps require approved metadata
+scope and evidence in state/source_rights.json. Bing/Google News are
+discovery-only; each resolved publisher URL is separately checked against
+the registry. Article-page headline resolution requires page-metadata
+permission. Article-body fetching requires a current body licence with
+scope and evidence. Unknown publishers are denied. Robots is checked
+independently before every network fetch; a robots fetch failure is
+fail-closed and recorded.
 
 Dedup (exactly per the user's script): strip tracking parts of
 URLs; normalise Bangla text (NFC, Bangla digits -> English,
@@ -111,7 +118,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import common  # noqa: E402
 import rights_registry  # noqa: E402
 
-VERSION = "2.1.0"
+VERSION = "2.2.0"
 BASE = Path(__file__).resolve().parent
 STATE_PATH = BASE / "state" / "sources.json"
 RUNS_DIR = BASE / "runs"
