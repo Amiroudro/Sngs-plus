@@ -197,3 +197,21 @@ A fresh third-party discovery pass found a public list of eight Bangladesh RSS c
 - FeedSpot directory: https://rss.feedspot.com/bangladesh_news_rss_feeds/
 
 **Audit decision:** domain coverage is now 50/50 at the candidate-lead level. Direct publisher feed verification and rights clearance remain a separate, incomplete workstream. No status in the operational rights registry is changed by this research.
+
+
+## Sonali Sangbad route recheck (16 Nov 2026)
+
+A fresh publisher-site check confirms the homepage is actively publishing: the homepage search index currently surfaces multiple November 2026 headlines, and an individual article is dated 13 November 2026. The e-paper route also reports a 11 November 2026 edition. This upgrades the evidence from a domain lead to **publisher-site activity observed**, but does not establish a reliable feed integration or any reuse permission.
+
+- Homepage: https://sonalisangbad.com/
+- Example current article: https://sonalisangbad.com/2026/11/13/শাহ-মখদুম-দরগাহ-শরিফের-নব/
+- E-paper: https://sonalisangbad.com/epaper/
+- Feed route probe: `https://sonalisangbad.com/feed` returned an RSS content type to the research fetcher, but the fetcher could not parse/display the RSS payload. Treat as a **feed-route lead**, not a verified feed: item structure, timestamps, freshness and direct collector parsing still need testing in the deployment environment.
+- `https://sonalisangbad.com/rss.xml` was not accessible to the research fetcher.
+- `https://sonalisangbad.com/robots.txt` was not accessible to the research fetcher. This is unknown/unverified, not evidence that crawling is allowed or disallowed.
+- Terms of use / automated processing permission: not located in this pass; remains pending.
+- Rights registry remains unchanged: metadata pending, page metadata pending, automated processing pending, body not permitted, source disabled.
+
+Independent directories corroborate the publisher identity and Rajshahi regional classification, but are not permission evidence. The MRDI media list includes Sonali Sangbad; KhoborBox lists its homepage and e-paper; Inkline's 43-feed registry does not list it in the 17 October 2026 pass.
+
+**Disposition:** `publisher_site_active_feed_lead_unverified_rights_pending`. Do not enable.
