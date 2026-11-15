@@ -28,6 +28,9 @@ def registry():
                 "body_scope": "",
                 "body_evidence": "",
                 "expires_at": "",
+                "automated_processing_status": "pending",
+                "automated_processing_scope": "",
+                "automated_processing_evidence": "",
                 "reviewed_at": date.today().isoformat(),
                 "review_due_at": (date.today() + timedelta(days=30)).isoformat()
             }
@@ -39,13 +42,22 @@ def main():
     reg = registry()
     url = "https://www.example.com/news/story"
 
-    assert rr.metadata_decision(url, reg)[0] is True
+    assert rr.metadata_decision(url, reg)[0] is False
     assert rr.metadata_decision("https://unknown.example/news", reg)[0] is False
     assert rr.metadata_decision("ftp://example.com/news/story", reg)[0] is False
     assert rr.metadata_decision("https://user:pass@example.com/news/story", reg)[0] is False
     assert rr.page_metadata_decision(url, reg)[0] is False
     assert rr.body_decision(url, reg)[0] is False
-    print("PASS: metadata permission does not imply article-page or body permission")
+    print("PASS: publisher metadata permission alone does not authorise automated processing")
+
+    reg["publishers"]["example.com"].update({
+        "automated_processing_status": "approved",
+        "automated_processing_scope": "automated classification, extraction and study summaries",
+        "automated_processing_evidence": "written permission AP-001"
+    })
+    assert rr.metadata_decision(url, reg)[0] is True
+    assert rr.body_decision(url, reg)[0] is False
+    print("PASS: automated processing needs its own explicit scope and evidence")
 
     reg["publishers"]["example.com"].update({
         "page_metadata_status": "approved",
