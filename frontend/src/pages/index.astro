@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+const BASE_URL = import.meta.env.BASE_URL;
 ---
 
 <html lang="en">
@@ -8,18 +9,18 @@ import '../styles/global.css';
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#14243f" />
     <meta name="description" content="Sarangsho Plus turns important Bangladesh and world news into clear bilingual explanations and exam-ready knowledge." />
-    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="manifest" href={`${BASE_URL}manifest.webmanifest`} />
     <title>Sarangsho Plus | News, understood. Knowledge, retained.</title>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
     <header class="topbar">
-      <a class="brand" href="/" aria-label="Sarangsho Plus home">
+      <a class="brand" href={BASE_URL} aria-label="Sarangsho Plus home">
         <span class="brand-mark">S+</span>
         <span class="brand-name">SARANGSHO <b>PLUS</b></span>
       </a>
       <nav aria-label="Main navigation">
-        <a class="active" href="/today" data-en="Today" data-bn="আজ">Today</a>
+        <a class="active" href={`${BASE_URL}today`} data-en="Today" data-bn="আজ">Today</a>
         <a href="#exam-desk" data-en="Exam desk" data-bn="পরীক্ষা প্রস্তুতি">Exam desk</a>
         <a href="#method" data-en="Our method" data-bn="আমাদের পদ্ধতি">Our method</a>
       </nav>
@@ -148,7 +149,7 @@ import '../styles/global.css';
     </main>
 
     <footer>
-      <a class="footer-brand" href="/"><span class="brand-mark">S+</span><span>SARANGSHO <b>PLUS</b></span></a>
+      <a class="footer-brand" href={BASE_URL}><span class="brand-mark">S+</span><span>SARANGSHO <b>PLUS</b></span></a>
       <span class="footer-note" data-en="Independent project · Editorial standards first" data-bn="স্বতন্ত্র উদ্যোগ · সম্পাদকীয় মানদণ্ডই অগ্রাধিকার">Independent project · Editorial standards first</span>
       <span>© 2026 SARANGSHO PLUS</span>
     </footer>

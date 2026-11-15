@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+const BASE_URL = import.meta.env.BASE_URL;
 ---
 
 <html lang="bn">
@@ -7,20 +8,20 @@ import '../styles/global.css';
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#14243f" />
-    <meta name="description" content="Read the latest human-reviewed Sarangsho Plus bilingual news edition." />
+    <meta name="description" content="Read the latest Bangla-first Sarangsho Plus news and exam-learning edition." />
     <title>Today's briefing | Sarangsho Plus</title>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
     <header class="topbar">
-      <a class="brand" href="/" aria-label="Sarangsho Plus home">
+      <a class="brand" href={BASE_URL} aria-label="Sarangsho Plus home">
         <span class="brand-mark">S+</span>
         <span class="brand-name">SARANGSHO <b>PLUS</b></span>
       </a>
       <nav aria-label="Main navigation">
-        <a class="active" href="/today">Today</a>
-        <a href="/#exam-desk">Exam desk</a>
-        <a href="/#method">Our method</a>
+        <a class="active" href={`${BASE_URL}today`}>Today</a>
+        <a href={`${BASE_URL}#exam-desk`}>Exam desk</a>
+        <a href={`${BASE_URL}#method`}>Our method</a>
       </nav>
       <button class="language" id="language-toggle" type="button" aria-label="Switch to Bangla" aria-pressed="false">বাংলা</button>
     </header>
@@ -35,7 +36,7 @@ import '../styles/global.css';
           </div>
           <span class="status-pill" id="edition-status"><span class="status-dot"></span>Connecting</span>
         </div>
-        <p id="intro-copy" class="today-intro">Clear reporting, useful context and exam-ready knowledge. Only human-published editions appear here.</p>
+        <p id="intro-copy" class="today-intro">Clear reporting, useful context and exam-ready knowledge. Published editions appear here with source links and learning material.</p>
       </section>
 
       <p id="fallback-notice" class="fallback-notice" hidden></p>
@@ -58,19 +59,21 @@ import '../styles/global.css';
       <section id="empty-state" class="empty-state" hidden>
         <span class="empty-mark">S+</span>
         <h2 id="empty-title">No approved edition yet</h2>
-        <p id="empty-copy">The content pipeline is being connected. This page will show stories only after an edition passes review and is published.</p>
+        <p id="empty-copy">The latest published edition will appear here when available.</p>
       </section>
       <p id="error-state" class="error-state" hidden>We could not reach the briefing service. Please try again later.</p>
     </main>
 
     <footer>
-      <a class="footer-brand" href="/"><span class="brand-mark">S+</span><span>SARANGSHO <b>PLUS</b></span></a>
+      <a class="footer-brand" href={BASE_URL}><span class="brand-mark">S+</span><span>SARANGSHO <b>PLUS</b></span></a>
       <span class="footer-note">Independent project · Editorial standards first</span>
-      <a href="/">Back to home</a>
+      <a href={BASE_URL}>Back to home</a>
     </footer>
 
     <script>
+      const BASE_URL = import.meta.env.BASE_URL;
       const API_BASE = import.meta.env.PUBLIC_API_BASE_URL || '';
+      const STATIC_EDITION_BASE = BASE_URL + 'editions/';
       const list = document.querySelector('#story-list');
       const empty = document.querySelector('#empty-state');
       const error = document.querySelector('#error-state');
@@ -81,9 +84,9 @@ import '../styles/global.css';
       const labels = {
         en: {
           title: "Today's briefing", eyebrow: 'THE SARANGSHO DESK · DAILY EDITION',
-          intro: 'Clear reporting, useful context and exam-ready knowledge. Only human-published editions appear here.',
+          intro: 'Clear reporting, useful context and exam-ready knowledge. Published editions appear here with source links and learning material.',
           emptyTitle: 'No approved edition yet',
-          emptyCopy: 'The content pipeline is being connected. This page will show stories only after an edition passes review and is published.',
+          emptyCopy: 'সর্বশেষ প্রকাশিত সংস্করণ পাওয়া গেলে এখানে দেখানো হবে।',
           connecting: 'Connecting', live: 'Published edition', unavailable: 'Not published',
           story: 'Story', why: 'Why it matters', facts: 'Key facts', source: 'Read original report',
           context: 'Context and concepts', examNotes: 'Exam notes', practice: 'Practice questions',
@@ -391,6 +394,58 @@ import '../styles/global.css';
         renderEditionExtras(data, words);
       }
 
+
+      async function loadStaticEdition(selectedLanguage) {
+        const indexResponse = await fetch(STATIC_EDITION_BASE + 'index.json');
+        if (!indexResponse.ok) throw new Error('Static edition index unavailable');
+        const indexData = await indexResponse.json();
+        const editions = Array.isArray(indexData.editions) ? indexData.editions : [];
+        const latest = editions
+          .filter(item => item && item.status === 'published' && /^\d{4}-\d{2}-\d{2}$/.test(item.edition_date) && item.file)
+          .sort((a, b) => b.edition_date.localeCompare(a.edition_date))[0];
+        if (!latest) return { status: 'not_published' };
+
+        const editionResponse = await fetch(STATIC_EDITION_BASE + latest.file);
+        if (!editionResponse.ok) throw new Error('Static edition file unavailable');
+        const edition = await editionResponse.json();
+        if (!Array.isArray(edition.stories)) throw new Error('Static edition has invalid stories');
+
+        if (selectedLanguage === 'en') {
+          return { status: 'published', edition_date: edition.edition_date, language: 'en', stories: edition.stories, data: edition };
+        }
+
+        const banglaResponse = await fetch(STATIC_EDITION_BASE + 'bn-' + latest.edition_date + '.json');
+        if (!banglaResponse.ok) return { status: 'translation_pending' };
+        const banglaEdition = await banglaResponse.json();
+        const overlays = banglaEdition.stories || {};
+        const translatedStories = edition.stories.map(story => {
+          const translated = Array.isArray(overlays)
+            ? overlays.find(item => item && item.id === story.id)
+            : overlays[story.id];
+          if (!translated || translated.translation_status !== 'automated_checks_passed' ||
+              !translated.headline || !translated.summary || !translated.why_it_matters) return null;
+          const merged = { ...story, ...translated };
+          // Never leak English learning text into the Bangla reading experience.
+          delete merged.exam_learning;
+          delete merged.learning;
+          if (!Array.isArray(translated.exam_qa)) delete merged.exam_qa;
+          if (!Array.isArray(translated.recall_cards)) delete merged.recall_cards;
+          merged.category = story.category;
+          merged.article_date = story.article_date;
+          merged.sources = story.sources;
+          return merged;
+        }).filter(Boolean);
+
+        if (!translatedStories.length) return { status: 'translation_pending' };
+        return {
+          status: 'published',
+          edition_date: edition.edition_date,
+          language: 'bn',
+          stories: translatedStories,
+          data: {}
+        };
+      }
+
       async function loadEdition() {
         status.lastChild.textContent = labels[language].connecting;
         empty.hidden = true;
@@ -398,11 +453,16 @@ import '../styles/global.css';
         fallbackNotice.hidden = true;
         list.replaceChildren();
         try {
-          const response = await fetch(API_BASE + '/api/v1/briefing?language=' + language, {
-            headers: { Accept: 'application/json' }
-          });
-          if (!response.ok) throw new Error('Briefing API returned ' + response.status);
-          const payload = await response.json();
+          let payload;
+          if (API_BASE) {
+            const response = await fetch(API_BASE + '/api/v1/briefing?language=' + language, {
+              headers: { Accept: 'application/json' }
+            });
+            if (!response.ok) throw new Error('Briefing API returned ' + response.status);
+            payload = await response.json();
+          } else {
+            payload = await loadStaticEdition(language);
+          }
           const words = labels[language];
           if (payload.status === 'translation_pending') {
             status.lastChild.textContent = words.unavailable;
@@ -438,6 +498,10 @@ import '../styles/global.css';
         statusNode.textContent = words.archiveLoading;
         resultsNode.replaceChildren();
         try {
+          if (!API_BASE) {
+            statusNode.textContent = language === 'bn' ? 'এই স্থির সংস্করণে আর্কাইভ অনুসন্ধান চালু নেই।' : 'Archive search is unavailable in the static edition.';
+            return;
+          }
           const url = API_BASE + '/api/v1/archive?q=' + encodeURIComponent(query) + '&limit=30';
           const response = await fetch(url, { headers: { Accept: 'application/json' } });
           if (!response.ok) throw new Error('Archive API returned ' + response.status);

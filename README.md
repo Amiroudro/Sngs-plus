@@ -1,32 +1,28 @@
 # Sarangsho Plus
 
-An AI-assisted, bilingual (English/Bangla) news and knowledge platform focused on Bangladesh and the world, with a study layer for BCS, Bangladesh Bank and other competitive examinations.
+An AI-assisted, Bangla-first news and knowledge platform for Bangladesh and the world, with a competitive-exam learning layer.
 
-## Project status
+## Repositories
 
-**Foundation + integration branch.** The `main` branch remains a foundation preview. The open Engine v2 integration PR imports the tested pipeline source and adds a read-only edition API that serves only human-published files indexed under `editions/`. No live newspaper collection is enabled, and no stories are auto-published.
+- **Private application source:** `Amiroudro/Sngs-plus`
+- **Public edition archive and intended static Pages target:** `Amiroudro/sarangsho-plus-editions`
+- **News engine:** `engine-v2/`
 
-The current content inventory and renovation scope are documented in [the content audit](docs/CONTENT_AUDIT.md). The rules for article summaries, fact verification, exam relevance, vocabulary and questions are in [the content standard](docs/CONTENT_STANDARD.md).
+## Current capabilities
 
-## Product principles
+- Astro frontend with Today briefing and structured exam-learning panels.
+- Published edition JSON archive with English editions and Bangla overlays.
+- Bangla-first rendering. Static mode never substitutes English story summaries or learning text when a Bangla overlay is missing.
+- Automatic edition sync from the public archive at 08:00 and 18:00 Asia/Dhaka.
+- Static deployment workflow publishes only the built website and public edition files, not the private application source.
 
-- Original, concise summaries with clear links and attribution to publishers.
-- Separate reported facts, official claims, allegations, background context and AI-generated explanation.
-- English and Bangla versions that preserve the same underlying facts.
-- Importance based on public impact and significance, not clicks alone.
-- Traceable facts, transparent uncertainty, corrections and human review for sensitive or disputed stories.
-- Respect publisher terms, robots.txt, paywalls and copyright. Never bypass access controls or republish full articles.
-- Free-first architecture, with AI provider integrations kept optional.
+## Deployment setup
 
-## Planned sections
-
-Today · Topics · Exam Desk · Learn · Explore · Timeline · Saved · Archive
+See [docs/INTEGRATION_STATUS.md](docs/INTEGRATION_STATUS.md). The GitHub Pages deployment workflow requires the private repository Actions secret `PAGES_DEPLOY_TOKEN` and Pages enabled on the public edition repository's `gh-pages` branch.
 
 ## Local development
 
-### Website
-
-Requires Node.js 22.12+.
+Requires Node.js 22+.
 
 ```bash
 cd frontend
@@ -34,42 +30,10 @@ npm install
 npm run dev
 ```
 
-### API
+The optional FastAPI backend is in `backend/`. GitHub Pages cannot host that Python service. The static Today page reads the published edition JSON files directly; metadata archive search requires the optional API.
 
-Requires Python 3.11+.
+## Editorial and rights safeguards
 
-```bash
-cd backend
-python -m venv .venv
-# Activate the environment, then:
-pip install -r requirements.txt
-uvicorn app.main:app --reload
-```
+The 50-publication directory is a candidate list, not 50 active or rights-cleared integrations. Publisher terms, robots rules, paywalls, and reuse permissions must be checked individually. Automated structural checks are not factual verification. Backfilled editions may carry unresolved fact-check and rights-review notes; do not represent them as independently reverified.
 
-The API exposes `/health`, `/api/v1/editions`, `/api/v1/editions/{YYYY-MM-DD}` and `/api/v1/briefing?language=en|bn`. It reads only files listed in the published edition index. With the initial empty index, the briefing correctly returns a demo status and no stories. The `/today` page consumes this API; set `PUBLIC_API_BASE_URL` at frontend build time when the API is on a separate origin, and set `SARANGSHO_CORS_ORIGINS` on the API to the exact frontend origin(s).
-
-## Initial publishers to evaluate
-
-The database currently contains four disabled starter publishers: The Daily Star, Dhaka Tribune, The Financial Express and New Age. These entries are not connected feeds. Feed URLs, permitted access methods and publisher terms must be verified individually before enabling collection.
-
-A wider candidate source directory can be added after the list has been checked for current publication status, language, access terms, feed availability and regional coverage. A candidate directory must never be presented as 50 live integrations.
-
-## Roadmap
-
-1. Foundation: responsive bilingual website, API skeleton, database schema and editorial standards.
-2. Collection: source registry, feed discovery, safe metadata ingestion and source monitoring.
-3. Editorial intelligence: event clustering, importance scoring, fact extraction, verification and bilingual summaries.
-4. Study layer: vocabulary, exam-linked questions, revision notes and cumulative review.
-5. Reading experience: source comparison, search, timeline, archive and exports.
-
-## Engine v2 integration
-
-The pipeline source and integration limitations are documented in [`engine-v2/README.md`](engine-v2/README.md) and [`engine-v2/INTEGRATION_STATUS.md`](engine-v2/INTEGRATION_STATUS.md). The published-edition API and Astro Today page are connected, but Engine output is not yet imported into the SQLite content model or automatically scheduled. The Engine collector now enforces a fail-closed publisher rights registry; all sources remain pending/not permitted. Publishing still requires the engine's human-approval gate.
-
-## Configuration and secrets
-
-Never commit API keys, tokens, passwords or private credentials. Use environment variables and local `.env` files (ignored by Git). A ChatGPT or Claude subscription does not automatically include API usage.
-
-## License
-
-No license has been selected yet. All third-party article content remains the property of its respective publisher.
+See [docs/CONTENT_STANDARD.md](docs/CONTENT_STANDARD.md), [docs/SOURCE_DIRECTORY.md](docs/SOURCE_DIRECTORY.md), and [engine-v2/INTEGRATION_STATUS.md](engine-v2/INTEGRATION_STATUS.md).
