@@ -1,3 +1,5 @@
+import os
+
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -12,7 +14,10 @@ app = FastAPI(
 # Local development only. Restrict this list to the deployed frontend origin before production.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:4321", "http://127.0.0.1:4321"],
+    allow_origins=[origin.strip() for origin in os.getenv(
+        "SARANGSHO_CORS_ORIGINS",
+        "http://localhost:4321,http://127.0.0.1:4321",
+    ).split(",") if origin.strip()],
     allow_credentials=False,
     allow_methods=["GET"],
     allow_headers=["*"],
