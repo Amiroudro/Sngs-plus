@@ -55,7 +55,7 @@ The JSON rights registry is the operational policy source read by Engine v2. The
 - Engine events, facts, vocabulary and questions are not yet ingested into the new database tables.
 - Topics and Exam Desk are not yet connected to the new data layer.
 - The publisher gate still references a legacy validator that is not present in this repository.
-- The operational JSON registry and SQLite rights-review records are not yet synchronised by a reviewed admin workflow.
+- The DB-to-JSON sync is manual and dry-run-first; a reviewed admin interface and scheduled export are not yet implemented.
 
 ## Required next milestones
 
