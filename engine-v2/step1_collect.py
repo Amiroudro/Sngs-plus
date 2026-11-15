@@ -1230,7 +1230,7 @@ def main():
           f"{meta.get('title_failed', 0)} kept slug "
           f"({meta.get('title_seconds', 0)}s)")
     if meta["robots_fetch_failures"]:
-        print(f"[step1] robots.txt fetch failures (fail-open, allowed): "
+        print(f"[step1] robots.txt fetch failures (fail-closed, denied): "
               f"{meta['robots_fetch_failures']}")
     if args.bodies and keep_ids:
         print(f"[step1] bodies fetched: {meta['body_ok']}/{meta['body_tried']} kept URLs")
