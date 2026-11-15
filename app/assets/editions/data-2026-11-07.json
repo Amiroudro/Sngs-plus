@@ -61,8 +61,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is Ziaur Rahman?",
-          "a": "was then army chief and was released from house arrest"
+          "q": "What anniversary of the events of 7 November 1975 did Bangladesh mark in 2026?",
+          "a": "The 51st anniversary."
+        },
+        {
+          "q": "Who was released from house arrest at Dhaka Cantonment during the events described?",
+          "a": "Then army chief Major General Ziaur Rahman."
         }
       ],
       "recall_cards": [
@@ -134,7 +138,16 @@
         "The government's ultimate target is 14 days.",
         "The plan includes processing 11 of 12 statutory documents within one day each, fewer prerequisites, parallel processing and a single digital platform."
       ],
-      "exam_qa": [],
+      "exam_qa": [
+        {
+          "q": "From how many days to how many days did the business-approval roadmap aim to reduce the interim clearance period?",
+          "a": "From as many as 355 days to 18 days."
+        },
+        {
+          "q": "What was the government's ultimate target for business approval time?",
+          "a": "14 days."
+        }
+      ],
       "recall_cards": [
         {
           "cloze": "A committee reviewing industrial setup procedures discussed an Invest Bangladesh roadmap to reduce the time for business licences, clearances and approvals from as much as ______ days to an interim 18 days.",
@@ -224,12 +237,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is Total external debt?",
-          "a": "US$113.4378bn in 2025"
+          "q": "What was Bangladesh's total external debt stock in 2025, according to the World Bank table?",
+          "a": "US$113.4378 billion."
         },
         {
-          "q": "What is long-term PPG debt?",
-          "a": "US$83.4567bn"
+          "q": "What was long-term public and publicly guaranteed external debt in 2025?",
+          "a": "US$83.4567 billion."
         }
       ],
       "recall_cards": [
@@ -307,12 +320,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is Current special fund?",
-          "a": "Tk200 crore per bank"
+          "q": "What size of capital-market fund did BSEC ask Bangladesh Bank to allow per scheduled bank?",
+          "a": "Tk300 crore, up from Tk200 crore."
         },
         {
-          "q": "What is BSEC request?",
-          "a": "Tk300 crore"
+          "q": "For how long did BSEC request an extension of the special fund facility?",
+          "a": "Five years, from 1 January 2027 to 31 December 2031."
         }
       ],
       "recall_cards": [
@@ -392,12 +405,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is Proposed authorised capital?",
-          "a": "Tk10,000 crore, up from Tk2,000 crore"
+          "q": "What authorised-capital increase did Islami Bank's board propose?",
+          "a": "From Tk2,000 crore to Tk10,000 crore."
         },
         {
-          "q": "What is loss per share?",
-          "a": "Tk12.24"
+          "q": "What approvals are required before the proposed increase takes effect?",
+          "a": "Approval from Bangladesh Bank, other regulators and shareholders at an Extraordinary General Meeting, along with the required constitutional amendments."
         }
       ],
       "recall_cards": [
@@ -473,12 +486,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is Scheme size?",
-          "a": "Tk2,000 crore"
+          "q": "What is the total size of Bangladesh Bank's pre-finance scheme for the leather sector?",
+          "a": "Tk2,000 crore."
         },
         {
-          "q": "What is maximum end-borrower interest rate?",
-          "a": "7%"
+          "q": "What is the maximum annual interest rate for end-borrowers under the scheme?",
+          "a": "7%."
         }
       ],
       "recall_cards": [
@@ -558,8 +571,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is BRAC Bank?",
-          "a": "was remitting bank and Lloyds was collecting bank"
+          "q": "Which technology enabled BRAC Bank's first fully digital export documentary collection?",
+          "a": "Blockchain technology and an electronic bill of lading (eBL)."
+        },
+        {
+          "q": "How long did document processing take after the digital process, compared with the cited conventional 40 days?",
+          "a": "One day."
         }
       ],
       "recall_cards": [
@@ -635,12 +652,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is Bangladesh imports from Russia?",
-          "a": "US$1.36bn in FY2025"
+          "q": "Which two Russian facilities were discussed as possible sources of LNG and LPG supplies to Bangladesh?",
+          "a": "Sakhalin-2 and Portovaya."
         },
         {
-          "q": "What is Sakhalin- and Portovaya were discussed?",
-          "a": "2"
+          "q": "How much did Bangladesh pay for imports from Russia in FY2025?",
+          "a": "US$1.36 billion."
         }
       ],
       "recall_cards": [
@@ -714,12 +731,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is Project cost?",
-          "a": "Tk4,068 crore"
+          "q": "What was the cost of the Mongla Port Expansion and Modernisation Project?",
+          "a": "Tk4,068 crore."
         },
         {
-          "q": "What is planned direct rail link?",
-          "a": "Kamalapur ICD to Mongla Port"
+          "q": "Which two locations would be connected by the planned direct container-train service?",
+          "a": "Kamalapur Inland Container Depot in Dhaka and Mongla Port."
         }
       ],
       "recall_cards": [
@@ -791,12 +808,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is Summit date?",
-          "a": "5 November 2026"
+          "q": "Which two organisations jointly organised the Bangladesh AI Business Summit?",
+          "a": "The Ministry of Science and Technology and the Dhaka Chamber of Commerce and Industry (DCCI)."
         },
         {
-          "q": "What is stated ambition?",
-          "a": "a trillion-dollar economy by 2034"
+          "q": "What year was named for the vision of a trillion-dollar economy?",
+          "a": "2034."
         }
       ],
       "recall_cards": [
@@ -869,12 +886,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is Expected resumption?",
-          "a": "December 2026"
+          "q": "When did the minister expect Bangladesh to resume sending workers to Malaysia?",
+          "a": "December 2026; this was an expectation, not a confirmed date."
         },
         {
-          "q": "What is first flights proposed free?",
-          "a": "2–3"
+          "q": "How many of the first flights were proposed to carry workers free of charge?",
+          "a": "The first two or three flights."
         }
       ],
       "recall_cards": [
@@ -958,12 +975,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is Ashulia factories reported closed?",
-          "a": "70"
+          "q": "How many factories in Ashulia were reported to have suspended operations amid the garment unrest?",
+          "a": "70 factories."
         },
         {
-          "q": "What is BGB platoons deployed?",
-          "a": "33"
+          "q": "How many BGB platoons were deployed, according to the report?",
+          "a": "33 platoons."
         }
       ],
       "recall_cards": [
@@ -1042,12 +1059,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is Solar capacity?",
-          "a": "17.84 MW"
+          "q": "What was the installed capacity of the Janata Jute Mills solar project?",
+          "a": "17.84 megawatts."
         },
         {
-          "q": "What is location?",
-          "a": "Boalmari, Faridpur"
+          "q": "Which organisation financed the solar project?",
+          "a": "Infrastructure Development Company Limited (IDCOL)."
         }
       ],
       "recall_cards": [
@@ -1135,12 +1152,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is leaders' summit?",
-          "a": "11–12 November"
+          "q": "On what dates was COP31 scheduled to take place in Antalya?",
+          "a": "9 to 20 November 2026."
         },
         {
-          "q": "What is adaptation finance?",
-          "a": "US$28.2–31.7bn in 2024"
+          "q": "What annual adaptation-finance need for developing countries by 2035 did UNEP estimate?",
+          "a": "US$305 billion a year."
         }
       ],
       "recall_cards": [
@@ -1208,7 +1225,16 @@
         "Reported provisions include stronger cooperation to track fugitives, prevent suspects from fleeing abroad, recover illicit assets,",
         "protect state and commercial secrets and personal data, and require Chinese companies engaged in cross-border business to establish anti-corruption compliance functions proportionate to their risks."
       ],
-      "exam_qa": [],
+      "exam_qa": [
+        {
+          "q": "Which country adopted the new law targeting cross-border corruption?",
+          "a": "China."
+        },
+        {
+          "q": "Which corporate measure was included in the reported framework for companies engaged in cross-border business?",
+          "a": "Establishing anti-corruption compliance functions proportionate to their risks."
+        }
+      ],
       "recall_cards": [],
       "keywords": [
         "world",
@@ -1236,7 +1262,7 @@
       "Antonyms": "No direct antonym",
       "Word family / derivatives": "bureaucracy; bureaucrat; bureaucratically",
       "Collocations / patterns": "bureaucratic delay; bureaucratic hurdles; bureaucratic procedure",
-      "Original example": "A single digital window could reduce bureaucratic delays for new investors.",
+      "Original example": "A bureaucratic approval process can delay even routine business decisions.",
       "Newspaper context note": "Used in reporting on the proposed overhaul of business approvals to describe delays created by administrative procedures.",
       "Source publication": "The Business Standard",
       "Article headline": "Govt plans to cut business approval time to 18 days",
@@ -1258,7 +1284,7 @@
       "Antonyms": "preserve; maintain; retain; leave unchanged",
       "Word family / derivatives": "overhauled; overhauling; overhaul (noun/verb)",
       "Collocations / patterns": "major overhaul; overhaul the system; regulatory overhaul",
-      "Original example": "The proposed overhaul of business approvals aims to reduce the time needed to start a company.",
+      "Original example": "The ministry announced an overhaul of its licensing system.",
       "Newspaper context note": "The article describes a major overhaul of Bangladesh's investment-approval regime.",
       "Source publication": "The Business Standard",
       "Article headline": "Govt plans to cut business approval time to 18 days",
@@ -1280,7 +1306,7 @@
       "Antonyms": "unlawful; illegal; non-statutory",
       "Word family / derivatives": "statute; statutorily; statutory",
       "Collocations / patterns": "statutory requirement; statutory document; statutory obligation",
-      "Original example": "Investors must obtain the statutory documents required before a business can operate.",
+      "Original example": "The company must file its statutory returns before the deadline.",
       "Newspaper context note": "The article says investors need 12 statutory documents and proposes simplifying the process for obtaining them.",
       "Source publication": "The Business Standard",
       "Article headline": "Govt plans to cut business approval time to 18 days",
@@ -1302,7 +1328,7 @@
       "Antonyms": "No direct antonym",
       "Word family / derivatives": "requisite; prerequisite; prerequisites",
       "Collocations / patterns": "essential prerequisite; prerequisite for; prerequisite to",
-      "Original example": "Reliable electricity is a prerequisite for expanding energy-intensive manufacturing.",
+      "Original example": "A valid passport is a prerequisite for international travel.",
       "Newspaper context note": "The business-approval article says the government plans to reduce the number of prerequisites for starting industrial operations.",
       "Source publication": "The Business Standard",
       "Article headline": "Govt plans to cut business approval time to 18 days",
@@ -1324,7 +1350,7 @@
       "Antonyms": "complicate; obstruct; impede; hamper",
       "Word family / derivatives": "streamlined; streamlining; streamline",
       "Collocations / patterns": "streamline procedures; streamline operations; streamline approvals",
-      "Original example": "The authority plans to streamline approval procedures by processing applications in parallel.",
+      "Original example": "The reform aims to streamline the process for small-business registration.",
       "Newspaper context note": "The article describes a proposed digital platform and parallel processing to streamline business approvals.",
       "Source publication": "The Business Standard",
       "Article headline": "Govt plans to cut business approval time to 18 days",
@@ -1342,11 +1368,11 @@
       "Difficulty": "Intermediate",
       "Bangla meaning": "কাজ সম্পন্নের সময়; সাড়া দেওয়ার সময়",
       "English definition": "The time taken to complete a process or respond to a request; also a marked reversal in performance.",
-      "Synonyms": "processing time; completion time; cycle time; response time",
+      "Synonyms": "time taken; processing duration; completion interval (descriptive equivalents)",
       "Antonyms": "No direct antonym",
       "Word family / derivatives": "turn around (verb); turnaround; turnaround time",
       "Collocations / patterns": "turnaround time; rapid turnaround; turnaround period",
-      "Original example": "A shorter document turnaround can help exporters manage working capital.",
+      "Original example": "The bank reduced the turnaround time for processing loan applications.",
       "Newspaper context note": "The Invest Bangladesh roadmap sets an interim 18-day timeline and an ultimate 14-day turnaround target.",
       "Source publication": "The Business Standard",
       "Article headline": "Govt plans to cut business approval time to 18 days",
@@ -1364,11 +1390,11 @@
       "Difficulty": "Advanced",
       "Bangla meaning": "তারল্য; নগদে রূপান্তরযোগ্যতার সক্ষমতা",
       "English definition": "The availability of cash or assets that can readily be converted into cash without a major loss in value.",
-      "Synonyms": "cash availability; ready funds; liquid resources; ease of conversion into cash",
+      "Synonyms": "cash availability; ready cash; liquid funds",
       "Antonyms": "illiquidity",
       "Word family / derivatives": "liquid; illiquid; illiquidity; liquidate",
       "Collocations / patterns": "market liquidity; liquidity shortage; liquidity support",
-      "Original example": "A prolonged liquidity shortage can discourage investment in the capital market.",
+      "Original example": "The lender sold short-term assets to improve its liquidity.",
       "Newspaper context note": "BSEC described the capital market as facing an acute liquidity shortage while requesting an extension of banks' special funds.",
       "Source publication": "The Business Standard",
       "Article headline": "BSEC seeks 5-year extension for banks' capital market fund to avert withdrawals",
@@ -1387,11 +1413,11 @@
       "Difficulty": "Advanced",
       "Bangla meaning": "মেয়াদপূর্তি; পরিপক্বতা",
       "English definition": "In finance, the date on which an investment, loan or other financial obligation becomes due for repayment or expiry.",
-      "Synonyms": "due date; expiry date; redemption date",
+      "Synonyms": "maturity date; repayment date; redemption date (in a financial instrument context)",
       "Antonyms": "No direct antonym in the financial sense",
       "Word family / derivatives": "mature; immature; maturation; maturity",
       "Collocations / patterns": "maturity date; maturity period; loan maturity",
-      "Original example": "Banks must review their exposure before the fund reaches maturity.",
+      "Original example": "The bond will repay its principal when it reaches maturity.",
       "Newspaper context note": "The report says the banks' special capital-market funds are scheduled to expire in December 2026.",
       "Source publication": "The Business Standard",
       "Article headline": "BSEC seeks 5-year extension for banks' capital market fund to avert withdrawals",
@@ -1414,7 +1440,7 @@
       "Antonyms": "selective; limited; targeted; partial",
       "Word family / derivatives": "blanketed; blanketing; blanket (verb/noun)",
       "Collocations / patterns": "blanket ban; blanket extension; blanket approval",
-      "Original example": "The central bank declined to grant a blanket extension and said it would review requests individually.",
+      "Original example": "The regulator rejected a blanket exemption and reviewed each case separately.",
       "Newspaper context note": "Bangladesh Bank's spokesperson said the facility would not be extended en masse; individual bank requests would be considered.",
       "Source publication": "The Business Standard",
       "Article headline": "BSEC seeks 5-year extension for banks' capital market fund to avert withdrawals",
@@ -1437,7 +1463,7 @@
       "Antonyms": "unilateral; one-sided",
       "Word family / derivatives": "bilaterally; bilateralism; multilateral (related contrast)",
       "Collocations / patterns": "bilateral trade; bilateral relations; bilateral agreement",
-      "Original example": "Bangladesh and Russia discussed bilateral cooperation in energy and financial transactions.",
+      "Original example": "The two governments signed a bilateral agreement on customs cooperation.",
       "Newspaper context note": "The Bangladesh-Russia intergovernmental meeting covered bilateral trade, energy and financial cooperation.",
       "Source publication": "The Business Standard",
       "Article headline": "Bangladesh seeks long-term LNG, LPG supplies from Russia",
@@ -1460,7 +1486,7 @@
       "Antonyms": "approval; authorisation; endorsement; permission",
       "Word family / derivatives": "sanctioned; sanctioning; sanctionable; sanctions",
       "Collocations / patterns": "impose sanctions; sanctions regime; sanctions-related restrictions",
-      "Original example": "International sanctions can complicate cross-border payments even when trading partners want to proceed.",
+      "Original example": "The council imposed a sanction after the company breached the rules.",
       "Newspaper context note": "The article says sanctions affecting Russian financial institutions complicate conventional payment routes for bilateral trade.",
       "Source publication": "The Business Standard",
       "Article headline": "Bangladesh seeks long-term LNG, LPG supplies from Russia",
@@ -1483,7 +1509,7 @@
       "Antonyms": "hinder; impede; obstruct; hamper",
       "Word family / derivatives": "facilitation; facilitator; facilitative; facilitated",
       "Collocations / patterns": "facilitate trade; facilitate access; facilitate negotiations",
-      "Original example": "Clear regulations can facilitate secure electronic transfers of trade documents.",
+      "Original example": "A shared digital system can facilitate faster customs clearance.",
       "Newspaper context note": "Gazprom was reported as ready to facilitate direct discussions on possible LNG supplies between relevant companies.",
       "Source publication": "The Business Standard",
       "Article headline": "Bangladesh seeks long-term LNG, LPG supplies from Russia",
@@ -1506,7 +1532,7 @@
       "Antonyms": "default; non-payment; outstanding obligation",
       "Word family / derivatives": "settle; settled; unsettled; settlement",
       "Collocations / patterns": "trade settlement; payment settlement; settlement system",
-      "Original example": "The two countries discussed alternative channels for the settlement of trade payments.",
+      "Original example": "The parties reached a settlement after several rounds of negotiation.",
       "Newspaper context note": "The article discusses payment mechanisms and the settlement of bilateral trade despite sanctions-related barriers.",
       "Source publication": "The Business Standard",
       "Article headline": "Bangladesh seeks long-term LNG, LPG supplies from Russia",
@@ -1529,7 +1555,7 @@
       "Antonyms": "suspend; halt; cease; discontinue",
       "Word family / derivatives": "resumption; resumed; resuming",
       "Collocations / patterns": "resume recruitment; resume operations; resume talks",
-      "Original example": "The ministry hopes to resume overseas recruitment after new safeguards are introduced.",
+      "Original example": "The factory will resume production once the repair work is complete.",
       "Newspaper context note": "The expatriates' welfare minister said Bangladesh hoped to restart worker recruitment to Malaysia in December.",
       "Source publication": "The Business Standard",
       "Article headline": "Malaysia worker recruitment expected to resume in Dec: Minister Ariful",
@@ -1552,7 +1578,7 @@
       "Antonyms": "dismissal; termination; layoff; redundancy",
       "Word family / derivatives": "recruit; recruiter; recruitable; recruitment",
       "Collocations / patterns": "overseas recruitment; recruitment process; recruitment cost",
-      "Original example": "Transparent recruitment can reduce excessive costs and protect migrant workers.",
+      "Original example": "The agency published transparent criteria for the recruitment of new staff.",
       "Newspaper context note": "The report covers the proposed resumption of Malaysia-bound worker recruitment and a planned online selection process.",
       "Source publication": "The Business Standard",
       "Article headline": "Malaysia worker recruitment expected to resume in Dec: Minister Ariful",
@@ -1575,7 +1601,7 @@
       "Antonyms": "regularity; conformity; propriety; normality",
       "Word family / derivatives": "irregular; irregularly; regular; regularity",
       "Collocations / patterns": "financial irregularity; procedural irregularity; recruitment irregularities",
-      "Original example": "An investigation must distinguish a documented irregularity from unverified allegations.",
+      "Original example": "The audit identified an irregularity in the supplier's invoice.",
       "Newspaper context note": "The minister referred to irregularities in previous Malaysia-bound recruitment drives.",
       "Source publication": "The Business Standard",
       "Article headline": "Malaysia worker recruitment expected to resume in Dec: Minister Ariful",
@@ -1598,7 +1624,7 @@
       "Antonyms": "No direct antonym",
       "Word family / derivatives": "inherit; inheritance; inherited; hereditary; heritage",
       "Collocations / patterns": "cultural heritage; heritage site; intangible heritage",
-      "Original example": "Cultural heritage can support livelihoods when tourism and creative industries are developed responsibly.",
+      "Original example": "The museum preserves the region's cultural heritage for future generations.",
       "Newspaper context note": "The BRAC-UNESCO agreement identifies cultural heritage as an asset that can support creative industries and livelihoods.",
       "Source publication": "Dhaka Tribune",
       "Article headline": "BRAC, UNESCO sign agreement to develop creative economy roadmap",
@@ -1620,7 +1646,7 @@
       "Antonyms": "No direct antonym",
       "Word family / derivatives": "road map; roadmap",
       "Collocations / patterns": "national roadmap; policy roadmap; roadmap for reform",
-      "Original example": "The partners will prepare a roadmap for the growth of Bangladesh's creative economy.",
+      "Original example": "The committee prepared a roadmap with clear milestones and deadlines.",
       "Newspaper context note": "The BRAC-UNESCO MoU is intended to support a national roadmap for creative industries.",
       "Source publication": "Dhaka Tribune",
       "Article headline": "BRAC, UNESCO sign agreement to develop creative economy roadmap",
@@ -1642,7 +1668,7 @@
       "Antonyms": "close; terminate; conclude; discontinue",
       "Word family / derivatives": "inauguration; inaugural; inaugurator",
       "Collocations / patterns": "inaugurate a summit; inaugurate a project; formally inaugurate",
-      "Original example": "The president inaugurated the business summit after the opening session began.",
+      "Original example": "The minister will inaugurate the new training centre next week.",
       "Newspaper context note": "The Daily Star report says the president inaugurated the Bangladesh AI Business Summit 2026.",
       "Source publication": "The Daily Star",
       "Article headline": "President calls for AI-driven innovation",
@@ -1664,7 +1690,7 @@
       "Antonyms": "No direct antonym",
       "Word family / derivatives": "adapt; adaptable; adaptability; adaptive; maladaptation",
       "Collocations / patterns": "climate adaptation; adaptation finance; adaptation measures",
-      "Original example": "Bangladesh needs predictable adaptation finance to protect communities exposed to climate risks.",
+      "Original example": "Climate adaptation includes strengthening embankments and improving early-warning systems.",
       "Newspaper context note": "Reuters' COP31 coverage discusses the financing required for developing countries to adapt to climate impacts.",
       "Source publication": "Reuters",
       "Article headline": "Fossil fuel cuts and finance top COP31 agenda",
@@ -1793,8 +1819,8 @@
       "Bangla meaning": "সমান্তরাল প্রক্রিয়াকরণ",
       "English explanation": "Handling several applications or tasks at the same time rather than one after another.",
       "Usage / register": "Formal; administration, technology and business operations.",
-      "Original example 1": "Parallel processing can reduce the time required to approve business applications.",
-      "Original example 2": "The agency introduced parallel processing of applications to avoid unnecessary delays.",
+      "Original example 1": "The office adopted parallel processing so that several departments could review an application at once.",
+      "Original example 2": "Parallel processing helped the agency reduce delays in issuing permits.",
       "Common collocations / grammar pattern": "allow parallel processing; parallel processing of applications; process requests in parallel",
       "Source publication": "The Business Standard",
       "Article headline": "Govt plans to cut business approval time to 18 days",
@@ -1808,8 +1834,8 @@
       "Bangla meaning": "একক ডিজিটাল প্ল্যাটফর্ম",
       "English explanation": "One integrated online system through which several services can be accessed.",
       "Usage / register": "Formal; public administration, banking and digital services.",
-      "Original example 1": "A single digital platform could reduce repeated paperwork for investors.",
-      "Original example 2": "Citizens should be able to track applications through a single digital platform.",
+      "Original example 1": "Residents can submit forms and monitor progress through a single digital platform.",
+      "Original example 2": "A single digital platform can reduce duplicate records across government offices.",
       "Common collocations / grammar pattern": "introduce/develop/use a single digital platform; platform for + service",
       "Source publication": "The Business Standard",
       "Article headline": "Govt plans to cut business approval time to 18 days",
@@ -1823,8 +1849,8 @@
       "Bangla meaning": "প্রত্যক্ষ বিদেশি বিনিয়োগ",
       "English explanation": "Investment by a foreign entity in business operations or assets in another country, usually with a lasting interest.",
       "Usage / register": "Formal economic and policy register; often abbreviated as FDI.",
-      "Original example 1": "Stable regulations can encourage foreign direct investment in manufacturing.",
-      "Original example 2": "The government wants to attract more foreign direct investment outside the capital.",
+      "Original example 1": "The country introduced tax incentives to attract foreign direct investment.",
+      "Original example 2": "Foreign direct investment can bring capital, technology and new management practices.",
       "Common collocations / grammar pattern": "attract/receive FDI; FDI inflows; foreign direct investment in + sector",
       "Source publication": "The Business Standard",
       "Article headline": "Govt plans to cut business approval time to 18 days",
@@ -1838,8 +1864,8 @@
       "Bangla meaning": "কাজ সম্পন্নের মোট সময়",
       "English explanation": "The total time needed to complete a task, service or process.",
       "Usage / register": "Neutral-formal; business, banking, customer service and administration.",
-      "Original example 1": "Digital approvals can reduce the turnaround time for business registration.",
-      "Original example 2": "The bank aims to shorten the turnaround time for processing trade documents.",
+      "Original example 1": "The bank reduced the turnaround time for processing export documents.",
+      "Original example 2": "Customers complained that the turnaround time for loan approvals was too long.",
       "Common collocations / grammar pattern": "reduce/cut/shorten turnaround time; turnaround time for + process",
       "Source publication": "The Business Standard",
       "Article headline": "Govt plans to cut business approval time to 18 days",
@@ -1853,8 +1879,8 @@
       "Bangla meaning": "সবার জন্য একযোগে মেয়াদ বৃদ্ধি",
       "English explanation": "An extension granted to all eligible cases without individual assessment.",
       "Usage / register": "Formal administrative and regulatory register.",
-      "Original example 1": "The regulator declined to approve a blanket extension for every bank.",
-      "Original example 2": "A blanket extension may not address the different risks faced by individual institutions.",
+      "Original example 1": "The regulator rejected a blanket extension and considered each institution's request separately.",
+      "Original example 2": "A blanket extension may delay necessary action against weak borrowers.",
       "Common collocations / grammar pattern": "grant/seek/reject a blanket extension; blanket extension of + facility/period",
       "Source publication": "The Business Standard",
       "Article headline": "BSEC seeks 5-year extension for banks' capital market fund to avert withdrawals",
@@ -1869,8 +1895,8 @@
       "Bangla meaning": "তীব্র তারল্য সংকট",
       "English explanation": "A serious shortage of readily available funds in a market or institution.",
       "Usage / register": "Formal financial and economic register.",
-      "Original example 1": "An acute liquidity shortage can weaken confidence in the capital market.",
-      "Original example 2": "Banks may restrict lending when they face an acute liquidity shortage.",
+      "Original example 1": "The bank faced an acute liquidity shortage after large deposit withdrawals.",
+      "Original example 2": "An acute liquidity shortage can disrupt payments and reduce lending.",
       "Common collocations / grammar pattern": "face/experience/overcome an acute liquidity shortage; liquidity shortage in + market",
       "Source publication": "The Business Standard",
       "Article headline": "BSEC seeks 5-year extension for banks' capital market fund to avert withdrawals",
@@ -1885,8 +1911,8 @@
       "Bangla meaning": "বিকল্প অর্থ পরিশোধের মাধ্যম",
       "English explanation": "Payment routes used instead of conventional banking channels.",
       "Usage / register": "Formal finance, trade and diplomacy register.",
-      "Original example 1": "Alternative payment channels may help maintain trade when ordinary transfers are blocked.",
-      "Original example 2": "The two countries discussed alternative payment channels for cross-border transactions.",
+      "Original example 1": "The exporters explored alternative payment channels when the usual route was unavailable.",
+      "Original example 2": "Alternative payment channels can help businesses settle cross-border invoices.",
       "Common collocations / grammar pattern": "establish/use/explore alternative payment channels; channel for + payment",
       "Source publication": "The Business Standard",
       "Article headline": "Bangladesh seeks long-term LNG, LPG supplies from Russia",
@@ -1901,8 +1927,8 @@
       "Bangla meaning": "বিনামূল্যে",
       "English explanation": "Without requiring payment.",
       "Usage / register": "Neutral; suitable for everyday and formal writing.",
-      "Original example 1": "The first two or three flights are expected to carry workers free of charge.",
-      "Original example 2": "Applicants can access the online information service free of charge.",
+      "Original example 1": "The public library offers internet access free of charge.",
+      "Original example 2": "Selected trainees will receive the course materials free of charge.",
       "Common collocations / grammar pattern": "provide/offer/supply something free of charge; be free of charge",
       "Source publication": "The Business Standard",
       "Article headline": "Malaysia worker recruitment expected to resume in Dec: Minister Ariful",
@@ -1917,8 +1943,8 @@
       "Bangla meaning": "নিয়োগ কার্যক্রম পুনরায় শুরু করা",
       "English explanation": "To restart the process of hiring or sending workers after a pause.",
       "Usage / register": "Formal; employment, migration and human-resources reporting.",
-      "Original example 1": "The government hopes to resume recruitment after agreeing on a new process with Malaysia.",
-      "Original example 2": "Recruiting agencies must follow the rules when overseas recruitment resumes.",
+      "Original example 1": "The ministry plans to resume recruitment after completing the review.",
+      "Original example 2": "The agency paused overseas hiring and will resume recruitment next quarter.",
       "Common collocations / grammar pattern": "resume recruitment in/from + month; resume overseas recruitment",
       "Source publication": "The Business Standard",
       "Article headline": "Malaysia worker recruitment expected to resume in Dec: Minister Ariful",
@@ -1933,8 +1959,8 @@
       "Bangla meaning": "ধাপে ধাপে জীবাশ্ম জ্বালানির ব্যবহার বন্ধ করা",
       "English explanation": "To gradually stop using coal, oil and gas and replace them with other energy sources.",
       "Usage / register": "Formal climate-policy and energy-transition register.",
-      "Original example 1": "Climate negotiations must address how countries can phase out fossil fuels fairly.",
-      "Original example 2": "A gradual phase-out of fossil fuels can give workers and industries time to adjust.",
+      "Original example 1": "The government announced a timetable to phase out fossil fuels from public transport.",
+      "Original example 2": "A fair plan to phase out fossil fuels should support affected workers.",
       "Common collocations / grammar pattern": "phase out coal/oil/gas/fossil fuels; phase-out of + energy source",
       "Source publication": "Reuters",
       "Article headline": "Fossil fuel cuts and finance top COP31 agenda",
@@ -2620,5 +2646,14 @@
       "Direct URL": "https://observerbd.com/",
       "Role / verification note": "The attempted rss.xml endpoint was not accessible to the web reader; article pages were used."
     }
-  ]
+  ],
+  "renovation_status": "editorially_rewritten_pending_human_review",
+  "renovation_notes": [
+    "Rewrote 30 English and added 30 Bangla short-answer questions across all 15 stories.",
+    "Questions use facts already present in the edition; forecasts, expectations and press-release claims remain qualified or attributed.",
+    "Original story IDs and source URLs preserved.",
+    "Human editorial and factual review remains required before publication."
+  ],
+  "vocabulary_editorial_note": "Vocabulary and phrase example sentences in this edition are original learner examples, not quotations from linked articles. Context-specific financial terms are explained without treating descriptive equivalents as exact synonyms.",
+  "vocabulary_review_status": "editorially_revised_pending_human_review"
 }
