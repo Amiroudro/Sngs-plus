@@ -250,9 +250,7 @@ DROPPED = [
      "Bing site: query"),
 ]
 
-SKIP_URL_PARTS = ["/sports/", "/sports", "/entertainment/", "/lifestyle/",
-                  "/fashion/", "/opinion/cartoon", "/videos/",
-                  "/author/", "/govt-ad/"]
+SKIP_URL_PARTS = ["/opinion/cartoon", "/videos/", "/author/", "/govt-ad/"]
 
 DOMAIN_SOURCES = {
     "thedailystar.net": "The Daily Star",
