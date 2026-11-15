@@ -261,7 +261,9 @@ def run(date, fresh=False):
                       "decision": dec, "article": art,
                       "facts_raw": extracted["facts"],
                       "why_important": extracted["why_important"]})
-    stats["no_body_dropped"] = no_body\n    stats["metadata_only_items"] = len(metadata_only_items)\n    print(f"[run] step4: {len(items)} items with facts "
+    stats["no_body_dropped"] = no_body
+    stats["metadata_only_items"] = len(metadata_only_items)
+    print(f"[run] step4: {len(items)} items with facts "
           f"({no_body} preserved in metadata-only archive; no body text)")
 
     # ---- Step 5 (check) + Step 6 (Bangla) ----------------------------
@@ -425,7 +427,9 @@ def run(date, fresh=False):
     edition = {"date": date, "engine": "v2", "stats": stats,
                "page": page, "qa": all_qa, "mcq": all_mcq,
                "analytical": all_analytical,
-               "srs_cards": stats["srs_cards"], "vocab": vocab,\n               "metadata_only_items": metadata_only_items}\n    _save_json(outdir / f"edition-{date}.json", edition)
+               "srs_cards": stats["srs_cards"], "vocab": vocab,
+               "metadata_only_items": metadata_only_items}
+    _save_json(outdir / f"edition-{date}.json", edition)
     print(f"[run] edition written: {outdir}/edition-{date}.json")
     return stats
 
