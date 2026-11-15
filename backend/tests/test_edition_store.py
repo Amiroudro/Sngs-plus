@@ -65,7 +65,7 @@ class EditionStoreTests(unittest.TestCase):
     def test_rejects_path_traversal_filename(self):
         day = "2026-11-15"
         self.write_json(self.editions / "index.json", {
-            "editions": [{"edition_date": day, "file": "../../secret.json"}]
+            "editions": [{"edition_date": day, "file": "../../secret.json", "status": "published"}]
         })
         with patch.object(store, "EDITIONS_DIR", self.editions):
             with self.assertRaises(ValueError):
