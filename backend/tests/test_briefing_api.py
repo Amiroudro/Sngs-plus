@@ -79,7 +79,7 @@ class BriefingApiTests(unittest.TestCase):
                   "bangla": {"stories": {"CA01": {"headline": "শিরোনাম", "summary": "সারাংশ",
                                                    "translation_status": "approved"}},
                              "mcqs": bn_mcqs, "language": "bn"}}
-        with patch.object(main, "list_editions", return_value=[{"edition_date": "2026-11-15"}]), \\
+        with patch.object(main, "list_editions", return_value=[{"edition_date": "2026-11-15"}]), \
              patch.object(main, "load_edition", return_value=loaded):
             payload = main.briefing("bn")
         self.assertEqual(payload["data"]["mcqs"][0]["question"], "কোথায়?")
