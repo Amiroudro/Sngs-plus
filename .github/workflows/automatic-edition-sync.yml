@@ -117,9 +117,13 @@ jobs:
               json.dumps(clean, ensure_ascii=False, indent=2) + "\n",
               encoding="utf-8"
           )
+          app_index = {
+              "editions": [{"edition_date": d, "status": "published"} for d in sorted(dates)],
+              "correct_consecutive_editions": index.get("correct_consecutive_editions", 0),
+              "correct_rule": index.get("correct_rule", ""),
+          }
           (bn_target / "index.json").write_text(
-              json.dumps({"editions": [{"edition_date": d, "status": "published"} for d in sorted(dates)]},
-                         ensure_ascii=False, indent=2) + "\n",
+              json.dumps(app_index, ensure_ascii=False, indent=2) + "\n",
               encoding="utf-8"
           )
 
