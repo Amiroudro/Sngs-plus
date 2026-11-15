@@ -517,6 +517,7 @@ def build_story_fields(item, article, day_iso, items_by_id):
                              "value": bn_sanitise(kf["value"]),
                              "original": bn_sanitise(orig)})
     bn_story = {
+        "translation_status": "needs_review",
         "headline": bn_sanitise(headline),
         "summary": bn_text,
         "why_it_matters": bn_why,
@@ -586,6 +587,7 @@ def build_editorial_story(ed_item, day_iso, ca_id):
         "detail": summary_src if summary_src else headline,
     }
     bn_story = {
+        "translation_status": "needs_review",
         "headline": bn_sanitise(headline),
         "summary": bn_sanitise(summary_src) if summary_src else bn_sanitise(headline),
         "why_it_matters": bn_sanitise(f"মতামত: {summary_src}"),
