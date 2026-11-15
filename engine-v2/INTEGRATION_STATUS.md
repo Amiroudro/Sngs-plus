@@ -22,7 +22,7 @@ places them at the expected paths. Python modules are placed under
 
 ## Not yet connected
 
-- No API endpoint reads generated editions.
+- A read-only API now reads human-published editions from `editions/index.json`; it does not read staging output.
 - No database ingestion for engine events, source contributions, facts,
   vocabulary or questions.
 - No frontend Today/Topics/Exam Desk data binding.
