@@ -1207,8 +1207,8 @@
     },
     "sonalisangbad.com": {
       "publisher": "Sonali Sangbad",
-      "domain_evidence": "https://sonalisangbad.com/ (publisher homepage and e-paper route observed 2026-11-16; current feed not verified)",
-      "domain_status": "publisher_homepage_found_feed_unverified",
+      "domain_evidence": "https://sonalisangbad.com/ (publisher homepage with 14 Nov 2026 article and e-paper edition dated 11 Nov 2026 observed; feed route not verified)",
+      "domain_status": "publisher_homepage_and_recent_edition_confirmed_feed_unverified",
       "metadata_status": "pending",
       "metadata_scope": "",
       "metadata_evidence": "",
