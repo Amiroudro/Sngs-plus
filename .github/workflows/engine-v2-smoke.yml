@@ -37,3 +37,6 @@ jobs:
       - name: Run editorial decision tests
         working-directory: engine-v2
         run: python tests/test_step3.py
+      - name: Run Bangla translation approval-gate tests
+        working-directory: engine-v2
+        run: python tests/test_translation_approval_gate.py
