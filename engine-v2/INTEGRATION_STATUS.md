@@ -86,3 +86,8 @@ This ledger is an audit tracker, not a live probe result. Direct fetch, parse, f
 ## Rights and route ledger synchronisation
 
 The SQLite-to-JSON rights export now updates both `state/source_rights.json` and the adjacent `state/source_routes.json` ledger when the latter exists. The route ledger mirrors the current metadata, page-metadata, automated-processing, body-rights and enabled states for mapped hosts, and recalculates its enabled count. Dry-run remains the default; `--write` is still required to change either file. The sync regression test verifies dry-run immutability, metadata-only grants, later body/page grants, and restrictive-review revocation across both ledgers.
+
+
+## Metadata-only archive preservation
+
+The v2 run now writes `metadata-only-<date>.json` and includes `metadata_only_items` in the run edition when a Step-3-kept story has no accessible body text. Each record preserves headline, publisher, canonical URL, publication timestamp and the publisher-provided feed summary (capped at 600 characters), with an explicit reason such as missing body licence, robots disallow, non-direct URL or fetch failure. It contains no extracted facts, generated translation or study questions, and its study-note status is `not_generated`. This prevents kept metadata from disappearing from the engine run; the separate metadata-only archive is not yet surfaced in the app UI.
