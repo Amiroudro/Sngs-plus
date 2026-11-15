@@ -4,7 +4,7 @@ An AI-assisted, bilingual (English/Bangla) news and knowledge platform focused o
 
 ## Project status
 
-**Foundation stage.** The repository contains a mobile-first Astro website, a small Python API foundation and a SQLite schema. The homepage is a transparent product preview, not a live news feed. No newspaper collection or AI editorial pipeline is yet connected to the live site.
+**Foundation + integration branch.** The `main` branch remains a foundation preview. The open Engine v2 integration PR imports the tested pipeline source and adds a read-only edition API that serves only human-published files indexed under `editions/`. No live newspaper collection is enabled, and no stories are auto-published.
 
 The current content inventory and renovation scope are documented in [the content audit](docs/CONTENT_AUDIT.md). The rules for article summaries, fact verification, exam relevance, vocabulary and questions are in [the content standard](docs/CONTENT_STANDARD.md).
 
@@ -46,7 +46,7 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
-The initial API exposes `/health` and `/api/v1/briefing`. The briefing endpoint currently returns an empty list with a demo status.
+The API exposes `/health`, `/api/v1/editions`, `/api/v1/editions/{YYYY-MM-DD}` and `/api/v1/briefing?language=en|bn`. It reads only files listed in the published edition index. With the initial empty index, the briefing correctly returns a demo status and no stories.
 
 ## Initial publishers to evaluate
 
@@ -61,6 +61,10 @@ A wider candidate source directory can be added after the list has been checked 
 3. Editorial intelligence: event clustering, importance scoring, fact extraction, verification and bilingual summaries.
 4. Study layer: vocabulary, exam-linked questions, revision notes and cumulative review.
 5. Reading experience: source comparison, search, timeline, archive and exports.
+
+## Engine v2 integration
+
+The pipeline source and integration limitations are documented in [`engine-v2/README.md`](engine-v2/README.md) and [`engine-v2/INTEGRATION_STATUS.md`](engine-v2/INTEGRATION_STATUS.md). The imported pipeline is not yet connected to automatic scheduling, the SQLite content model or the Astro frontend. Publishing still requires the engine's human-approval gate.
 
 ## Configuration and secrets
 
