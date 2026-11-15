@@ -451,6 +451,63 @@ def test_mislabels_2026_11_15():
           "final win + record -> keep/SPORT (%s)" % d)
 
 
+def test_bangla_crime_terms():
+    print("== Bangla crime terms (Level 1 wiring, 2026-11-15) ==")
+    # a951 (15 Nov, PA Bangla sitemap): a case against an MP's father
+    # for vandalism, assault, looting and land-grab — pure crime, no
+    # instrument. The old _CRIME_TERMS had no Bangla case/crime words,
+    # so the "সংসদ" Strong match kept it as BD-GOV/2 and it reached
+    # the page as CA11.
+    d = decide(art(
+        "c1", "নুসরাতের বাবার বিরুদ্ধে মামলা : তিন সাক্ষীর দুজনই "
+        "বললেন, তাঁরা কিছুই জানেন না",
+        "জাতীয় নাগরিক পার্টির যুগ্ম আহ্বায়ক ও সংরক্ষিত নারী আসনের "
+        "সংসদ সদস্য নুসরাত তাবাসসুমের বাবা আবদুল হালিমের বিরুদ্ধে "
+        "বাড়িঘর ভাঙচুর, মারধর, মালামাল লুট ও জমি দখলের অভিযোগে করা "
+        "মামলার তিন সাক্ষীর দুজনই দাবি করেছেন, এ বিষয়ে তাঁরা কিছুই "
+        "জানেন না।"))
+    check(d["decision"] == "reject" and d["score"] == 0,
+          "MP's father case (crime, no instrument) -> reject/0 (%s)" % d)
+    # a720 (15 Nov, Jugantor): compensation suit over a boat collision.
+    d = decide(art(
+        "c2", "প্রমোদতরিতে ট্যাংকারের ধাক্কা, ১০ লাখ ডলারের ক্ষতিপূরণ "
+        "চেয়ে মামলা",
+        "প্রমোদতরিতে ট্যাংকারের ধাক্কায় ক্ষতি হওয়ায় ১০ লাখ ডলারের "
+        "ক্ষতিপূরণ চেয়ে মামলা করা হয়েছে।"))
+    check(d["decision"] == "reject" and d["score"] == 0,
+          "compensation suit over collision -> reject/0 (%s)" % d)
+    # a966 (15 Nov, PA Bangla): parliament debate over handcuffs in a
+    # war-crimes case. মামলা is present, but "আইনমন্ত্রী" carries the
+    # আইন instrument term, so the crime rule must not reject it.
+    d = decide(art(
+        "c3", "জিয়াউলের হাতে হাতকড়া না থাকায় সংসদে ক্ষোভ, আইনমন্ত্রী "
+        "বললেন পুনরাবৃত্তি হবে না",
+        "মানবতাবিরোধী অপরাধের মামলায় আদালতে হাজির করার সময় সাবেক "
+        "সেনা কর্মকর্তা জিয়াউল আহসানকে হাতকড়া না পরানোয় ক্ষোভ প্রকাশ "
+        "করেছেন বিএনপির সংসদ সদস্য তাহসিনা রুশদী।"))
+    check(d["decision"] == "keep" and d["topic_primary"] == "BD-GOV",
+          "parliament debate + law-minister instrument -> keep/BD-GOV "
+          "(%s)" % d)
+    # POSITIVE CONTROL — crime WITH a real instrument keeps.
+    d = decide(art(
+        "c4", "ধর্ষণ মামলায় হাইকোর্টের নির্দেশনা",
+        "ধর্ষণ মামলার বিচারে হাইকোর্ট ৩টি নির্দেশনা দিয়েছেন। আদালত "
+        "বলেছেন, ভুক্তভোগীর পরিচয় গোপন রাখতে হবে।"))
+    check(d["decision"] == "keep" and d["topic_primary"] == "BD-GOV",
+          "crime + court directive (instrument) -> keep/BD-GOV (%s)" % d)
+    # POSITIVE CONTROL — the narrowed disaster carve-out still rescues
+    # a genuine disaster that carries a crime word ("দুর্ঘটনা").
+    # Topic is PEOPLE (মৃত্যু is a PEOPLE Strong term) with ENV
+    # secondary; what matters is the keep, not which topic wins.
+    d = decide(art(
+        "c5", "বন্যায় নৌকা দুর্ঘটনায় ৫ জনের মৃত্যু",
+        "বন্যার পানিতে নৌকা দুর্ঘটনায় ৫ জনের মৃত্যু হয়েছে। জেলায় "
+        "বন্যা পরিস্থিতির অবনতি হয়েছে।"))
+    check(d["decision"] == "keep"
+          and "ENV" in (d["topic_primary"], d["topic_secondary"]),
+          "flood + accident word -> keep, ENV recognised (%s)" % d)
+
+
 def _load_step1_batch():
     p = ENGINE_V2 / "runs" / "2026-11-14" / "articles-2026-11-14.json"
     if p.exists():
@@ -548,6 +605,7 @@ def main():
     test_decisions_2026_11_15()
     test_syllabus_proposals()
     test_mislabels_2026_11_15()
+    test_bangla_crime_terms()
     test_real_batch()
     print("=" * 60)
     if FAILURES:

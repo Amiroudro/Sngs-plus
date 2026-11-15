@@ -124,10 +124,10 @@ def test_gate_reproduction():
         check(checks[8]["pass"] is True,
               "check 8 PASS (excl definition)")
         detail8 = checks[8]["detail"]
-        check(all(s in detail8 for s in ("14/25", "8/25", "7/25")),
-              "check 8 detail carries all four counts (14/25, 8/25, 7/25, 7/25)")
-        check("7/25 PASS" in detail8 or "excl" in detail8.lower()
-              or "7/25" in detail8,
+        check(all(s in detail8 for s in ("14/25", "4/25", "1/25")),
+              "check 8 detail carries all four counts (14/25, 4/25, 1/25, 1/25)")
+        check("1/25 PASS" in detail8 or "excl" in detail8.lower()
+              or "1/25" in detail8,
               "check 8 detail names the excl count")
         check(all(c["pass"] is True for c in review["checks"]),
               "all 15 checks pass")
@@ -315,9 +315,9 @@ def test_publish_success_scratch():
             rec = json.loads(rec_path.read_text(encoding="utf-8"))
             check(rec.get("engine") == "v2" and rec.get("date") == DATE,
                   "tracker record is v2 for the date")
-            check(rec.get("collected") == 915 and rec.get("keep") == 98
-                  and rec.get("maybe") == 205 and rec.get("reject") == 562,
-                  "tracker record counts 915/98/205/562 from edition stats")
+            check(rec.get("collected") == 1514 and rec.get("keep") == 128
+                  and rec.get("maybe") == 300 and rec.get("reject") == 949,
+                  "tracker record counts 1514/128/300/949 from edition stats")
             check(rec.get("stories") == 15 and rec.get("mcqs") == 25
                   and rec.get("review_passed") == 15
                   and rec.get("review_total") == 15

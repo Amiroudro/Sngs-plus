@@ -24,9 +24,11 @@ day early.
   agent does NOT touch the counter by hand — the publish script does
   it. The v1 run closed at 7/7; do not touch the live index/tracker
   before Edition 11.
-- (b) **Auto-publish grant for LATER v2 editions only.** Gate 15/15,
-  approval reviewer `"auto-15/15 (Rudro's rule 2026-11-15)"`. The
-  FIRST v2 edition (Edition 11) stays human-gated even at 15/15.
+- (b) **Auto-publish grant for ALL v2 editions from Edition 11 onward.**
+  Gate 15/15, approval reviewer `"auto-15/15 (Rudro's rule
+  2026-11-15)"`. (Changed 2026-11-15 23:31 by Rudro's tap — "Let
+  Edition 11 auto-publish too": the first-edition human gate was
+  removed.)
 - (c) **Cron flip timed for Edition 11.** Daily 08:00 Asia/Dhaka,
   unchanged; delivery to the Sarangsho Plus side chat, unchanged.
 
@@ -78,14 +80,7 @@ day early.
 >    runs/YYYY-MM-DD/review-v2-YYYY-MM-DD.json). Longest-correct is
 >    the gate's check 8 (unique longest, all-equal questions
 >    excluded, ≤10/25) — do not count it by hand.
->    - FIRST v2 EDITION (Edition 11, 17 Nov 2026): even at 15/15,
->      STOP at the human gate. Do NOT write an approval file, do NOT
->      publish. Report to Rudro in the side chat with the gate result
->      (15/15 + the longest-correct excl count), the edition counts
->      and the PDF/XLSX links; he reviews the edition himself and
->      writes runs/YYYY-MM-DD/approval-YYYY-MM-DD.json (approved:
->      true, reviewer "Rudro") when he is satisfied.
->    - LATER v2 EDITIONS (Edition 12 onward): if the gate is 15/15,
+>    - ALL v2 EDITIONS (Edition 11 onward): if the gate is 15/15,
 >      publish automatically. To publish: write
 >      runs/YYYY-MM-DD/approval-YYYY-MM-DD.json with approved:true,
 >      reviewer "auto-15/15 (Rudro's rule 2026-11-15)", and notes

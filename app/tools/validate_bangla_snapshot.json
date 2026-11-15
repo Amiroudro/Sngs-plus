@@ -1,0 +1,12 @@
+{
+  "generated_by": "dart tools/validate_bangla.dart --write-snapshot",
+  "note": "Per-file, per-kind counts of UNSUPPRESSED violations, plus suppressed counts. test/bangla_validator_test.dart compares its live in-process scan against these numbers. Regenerate after converting data; when Phase 4 conversion is complete every violations count here is 0 and the script exits 0.",
+  "violations": {},
+  "suppressed": {
+    "assets/editions/bn-2026-11-02.json": 14
+  },
+  "totals": {
+    "violations": 0,
+    "suppressed": 14
+  }
+}

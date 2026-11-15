@@ -14,14 +14,15 @@ as `python3 <module>.py` from that directory.
  "body_text": "", "body_error": ""}
 ```
 - `id`: `a001`, `a002`, ... in collection order.
-- `title_source`: where the headline came from — "feed" (headline
-  from an approved RSS / news-sitemap / discovery result), "slug" (derived
-  from the URL slug; plain sitemaps carry no titles), "page" (headline
-  extracted from an article page only when separate page-metadata permission
-  is approved — og:title, then <title>, then first <h1>). Without that
-  permission the collector must not fetch the article page to resolve a slug.
-  A main whose page fetch fails keeps its slug title (title_source stays
-  "slug") — never invented.
+- `title_source`: where the headline came from — "feed" (real headline
+  from an RSS / news-sitemap / Bing / section feed), "slug" (derived
+  from the URL slug; plain sitemaps carry no titles), "page" (real
+  headline fetched from the article page itself — og:title, then
+  <title>, then first <h1>). Cluster mains with a slug title are
+  resolved to "page" inside Step 1, BEFORE Step 3 decides, so no
+  page item ever shows a slug headline and every evidence_quote is
+  drawn from the real headline. A main whose page fetch fails keeps
+  its slug title (title_source stays "slug") — never invented.
 - `summary`: RSS description (≤600 chars) or paste note. Never full text.
 - `body_text`: filled ONLY for Step-3-kept articles (Step 4 fetches it).
   Empty string otherwise. `body_error` explains a failed fetch.
@@ -34,49 +35,6 @@ as `python3 <module>.py` from that directory.
   `engine-v2/state/sources.json` across runs so dead sources stay visible).
 - `clusters-<date>.json`: [{"members": [ids], "main_id": "...",
   "size": N}] — cluster size is informational only, never used by later steps.
-
-## Publisher rights gate (Step 1)
-
-The operational policy is loaded from state/source_rights.json by
-rights_registry.py. Unknown domains are denied by default. The collector
-must keep these permissions separate:
-
-- Source activation: source_enabled must be true in the DB-exported registry;
-  rights approval alone does not turn collection on.
-- Metadata collection: metadata_status=approved, non-empty metadata_scope,
-  permission evidence, and a current reviewed_at/review_due_at window.
-- Automated classification/summarisation: automated_processing_status=approved,
-  non-empty automated_processing_scope, evidence and a current review window.
-  Metadata permission alone does not authorise AI/automated study processing.
-- Article-page headline extraction: page_metadata_status=approved with
-  separate page_metadata_scope/evidence and a current review window, plus
-  approved automated-processing scope/evidence; alternatively, a body licence
-  may cover page processing, but still requires automated-processing approval.
-- Article-body fetching: body_status=licensed, non-empty body_scope,
-  permission evidence, and a current review window, plus approved
-  automated-processing scope/evidence. A metadata-only or RSS-headline
-  permission never unlocks article bodies.
-- Aggregator discovery: Bing/Google News are discovery hosts only. Every
-  resolved publisher URL must pass the publisher metadata gate before it is
-  retained in the collected article set.
-- Robots policy is independent. A rights approval never overrides a
-  robots.txt disallow; a robots.txt fetch failure denies the request.
-
-The SQLite source_rights_reviews table is the review ledger. The manual
-dry-run-first sync_rights_registry.py exports its latest reviewed rows into
-both the Engine rights policy and route-audit JSON snapshots. It is not scheduled; changes in the DB do
-not reach the collector until the export is reviewed and written.
-
-## Metadata-only archive (no article body)
-
-When a story passes editorial triage but its article body is unavailable or
-not licensed, Step 4 writes a separate metadata-only archive record. It may
-contain the headline, publisher, canonical URL, publication date, archive
-status and body-fetch reason. RSS descriptions are excerpts, not basic
-bibliographic metadata, so Step 1 strips them unless a separate excerpt
-permission is later implemented. Metadata-only records must not contain
-article body text, extracted facts, generated translation, questions or MCQs.
-They are archive entries, not completed study notes.
 
 ## Step 2 output (article + two fields)
 - `priority`: "normal" | "low"
@@ -285,7 +243,7 @@ brackets. Bengali digits in Bangla text.
   query params; drop fragments.
 - `ngrams(text, n)`: character n-grams of normalised text.
 - `robots_allowed(url)`: fetch + parse robots.txt (cached per host per run),
-  respect User-agent: * rules; on fetch failure, deny (fail-closed) and record.
+  respect User-agent: * rules; on fetch failure, allow (fail-open) and record.
 - `today_dhaka()` → YYYY-MM-DD in Asia/Dhaka.
 
 ## V2 publish gate
@@ -298,12 +256,12 @@ correct only if it passes every check below, and the v1 17/17 number
 means nothing for v2.
 
 **Auto-publish grant (Rudro 2026-11-15, delegated — "other thing do
-yourself"):** for LATER v2 editions only, an edition passing 15/15
-may auto-publish with approval reviewer "auto-15/15 (Rudro's rule
-2026-11-15)". The FIRST v2 edition (Edition 11) is human-gated
-regardless — it stops for Rudro's eyes even at 15/15. The grant
-covers auto-publish only; it does not cover the cron flip (timed
-for Edition 11, see `CRON_INSTRUCTIONS_V2.md`) or the tracker
+yourself"; extended 2026-11-15 23:31 by Rudro's tap to cover Edition
+11 too):** for ALL v2 editions from Edition 11 onward, an edition
+passing 15/15 may auto-publish with approval reviewer "auto-15/15
+(Rudro's rule 2026-11-15)". There is no first-edition human gate.
+The grant covers auto-publish only; it does not cover the cron flip
+(timed for Edition 11, see `CRON_INSTRUCTIONS_V2.md`) or the tracker
 reset (to 0 at the first v2 edition, Edition 11 = v2 Day 1).
 
 **Pass definition:** ALL numbered checks pass. One failure stops the
@@ -322,14 +280,13 @@ app-format file `editions/data-<date>.json`, and writes
 `engine-v2/runs/<date>/approval-<date>.json` says `approved: true`
 (same approval-file shape as v1's `publish.py --publish`).
 
-**FIRST-EDITION RULE (Edition 11, 2026-11-17): Edition 11 stops at
-the human gate for Rudro's eyes even if it passes every check
-below.** The Edition 7 lesson is why: a wrong MCQ auto-published
-once under the v1 rule because the checks verified form, not
-content. Auto-publish under this v2 gate for LATER editions was
-granted by Rudro 2026-11-15 ("other thing do yourself"): gate
-15/15, approval reviewer "auto-15/15 (Rudro's rule 2026-11-15)".
-The first v2 edition is NOT covered by that grant.
+**FIRST-EDITION NOTE (Edition 11, 2026-11-17):** Edition 11
+auto-publishes on 15/15 like every later v2 edition — the
+first-edition human gate was removed by Rudro 2026-11-15 23:31
+("Let Edition 11 auto-publish too"). The Edition 7 lesson still
+stands as a warning: a wrong MCQ auto-published once under the v1
+rule because the checks verified form, not content — so the run
+report must say so whenever an edition auto-publishes.
 
 ### The checks
 

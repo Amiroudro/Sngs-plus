@@ -117,12 +117,34 @@ _DECISION_NOUNS = [
     "অধ্যাদেশ", "আইন", "নীতি", "বাজেট", "চুক্তি",
 ]
 # Crime / accident vocabulary (Step 2 deprioritise terms + "crime").
+# Bangla case/crime terms added 2026-11-15: the PA Bangla sitemap
+# surfaced crime stories (a951: a case against an MP's father for
+# vandalism/assault/looting/land-grab; a720: a compensation suit over
+# a boat collision) that the English-heavy feed never put on the
+# page. "মামলা" is the catch-all: a case filing is a crime story
+# unless an instrument rescues it. "জমি দখল" (not bare "দখল") so
+# forest/water-body encroachment stories are not caught by accident.
 _CRIME_TERMS = [
     "murder", "হত্যা", "robbery", "ডাকাতি", "rape", "ধর্ষণ",
     "accident", "দুর্ঘটনা", "crash", "সংঘর্ষ", "suicide", "আত্মহত্যা",
     "arrested", "গ্রেপ্তার", "crime", "theft", "burglary", "stabbed",
     "stabbing", "shot dead", "shooting", "kidnapped", "kidnap",
     "arson", "mugging",
+    "মামলা", "ভাঙচুর", "মারধর", "লুট", "জমি দখল", "অপহরণ",
+    "চাঁদাবাজি", "খুন",
+]
+# Disaster vocabulary for the crime-rule carve-out (below): a story
+# about a named disaster is ENV/SCI, not crime, even if it carries a
+# crime word ("accident", "crash"). This must be a NARROW list — the
+# old carve-out fired on ANY ENV/SCI Strong match, so a compensation
+# suit (ENV Strong on "ক্ষতিপূরণ", climate loss-and-damage) escaped
+# the crime rule (a720, 2026-11-15).
+_DISASTER_TERMS = [
+    "flood", "বন্যা", "cyclone", "ঘূর্ণিঝড়", "earthquake", "ভূমিকম্প",
+    "drought", "খরা", "landslide", "ভূমিধস", "storm", "ঝড়",
+    "tidal surge", "জলোচ্ছ্বাস", "tsunami", "সুনামি", "wildfire",
+    "দাবানল", "heatwave", "তাপপ্রবাহ", "dengue", "ডেঙ্গু",
+    "outbreak", "প্রাদুর্ভাব", "epidemic", "মহামারি", "pandemic",
 ]
 # Instruments that rescue a crime/accident story (edge rule): the story
 # is then kept for the instrument only, never for the incident.
@@ -700,12 +722,12 @@ def _decide_main(article, allow_opinion=False):
     crime = _has_any(text_norm, _CRIME_TERMS)
     instrument = _has_any(text_norm, _INSTRUMENT_TERMS)
     # A crime/accident story is kept ONLY if it produced an instrument.
-    has_disaster_strong = False  # floods/cyclones/quakes are ENV, not crime
+    # Disaster carve-out: a named disaster is ENV/SCI, not crime, even
+    # if it carries a crime word. Narrow list (see _DISASTER_TERMS):
+    # the old "any ENV/SCI Strong match" version rescued a compensation
+    # suit (ENV Strong on ক্ষতিপূরণ) — a720, 2026-11-15.
+    has_disaster_strong = _has_any(text_norm, _DISASTER_TERMS)
     matches_early = _match_topics(head_norm, text_norm)
-    if "ENV" in matches_early and matches_early["ENV"]["strong"]:
-        has_disaster_strong = True
-    if "SCI" in matches_early and matches_early["SCI"]["strong"]:
-        has_disaster_strong = True
 
     # --- Bank robbery / single branch / single market price: reject.
     if _contains(text_norm, "robbery") or _contains(text_norm, "ডাকাতি"):

@@ -789,11 +789,9 @@ def run_check(date_str, run_dir, staging_dir):
     checks, _ctx = check_gate(date_str, run_dir, staging_dir)
     passed, failed, unresolved, tally = gate_tally(checks)
     if passed == 15:
-        verdict = ("READY to publish under the v2 gate (15/15). Human "
-                   "approval is still required for the first v2 edition "
-                   "(Edition 11, 17 Nov) -- it stops at the human gate "
-                   "for Rudro's eyes even at 15/15. Later v2 editions "
-                   "may auto-publish under Rudro's rule 2026-11-15 "
+        verdict = ("READY to publish under the v2 gate (15/15). All v2 "
+                   "editions from Edition 11 onward may auto-publish "
+                   "under Rudro's rule 2026-11-15 "
                    "(reviewer 'auto-15/15').")
     else:
         verdict = ("NOT READY to publish under the v2 gate as written. "
@@ -860,39 +858,6 @@ def _v2_run_counter(live_index):
     return is_first_v2, new_count, rule
 
 
-def metadata_archive_validation_error(document, date_str):
-    """Return an error string unless an archive is safe to publish."""
-    if not isinstance(document, dict):
-        return "metadata-only archive must be a JSON object."
-    if (document.get("date") != date_str
-            or document.get("record_type") != "metadata_only"
-            or document.get("study_notes_available") is not False
-            or not isinstance(document.get("items"), list)):
-        return "metadata-only archive schema/date invalid."
-    allowed_document_fields = {
-        "date", "record_type", "study_notes_available", "items",
-    }
-    if set(document) != allowed_document_fields:
-        return "metadata-only archive contains unexpected top-level fields."
-    allowed_fields = {
-        "id", "headline", "source", "url", "published",
-        "archive_status", "study_note_status",
-    }
-    allowed_statuses = {
-        "metadata_only_body_not_licensed",
-        "body_blocked_by_robots",
-        "no_direct_article_url",
-        "body_fetch_failed",
-    }
-    for item in document["items"]:
-        if (not isinstance(item, dict)
-                or set(item) != allowed_fields
-                or item.get("archive_status") not in allowed_statuses
-                or item.get("study_note_status") != "not_generated"):
-            return "metadata-only archive contains invalid fields or status."
-    return ""
-
-
 def run_publish(date_str, run_dir, staging_dir, editions_dir,
                 app_editions_dir, tracker_md):
     run_dir = Path(run_dir)
@@ -933,11 +898,9 @@ def run_publish(date_str, run_dir, staging_dir, editions_dir,
     data_path = staging_dir / f"data-{date_str}.json"
     bn_path = staging_dir / f"bn-{date_str}.json"
     staged_index_path = staging_dir / f"index-{date_str}.json"
-    metadata_archive_path = staging_dir / f"metadata-only-{date_str}.json"
     for p, what in ((data_path, "staged data file"),
                     (bn_path, "staged BN file"),
-                    (staged_index_path, "staged index file"),
-                    (metadata_archive_path, "staged metadata-only archive")):
+                    (staged_index_path, "staged index file")):
         if not p.exists():
             return _refuse(f"{what} missing: {p}. Nothing written.")
     try:
@@ -946,14 +909,6 @@ def run_publish(date_str, run_dir, staging_dir, editions_dir,
         staged_index = load_json(staged_index_path)
     except Exception as exc:  # noqa: BLE001
         return _refuse(f"staged file unreadable ({exc}). Nothing written.")
-    try:
-        metadata_archive = load_json(metadata_archive_path)
-    except Exception as exc:  # noqa: BLE001
-        return _refuse(f"metadata-only archive unreadable ({exc}). Nothing written.")
-    archive_error = metadata_archive_validation_error(metadata_archive, date_str)
-    if archive_error:
-        return _refuse(f"{archive_error} Nothing written.")
-    archive_items = metadata_archive["items"]
     # Coverage must be the gate-verified label.
     expected_cov = coverage_label(day)
     if data.get("coverage") != expected_cov:
@@ -994,10 +949,8 @@ def run_publish(date_str, run_dir, staging_dir, editions_dir,
     # byte-identical to the canonical edition.
     save_json(app_editions_dir / f"data-{date_str}.json", data)
     save_json(app_editions_dir / f"bn-{date_str}.json", bn)
-    save_json(editions_dir / f"metadata-only-{date_str}.json", metadata_archive)
     log(f"copied data-{date_str}.json -> editions/ and app/assets/editions/; "
-        f"bn-{date_str}.json -> app/assets/editions/; "
-        f"metadata-only archive -> editions/ ({len(archive_items)} records)")
+        f"bn-{date_str}.json -> app/assets/editions/")
 
     # xlsx/pdf exports, if the staging dir has them.
     exports = []

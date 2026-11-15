@@ -201,8 +201,23 @@ def _phrase_re(phrase):
                       re.IGNORECASE)
 
 
-def _find_example(word_re, quotes, body):
-    """First sentence containing the word: fact quote, else body."""
+def _find_example(word, word_re, quotes, body):
+    """First sentence containing the word: fact quote, else body.
+
+    Prefer a sentence containing the EXACT headword: the app validator
+    requires the example to contain the headword as a substring, and
+    an inflected form ("factories") does not contain it ("factory").
+    Only if no sentence carries the exact form do we fall back to an
+    inflected-form sentence — and build_vocab drops the word then,
+    because the validator would reject it (2026-11-15).
+    """
+    exact = word.lower()
+    for q in quotes:
+        if exact in q.lower():
+            return q
+    for s in body:
+        if exact in s.lower():
+            return s
     for q in quotes:
         if word_re.search(q):
             return q
@@ -248,8 +263,20 @@ def build_vocab(items, date, runs_dir=None, editions_dir=EDITIONS_DIR,
         hits = []  # (item, example sentence)
         for it, search, quotes, body in per_item:
             if w_re.search(search):
-                ex = _find_example(w_re, quotes, body)
+                ex = _find_example(w, w_re, quotes, body)
                 hits.append((it, ex))
+        if not hits:
+            continue
+        # The app validator (and the converter's self-check) requires
+        # the example to contain the headword as a substring. The
+        # match regex tolerates inflections ("factories" matches
+        # "factory"), so the first hit's example may only carry the
+        # plural form — keep the first hit whose example contains the
+        # exact headword, and drop the word entirely if no hit does
+        # (2026-11-15: 'factory'/'company' failed the check on
+        # plural-only examples). The next-ranked word fills the slot.
+        hits = [(it, ex) for it, ex in hits
+                if w.lower() in (ex or "").lower()]
         if not hits:
             continue
         # Rank: in the most articles first, then longer word, then A-Z.

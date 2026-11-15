@@ -496,9 +496,9 @@ cannot silently break them:
   converted 25 MCQs in `editions/data-<date>.json` after the
   converter shuffles the keys.
 
-**First-edition rule:** the first v2 edition (Edition 11,
-2026-11-17) stops at the human gate for Rudro's eyes even if it
-passes every gate check. Auto-publish under the v2 gate for later
-editions was granted by Rudro 2026-11-15 (reviewer "auto-15/15
-(Rudro's rule 2026-11-15)", gate 15/15 only); the gate defines
-the checks, the grant is recorded in `CONTRACTS.md`.
+**First-edition rule (removed 2026-11-15 23:31 by Rudro's tap):**
+Edition 11 auto-publishes on 15/15 like every later v2 edition.
+Auto-publish under the v2 gate was granted by Rudro 2026-11-15
+(reviewer "auto-15/15 (Rudro's rule 2026-11-15)", gate 15/15
+only); the gate defines the checks, the grant is recorded in
+`CONTRACTS.md`.

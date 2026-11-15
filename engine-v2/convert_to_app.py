@@ -8,7 +8,6 @@ app-format edition files to a STAGING directory
 
   data-<date>.json   English canonical edition (v1 app contract)
   bn-<date>.json     Bengali overlay (v1 app contract)
-  metadata-only-<date>.json searchable archive metadata (no study notes/body)
   index-<date>.json  full index.json with the new entry appended
                      (built by copying the live editions/index.json)
   conversion-report-<date>.json / .md
@@ -300,18 +299,26 @@ def bn_summary_numbers_ok(en_summary, bn_summary):
     tokens. Returns a list of missing tokens."""
     to_latin = lambda s: s.translate(LATIN_DIGITS).replace("–", "-").replace("—", "-")
     bn = to_latin(bn_summary)
+    # The EN side must be normalised too: for Bangla-article stories
+    # facts_en is untranslated Bangla, so its number tokens are Bangla
+    # digits. Python's \d matches Unicode digits, so without this the
+    # tokens come out Bangla ("৫৫") while bn is Latin ("55") and every
+    # such token is falsely reported missing (CA11, 2026-11-15).
+    # to_latin is a 1:1 character translation, so span positions in
+    # the money/FY checks below are unchanged.
+    en = to_latin(en_summary)
     money = re.compile(
         r"(?:Tk|US\$|\$)\s*[\d.,]+(?:\s*[-–—]\s*[\d.,]+)?"
         r"\s*(?:bn|billion|m|million|কোটি|লাখ)?")
-    spans = [(m.start(), m.end()) for m in money.finditer(en_summary)]
+    spans = [(m.start(), m.end()) for m in money.finditer(en)]
     missing = []
-    for m in re.finditer(r"\d[\d.,]*", en_summary):
+    for m in re.finditer(r"\d[\d.,]*", en):
         tok = m.group(0).rstrip(".,")
         if not tok:
             continue
         if any(a <= m.start() < b for a, b in spans):
             continue
-        if m.start() >= 2 and en_summary[m.start() - 2:m.start()] == "FY":
+        if m.start() >= 2 and en[m.start() - 2:m.start()] == "FY":
             continue
         if tok not in bn:
             missing.append(tok)
@@ -510,9 +517,6 @@ def build_story_fields(item, article, day_iso, items_by_id):
         "recall_cards": recall_en,
         "keywords": keywords,
         "detail": detail,
-        # Optional editor-researched study layer. This is passed through only
-        # when supplied in the source item; the converter never invents it.
-        "exam_learning": item.get("exam_learning_en") or item.get("exam_learning") or {},
     }
     bn_key_facts = []
     for i, kf in enumerate(key_facts):
@@ -521,7 +525,6 @@ def build_story_fields(item, article, day_iso, items_by_id):
                              "value": bn_sanitise(kf["value"]),
                              "original": bn_sanitise(orig)})
     bn_story = {
-        "translation_status": "needs_review",
         "headline": bn_sanitise(headline),
         "summary": bn_text,
         "why_it_matters": bn_why,
@@ -535,8 +538,6 @@ def build_story_fields(item, article, day_iso, items_by_id):
         "recall_cards": recall_bn,
         "keywords": [bn_sanitise(k) for k in keywords],
         "detail": bn_sanitise(clean(item.get("focus_paragraph", ""))) or bn_text,
-        # Bangla learning notes remain review-gated with the rest of this overlay.
-        "exam_learning": item.get("exam_learning_bn") or {},
     }
     if not bn_story["one_liner"]:
         bn_story["one_liner"] = bn_sanitise(truncate_words(headline, 20))
@@ -593,7 +594,6 @@ def build_editorial_story(ed_item, day_iso, ca_id):
         "detail": summary_src if summary_src else headline,
     }
     bn_story = {
-        "translation_status": "needs_review",
         "headline": bn_sanitise(headline),
         "summary": bn_sanitise(summary_src) if summary_src else bn_sanitise(headline),
         "why_it_matters": bn_sanitise(f"মতামত: {summary_src}"),
@@ -857,43 +857,6 @@ def save_json(path, data):
     return path
 
 
-def validate_exam_learning_sidecar(doc, expected_date):
-    """Validate the optional editor-authored learning sidecar structure."""
-    if not isinstance(doc, dict):
-        raise ValueError("exam-learning sidecar must be a JSON object")
-    if doc.get("edition_date") != expected_date:
-        raise ValueError("exam-learning sidecar edition_date does not match the run")
-    stories = doc.get("stories")
-    if not isinstance(stories, dict):
-        raise ValueError("exam-learning sidecar must contain a stories object")
-    for story_id, entry in stories.items():
-        if not isinstance(story_id, str) or not story_id.strip():
-            raise ValueError("exam-learning sidecar contains an empty story ID")
-        if not isinstance(entry, dict):
-            raise ValueError(f"exam-learning entry for {story_id} must be an object")
-        for language in ("en", "bn"):
-            layer = entry.get(language, {})
-            if layer is not None and not isinstance(layer, dict):
-                raise ValueError(f"{story_id}.{language} learning layer must be an object")
-    return stories
-
-
-def attach_exam_learning(en_story, bn_story, source_story_id, sidecar_stories):
-    """Attach researched learning notes by original v2 story ID.
-
-    The converter passes content through; it does not research, translate,
-    approve, or invent any learning material.
-    """
-    entry = sidecar_stories.get(source_story_id, {})
-    if not isinstance(entry, dict):
-        return False, False
-    en_layer = entry.get("en") or en_story.get("exam_learning") or {}
-    bn_layer = entry.get("bn") or bn_story.get("exam_learning") or {}
-    en_story["exam_learning"] = en_layer if isinstance(en_layer, dict) else {}
-    bn_story["exam_learning"] = bn_layer if isinstance(bn_layer, dict) else {}
-    return bool(en_story["exam_learning"]), bool(bn_story["exam_learning"])
-
-
 def pick_distractors(correct_text, pool, used=None):
     """3 distractor records from ``pool`` (records with a 'text' key).
     Prefer definitions LONGER than the correct one, so the correct
@@ -926,7 +889,7 @@ def convert(date_str, run_dir, staging_dir):
     staging_dir = Path(staging_dir)
     report = {"date": day_iso, "mapping": [], "empty_fields": [],
               "repairs": [], "mcq": {}, "editorial": {}, "bn": {},
-              "exam_learning": {}, "self_checks": [], "unmeetable": [], "notes": []}
+              "self_checks": [], "unmeetable": [], "notes": []}
     log(f"converting v2 run {run_dir} -> staging {staging_dir}")
 
     page = load_json(run_dir / f"page-{date_str}.json")
@@ -951,59 +914,6 @@ def convert(date_str, run_dir, staging_dir):
             "before run_v2.py persisted final_items). BN key_fact labels "
             "are sanitised English 'what' text; from the next run the "
             "items file supplies Bangla structured facts.")
-    learning_path = run_dir / f"exam-learning-{date_str}.json"
-    learning_stories = {}
-    if learning_path.is_file():
-        try:
-            learning_doc = load_json(learning_path)
-            learning_stories = validate_exam_learning_sidecar(learning_doc, day_iso)
-        except (ValueError, json.JSONDecodeError) as exc:
-            raise SystemExit(f"invalid exam-learning sidecar: {exc}")
-        log(f"exam-learning sidecar loaded: {len(learning_stories)} story entries")
-    else:
-        log("no exam-learning sidecar; no external topic notes will be attached")
-    report["exam_learning"] = {
-        "input": learning_path.name if learning_path.is_file() else None,
-        "story_entries": len(learning_stories),
-        "english_layers": 0,
-        "bangla_layers": 0,
-        "generated_by_converter": False,
-    }
-
-    metadata_path = run_dir / f"metadata-only-{date_str}.json"
-    metadata_doc = load_json(metadata_path) if metadata_path.exists() else {
-        "date": date_str, "items": []
-    }
-    metadata_items = []
-    allowed_archive_statuses = {
-        "metadata_only_body_not_licensed",
-        "body_blocked_by_robots",
-        "no_direct_article_url",
-        "body_fetch_failed",
-    }
-    for record in metadata_doc.get("items", []):
-        if not isinstance(record, dict):
-            continue
-        if (record.get("archive_status") not in allowed_archive_statuses
-                or record.get("study_note_status") != "not_generated"):
-            report["notes"].append(
-                "A metadata-only archive record failed its status contract and was omitted.")
-            continue
-        metadata_items.append({
-            key: record.get(key, "")
-            for key in ("id", "headline", "source", "url", "published",
-                        "archive_status", "study_note_status")
-        })
-    metadata_archive = {"date": date_str, "record_type": "metadata_only",
-                        "study_notes_available": False,
-                        "items": metadata_items}
-    report["metadata_archive"] = {
-        "items": len(metadata_items),
-        "output": f"metadata-only-{date_str}.json",
-        "body_text_included": False,
-        "study_notes_generated": False,
-    }
-
     qa_by_story = {}
     for q in questions.get("qa", []):
         sid = q.get("id", "").rsplit("-qa", 1)[0]
@@ -1095,10 +1005,6 @@ def convert(date_str, run_dir, staging_dir):
         en, bn, notes = build_story_fields(
             item, by_id.get(item["id"], {}), day_iso, items_by_id)
         en["id"] = ca
-        has_en_learning, has_bn_learning = attach_exam_learning(
-            en, bn, item["id"], learning_stories)
-        report["exam_learning"]["english_layers"] += int(has_en_learning)
-        report["exam_learning"]["bangla_layers"] += int(has_bn_learning)
         stories_en.append(en)
         stories_bn[ca] = bn
         story_notes[ca] = notes
@@ -1526,14 +1432,12 @@ def convert(date_str, run_dir, staging_dir):
     staging_dir.mkdir(parents=True, exist_ok=True)
     save_json(staging_dir / f"data-{day_iso}.json", data)
     save_json(staging_dir / f"bn-{day_iso}.json", bn)
-    save_json(staging_dir / f"metadata-only-{day_iso}.json", metadata_archive)
     save_json(staging_dir / f"index-{day_iso}.json", index)
     save_json(staging_dir / f"conversion-report-{day_iso}.json", report)
     md = render_report_md(report, data, stories_en, story_notes)
     (staging_dir / f"conversion-report-{day_iso}.md").write_text(
         md, encoding="utf-8")
     log(f"wrote {staging_dir}/data-{day_iso}.json, bn-{day_iso}.json, "
-        f"metadata-only-{day_iso}.json ({len(metadata_items)} records), "
         f"index-{day_iso}.json, conversion-report-{day_iso}.json/.md")
     failed = [c for c in checks if not c["ok"]]
     log(f"self-checks: {len(checks) - len(failed)}/{len(checks)} passed"

@@ -1,0 +1,145 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('../keystore.properties')
+if (keystorePropertiesFile.exists()) {
+    keystorePropertiesFile.withReader('UTF-8') { reader ->
+        keystoreProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+android {
+    namespace = "com.sarangsho.plus"
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
+
+    // AGP's default CMake is 3.22.1, whose Linux package Google no longer
+    // hosts; use the installed 3.31.6 instead (see README.md).
+    externalNativeBuild {
+        cmake {
+            version "3.31.6"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        applicationId = "com.sarangsho.plus"
+        minSdk = flutter.minSdkVersion
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutterVersionCode.toInteger()
+        versionName = flutterVersionName
+    }
+
+    signingConfigs {
+        release {
+            // Permanent release key (Phase 1): sarangsho-plus-release.keystore
+            // + keystore.properties at the app root. Never the debug key.
+            // If keystore.properties is absent (e.g. a fresh checkout), the
+            // release build falls back to the debug key so local builds
+            // still work — but such an APK must never be shipped.
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig = keystorePropertiesFile.exists() ? signingConfigs.release : signingConfigs.debug
+            // Size work (v2): R8 minification + resource shrinking.
+            // Verified after enabling: release build + analyze still clean.
+            minifyEnabled = true
+            shrinkResources = true
+        }
+    }
+}
+
+flutter {
+    source = '../..'
+}
+
+dependencies {}
+
+// Phase 5: edition validators gate the RELEASE build (backstop — the
+// primary gate is tools/build_release.sh, which the build agent runs).
+// A bad edition, or a missing validator file, fails the build instead
+// of shipping. `dart` is resolved from FLUTTER_ROOT, then the local
+// ~/tools/flutter install, then PATH; python3 is expected on PATH.
+def findDart() {
+    def flutterRoot = System.getenv('FLUTTER_ROOT')
+    if (flutterRoot != null) {
+        def p = "${flutterRoot}/bin/dart"
+        if (new File(p).exists()) return p
+    }
+    // The Gradle daemon may run as a different user than the project
+    // owner, so check both homes (this VM: project under /home/hatch,
+    // daemon as root) before falling back to PATH.
+    for (final home in [
+        System.getProperty('user.home'),
+        '/home/hatch',
+    ]) {
+        def local = "${home}/tools/flutter/bin/dart"
+        if (new File(local).exists()) return local
+    }
+    return 'dart'
+}
+
+tasks.register('validateEditions') {
+    doLast {
+        // Edition validator lives at the REPO root (sarangsho-plus/tools);
+        // the Bengali validator lives under app/tools.
+        def repoToolsDir = "${rootProject.projectDir}/../../tools"
+        def appToolsDir = "${rootProject.projectDir}/../tools"
+        exec {
+            commandLine 'python3', "${repoToolsDir}/validate_editions.py"
+        }
+        exec {
+            commandLine findDart(), "${appToolsDir}/validate_bangla.dart"
+        }
+    }
+}
+
+// `preReleaseBuild` is created by the Android plugin after evaluation,
+// so the hook goes in afterEvaluate (a direct tasks.named at
+// configuration time fails: "Task with name 'preReleaseBuild' not
+// found").
+afterEvaluate {
+    tasks.named('preReleaseBuild') {
+        dependsOn validateEditions
+    }
+}

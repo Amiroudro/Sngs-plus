@@ -165,6 +165,41 @@ def test_synthetic():
     print("  phrases: %s" % [p["Phrase"] for p in vocab["phrases"]])
 
 
+def test_plural_example():
+    """Example must contain the exact headword (Level 1 wiring, 2026-11-15).
+
+    _word_re tolerates inflections, so "factory" matches "factories"
+    — but the app validator requires the example to contain the
+    headword as a substring, and "factories" does not contain
+    "factory". A word whose sentences carry only the plural form is
+    dropped; a word with an exact-form sentence keeps that example.
+    """
+    print("== plural-only examples ==")
+    bank = {"words": [
+        {"w": "factory", "pos": "Noun", "diff": "Basic",
+         "bn": "কারখানা", "def": "a building where goods are made"},
+        {"w": "company", "pos": "Noun", "diff": "Basic",
+         "bn": "কোম্পানি", "def": "a business organisation"},
+    ], "phrases": []}
+    items = [
+        _item("p1", "RMG unrest shuts factories",
+              ["RMG unrest: 50 factories remain closed in Savar-Ashulia."]),
+        _item("p2", "ICSB honours companies",
+              ["The ceremony recognised companies for their corporate "
+               "governance practices.",
+               "The company said it would publish its annual report."]),
+    ]
+    vocab = build_vocab(items, "2026-11-15", bank=bank)
+    got = {w["Headword / phrase"]: w for w in vocab["words"]}
+    check("plural-only word 'factory' is dropped",
+          "factory" not in got, list(got))
+    check("'company' kept with the exact-form example",
+          "company" in got
+          and "company" in got["company"]["Original example"].lower()
+          and "companies" not in got["company"]["Original example"].lower(),
+          got.get("company", {}).get("Original example", ""))
+
+
 def test_live_coverage():
     """Bank coverage on the real 14 Nov kept-article summaries."""
     print("== live coverage (14 Nov kept summaries, stricter than body) ==")
@@ -216,6 +251,7 @@ def main():
     print("bank: %d words, %d phrases"
           % (len(bank["words"]), len(bank["phrases"])))
     test_synthetic()
+    test_plural_example()
     test_live_coverage()
     print("=" * 60)
     if FAILURES:

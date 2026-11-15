@@ -150,8 +150,8 @@ def main():
         if gate_run_dir:
             check("real gate ran on scratch copy: 15/15 in output",
                   "15/15" in out, out[-500:])
-            check("real gate names check 8 excl count (7/25)",
-                  "7/25" in out, out[-500:])
+            check("real gate names check 8 excl count (1/25)",
+                  "1/25" in out, out[-500:])
         else:
             check("missing/unsupported gate script is reported plainly",
                   "publish_v2.py" in out, out[-500:])

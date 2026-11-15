@@ -1,0 +1,52 @@
+{
+  "_readme": "Allowlist for tools/validate_bangla.dart. Each entry suppresses ONE kind of violation, in ONE file, only where the violation's match lies inside the given substring. Nothing else is allowlisted. Do NOT add entries without a written reason in the entry itself.",
+  "entries": [
+    {
+      "file": null,
+      "kind": "code-slot",
+      "location": "lib/data/story_layout.dart: parseTile() -> FactTile.original",
+      "reason": "THE ONE allowed 'Tk' slot. The small grey original English figure under fact tiles in Bengali mode (Phase 2 mockup image-6, e.g. 'Tk 13.5 bn') is generated at runtime from the English source's number phrase ('Tk 13.5 billion' -> 'Tk 13.5 bn'). No literal 'Tk 13.5 bn' exists in any data file (verified by grep), so this is a code location, not a data span; the validator does not scan .dart code and this entry suppresses nothing. It exists so an auditor knows this is the single permitted Tk rendering.",
+      "substring": null
+    },
+    {
+      "file": "assets/editions/bn-2026-11-02.json",
+      "kind": "corrected-baseline",
+      "reason": "HSC DATE CORRECTED 2026-11-12 on Rudro's order 'fix all and update all' (fix-2026-11-02-hsc-date.py, full mode incl. word example). The correct date 1 December is kept in Latin in the Bengali overlay (headline, summary, figures, MCQ 16 explanation) because the edition validator enforces the exact Latin occurrence counts as its HSC baseline and the BN MCQ 16 option B must match the EN option. Converting to Bangla digits/month would break both. This is the corrected, frozen form for the published 2 Nov edition — not a pending fix.",
+      "substring": "1 December"
+    },
+    {
+      "file": "assets/editions/bn-2026-11-02.json",
+      "kind": "corrected-baseline",
+      "reason": "Same corrected HSC date: MCQ 16 option B is the full date '1 December 2026' in Latin. The bare '1 December' entry would leave the trailing '2026' digits flagged, so the full date is allowlisted as well. BN option B must match the EN option (edition validator HSC baseline).",
+      "substring": "1 December 2026"
+    },
+    {
+      "file": "assets/editions/bn-2026-11-02.json",
+      "kind": "corrected-baseline",
+      "reason": "Same corrected HSC date: CA04 exam_facts carries the range '1-31 December' (exams 1-31 December) in Latin. The separate '31 December' results date elsewhere in this edition is NOT allowlisted: it is correct and already in Bangla digits/month.",
+      "substring": "1-31 December"
+    },
+    {
+      "file": "assets/editions/data-2026-11-02.json",
+      "kind": "corrected-baseline",
+      "reason": "Same corrected HSC date, English source file: headline, summary, figures, word example ('Original example') and MCQ 16 explanation. These strings are NOT in the validator's current scan scope (the Bengali overlay covers the story/MCQ fields, so the English source is not displayed in Bengali mode), so this entry currently suppresses nothing; it is recorded here so the corrected baseline is protected if the scan scope ever widens.",
+      "substring": "1 December"
+    },
+    {
+      "file": "assets/editions/data-2026-11-02.json",
+      "kind": "corrected-baseline",
+      "reason": "Same corrected HSC date, English source file: MCQ 16 option B is the full date '1 December 2026'. Recorded for the same reason as the bn-file entry above.",
+      "substring": "1 December 2026"
+    },
+    {
+      "file": "assets/editions/data-2026-11-02.json",
+      "kind": "corrected-baseline",
+      "reason": "Same corrected HSC date, English source file: CA04 exam_facts carries the range '1-31 December'. Recorded for the same reason as the bn-file entry above.",
+      "substring": "1-31 December"
+    }
+  ],
+  "notes": [
+    "No other entries exist. In particular, the many other Latin digits, English months, 'Tk' occurrences and hyphen-suffixes in bn-*.json are NOT allowlisted — they are the Phase 4 conversion work, and the validator must keep failing on them until the applying agent converts the data.",
+    "KNOWN SECOND RUNTIME Tk RENDERING (not allowlisted — needs a decision, not a suppression): lib/data/story_layout.dart buildChart() titles the bar chart with unitDisplay(), which returns 'Tk' for taka units, e.g. 'দৈনিক (Tk বিলিয়ন)'. That is a second runtime Tk rendering in Bengali mode, distinct from the FactTile.original slot above. The applying agent / parent should decide whether to convert it to Bangla (e.g. 'টাকা বিলিয়ন' / 'বিলিয়ন টাকা') or to extend this allowlist with a written reason. Until then the validator does not scan .dart code, so it stays invisible to the script — flagging it here so it is not forgotten."
+  ]
+}

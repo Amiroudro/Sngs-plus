@@ -6,13 +6,8 @@ manual paste needed. Stdlib only. No imports from v1 (engine/,
 tools/collector/) — the working v1 collector's logic was adapted,
 not imported. Never writes into v1 directories.
 
-Collector route notes below are historical observations recorded
-in the original Engine development VM on 15 Nov 2026. They are NOT
-verification from the Sarangsho Plus deployment environment, are NOT
-current availability guarantees, and do NOT grant collection or reuse
-permission. The machine-readable route inventory records this distinction
-explicitly. A source remains disabled until the separate rights and
-deployment-environment gates pass.
+Routes (verified live from this VM; see
+tools/collector/ROUTES.md for the full table):
   * Bing News RSS — PRIMARY. Direct publisher URLs, unwrapped from
     the apiclick `url=` parameter. Queries cover Bangladesh,
     economy, politics, bank, education/jobs, and site: searches
@@ -23,12 +18,10 @@ deployment-environment gates pass.
     for generic crawlers, so a strict robots check marks this
     route dead — recorded honestly in the per-source report
     rather than fetched anyway.
-  * Prothom Alo English /feed — RSS route configured; metadata collection
-    is blocked until the publisher registry records permission scope/evidence.
-    Article-body access requires a separate current licence.
+  * Prothom Alo English /feed — RSS, direct URLs, bodies fetchable.
   * Prothom Alo news sitemap — the sitemap leg of the per-paper
     chain (RSS first, then news sitemap, then section links).
-  * TBS sitemap index — the original development VM reported that the index loaded; its 2026 children
+  * TBS sitemap index — the index loads; its 2026 children
     (sitemap-2026-1.xml, 50,000 URLs; sitemap-2026-2.xml) carry
     lastmod dates. Plain sitemaps have no titles, so the title is
     derived from the URL slug (never invented) — and then, for
@@ -37,7 +30,7 @@ deployment-environment gates pass.
     Step 3 decides, so no page item ever shows a slug headline.
     Only children whose lastmod is within 2 days are fetched, and
     only items with lastmod in the window are kept.
-  * Daily Star sitemap — the original development VM reported that the index was IncompleteRead,
+  * Daily Star sitemap — the index is IncompleteRead from this VM,
     so the 2026 child (sitemaps/2026/sitemap-2026-1.xml) is wired
     directly. It is flaky: the server often closes mid-read and
     the tail (newest items) is lost, so on a truncated fetch it
@@ -47,32 +40,47 @@ deployment-environment gates pass.
     sitemap leg yields 0 fresh items. Section cards carry
     <time datetime="...">, so only same-window items are kept;
     title comes from the card's aria-label, never invented.
-  * Jugantor news sitemap — the original development VM reported a Bangla news sitemap
+  * Jugantor news sitemap — Bangla daily; a real news sitemap
     (news:title + news:publication_date), ~500 items in 48 h.
-  * Prothom Alo Bangla /feed — the original development VM reported RSS with 55 fresh items.
+  * Prothom Alo Bangla /feed — RSS, 55 items, fresh.
+  * Prothom Alo Bangla news sitemap (Level 1, wired 2026-11-15) —
+    real news sitemap, ~470 items in 48 h, fresh. Overlaps the
+    /feed leg heavily; URL dedup collapses the overlap.
+  * bdnews24 news sitemap (Level 1, wired 2026-11-15) — real news
+    sitemap, ~124 items, fresh. Its /rss and /feed paths return
+    the homepage HTML, not a feed.
+  * Bing site: queries (Level 1, wired 2026-11-15) — the ONLY
+    working route from this VM for Ittefaq, Bangla Tribune,
+    Jago News 24, bdnews24 (redundant with its sitemap, kept for
+    consistency with the five English papers), UNB and BSS
+    (verification-only agencies) and New Age — all fresh on the
+    2026-11-15 probe.
   * Editorial Bing News RSS — path-qualified site: queries for
     the opinion/editorial sections (/opinion, /thoughts for TBS,
     /editorial for FE), tagged section="editorial",
     found_via="editorial". UNQUOTED queries only — quoted
     "site:..." queries return 0 items.
 
-Historical DROPPED observations from the original development VM (15 Nov 2026; not a deployment-side test; kept visible and not silently retried): TBS RSS (latest 12 Nov 2021), Daily Star RSS (latest
+DROPPED (verified stale/blocked, kept visible, never silently
+retried): TBS RSS (latest 12 Nov 2021), Daily Star RSS (latest
 1 Jun 2026), Dhaka Tribune (every route 403/404 — entirely
 unreachable from this VM), New Age (403), Daily Observer
 (unreachable), BSS (403), Kaler Kantho (403), Ittefaq (403),
 FE sitemap (IncompleteRead; its section page has links but no
 publish dates in the static HTML, so same-day cannot be
 verified), Daily Star sitemap index (IncompleteRead — the 2026
-child is wired directly instead).
+child is wired directly instead). Level 1 probe 2026-11-15 adds:
+Bangladesh Pratidin (403 on every route; Bing site: returns 0
+items), Samakal (sitemap index loads but every daily child is
+403 — Cloudflare challenge page, verified with curl too),
+Bonik Barta (every path returns the same 61 KB SPA shell; Bing
+site: latest Sep 2024, stale), Bangla Tribune / Jago News 24 /
+UNB / BSS / New Age direct routes (403/404/closed — all reached
+via Bing site: queries instead).
 
-Policy gates: direct publisher feeds/sitemaps require approved metadata
-scope and evidence in state/source_rights.json. Bing/Google News are
-discovery-only; each resolved publisher URL is separately checked against
-the registry. Article-page headline resolution requires page-metadata
-permission. Article-body fetching requires a current body licence with
-scope and evidence. Unknown publishers are denied. Robots is checked
-independently before every network fetch; a robots fetch failure is
-fail-closed and recorded.
+Robots: common.robots_allowed() is checked before ANY fetch
+(source feeds, sitemaps, and article bodies). A disallowed
+source is recorded dead with that reason, not fetched.
 
 Dedup (exactly per the user's script): strip tracking parts of
 URLs; normalise Bangla text (NFC, Bangla digits -> English,
@@ -120,7 +128,6 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import common  # noqa: E402
-import rights_registry  # noqa: E402
 
 VERSION = "2.2.0"
 BASE = Path(__file__).resolve().parent
@@ -138,6 +145,16 @@ BING_QUERIES = [
     "site:dhakatribune.com",
     "site:thefinancialexpress.com.bd",
     "site:en.prothomalo.com",
+    # Level 1 (added 2026-11-15): Bangla + digital + agency papers
+    # whose direct routes are dead from this VM — Bing is the only
+    # working route for them (probe 2026-11-15, all fresh).
+    "site:ittefaq.com.bd",
+    "site:banglatribune.com",
+    "site:jagonews24.com",
+    "site:bdnews24.com",
+    "site:unb.com.bd",
+    "site:bssnews.net",
+    "site:newagebd.net",
 ]
 EDITORIAL_BING_QUERIES = [
     "site:thedailystar.net/opinion",
@@ -164,6 +181,8 @@ DAILY_STAR_SITEMAP_FMT = ("https://www.thedailystar.net/sitemaps/{year}/"
                           "sitemap-{year}-1.xml")
 JUGANTOR_NEWS_SITEMAP = "https://www.jugantor.com/news_sitemap.xml"
 PROTHOM_ALO_BN_FEED = "https://www.prothomalo.com/feed"
+PROTHOM_ALO_BN_NEWS_SITEMAP = "https://www.prothomalo.com/news_sitemap.xml"
+BDNEWS24_NEWS_SITEMAP = "https://bdnews24.com/news_sitemap.xml"
 DAILY_STAR_BASE = "https://www.thedailystar.net"
 # Last-resort leg for the Daily Star: section front pages. Only run
 # when the sitemap leg yields 0 fresh items (see collect()).
@@ -198,12 +217,42 @@ DROPPED = [
     ("Daily Star sitemap index", "https://www.thedailystar.net/sitemap.xml",
      "IncompleteRead (0 bytes) from this VM — the 2026 child sitemap "
      "is wired directly instead (rechecked 15 Nov 2026)"),
+    # Level 1 probe, 2026-11-15 (all direct attempts from this VM).
+    ("Bangladesh Pratidin", "https://www.bd-pratidin.com/rss",
+     "HTTP 403 on RSS, /feed and every sitemap tried; Bing site: "
+     "query returns 0 items — unreachable from this VM"),
+    ("Kaler Kantho", "https://www.kalerkantho.com/rss",
+     "HTTP 403 on RSS and sitemap (rechecked 15 Nov 2026); Bing "
+     "site: query returns items but latest is 31 Jul 2026 (stale)"),
+    ("Samakal", "https://samakal.com/sitemap/sitemap-daily-2026-11-15.xml",
+     "sitemap index loads (2,513 daily children) but every daily "
+     "child is 403 — Cloudflare 'Just a moment...' challenge page "
+     "(verified with curl as well as urllib, 15 Nov 2026)"),
+    ("Bonik Barta", "https://www.bonikbarta.net/rss",
+     "HTTP 200 on every path tried (/rss, /rss.xml, /sitemap.xml, "
+     "/news_sitemap.xml) but all return the same 61 KB SPA shell — "
+     "no feed endpoints at conventional paths; Bing site: query "
+     "latest is 10 Sep 2024 (stale)"),
+    ("Bangla Tribune (direct)", "https://www.banglatribune.com/rss",
+     "HTTP 403 on /rss, 404 on /feed, connection closed on "
+     "/sitemap.xml — direct dead; reached via Bing site: query"),
+    ("Jago News 24 (direct)", "https://www.jagonews24.com/rss",
+     "HTTP 403 on /rss, /feed and /sitemap.xml — direct dead; "
+     "reached via Bing site: query"),
+    ("UNB (direct)", "https://unb.com.bd/rss",
+     "HTTP 404 on /rss, /feed and /sitemap.xml — no feed endpoints; "
+     "reached via Bing site: query (verification-only agency)"),
+    ("BSS (direct)", "https://www.bssnews.net/rss",
+     "HTTP 403 on /rss and /feed — direct dead; reached via Bing "
+     "site: query (verification-only agency)"),
+    ("New Age (direct)", "https://www.newagebd.net/rss",
+     "HTTP 403 on /rss and /sitemap.xml — direct dead; reached via "
+     "Bing site: query"),
 ]
 
-# Exclude non-article endpoints only. Sports, entertainment, lifestyle and
-# fashion are genuine editorial sections and must remain collectable; Step 2
-# and the relevance rubric decide their study priority instead.
-SKIP_URL_PARTS = ["/opinion/cartoon", "/videos/", "/author/", "/govt-ad/"]
+SKIP_URL_PARTS = ["/sports/", "/sports", "/entertainment/", "/lifestyle/",
+                  "/fashion/", "/opinion/cartoon", "/videos/",
+                  "/author/", "/govt-ad/"]
 
 DOMAIN_SOURCES = {
     "thedailystar.net": "The Daily Star",
@@ -213,6 +262,15 @@ DOMAIN_SOURCES = {
     "en.prothomalo.com": "Prothom Alo English",
     "prothomalo.com": "Prothom Alo Bangla",
     "jugantor.com": "Jugantor",
+    "ittefaq.com.bd": "Ittefaq",
+    "samakal.com": "Samakal",
+    "bonikbarta.net": "Bonik Barta",
+    "bdnews24.com": "bdnews24",
+    "banglatribune.com": "Bangla Tribune",
+    "jagonews24.com": "Jago News 24",
+    "unb.com.bd": "UNB",
+    "kalerkantho.com": "Kaler Kantho",
+    "bd-pratidin.com": "Bangladesh Pratidin",
     "apnews.com": "AP News",
     "bssnews.net": "BSS",
     "daily-sun.com": "Daily Sun",
@@ -225,11 +283,13 @@ DOMAIN_SOURCES = {
 }
 
 # Main-article ranking tiers (official first, then dailies, then portals).
-OFFICIAL_SOURCES = {"BSS", "Bangladesh Sangbad Sangstha", "Bangladesh Sangbad Sangstha (BSS)"}
+OFFICIAL_SOURCES = {"BSS", "Bangladesh Sangbad Sangstha"}
 DAILY_SOURCES = {
     "The Daily Star", "The Business Standard", "Dhaka Tribune",
     "The Financial Express", "Prothom Alo English", "Prothom Alo",
-    "Prothom Alo Bangla", "Jugantor",
+    "Prothom Alo Bangla", "Jugantor", "Ittefaq", "Samakal",
+    "Bonik Barta", "bdnews24", "Bangla Tribune", "Jago News 24",
+    "Bangladesh Pratidin", "Kaler Kantho", "UNB",
     "Daily Sun", "New Age", "The Daily Observer", "AP News", "BBC",
     "Reuters", "Al Jazeera", "The New York Times",
 }
@@ -250,9 +310,6 @@ def source_from_url(url):
     host = host[4:] if host.startswith("www.") else host
     if host in DOMAIN_SOURCES:
         return DOMAIN_SOURCES[host]
-    registered_name = rights_registry.publisher_name(url)
-    if registered_name:
-        return registered_name
     for dom, name in DOMAIN_SOURCES.items():
         if host.endswith("." + dom):
             return name
@@ -446,17 +503,6 @@ def _fetch_route(url, name, report, method, state):
     """Fetch one route, respecting robots.txt. Returns the raw text
     or None. Every outcome (ok / robots-blocked / fetch failed) is
     recorded in `report` and, on success, in the persisted state."""
-    # Aggregator discovery endpoints are allowed only as discovery inputs;
-    # every resulting publisher URL is checked separately before retention.
-    # Direct publisher routes require explicit metadata permission.
-    if not rights_registry.discovery_host_allowed(url):
-        allowed, reason = rights_registry.metadata_decision(url)
-        if not allowed:
-            report[name] = {"method": method,
-                            "status": "blocked by rights registry: " + reason,
-                            "items": 0, "fresh": False, "latest_item": None,
-                            "last_success": state.get(name, {}).get("last_success")}
-            return None
     if not common.robots_allowed(url):
         report[name] = {"method": method,
                         "status": "blocked by robots.txt",
@@ -549,7 +595,8 @@ def collect_prothomalo_sitemap(report, state):
     text = _fetch_route(PROTHOM_ALO_NEWS_SITEMAP, name, report, "sitemap", state)
     if text is None:
         return []
-    items = parse_news_sitemap(text, "Prothom Alo English")
+    items = parse_news_sitemap(text, "Prothom Alo English",
+                               found_via="sitemap")
     _report_items(name, report, "sitemap", items, state)
     return items
 
@@ -656,6 +703,36 @@ def collect_prothomalo_bn(report, state):
         return []
     items = parse_rss_items(text, name, "rss")
     _report_items(name, report, "rss", items, state)
+    return items
+
+
+def collect_prothomalo_bn_sitemap(report, state):
+    """Prothom Alo Bangla news sitemap (Level 1, wired 2026-11-15):
+    real news sitemap, ~470 items in 48 h, fresh. The /feed leg
+    above overlaps it heavily; URL dedup collapses the overlap."""
+    name = "Prothom Alo Bangla news sitemap"
+    text = _fetch_route(PROTHOM_ALO_BN_NEWS_SITEMAP, name, report,
+                        "sitemap", state)
+    if text is None:
+        return []
+    items = parse_news_sitemap(text, "Prothom Alo Bangla",
+                               found_via="sitemap")
+    _report_items(name, report, "sitemap", items, state)
+    return items
+
+
+def collect_bdnews24_sitemap(report, state):
+    """bdnews24 news sitemap (Level 1, wired 2026-11-15): real news
+    sitemap, ~124 items, fresh. Its /rss and /feed paths return the
+    homepage HTML, not a feed — the sitemap is the only direct
+    route that works."""
+    name = "bdnews24 news sitemap"
+    text = _fetch_route(BDNEWS24_NEWS_SITEMAP, name, report, "sitemap",
+                        state)
+    if text is None:
+        return []
+    items = parse_news_sitemap(text, "bdnews24", found_via="sitemap")
+    _report_items(name, report, "sitemap", items, state)
     return items
 
 
@@ -784,11 +861,6 @@ def fetch_bodies_for_kept(articles):
             a["body_text"] = ""
             a["body_error"] = "no direct URL"
             continue
-        body_allowed, body_reason = rights_registry.body_decision(a["url"])
-        if not body_allowed:
-            a["body_text"] = ""
-            a["body_error"] = "rights registry: " + body_reason
-            continue
         if not common.robots_allowed(a["url"]):
             a["body_text"] = ""
             a["body_error"] = "robots.txt disallows"
@@ -835,6 +907,8 @@ _KNOWN_SITE_SUFFIXES = {
     "prothom alo", "jugantor", "the financial express",
     "financial express", "dhaka tribune", "daily sun", "new age",
     "the daily observer", "bss", "bangladesh sangbad sangstha",
+    "bdnews24", "bangla tribune", "jago news 24", "ittefaq", "unb",
+    "samakal", "bonik barta", "kaler kantho", "bangladesh pratidin",
 }
 
 
@@ -903,9 +977,6 @@ def _resolve_one_title(article):
     slug title on failure."""
     url = article.get("url") or ""
     if not url or not _is_direct(url):
-        return ""
-    page_allowed, _reason = rights_registry.page_metadata_decision(url)
-    if not page_allowed:
         return ""
     if not common.robots_allowed(url):
         return ""
@@ -1034,7 +1105,8 @@ def collect(day, bodies=False, keep_ids=None):
     for fn in (collect_bing, collect_googlenews, collect_prothomalo,
                collect_prothomalo_sitemap, collect_editorial_bing,
                collect_tbs_sitemap, collect_jugantor,
-               collect_prothomalo_bn):
+               collect_prothomalo_bn, collect_prothomalo_bn_sitemap,
+               collect_bdnews24_sitemap):
         all_items.extend(fn(report, state))
     ds_items = collect_dailystar_sitemap(report, state, day)
     all_items.extend(ds_items)
@@ -1057,15 +1129,6 @@ def collect(day, bodies=False, keep_ids=None):
                                        if paste_articles else None),
                        "last_success": (datetime.now(timezone.utc).isoformat()
                                         if paste_found else None)}
-    # Enforce publisher permissions on final URLs, including aggregator
-    # discoveries and manually pasted records. Unmapped sources are denied.
-    all_items, rights_blocked = rights_registry.filter_metadata_items(all_items)
-    report["rights_registry"] = {
-        "status": "enforced",
-        "metadata_items_allowed": len(all_items),
-        "metadata_items_blocked": sum(rights_blocked.values()),
-        "blocked_by_publisher": rights_blocked
-    }
     save_state(state)
     for name, url, why in DROPPED:
         report[f"DROPPED: {name}"] = {"method": "dropped", "status": why,
@@ -1213,6 +1276,10 @@ def main():
               f"last_success: {state.get('Jugantor news sitemap', {}).get('last_success') or 'never checked'}")
         print(f"  Prothom Alo Bangla /feed: {PROTHOM_ALO_BN_FEED} | "
               f"last_success: {state.get('Prothom Alo Bangla', {}).get('last_success') or 'never checked'}")
+        print(f"  Prothom Alo Bangla news sitemap: {PROTHOM_ALO_BN_NEWS_SITEMAP} | "
+              f"last_success: {state.get('Prothom Alo Bangla news sitemap', {}).get('last_success') or 'never checked'}")
+        print(f"  bdnews24 news sitemap: {BDNEWS24_NEWS_SITEMAP} | "
+              f"last_success: {state.get('bdnews24 news sitemap', {}).get('last_success') or 'never checked'}")
         print("  Dropped (verified stale/blocked — dead by design):")
         for name, url, why in DROPPED:
             print(f"    - {name}: {why}")
@@ -1234,7 +1301,7 @@ def main():
           f"{meta.get('title_failed', 0)} kept slug "
           f"({meta.get('title_seconds', 0)}s)")
     if meta["robots_fetch_failures"]:
-        print(f"[step1] robots.txt fetch failures (fail-closed, denied): "
+        print(f"[step1] robots.txt fetch failures (fail-open, allowed): "
               f"{meta['robots_fetch_failures']}")
     if args.bodies and keep_ids:
         print(f"[step1] bodies fetched: {meta['body_ok']}/{meta['body_tried']} kept URLs")

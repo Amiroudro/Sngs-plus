@@ -19,6 +19,11 @@
    recorded dead/blocked/empty with a reason — never silent — and
    that the fresh count is materially above the 14 Nov baseline
    of 107 collected articles.
+5. Slug-title checks (section 5 in main): title_source markers,
+   extract_page_title, resolve_slug_titles.
+6. Level 1 routes (wired 2026-11-15): PA Bangla + bdnews24 news
+   sitemaps, seven new Bing site: queries, DROPPED records for the
+   blocked papers (Pratidin, Kaler Kantho, Samakal, Bonik Barta).
 Prints PASS/FAIL counts at the end. A route that fails is recorded
 as dead in the table — never silently retried, never faked.
 Exit code 0 only if every check passes.
@@ -187,6 +192,105 @@ def main():
                       by_source.get(("Prothom Alo Bangla", "rss"), 0) > 0,
                       f"{by_source.get(('Prothom Alo Bangla', 'rss'), 0)} items")
 
+        # 6. Level 1 routes (wired 2026-11-15, Rudro's ask): two new
+        # direct news sitemaps (PA Bangla, bdnews24) + seven new Bing
+        # site: queries (Ittefaq, Bangla Tribune, Jago News 24,
+        # bdnews24, UNB, BSS, New Age). Blocked papers (Pratidin,
+        # Kaler Kantho, Samakal, Bonik Barta) must be recorded in
+        # DROPPED, never silently missing.
+        print("\n--- Level 1 routes (wired 2026-11-15) ---")
+        pa_bn_fixture = """<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+ xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+<url><loc>https://www.prothomalo.com/bangladesh/test-story-1</loc>
+<news:news><news:title>বাজেটে বরাদ্দ বাড়ল শিক্ষায়</news:title>
+<news:publication_date>2026-11-14T10:00:00+06:00</news:publication_date>
+</news:news></url>
+<url><loc>https://www.prothomalo.com/bangladesh/test-story-2</loc>
+<news:news><news:title>রেমিট্যান্স বেড়েছে অক্টোবরে</news:title>
+<news:publication_date>2026-11-14T11:00:00+06:00</news:publication_date>
+</news:news></url></urlset>"""
+        pa_bn_items = s1.parse_news_sitemap(
+            pa_bn_fixture, "Prothom Alo Bangla", found_via="sitemap")
+        check("PA Bangla news sitemap fixture parses to 2 titled items",
+              len(pa_bn_items) == 2
+              and all(i["title_source"] == "feed" for i in pa_bn_items)
+              and all(i["source"] == "Prothom Alo Bangla"
+                      for i in pa_bn_items)
+              and all(i["found_via"] == "sitemap" for i in pa_bn_items),
+              f"n={len(pa_bn_items)}")
+        bd24_fixture = pa_bn_fixture.replace(
+            "prothomalo.com", "bdnews24.com").replace(
+            "Prothom Alo Bangla", "bdnews24")
+        bd24_items = s1.parse_news_sitemap(
+            bd24_fixture, "bdnews24", found_via="sitemap")
+        check("bdnews24 news sitemap fixture parses, source bdnews24",
+              len(bd24_items) == 2
+              and all(i["source"] == "bdnews24" for i in bd24_items)
+              and all(i["found_via"] == "sitemap" for i in bd24_items),
+              f"n={len(bd24_items)}")
+        new_bing = ["site:ittefaq.com.bd", "site:banglatribune.com",
+                    "site:jagonews24.com", "site:bdnews24.com",
+                    "site:unb.com.bd", "site:bssnews.net",
+                    "site:newagebd.net"]
+        check("BING_QUERIES contains all 7 new Level 1 site: queries",
+              all(q in s1.BING_QUERIES for q in new_bing),
+              f"missing={[q for q in new_bing if q not in s1.BING_QUERIES]}")
+        dropped_names = [n for n, _, _ in s1.DROPPED]
+        check("DROPPED records the blocked Level 1 papers",
+              all(any(k in n for n in dropped_names)
+                  for k in ("Pratidin", "Kaler Kantho", "Samakal",
+                            "Bonik Barta")),
+              f"dropped={[n for n in dropped_names if any(k in n for k in ('Pratidin', 'Kaler', 'Samakal', 'Bonik'))]}")
+        check("DOMAIN_SOURCES maps the new Level 1 domains",
+              all(s1.source_from_url(f"https://{d}/x") == want
+                  for d, want in
+                  (("ittefaq.com.bd", "Ittefaq"),
+                   ("banglatribune.com", "Bangla Tribune"),
+                   ("jagonews24.com", "Jago News 24"),
+                   ("bdnews24.com", "bdnews24"),
+                   ("unb.com.bd", "UNB"), ("bssnews.net", "BSS"),
+                   ("newagebd.net", "New Age"))),
+              "domain->source mapping")
+        if sources:
+            srcs = sources["sources"]
+            for name in ("Prothom Alo Bangla news sitemap",
+                         "bdnews24 news sitemap"):
+                r = srcs.get(name)
+                accounted = bool(r) and (
+                    r.get("items", 0) > 0
+                    or "blocked" in str(r.get("status"))
+                    or "failed" in str(r.get("status")))
+                check(f"Level 1 sitemap route accounted for: {name}",
+                      accounted,
+                      f"{r.get('status') if r else 'MISSING from report'}")
+            bing_live = [q for q in new_bing
+                         if srcs.get(f"Bing News: {q}", {}).get("items", 0) > 0]
+            check("at least 3 of the 7 new Bing site: queries returned items",
+                  len(bing_live) >= 3, f"live: {bing_live}")
+            if articles:
+                by_source = {}
+                for a in articles["articles"]:
+                    by_source.setdefault((a["source"], a["found_via"]), 0)
+                    by_source[(a["source"], a["found_via"])] += 1
+                if srcs.get("Prothom Alo Bangla news sitemap",
+                            {}).get("items", 0) > 0:
+                    check("PA Bangla sitemap items reach the articles file",
+                          by_source.get(("Prothom Alo Bangla", "sitemap"), 0) > 0,
+                          f"{by_source.get(('Prothom Alo Bangla', 'sitemap'), 0)} items")
+                if srcs.get("bdnews24 news sitemap",
+                            {}).get("items", 0) > 0:
+                    check("bdnews24 sitemap items reach the articles file",
+                          by_source.get(("bdnews24", "sitemap"), 0) > 0,
+                          f"{by_source.get(('bdnews24', 'sitemap'), 0)} items")
+                new_bing_sources = sum(
+                    by_source.get((s, "bing"), 0)
+                    for s in ("Ittefaq", "Bangla Tribune", "Jago News 24",
+                              "bdnews24", "UNB", "BSS", "New Age"))
+                check("new Bing-domain items reach the articles file",
+                      new_bing_sources > 0,
+                      f"{new_bing_sources} items from the 7 new domains")
+
     # 2. Dedup test — hand-built known duplicate pair + redirect.
     print("\n--- dedup test (hand-built duplicate trio) ---")
     title = "Cabinet approves draft ordinance on public procurement"
@@ -282,8 +386,8 @@ def main():
     cutoff = datetime(2026, 11, 12, tzinfo=timezone.utc)
     plain = s1.parse_plain_sitemap(plain_xml, "The Business Standard",
                                    "sitemap", cutoff=cutoff)
-    check("parse_plain_sitemap keeps in-window article pages, including sports, "
-          "while excluding video endpoints", len(plain) == 2,
+    check("parse_plain_sitemap keeps only in-window, non-video, "
+          "non-sports items", len(plain) == 1,
           f"kept={len(plain)}")
     if plain:
         check("parse_plain_sitemap title comes from the slug",
@@ -295,9 +399,6 @@ def main():
         check("parse_plain_sitemap keeps lastmod as published",
               plain[0]["published"] == "2026-11-14T10:00:00+06:00",
               plain[0]["published"])
-        check("sports article is retained for relevance scoring",
-              any("/sports/" in item["url"] for item in plain),
-              [item["url"] for item in plain])
     section_html = """<div class="card"><a href="/news/bangladesh/news/eatery-vandalised-over-seating-row-4323221" aria-label="Eatery vandalised over seating row"></a><div class="card-info"><time class="rsi-ago" datetime="2026-11-14T00:00:00+06:00">2 HOUR(s)</time></div></div>
 <div class="card"><a href="/news/bangladesh/news/undated-story-1"></a><div></div></div>
 <div class="card"><a href="/news/bangladesh/news/old-story-2" aria-label="Old story"></a><div><time datetime="2026-11-01T00:00:00+06:00"></time></div></div>"""

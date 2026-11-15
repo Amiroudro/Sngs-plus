@@ -1,0 +1,46 @@
+name: sarangsho_plus
+description: "সারাংশ প্লাস — বাংলাদেশের সংবাদপত্র থেকে BCS/Bank পরীক্ষার প্রস্তুতির দৈনিক সংস্করণ। সম্পূর্ণ অফলাইন, বিনামূল্যে, লগইন ছাড়া।"
+publish_to: "none"
+version: 1.2.1+2013
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+  flutter: ">=3.22.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  shared_preferences: ^2.3.2
+  url_launcher: ^6.3.1
+  # Phase 5: downloaded editions are saved under the app documents
+  # directory. Already in the local pub cache (2.1.5) — no network
+  # fetch needed. HTTP uses dart:io HttpClient, no http package.
+  # path_provider_android is pinned EXACTLY to 2.2.17: the newer
+  # 2.2.20 needs AGP 8.12.1, which this project (AGP 8.9.2) does
+  # not have cached (a caret range would still pick 2.2.20).
+  path_provider: ^2.1.5
+  path_provider_android: 2.2.17
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/editions/
+  # Bundled fonts (offline app — never fetched at runtime).
+  # Noto Serif Bengali Bold: story headlines (Phase 2).
+  # Hind Siliguri Regular/Bold: story body. Both are OFL-licensed.
+  fonts:
+    - family: NotoSerifBengali
+      fonts:
+        - asset: assets/fonts/NotoSerifBengali-Bold.ttf
+          weight: 700
+    - family: HindSiliguri
+      fonts:
+        - asset: assets/fonts/HindSiliguri-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/HindSiliguri-Bold.ttf
+          weight: 700
