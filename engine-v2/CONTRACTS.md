@@ -14,15 +14,14 @@ as `python3 <module>.py` from that directory.
  "body_text": "", "body_error": ""}
 ```
 - `id`: `a001`, `a002`, ... in collection order.
-- `title_source`: where the headline came from — "feed" (real headline
-  from an RSS / news-sitemap / Bing / section feed), "slug" (derived
-  from the URL slug; plain sitemaps carry no titles), "page" (real
-  headline fetched from the article page itself — og:title, then
-  <title>, then first <h1>). Cluster mains with a slug title are
-  resolved to "page" inside Step 1, BEFORE Step 3 decides, so no
-  page item ever shows a slug headline and every evidence_quote is
-  drawn from the real headline. A main whose page fetch fails keeps
-  its slug title (title_source stays "slug") — never invented.
+- `title_source`: where the headline came from — "feed" (headline
+  from an approved RSS / news-sitemap / discovery result), "slug" (derived
+  from the URL slug; plain sitemaps carry no titles), "page" (headline
+  extracted from an article page only when separate page-metadata permission
+  is approved — og:title, then <title>, then first <h1>). Without that
+  permission the collector must not fetch the article page to resolve a slug.
+  A main whose page fetch fails keeps its slug title (title_source stays
+  "slug") — never invented.
 - `summary`: RSS description (≤600 chars) or paste note. Never full text.
 - `body_text`: filled ONLY for Step-3-kept articles (Step 4 fetches it).
   Empty string otherwise. `body_error` explains a failed fetch.
@@ -35,6 +34,31 @@ as `python3 <module>.py` from that directory.
   `engine-v2/state/sources.json` across runs so dead sources stay visible).
 - `clusters-<date>.json`: [{"members": [ids], "main_id": "...",
   "size": N}] — cluster size is informational only, never used by later steps.
+
+## Publisher rights gate (Step 1)
+
+The operational policy is loaded from state/source_rights.json by
+rights_registry.py. Unknown domains are denied by default. The collector
+must keep these permissions separate:
+
+- Metadata collection: metadata_status=approved, non-empty metadata_scope,
+  permission evidence, and a current reviewed_at/review_due_at window.
+- Article-page headline extraction: page_metadata_status=approved with
+  separate page_metadata_scope/evidence and a current review window, or a
+  body licence that explicitly covers page processing.
+- Article-body fetching: body_status=licensed, non-empty body_scope,
+  permission evidence, and a current review window. A metadata-only or
+  RSS-headline permission never unlocks article bodies.
+- Aggregator discovery: Bing/Google News are discovery hosts only. Every
+  resolved publisher URL must pass the publisher metadata gate before it is
+  retained in the collected article set.
+- Robots policy is independent. A rights approval never overrides a
+  robots.txt disallow; a robots.txt fetch failure denies the request.
+
+The JSON registry is the Engine's operational policy source. The SQLite
+source_rights_reviews table is a separate application audit store and is
+not automatically synchronised yet. Changes to either store alone do not
+constitute publisher activation.
 
 ## Step 2 output (article + two fields)
 - `priority`: "normal" | "low"
