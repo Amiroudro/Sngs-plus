@@ -20,7 +20,7 @@
 - Database triggers block source activation in the application database unless a current documented licence covers the existing article-body collector.
 - Independent 0–10 exam score, topic tags and exam tracks are stored separately from the engine's 0–3 processing score.
 - Candidate source directory for 50 publishers plus BSS and UNB. It is not a list of active integrations.
-- 16 Nov 2026 source audit: 49 of 50 candidate publishers have a domain lead; Sonali Sangbad remains unresolved. The operational JSON registry contains 54 host records including aliases, separate Prothom Alo language hosts, BSS and UNB. Third-party Inkline feed claims are recorded separately from direct verification.
+- 16 Nov 2026 source audit: all 50 candidate publishers have a domain lead after resolving Sonali Sangbad; its feed and rights remain unverified. The operational JSON registry contains 55 host records including aliases, separate Prothom Alo language hosts, BSS and UNB. Third-party Inkline feed claims are recorded separately from direct verification.
 - Operational collector rights gate in engine-v2/rights_registry.py and engine-v2/state/source_rights.json:
   - Direct publisher feeds/sitemaps require the DB source to be explicitly enabled, approved metadata scope/evidence, a current dated review and separate automated-processing approval with its own scope/evidence.
   - Bing/Google News are discovery-only. Each publisher URL is checked separately before it enters the article collection.
