@@ -15,6 +15,7 @@
 
 - Read-only API for editions explicitly marked published in both the index and edition file.
 - English/Bangla briefing endpoint and bilingual Today page.
+- Searchable metadata-only archive API (`/api/v1/archive`) and bilingual Today-page search. It exposes only whitelisted headline/source/URL/date/status fields from human-published editions; it never returns article bodies or generated study notes.
 - Bangla converter overlays are marked needs_review. The API serves Bangla fields only when every story has explicit translation_status=approved; otherwise it falls back to English.
 - SQLite migrations for source health, fact evidence, questions/options, vocabulary occurrences, review progress, editorial corrections, publisher rights reviews, article localizations and separate exam relevance assessments.
 - Database triggers allow least-privilege `metadata_only` activation only with current metadata and separate automated-processing scope/evidence; `article_body` mode additionally requires a current body licence. Article-page extraction has its own approval gate.
@@ -30,7 +31,8 @@
   - Robots policy is enforced independently; robots.txt fetch failures are fail-closed.
 - Regression tests cover metadata vs page/body/automated-processing permissions, unknown domains, malformed URLs, expired licences, overdue reviews, direct feed blocking, title-page fetch blocking, body fetch blocking, SQLite-to-JSON sync, conflicting source records and robots behaviour.
 - Collector retains sports, entertainment and lifestyle articles for editorial scoring rather than discarding them at URL-filter time.
-- Kept stories whose body cannot be fetched are now written to a separate metadata-only archive with headline/source/URL/date and a reason. RSS excerpts are stripped by default; no article body, facts, translation or questions are generated for these records.
+- Kept stories whose body cannot be fetched are written to a separate metadata-only archive with headline/source/URL/date and a reason. RSS excerpts are stripped by default; no article body, facts, translation or questions are generated for these records.
+- The app converter stages `metadata-only-<date>.json` separately from the 15-story study edition. The publish script requires and validates this file, then copies it only after the human approval file and 15/15 gate pass. The API additionally requires the matching edition to be marked published in the index.
 
 ## Rights ledger and operational registry sync
 
@@ -49,7 +51,7 @@ The SQLite source_rights_reviews table is the review ledger. The Engine reads a 
 
 ## Known limitations
 
-- The 50-publisher directory is not yet 50 direct feed integrations. Exact official route, current item timestamps, robots response and deployment-region reachability still need direct verification. Metadata-only collection can preserve permitted headlines and source metadata, but the Engine now writes a separate metadata-only archive for kept stories without body text, but that archive and its explicit no-body status are not yet wired into app output.
+- The 50-publisher directory is not yet 50 direct feed integrations. Exact official route, current item timestamps, robots response and deployment-region reachability still need direct verification. The metadata-only archive reader and UI are now wired, but will remain empty until a rights-cleared source is collected and a human-approved edition containing its archive file is published.
 - The current Bangla renderer uses deterministic templates and sanitisation, not fluent translation. Its output must remain unapproved until human review or a properly tested translation workflow is introduced.
 - The expanded study taxonomy is specified in docs/EXAM_TAXONOMY_V1.md but is not yet wired to an automated classifier or frontend filters.
 - The separate 0–10 assessment schema exists, but no calibrated scoring model or importer currently populates it.
@@ -57,6 +59,12 @@ The SQLite source_rights_reviews table is the review ledger. The Engine reads a 
 - Topics and Exam Desk are not yet connected to the new data layer.
 - The publisher gate still references a legacy validator that is not present in this repository.
 - The DB-to-JSON sync is manual and dry-run-first; a reviewed admin interface and scheduled export are not yet implemented.
+
+## Metadata-only archive API
+
+`GET /api/v1/archive?q=<text>&source=<publisher>&limit=30` searches metadata-only records associated with human-published editions. It returns a maximum of 100 records per request and explicitly marks `record_type=metadata_only` and `study_notes_available=false`. The reader whitelists fields and rejects any record without a recognised archive status and `study_note_status=not_generated`. It will not return RSS excerpts, article bodies, facts, translations or questions. The Today page provides English/Bangla search labels and opens the publisher URL in a new tab.
+
+The converter stages the archive separately; `publish_v2.py` refuses to publish if the archive file is missing, malformed, contains unapproved status values, or includes body/study fields. It is copied to `editions/metadata-only-<date>.json` only after the existing approval and 15/15 checks pass. No existing live edition or source has been changed by this integration.
 
 ## Required next milestones
 
