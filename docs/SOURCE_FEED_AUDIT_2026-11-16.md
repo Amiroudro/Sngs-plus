@@ -145,6 +145,8 @@ The machine-readable registry now contains 54 host records: 49 candidate publish
 
 The third-party directories above are discovery aids. The canonical domain for each candidate still needs confirmation against a publisher-controlled site. The route audit must then verify feed structure, recency, robots rules and the intended use permitted by current terms. No source should be marked active based on a directory listing alone.
 
+Every registry source_enabled flag currently remains false. The collector requires the database source to be explicitly enabled as well as rights-approved. Migration 003 adds separate metadata, automated-processing, page and body gates; the manual dry-run-first sync tool copies reviewed DB decisions into the Engine registry and refuses conflicting source records.
+
 
 ## Third-party RSS registry cross-check
 
