@@ -85,12 +85,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is worker dead?",
-          "a": "1"
+          "q": "What was the name of the garment worker who died after being injured during the wage protests?",
+          "a": "Toufiq Hossain."
         },
         {
-          "q": "What is + factories shut in Savar-Ashulia?",
-          "a": "100"
+          "q": "How many factories in Savar and Ashulia declared holidays on 4 November?",
+          "a": "More than 100 factories."
         }
       ],
       "recall_cards": [
@@ -176,12 +176,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is demand?",
-          "a": "Tk 30,000"
+          "q": "When was the revised garment-worker pay scale scheduled to take effect?",
+          "a": "December 2026."
         },
         {
-          "q": "What is feared rise?",
-          "a": "Tk 1,000-2,000"
+          "q": "What minimum monthly wage were workers demanding?",
+          "a": "Tk30,000, compared with the then-current Tk12,500."
         }
       ],
       "recall_cards": [
@@ -254,12 +254,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is Trump carried South Carolina by nearly…?",
-          "a": "18"
+          "q": "Which two chambers of the US Congress did Democrats win majorities in, according to the report?",
+          "a": "The Senate and the House of Representatives."
         },
         {
-          "q": "What is Vice President JD Vance's former seat?",
-          "a": "Sherrod Brown won Ohio"
+          "q": "Which Democrat became the first to win a Kansas Senate seat since the Great Depression?",
+          "a": "Adam Hamilton."
         }
       ],
       "recall_cards": [
@@ -341,8 +341,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is Rick Jackson spent over?",
-          "a": "$100 million"
+          "q": "What did JD Vance identify as the reason Republicans lost the midterm elections?",
+          "a": "The Iran war, according to his statement."
+        },
+        {
+          "q": "Who became the first Muslim elected to the US Senate, according to the report?",
+          "a": "Abdul El-Sayed of Michigan."
         }
       ],
       "recall_cards": [
@@ -424,12 +428,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is total deaths?",
-          "a": "445"
+          "q": "How many dengue deaths had been recorded in the year by 4 November?",
+          "a": "445 deaths."
         },
         {
-          "q": "What is total cases?",
-          "a": "142,775"
+          "q": "How many dengue patients were hospitalised in the 24 hours to 8am on 4 November?",
+          "a": "1,866 patients."
         }
       ],
       "recall_cards": [
@@ -499,12 +503,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is proposed fund?",
-          "a": "$1-2 billion"
+          "q": "What size sovereign fund was Bangladesh considering establishing?",
+          "a": "Between $1 billion and $2 billion."
         },
         {
-          "q": "What is EDCF framework?",
-          "a": "$3 billion"
+          "q": "Which Korean institution did the finance minister discuss the proposal with in Seoul?",
+          "a": "Korea Investment Corporation (KIC)."
         }
       ],
       "recall_cards": [
@@ -576,8 +580,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is reason?",
-          "a": "security concerns including alleged server access from India"
+          "q": "On what date was DGePay disconnected from the National Payment Switch Bangladesh?",
+          "a": "29 October 2026."
+        },
+        {
+          "q": "What reason did Bangladesh Bank give for disconnecting DGePay?",
+          "a": "Security concerns, including alleged server access from India."
         }
       ],
       "recall_cards": [
@@ -652,12 +660,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is crore facility?",
-          "a": "Tk 3,000"
+          "q": "How much working-capital financing was cleared for the five City Group companies?",
+          "a": "Tk3,000 crore."
         },
         {
-          "q": "What is bank syndicate?",
-          "a": "8"
+          "q": "How many banks were in the lending syndicate led by City Bank?",
+          "a": "Eight banks."
         }
       ],
       "recall_cards": [
@@ -727,8 +735,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is conditions?",
-          "a": "end of US naval blockade"
+          "q": "Which country did Iran's ambassador say Bangladesh needed to coordinate with for safe passage through the Strait of Hormuz?",
+          "a": "Iran."
+        },
+        {
+          "q": "Which three countries did the ambassador say had plans to reopen the waterway?",
+          "a": "Iran, Qatar and Oman."
         }
       ],
       "recall_cards": [],
@@ -792,8 +804,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is posts?",
-          "a": "5,000"
+          "q": "When was the 51st Special BCS preliminary examination scheduled?",
+          "a": "11 December 2026, from 10am to noon."
+        },
+        {
+          "q": "How many physician posts were to be filled through the special BCS?",
+          "a": "5,000 posts: 4,700 assistant surgeons and 300 assistant dental surgeons."
         }
       ],
       "recall_cards": [
@@ -863,12 +879,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is th in Asia?",
-          "a": "136"
+          "q": "What position did Dhaka University achieve in Asia in the QS Asia 2027 rankings?",
+          "a": "136th in Asia."
         },
         {
-          "q": "What is th in South Asia?",
-          "a": "16"
+          "q": "How many universities from how many countries and territories were included in the rankings?",
+          "a": "1,722 universities from 26 countries and territories."
         }
       ],
       "recall_cards": [
@@ -941,8 +957,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is + Rohingya in Bangladesh?",
-          "a": "1 million"
+          "q": "On what date was the International Court of Justice scheduled to deliver its ruling in The Gambia v Myanmar?",
+          "a": "19 November 2026."
+        },
+        {
+          "q": "Under which international convention was The Gambia's case brought?",
+          "a": "The 1948 UN Genocide Convention."
         }
       ],
       "recall_cards": [
@@ -1002,8 +1022,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is Around Rohingya in Bangladesh?",
-          "a": "1.3 million"
+          "q": "How many Rohingya people were said to be living in Bangladesh?",
+          "a": "Around 1.3 million."
+        },
+        {
+          "q": "Which regional trade agreement did Bangladesh seek China's support to join?",
+          "a": "The Regional Comprehensive Economic Partnership (RCEP)."
         }
       ],
       "recall_cards": [
@@ -1080,12 +1104,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is suspected cases?",
-          "a": "234,148"
+          "q": "How many deaths with measles-like symptoms were reported in the 24 hours to 8am on 4 November?",
+          "a": "Six deaths."
         },
         {
-          "q": "What is confirmed?",
-          "a": "24,150"
+          "q": "How long did the inquiry commission have to submit its report?",
+          "a": "60 working days."
         }
       ],
       "recall_cards": [
@@ -1158,12 +1182,12 @@
       ],
       "exam_qa": [
         {
-          "q": "What is constables?",
-          "a": "1,173"
+          "q": "How many police constables were found by the investigation to have used fake permanent addresses to obtain quota jobs?",
+          "a": "1,173 constables."
         },
         {
-          "q": "What is in Dhaka?",
-          "a": "980"
+          "q": "How many of those constables were recruited in Dhaka, according to the investigation?",
+          "a": "980 constables."
         }
       ],
       "recall_cards": [
@@ -1190,7 +1214,7 @@
   ],
   "words": [
     {
-      "Antonyms": "disrupt, ruin, improvise",
+      "Antonyms": "No direct antonym; disrupt is a contrasting action, not a strict opposite.",
       "Article headline": "Garment worker dies after attack during Gazipur wage protest",
       "BCS / Bank relevance": "High — law and order, political violence.",
       "Bangla meaning": "পরিকল্পিতভাবে সংগঠিত করা",
@@ -1202,7 +1226,7 @@
       "Headword / phrase": "orchestrate",
       "IPA": "/ˈɔːkɪstreɪt/",
       "Newspaper context note": "Gazipur police said the incident suggested the unrest was orchestrated by the Awami League.",
-      "Original example": "Police said the violence had been orchestrated by outsiders.",
+      "Original example": "The organisers worked together to orchestrate a safe public event.",
       "Part of speech / type": "verb",
       "Priority": "High",
       "Publication date": "2026-11-04",
@@ -1224,7 +1248,7 @@
       "Headword / phrase": "detain",
       "IPA": "/dɪˈteɪn/",
       "Newspaper context note": "The Detective Branch detained three labour leaders in Ashulia over alleged incitement of the protests.",
-      "Original example": "Police detained three labour leaders in Ashulia.",
+      "Original example": "Police may detain a suspect when the law permits it.",
       "Part of speech / type": "verb",
       "Priority": "High",
       "Publication date": "2026-11-04",
@@ -1246,7 +1270,7 @@
       "Headword / phrase": "short-change",
       "IPA": "/ʃɔːt tʃeɪndʒ/",
       "Newspaper context note": "Garment workers fear the wage board will short-change them with only a Tk 1,000-2,000 rise.",
-      "Original example": "Workers fear the board will short-change them with a token rise.",
+      "Original example": "A company should not short-change employees by withholding agreed benefits.",
       "Part of speech / type": "verb",
       "Priority": "High",
       "Publication date": "2026-11-04",
@@ -1268,7 +1292,7 @@
       "Headword / phrase": "invoke",
       "IPA": "/ɪnˈvəʊk/",
       "Newspaper context note": "Factory owners warned they may invoke Section 13(1) of the Bangladesh Labour Act, the 'no work, no pay' provision.",
-      "Original example": "Owners warned they may invoke the 'no work, no pay' provision.",
+      "Original example": "The applicant decided to invoke the appeal procedure.",
       "Part of speech / type": "verb",
       "Priority": "High",
       "Publication date": "2026-11-04",
@@ -1290,7 +1314,7 @@
       "Headword / phrase": "provision",
       "IPA": "/prəˈvɪʒən/",
       "Newspaper context note": "Section 13(1) of the Bangladesh Labour Act is the 'no work, no pay' provision.",
-      "Original example": "The 'no work, no pay' provision allows owners to withhold wages for days not worked.",
+      "Original example": "The contract contains a provision for early termination.",
       "Part of speech / type": "noun",
       "Priority": "High",
       "Publication date": "2026-11-04",
@@ -1312,17 +1336,17 @@
       "Headword / phrase": "rebuke",
       "IPA": "/rɪˈbjuːk/",
       "Newspaper context note": "The Democratic wave was described as a scathing rebuke to President Donald Trump.",
-      "Original example": "Voters delivered a scathing rebuke to the president.",
+      "Original example": "The auditor issued a sharp rebuke after finding repeated violations.",
       "Part of speech / type": "noun / verb",
       "Priority": "High",
       "Publication date": "2026-11-04",
       "Record type": "New word",
       "Source publication": "Prothom Alo English",
-      "Synonyms": "reproach, reprimand, rebuff",
+      "Synonyms": "reprimand; censure; scold; reproach",
       "Word family / derivatives": "rebuke (verb)"
     },
     {
-      "Antonyms": "weak spot",
+      "Antonyms": "No direct antonym; weak position is a contextual contrast.",
       "Article headline": "Democrats capture Congress in sweeping setback for Trump",
       "BCS / Bank relevance": "High — politics, elections.",
       "Bangla meaning": "শক্ত ঘাঁটি",
@@ -1334,7 +1358,7 @@
       "Headword / phrase": "stronghold",
       "IPA": "/ˈstrɒŋhəʊld/",
       "Newspaper context note": "Democratic gains reached deep into Republican strongholds such as South Carolina and Texas.",
-      "Original example": "Democrats won seats deep inside Republican strongholds.",
+      "Original example": "The district has long been a stronghold of the ruling party.",
       "Part of speech / type": "noun",
       "Priority": "High",
       "Publication date": "2026-11-04",
@@ -1356,7 +1380,7 @@
       "Headword / phrase": "stewardship",
       "IPA": "/ˈstjuːədʃɪp/",
       "Newspaper context note": "Voters expressed frustration with Trump's stewardship of the economy.",
-      "Original example": "Voters judged the president's stewardship of the economy harshly.",
+      "Original example": "Good stewardship of public funds requires clear records and oversight.",
       "Part of speech / type": "noun",
       "Priority": "Medium",
       "Publication date": "2026-11-04",
@@ -1378,7 +1402,7 @@
       "Headword / phrase": "barrage",
       "IPA": "/ˈbærɑːʒ/",
       "Newspaper context note": "James Talarico withstood a barrage of outside spending to defeat Ken Paxton in Texas.",
-      "Original example": "The candidate withstood a barrage of outside spending.",
+      "Original example": "The minister faced a barrage of questions about the project.",
       "Part of speech / type": "noun",
       "Priority": "Medium",
       "Publication date": "2026-11-04",
@@ -1388,7 +1412,7 @@
       "Word family / derivatives": "barrage (verb)"
     },
     {
-      "Antonyms": "—",
+      "Antonyms": "No direct antonym.",
       "Article headline": "Democrats capture Congress in sweeping setback for Trump",
       "BCS / Bank relevance": "Medium — vocabulary, figurative usage.",
       "Bangla meaning": "দীর্ঘ তালিকা",
@@ -1400,7 +1424,7 @@
       "Headword / phrase": "litany",
       "IPA": "/ˈlɪtəni/",
       "Newspaper context note": "Ken Paxton was at the centre of a litany of controversies, including his 2023 impeachment and securities fraud charges.",
-      "Original example": "The candidate faced a litany of controversies.",
+      "Original example": "The report listed a litany of failures in the inspection system.",
       "Part of speech / type": "noun",
       "Priority": "Medium",
       "Publication date": "2026-11-04",
@@ -1422,7 +1446,7 @@
       "Headword / phrase": "frontrunner",
       "IPA": "/ˈfrʌntrʌnər/",
       "Newspaper context note": "The midterm defeat raised questions over JD Vance's status as frontrunner for the 2028 Republican nomination.",
-      "Original example": "The defeat raised questions over his status as frontrunner for 2028.",
+      "Original example": "The frontrunner in the survey promised to publish a detailed plan.",
       "Part of speech / type": "noun",
       "Priority": "High",
       "Publication date": "2026-11-04",
@@ -1444,7 +1468,7 @@
       "Headword / phrase": "sweep",
       "IPA": "/swiːp/",
       "Newspaper context note": "Democrats scored sweeping victories in both chambers of the US Congress.",
-      "Original example": "Democrats scored a sweeping victory in the midterms.",
+      "Original example": "The party hopes to sweep the local elections.",
       "Part of speech / type": "noun / verb",
       "Priority": "High",
       "Publication date": "2026-11-04",
@@ -1466,7 +1490,7 @@
       "Headword / phrase": "rout",
       "IPA": "/raʊt/",
       "Newspaper context note": "The Daily Star described the midterms as a 'midterm rout of Trump' as Democrats won Congress.",
-      "Original example": "The midterms ended in a rout for the Republicans.",
+      "Original example": "The team suffered a heavy rout in the final match.",
       "Part of speech / type": "noun / verb",
       "Priority": "High",
       "Publication date": "2026-11-04",
@@ -1488,7 +1512,7 @@
       "Headword / phrase": "stagnant",
       "IPA": "/ˈstæɡnənt/",
       "Newspaper context note": "Stagnant water on floors accounted for 12.26 percent of dengue breeding sources in the DSCC survey.",
-      "Original example": "Stagnant water on floors was a major breeding source for mosquitoes.",
+      "Original example": "Stagnant water can become a breeding ground for mosquitoes.",
       "Part of speech / type": "adjective",
       "Priority": "Medium",
       "Publication date": "2026-11-04",
@@ -1510,7 +1534,7 @@
       "Headword / phrase": "mobilise",
       "IPA": "/ˈməʊbɪlaɪz/",
       "Newspaper context note": "The proposed sovereign fund would mobilise international capital for infrastructure, renewable energy and digital projects.",
-      "Original example": "The fund will mobilise international capital for infrastructure.",
+      "Original example": "The campaign aims to mobilise volunteers across the country.",
       "Part of speech / type": "verb",
       "Priority": "High",
       "Publication date": "2026-11-04",
@@ -1532,13 +1556,13 @@
       "Headword / phrase": "exempt",
       "IPA": "/ɪɡˈzempt/",
       "Newspaper context note": "Bangladesh Bank exempted five defaulted City Group companies from the ban on lending to classified defaulters.",
-      "Original example": "The central bank exempted five companies from the lending ban.",
+      "Original example": "The regulator may exempt small firms from the reporting requirement.",
       "Part of speech / type": "verb / adjective",
       "Priority": "High",
       "Publication date": "2026-11-04",
       "Record type": "New word",
       "Source publication": "The Daily Star",
-      "Synonyms": "excuse, release, waive",
+      "Synonyms": "free from an obligation; grant an exemption; exclude from a requirement",
       "Word family / derivatives": "exemption (noun)"
     },
     {
@@ -1554,13 +1578,13 @@
       "Headword / phrase": "defaulter",
       "IPA": "/dɪˈfɔːltər/",
       "Newspaper context note": "The Bank Company Act bars banks from lending to classified defaulters; five City Group companies are classified defaulters.",
-      "Original example": "The law bars banks from lending to classified defaulters.",
+      "Original example": "A loan defaulter may face restrictions on future borrowing.",
       "Part of speech / type": "noun",
       "Priority": "High",
       "Publication date": "2026-11-04",
       "Record type": "New word",
       "Source publication": "The Daily Star",
-      "Synonyms": "non-payer, debtor",
+      "Synonyms": "borrower in default; non-paying borrower",
       "Word family / derivatives": "default (noun / verb)"
     },
     {
@@ -1576,13 +1600,13 @@
       "Headword / phrase": "syndicate",
       "IPA": "/ˈsɪndɪkət/",
       "Newspaper context note": "A syndicate of eight banks led by City Bank will provide the Tk 3,000 crore working capital facility.",
-      "Original example": "A syndicate of eight banks will provide the facility.",
+      "Original example": "A syndicate of lenders agreed to finance the infrastructure project.",
       "Part of speech / type": "noun",
       "Priority": "High",
       "Publication date": "2026-11-04",
       "Record type": "New word",
       "Source publication": "The Daily Star",
-      "Synonyms": "consortium, group, cartel",
+      "Synonyms": "consortium; organised group; lender group (contextual)",
       "Word family / derivatives": "syndicated (adjective)"
     },
     {
@@ -1598,7 +1622,7 @@
       "Headword / phrase": "unencumbered",
       "IPA": "/ʌnɪnˈkʌmbəd/",
       "Newspaper context note": "City Group must provide unencumbered assets through registered mortgages as security for the financing.",
-      "Original example": "City Group must provide unencumbered assets as security.",
+      "Original example": "The company offered an unencumbered property as loan security.",
       "Part of speech / type": "adjective",
       "Priority": "Medium",
       "Publication date": "2026-11-04",
@@ -1620,13 +1644,13 @@
       "Headword / phrase": "landmark",
       "IPA": "/ˈlændmɑːk/",
       "Newspaper context note": "The ICJ will deliver a landmark ruling on whether Myanmar's crackdown against the Rohingya constituted genocide.",
-      "Original example": "The court will deliver a landmark ruling on the genocide case.",
+      "Original example": "The court delivered a landmark ruling on the constitutional issue.",
       "Part of speech / type": "adjective / noun",
       "Priority": "High",
       "Publication date": "2026-11-04",
       "Record type": "New word",
       "Source publication": "The Daily Star",
-      "Synonyms": "historic, milestone, momentous",
+      "Synonyms": "historic; notable; significant (adjectival use)",
       "Word family / derivatives": "landmark (noun)"
     }
   ],
@@ -1750,8 +1774,8 @@
       "Direct source URL": "https://www.thedailystar.net/news/bangladesh/news/rmg-workers-fear-being-short-changed-4315016",
       "English explanation": "A rule that workers are not paid for days they do not work.",
       "Exam value": "High — labour law.",
-      "Original example 1": "Owners warned they may invoke the 'no work, no pay' provision.",
-      "Original example 2": "Under 'no work, no pay', absent workers lose a day's wage.",
+      "Original example 1": "The company applied a no-work-no-pay rule during the authorised strike.",
+      "Original example 2": "The employment contract explains when a no-work-no-pay arrangement may apply.",
       "Phrase": "no work, no pay",
       "Publication date": "2026-11-04",
       "Source publication": "The Daily Star",
@@ -1765,8 +1789,8 @@
       "Direct source URL": "https://en.prothomalo.com/bangladesh/t9wrewwzgk",
       "English explanation": "At the place where something happened.",
       "Exam value": "High — common news phrase.",
-      "Original example 1": "No police personnel were present at the scene during the incident.",
-      "Original example 2": "Reporters arrived at the scene within minutes.",
+      "Original example 1": "Investigators found several witnesses at the scene.",
+      "Original example 2": "Emergency crews arrived at the scene shortly after the alarm.",
       "Phrase": "at the scene",
       "Publication date": "2026-11-04",
       "Source publication": "Prothom Alo English",
@@ -1780,8 +1804,8 @@
       "Direct source URL": "https://en.prothomalo.com/international/americas/7c462o97io",
       "English explanation": "In a situation where harm or loss is possible.",
       "Exam value": "Medium — common phrase.",
-      "Original example 1": "Several Republican seats were in danger as the wave swept the state.",
-      "Original example 2": "Workers' jobs are in danger if factories stay shut.",
+      "Original example 1": "The old bridge is in danger of collapse.",
+      "Original example 2": "The project is in danger of missing its deadline.",
       "Phrase": "in danger",
       "Publication date": "2026-11-04",
       "Source publication": "Prothom Alo English",
@@ -1795,8 +1819,8 @@
       "Direct source URL": "https://en.prothomalo.com/opinion/op-ed/cqjo9p3er0",
       "English explanation": "In disagreement or conflict with someone.",
       "Exam value": "High — idiom.",
-      "Original example 1": "The two parties are at odds over the reform plan.",
-      "Original example 2": "He found himself at odds with his own party.",
+      "Original example 1": "The two agencies are at odds over who should approve the permit.",
+      "Original example 2": "The committee members remained at odds about the budget.",
       "Phrase": "at odds",
       "Publication date": "2026-11-04",
       "Source publication": "Prothom Alo English",
@@ -1810,8 +1834,8 @@
       "Direct source URL": "https://en.prothomalo.com/opinion/fhcflzbq2l",
       "English explanation": "Exposed to danger or loss.",
       "Exam value": "High — common phrase.",
-      "Original example 1": "Thousands of jobs are at risk if the unrest continues.",
-      "Original example 2": "The fund puts savers' money at risk.",
+      "Original example 1": "Small businesses are at risk when credit becomes too expensive.",
+      "Original example 2": "The coastal village is at risk during severe storms.",
       "Phrase": "at risk",
       "Publication date": "2026-11-04",
       "Source publication": "Prothom Alo English",
@@ -1825,8 +1849,8 @@
       "Direct source URL": "https://www.thedailystar.net/news/news/over-100-garment-factories-shut-amid-protests-and-clashes-savar-ashulia-4315506",
       "English explanation": "To become known after being hidden.",
       "Exam value": "High — idiom.",
-      "Original example 1": "New details came to light during the investigation.",
-      "Original example 2": "The fraud came to light only after the audit.",
+      "Original example 1": "New evidence came to light during the audit.",
+      "Original example 2": "The error came to light after the accounts were reconciled.",
       "Phrase": "come to light",
       "Publication date": "2026-11-04",
       "Source publication": "The Daily Star",
@@ -1840,8 +1864,8 @@
       "Direct source URL": "https://www.thedailystar.net/news/world/united-states/news/trump-hand-picked-senate-candidates-republicans-paid-the-price-4315361",
       "English explanation": "In the period following an important event, especially a bad one.",
       "Exam value": "High — journalistic phrase.",
-      "Original example 1": "In the aftermath of the midterms, the party reassessed its strategy.",
-      "Original example 2": "Prices rose in the aftermath of the war.",
+      "Original example 1": "The school reopened in the aftermath of the flood.",
+      "Original example 2": "Emergency services worked around the clock in the aftermath of the cyclone.",
       "Phrase": "in the aftermath of",
       "Publication date": "2026-11-04",
       "Source publication": "The Daily Star",
@@ -1855,8 +1879,8 @@
       "Direct source URL": "https://en.prothomalo.com/opinion/op-ed/cqjo9p3er0",
       "English explanation": "In an uncertain state; not yet decided.",
       "Exam value": "Medium — idiom.",
-      "Original example 1": "Control of the Senate hung in the balance until the final count.",
-      "Original example 2": "His future in the party is in the balance.",
+      "Original example 1": "The future of the factory remained in the balance until the lender agreed to extend the loan.",
+      "Original example 2": "The final result hung in the balance until the last vote was counted.",
       "Phrase": "in the balance",
       "Publication date": "2026-11-04",
       "Source publication": "Prothom Alo English",
@@ -1870,8 +1894,8 @@
       "Direct source URL": "https://en.prothomalo.com/opinion/fhcflzbq2l",
       "English explanation": "Very close to doing something or reaching a state.",
       "Exam value": "High — common phrase.",
-      "Original example 1": "The country is on the verge of a major change.",
-      "Original example 2": "The party was on the verge of collapse.",
+      "Original example 1": "The company was on the verge of bankruptcy before the rescue plan.",
+      "Original example 2": "The river was on the verge of overflowing after days of rain.",
       "Phrase": "on the verge of",
       "Publication date": "2026-11-04",
       "Source publication": "Prothom Alo English",
@@ -1885,8 +1909,8 @@
       "Direct source URL": "https://en.prothomalo.com/opinion/interview/61hcdk5rdh",
       "English explanation": "Over a long period of time; eventually.",
       "Exam value": "High — common phrase.",
-      "Original example 1": "In the long run, the reform will strengthen the economy.",
-      "Original example 2": "Short-term pain may pay off in the long run.",
+      "Original example 1": "Investing in preventive care can save money in the long run.",
+      "Original example 2": "The new system should reduce paperwork in the long run.",
       "Phrase": "in the long run",
       "Publication date": "2026-11-04",
       "Source publication": "Prothom Alo English",
@@ -2432,5 +2456,14 @@
   ],
   "backfilled": true,
   "backfill_note": "Backfilled edition: built from real articles published 4 November 2026 (Daily Star, Prothom Alo English via sitemaps and Bing News RSS). CA06 (sovereign fund) and CA07 (DGePay) have no Current Affairs MCQ. Note: the Nov 3 edition named Sheikh Ashfaqur Rahman as wage-board chairman (Prothom Alo, 3 Nov); the 4 Nov Daily Star report names Syed Azad Subhani as chairman — sources differ on the chairman's name.",
-  "approved_by": "Rudro (via granted full autonomy — 'do everything do not wait for me', 2026-11-07)"
+  "approved_by": "Rudro (via granted full autonomy — 'do everything do not wait for me', 2026-11-07)",
+  "renovation_status": "editorially_rewritten_pending_human_review",
+  "renovation_notes": [
+    "Rewrote 30 English and added 30 Bangla short-answer questions across all 15 stories.",
+    "Questions use facts already present in the edition; claims and official positions remain attributed.",
+    "Original story IDs and source URLs preserved.",
+    "Human editorial and factual review remains required before publication."
+  ],
+  "vocabulary_editorial_note": "Vocabulary and phrase examples are original learner sentences, not quotations from linked articles. Contextual contrasts are not labelled as strict antonyms.",
+  "vocabulary_review_status": "editorially_revised_pending_human_review"
 }
