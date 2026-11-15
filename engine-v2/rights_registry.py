@@ -25,7 +25,12 @@ def load_registry(path=None):
 
 def _host(url):
     try:
-        host = (urlparse(url).hostname or "").lower().rstrip(".")
+        parsed = urlparse(url)
+        if parsed.scheme.lower() not in ("http", "https") or not parsed.hostname:
+            return ""
+        if parsed.username or parsed.password:
+            return ""
+        host = parsed.hostname.lower().rstrip(".")
         return host[4:] if host.startswith("www.") else host
     except Exception:
         return ""
