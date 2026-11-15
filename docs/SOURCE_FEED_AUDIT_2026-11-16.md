@@ -141,7 +141,7 @@ The candidate directory now has a domain lead for 49 of the 50 candidates. Sonal
 
 ### Domain and permission registry
 
-The machine-readable registry now contains 54 host records: 49 candidate publisher identities with a known domain lead, Prothom Alo's separate Bangla and English hosts, and the additional agencies BSS and UNB. All records remain pending for metadata and page-metadata use, with article bodies not permitted. The registry's default for an unlisted or malformed publisher URL is deny.
+The machine-readable registry now contains 54 host records: 49 candidate publisher identities with a known domain lead, Prothom Alo's separate Bangla and English hosts, and the additional agencies BSS and UNB. All records remain pending for metadata, page-metadata and automated-processing use, with article bodies not permitted. The registry's default for an unlisted or malformed publisher URL is deny.
 
 The third-party directories above are discovery aids. The canonical domain for each candidate still needs confirmation against a publisher-controlled site. The route audit must then verify feed structure, recency, robots rules and the intended use permitted by current terms. No source should be marked active based on a directory listing alone.
 
@@ -155,3 +155,10 @@ Examples with individual Inkline publication pages surfaced in this audit includ
 Inkline's profile pages report that Daily Inqilab and Risingbd robots.txt disallow several named AI crawlers in a scan dated 16 August 2026. This is a third-party report that must be checked against each publisher's current robots.txt and terms before any automated processing. The rights registry records this as a review warning; it does not attempt to work around those rules.
 
 The registry's third-party feed claim is deliberately distinct from direct verification by Sarangsho Plus. Exact feed URL, direct response, item freshness, parsing, robots compatibility and permitted use remain unverified until tested from the actual deployment environment.
+
+
+## Automated processing permission is a separate gate
+
+Sarangsho Plus uses automated classification, fact extraction, translation, question generation and summarisation. Permission to read a public feed or collect a headline does not, by itself, establish permission for these processing steps. The operational registry therefore requires a separate automated_processing_status=approved record with a defined automated_processing_scope, evidence and a current review date before metadata enters the Engine. Article-page extraction and article-body processing retain their additional, separate gates.
+
+Daily Inqilab and Risingbd have a third-party reported AI-crawler robots warning in Inkline's 16 August 2026 scan. This is recorded as a review warning, not as a final legal conclusion. Their current publisher-controlled robots.txt and terms must be checked directly before any automated processing is considered. The custom collector User-Agent must never be used to work around a restriction aimed at AI crawlers.
