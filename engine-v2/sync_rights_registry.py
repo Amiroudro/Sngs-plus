@@ -28,10 +28,14 @@ def _date_only(value):
     return str(value or "").strip()[:10]
 
 
-def export_registry(db_path, registry_path=None, write=False):
-    """Apply latest DB review rows to a registry copy; dry-run unless write=True."""
+def export_registry(db_path, registry_path=None, write=False, routes_path=None):
+    """Apply latest DB reviews to rights and route ledgers; dry-run unless write=True."""
     registry_file = Path(registry_path) if registry_path else rights_registry.REGISTRY_PATH
+    routes_file = (Path(routes_path) if routes_path else
+                   registry_file.with_name("source_routes.json"))
     data = rights_registry.load_registry(registry_file)
+    routes_data = (json.loads(routes_file.read_text(encoding="utf-8"))
+                   if routes_file.exists() else None)
     conn = sqlite3.connect(str(db_path))
     conn.row_factory = sqlite3.Row
     try:
@@ -69,7 +73,8 @@ def export_registry(db_path, registry_path=None, write=False):
         conn.close()
 
     report = {"rows_seen": len(rows), "domains_updated": [], "unmapped": [],
-              "sources_without_domain": [], "conflicts": []}
+              "sources_without_domain": [], "conflicts": [],
+              "routes_ledger_updated": bool(routes_data)}
     assignments = {}
     conflicting_keys = set()
     for row in rows:
@@ -147,10 +152,12 @@ def main():
     parser.add_argument("--db", required=True, help="SQLite database path")
     parser.add_argument("--registry", default=None,
                         help="Optional JSON registry path (defaults to state/source_rights.json)")
+    parser.add_argument("--routes", default=None,
+                        help="Optional route ledger path (defaults beside the registry)")
     parser.add_argument("--write", action="store_true",
                         help="Write changes to the JSON registry; otherwise dry-run")
     args = parser.parse_args()
-    _, report = export_registry(args.db, args.registry, args.write)
+    _, report = export_registry(args.db, args.registry, args.write, args.routes)
     print(json.dumps(report, ensure_ascii=False, indent=2))
 
 
