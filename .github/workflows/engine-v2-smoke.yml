@@ -52,6 +52,9 @@ jobs:
       - name: Run metadata-only publish gate tests
         working-directory: engine-v2
         run: python tests/test_publish_metadata_archive.py
+      - name: Run exam-learning sidecar tests
+        working-directory: engine-v2
+        run: python tests/test_exam_learning_sidecar.py
       - name: Run deterministic prefilter tests
         working-directory: engine-v2
         run: python tests/test_step2.py
