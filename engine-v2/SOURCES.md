@@ -20,6 +20,21 @@ A blocked route stays blocked in this file — never silently retried,
 never invented. When a route's status changes, update this file and
 `tools/check_routes.py` together.
 
+## Separate rights gate — do not confuse route health with permission
+
+The route statuses below describe technical reachability only. They do
+**not** authorize automated collection, page inspection or article-body
+processing. The current `state/source_rights.json` contains 55 publisher
+records: **0 enabled**, 0 metadata permissions, 0 page-metadata permissions
+and 0 article-body permissions. Bing News is an approved discovery host in
+this registry, not a licence to process the publishers' content it finds.
+
+The v2 collector enforces this rights registry after discovery and before
+direct-feed, page-title or article-body processing. Therefore a route marked
+`live` below may be technically reachable while still being ineligible for
+processing. Do not report any publisher as an active v2 content source until
+its permission evidence and enablement are recorded in the rights registry.
+
 ## Level 1 — core daily monitoring (wired)
 
 | Paper | Method (wired) | Freshness evidence (2026-11-15 probe) | Status |
