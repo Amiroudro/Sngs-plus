@@ -43,6 +43,9 @@ must keep these permissions separate:
 
 - Metadata collection: metadata_status=approved, non-empty metadata_scope,
   permission evidence, and a current reviewed_at/review_due_at window.
+- Automated classification/summarisation: automated_processing_status=approved,
+  non-empty automated_processing_scope, evidence and a current review window.
+  Metadata permission alone does not authorise AI/automated study processing.
 - Article-page headline extraction: page_metadata_status=approved with
   separate page_metadata_scope/evidence and a current review window, or a
   body licence that explicitly covers page processing.
