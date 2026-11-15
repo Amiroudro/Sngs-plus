@@ -80,3 +80,67 @@ Add a separate rights state to the source registry. It must not be inferred from
 - disabled: source is not used for automated content processing
 
 Until rights are established, use only publisher-permitted access patterns. Do not scrape around 403 responses, paywalls, bot blocks or other access controls. Keep source links and metadata for editorial discovery only where the publisher's terms permit that use. The app must not treat attribution or a link-back as a substitute for permission.
+
+
+## 50-publisher domain coverage update (16 Nov 2026)
+
+The candidate directory now has a domain lead for 49 of the 50 candidates. Sonali Sangbad remains unresolved. Domain leads are not equivalent to publisher-controlled verification or permission to reuse content.
+
+| Group | Candidate | Domain lead | Evidence class |
+|---|---|---|---|
+| Bangla national | Prothom Alo | prothomalo.com; en.prothomalo.com | Existing collector routes |
+| Bangla national | Bangladesh Pratidin | bd-pratidin.com | GDI / directory lead |
+| Bangla national | Kaler Kantho | kalerkantho.com | GDI / directory lead |
+| Bangla national | Jugantor | jugantor.com | Existing collector route |
+| Bangla national | Ittefaq | ittefaq.com.bd | GDI / directory lead |
+| Bangla national | Samakal | samakal.com | GDI / directory lead |
+| Bangla national | Amader Shomoy | amadershomoys.com | Third-party directory lead |
+| Bangla national | Janakantha | dailyjanakantha.com | GDI / directory lead |
+| Bangla national | Manabzamin | mzamin.com | Third-party directory lead |
+| Bangla national | Naya Diganta | dailynayadiganta.com | GDI / directory lead |
+| Bangla national | Inqilab | dailyinqilab.com | Research / directory lead |
+| Bangla national | Bonik Barta | bonikbarta.net | GDI / directory lead |
+| Bangla national | Desh Rupantor | deshrupantor.com | GDI / directory lead |
+| Bangla national | Ajker Patrika | ajkerpatrika.com | GDI / directory lead |
+| Bangla national | Kalbela | kalbela.com | Third-party directory lead |
+| Bangla national | Jaijaidin | jaijaidinbd.com | Research / directory lead |
+| Bangla national | Dainik Bangla | dainikbangla.com.bd | Publisher About Us page |
+| Bangla national | Sangbad | sangbad.net | Publisher Terms page |
+| Bangla national | Sangram | dailysangram.com | Third-party directory lead |
+| Bangla national | Shomoyer Alo | shomoyeralo.com | Publisher homepage |
+| Bangla national | Alokito Bangladesh | alokitobangladesh.com | Publisher homepage |
+| Bangla national | Amar Desh | amardeshonline.com | Third-party directory lead |
+| Bangla national | Amar Sangbad | amarsangbad.com | Third-party directory lead |
+| Bangla national | Dinkal Digital | dainikdinkal.net | News-agency federation directory lead |
+| Bangla national | Share Biz | sharebiz.net | Third-party report lead |
+| English | The Daily Star | thedailystar.net | Existing collector route |
+| English | Dhaka Tribune | dhakatribune.com | Existing collector route / GDI |
+| English | New Age | newagebd.net | Existing source map / GDI |
+| English | The Financial Express | thefinancialexpress.com.bd | Existing collector route |
+| English | The Business Standard | tbsnews.net | Existing collector route / GDI |
+| English | The Business Post | businesspostbd.com | MRDI / directory lead |
+| English | Daily Sun | daily-sun.com | Existing source map / directory lead |
+| English | The Daily Observer | observerbd.com | Existing source map / directory lead |
+| English | Bangladesh Post | bangladeshpost.net | Government media contact list |
+| English | The Bangladesh Today | thebangladeshtoday.com | Government media contact list |
+| English | The Asian Age | dailyasianage.com | Government media contact list |
+| Digital-first | bdnews24.com | bdnews24.com | GDI / publisher site |
+| Digital-first | Banglanews24 | banglanews24.com | GDI / directory lead |
+| Digital-first | Jago News 24 | jagonews24.com | GDI / directory lead |
+| Digital-first | Bangla Tribune | banglatribune.com | GDI / directory lead |
+| Digital-first | Dhaka Post | dhakapost.com | GDI / directory lead |
+| Digital-first | Risingbd | risingbd.com | GDI / directory lead |
+| Digital-first | Barta24 | barta24.com | Inkline / directory lead |
+| Digital-first | Sarabangla | sarabangla.net | GDI / directory lead |
+| Digital-first | NewsBangla24 | newsbangla24.com | GDI / directory lead |
+| Digital-first | Daily Bangladesh | daily-bangladesh.com | Third-party directory lead |
+| Regional | Dainik Azadi | dainikazadi.com | Regional newspaper directory lead |
+| Regional | Dainik Purbokone | dainikpurbokone.net | GDI / regional directory lead |
+| Regional | Karatoa | karatoa.com.bd | Regional newspaper directory lead |
+| Regional | Sonali Sangbad | unresolved | Listed by MRDI; canonical domain not established |
+
+### Domain and permission registry
+
+The machine-readable registry now contains 52 host records: 49 candidate publisher identities with a known domain lead, Prothom Alo's separate Bangla and English hosts, and the additional agencies BSS and UNB. All records remain pending for metadata and page-metadata use, with article bodies not permitted. The registry's default for an unlisted or malformed publisher URL is deny.
+
+The third-party directories above are discovery aids. The canonical domain for each candidate still needs confirmation against a publisher-controlled site. The route audit must then verify feed structure, recency, robots rules and the intended use permitted by current terms. No source should be marked active based on a directory listing alone.
