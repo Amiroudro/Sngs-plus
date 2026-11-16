@@ -80,6 +80,8 @@ def validate_article_url(url: str) -> bool:
 class SafeRedirectHandler(HTTPRedirectHandler):
     """Revalidate every redirect target before urllib follows it."""
 
+    max_redirections = REDIRECT_LIMIT
+
     def redirect_request(self, req, fp, code, msg, headers, newurl):
         validate_public_feed_url(newurl)
         return super().redirect_request(req, fp, code, msg, headers, newurl)
