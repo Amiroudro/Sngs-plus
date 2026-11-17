@@ -63,8 +63,12 @@
     {
       "edition_date": "2026-11-16",
       "status": "published"
+    },
+    {
+      "edition_date": "2026-11-17",
+      "status": "published"
     }
   ],
-  "correct_consecutive_editions": 8,
-  "correct_rule": "An edition counts as correct only if published after passing the full review checklist with no failures (17 checks since the 2026-11-11 audit fixes; 12 checks before). Backfilled editions Nov 1-6 each passed 12/12 but do not form a 7-long consecutive run with the forward editions (Nov 7 was not formally review-gated; Nov 8 was 11/12). Editions 9-16 Nov 2026 each passed 17/17 and are published, so the run is 8."
+  "correct_consecutive_editions": 0,
+  "correct_rule": "0/7 consecutive v2 editions. The 17 November replacement is a limited official-source edition, not a v2 engine run and does not count toward the v2 proof sequence."
 }
