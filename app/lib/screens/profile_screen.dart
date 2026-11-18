@@ -269,7 +269,7 @@ class _SettingsCard extends StatelessWidget {
           // LearnSurface's decorated background sits between the outer
           // Material and this tile, so give the tile its own Material layer.
           Material(
-            color: Colors.transparent,
+            type: MaterialType.transparency,
             child: SwitchListTile(
               contentPadding: EdgeInsets.zero,
               secondary: const Icon(Icons.dark_mode),
