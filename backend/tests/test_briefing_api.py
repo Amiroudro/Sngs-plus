@@ -45,18 +45,21 @@ class BriefingApiTests(unittest.TestCase):
 
     def test_unreviewed_bangla_overlay_never_falls_back_to_english(self):
         english = [{"id": "CA01", "headline": "English", "summary": "Base"}]
-        loaded = {"edition": {"stories": english},
-                  "bangla": {"stories": {"CA01": {
-                      "headline": "শিরোনাম", "summary": "যান্ত্রিক রূপান্তর",
-                      "translation_status": "needs_review"
-                  }}}}
-        with patch.object(main, "list_editions", return_value=[{"edition_date": "2026-11-15"}]), \
-             patch.object(main, "load_edition", return_value=loaded):
-            payload = main.briefing("bn")
-        self.assertEqual(payload["status"], "translation_pending")
-        self.assertEqual(payload["language"], "bn")
-        self.assertIsNone(payload["fallback_language"])
-        self.assertEqual(payload["stories"], [])
+        for status in ("needs_review", "automated_checks_passed", None):
+            overlay = {
+                "headline": "শিরোনাম", "summary": "যান্ত্রিক রূপান্তর"
+            }
+            if status is not None:
+                overlay["translation_status"] = status
+            loaded = {"edition": {"stories": english},
+                      "bangla": {"stories": {"CA01": overlay}}}
+            with patch.object(main, "list_editions", return_value=[{"edition_date": "2026-11-15"}]), \
+                 patch.object(main, "load_edition", return_value=loaded):
+                payload = main.briefing("bn")
+            self.assertEqual(payload["status"], "translation_pending")
+            self.assertEqual(payload["language"], "bn")
+            self.assertIsNone(payload["fallback_language"])
+            self.assertEqual(payload["stories"], [])
 
     def test_missing_bangla_overlay_never_falls_back_to_english(self):
         english = [{"id": "CA01", "headline": "English", "summary": "Base"}]

@@ -124,14 +124,11 @@ void main() {
 
   testWidgets('english flow: dates → words → detail page', (tester) async {
     final edition = sharedState.selectedEdition!;
-    // The first word ("decision") has empty Synonyms, so its card
-    // correctly renders no synonym section. Use the first word that
-    // actually has synonyms — the card's behaviour is unchanged.
+    // The newest edition's vocabulary changes over time. Select a word
+    // with synonyms for this navigation flow; empty-synonym rendering is
+    // covered by the dedicated word-detail widget tests.
     final word = edition.words.firstWhere((w) => w.hasSynonyms);
     final first = word.headword;
-    // Honest empty case, asserted on the data: the first word has no
-    // synonyms, so its card correctly shows no synonym section.
-    expect(edition.words.first.hasSynonyms, isFalse);
     final dateText = formatEditionDateLong(edition.date, 'bn');
 
     await tester.pumpWidget(
@@ -155,10 +152,10 @@ void main() {
     // scroll it into view before asserting it exists. The scrollable
     // must be the WORDS list, not the first Scrollable in the tree —
     // that is the scrollable TabBar, which does not move the list.
-    final wordsScrollable = find.ancestor(
-      of: find.text('decision'),
+    final wordsScrollable = find.descendant(
+      of: find.byKey(const ValueKey('words-list')),
       matching: find.byType(Scrollable),
-    ).first;
+    );
     await tester.scrollUntilVisible(
       find.text(first),
       500,

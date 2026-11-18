@@ -41,10 +41,10 @@ _TRACKING_PARAMS = {
 
 # robots.txt cache: host -> list of (allowed: bool, pattern: str) rules
 # for the applicable user-agent group, or None if the fetch failed
-# (fail-open: a failed robots fetch must not block a source).
+# (fail-closed: a failed robots fetch blocks collection).
 _ROBOTS_CACHE = {}
 # hosts whose robots.txt fetch failed, with the error, so a run can
-# report that the allow decision was fail-open rather than verified.
+# report that collection was denied because the policy could not be verified.
 ROBOTS_FETCH_FAILURES = {}
 
 
@@ -288,7 +288,7 @@ def _pattern_to_regex(pattern):
 def _robots_rules_for_host(host):
     """Fetch + parse host's robots.txt; return the rule list for the
     most specific applicable user-agent group, or None on fetch
-    failure (fail-open, recorded in ROBOTS_FETCH_FAILURES). Cached
+    failure (fail-closed, recorded in ROBOTS_FETCH_FAILURES). Cached
     per host for the life of the process (one run)."""
     if host in _ROBOTS_CACHE:
         return _ROBOTS_CACHE[host]
@@ -339,19 +339,19 @@ def _robots_rules_for_host(host):
 def robots_allowed(url):
     """True if the host's robots.txt allows fetching this URL for our
     crawler. Longest matching rule wins; on a tie Allow wins; no
-    matching rule means allowed. On robots.txt fetch failure, allow
-    (fail-open) and record the failure in ROBOTS_FETCH_FAILURES.
-    Always returns a bool."""
+    matching rule means allowed. On robots.txt fetch failure, deny
+    (fail-closed) and record the failure in ROBOTS_FETCH_FAILURES.
+    Malformed or hostless URLs are also denied. Always returns a bool."""
     try:
         host = urllib.parse.urlparse(url).netloc.lower()
     except Exception:
-        return True
+        return False
     if not host:
-        return True
+        return False
     host = host[4:] if host.startswith("www.") else host
     rules = _robots_rules_for_host(host)
     if rules is None:
-        return True  # fail-open, failure recorded
+        return False  # fail-closed, failure recorded
     path = urllib.parse.urlparse(url).path or "/"
     best_len, best_allow = -1, True
     for allowed, pattern in rules:
@@ -364,7 +364,7 @@ def robots_allowed(url):
 
 def robots_fetch_failures():
     """Copy of {host: error} for robots.txt fetches that failed
-    (those hosts were treated as allowed, fail-open)."""
+    (collection was denied for those hosts, fail-closed)."""
     return dict(ROBOTS_FETCH_FAILURES)
 
 

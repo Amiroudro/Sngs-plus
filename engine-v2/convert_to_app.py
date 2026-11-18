@@ -557,6 +557,9 @@ def build_story_fields(item, article, day_iso, items_by_id):
                              "value": bn_sanitise(kf["value"]),
                              "original": bn_sanitise(orig)})
     bn_story = {
+        # Deterministic conversion is not editorial approval. Keep this
+        # overlay hidden until a human reviewer approves it.
+        "translation_status": "needs_review",
         "headline": bn_sanitise(headline),
         "image_url": image_url,
         "summary": bn_text,
@@ -652,6 +655,8 @@ def build_editorial_story(ed_item, day_iso, ca_id):
         "detail": summary_src if summary_src else headline,
     }
     bn_story = {
+        # Editorial-derived Bangla also starts unreviewed.
+        "translation_status": "needs_review",
         "headline": bn_sanitise(headline),
         "image_url": "",
         "summary": bn_sanitise(summary_src) if summary_src else bn_sanitise(headline),

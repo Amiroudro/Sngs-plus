@@ -401,7 +401,7 @@ void main() {
       for (var day = 1; day <= 16; day++) {
         final dd = day.toString().padLeft(2, '0');
         final file = File(
-          '../renovated-editions/data-2026-11-$dd.json',
+          '../editions/data-2026-11-$dd.json',
         );
         expect(file.existsSync(), isTrue, reason: file.path);
         final data =
@@ -444,7 +444,7 @@ void main() {
       for (var day = 1; day <= 16; day++) {
         final dd = day.toString().padLeft(2, '0');
         final file = File(
-          '../renovated-editions/data-2026-11-$dd.json',
+          '../editions/data-2026-11-$dd.json',
         );
         final data =
             jsonDecode(file.readAsStringSync()) as Map<String, dynamic>;
@@ -575,7 +575,7 @@ void main() {
   group('story screen — converted and no-module', () {
     testWidgets('converted story renders (institutions + extra, no exam notes)',
         (tester) async {
-      final file = File('../renovated-editions/data-2026-11-01.json');
+      final file = File('../editions/data-2026-11-01.json');
       final data =
           jsonDecode(file.readAsStringSync()) as Map<String, dynamic>;
       expect(data['renovation_format'], 'learning-module-v2');
@@ -595,7 +595,7 @@ void main() {
 
     testWidgets('converted story with no institutions omits the section',
         (tester) async {
-      final file = File('../renovated-editions/data-2026-11-03.json');
+      final file = File('../editions/data-2026-11-03.json');
       final data =
           jsonDecode(file.readAsStringSync()) as Map<String, dynamic>;
       final edition = Edition.fromJson(data);

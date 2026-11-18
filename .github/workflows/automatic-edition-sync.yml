@@ -87,21 +87,18 @@ jobs:
                       for story_id, story in stories.items():
                           if not isinstance(story, dict):
                               continue
-                          # This is a structural gate, not a claim of human or factual verification.
-                          required = ("headline", "summary", "why_it_matters")
-                          if all(isinstance(story.get(k), str) and story[k].strip() for k in required):
-                              story["translation_status"] = "automated_checks_passed"
-                          else:
-                              story.pop("translation_status", None)
+                          # Structural completeness is not editorial approval.
+                          # Preserve only an explicit human-approved status.
+                          if story.get("translation_status") != "approved":
+                              story["translation_status"] = "needs_review"
                   elif isinstance(stories, list):
                       for story in stories:
                           if not isinstance(story, dict):
                               continue
-                          required = ("headline", "summary", "why_it_matters")
-                          if all(isinstance(story.get(k), str) and story[k].strip() for k in required):
-                              story["translation_status"] = "automated_checks_passed"
-                          else:
-                              story.pop("translation_status", None)
+                          # Structural completeness is not editorial approval.
+                          # Preserve only an explicit human-approved status.
+                          if story.get("translation_status") != "approved":
+                              story["translation_status"] = "needs_review"
                   else:
                       raise SystemExit(f"Invalid Bangla stories shape: {day}")
                   (bn_target / bn_name).write_text(
@@ -109,23 +106,14 @@ jobs:
                       encoding="utf-8"
                   )
 
-          # Preserve the source publication registry, but only include files actually copied.
-          dates = {e["edition_date"] for e in published}
+          # Preserve the canonical source index for both runtime readers.
+          # The Flutter loader requires each entry's file field; a date/status-only
+          # compact index is not a valid edition index.
           clean = dict(index)
           clean["editions"] = published
-          (target / "index.json").write_text(
-              json.dumps(clean, ensure_ascii=False, indent=2) + "\n",
-              encoding="utf-8"
-          )
-          app_index = {
-              "editions": [{"edition_date": d, "status": "published"} for d in sorted(dates)],
-              "correct_consecutive_editions": index.get("correct_consecutive_editions", 0),
-              "correct_rule": index.get("correct_rule", ""),
-          }
-          (bn_target / "index.json").write_text(
-              json.dumps(app_index, ensure_ascii=False, indent=2) + "\n",
-              encoding="utf-8"
-          )
+          index_text = json.dumps(clean, ensure_ascii=False, indent=2) + "\n"
+          (target / "index.json").write_text(index_text, encoding="utf-8")
+          (bn_target / "index.json").write_text(index_text, encoding="utf-8")
 
           # Re-parse every copied JSON file before commit.
           for path in list(target.glob("data-*.json")) + list(bn_target.glob("bn-*.json")):

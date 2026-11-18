@@ -132,6 +132,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import common  # noqa: E402
+import rights_registry as rights  # noqa: E402
 
 VERSION = "2.3.0"
 BASE = Path(__file__).resolve().parent
@@ -254,8 +255,10 @@ DROPPED = [
      "Bing site: query"),
 ]
 
-SKIP_URL_PARTS = ["/sports/", "/sports", "/entertainment/", "/lifestyle/",
-                  "/fashion/", "/opinion/cartoon", "/videos/",
+# Keep substantive editorial categories in the candidate set. Relevance is
+# decided by the downstream editorial classifier, not by URL section alone.
+# Exclude only clearly non-article or site-chrome paths here.
+SKIP_URL_PARTS = ["/fashion/", "/opinion/cartoon", "/videos/",
                   "/author/", "/govt-ad/"]
 
 DOMAIN_SOURCES = {
@@ -504,9 +507,22 @@ def _now_iso():
 # ------------------------------------------------------- route fetching
 
 def _fetch_route(url, name, report, method, state):
-    """Fetch one route, respecting robots.txt. Returns the raw text
-    or None. Every outcome (ok / robots-blocked / fetch failed) is
-    recorded in `report` and, on success, in the persisted state."""
+    """Fetch only a rights-approved publisher route or approved discovery
+    aggregator route, then apply robots.txt. Returns raw text or None."""
+    try:
+        discovery_allowed = rights.discovery_host_allowed(url)
+        rights_allowed, rights_reason = (
+            (True, "approved discovery host") if discovery_allowed
+            else rights.metadata_decision(url)
+        )
+    except Exception as exc:
+        rights_allowed, rights_reason = False, f"rights registry unavailable: {exc}"
+    if not rights_allowed:
+        report[name] = {"method": method,
+                        "status": f"blocked by rights registry: {rights_reason}",
+                        "items": 0, "fresh": False, "latest_item": None,
+                        "last_success": state.get(name, {}).get("last_success")}
+        return None
     if not common.robots_allowed(url):
         report[name] = {"method": method,
                         "status": "blocked by robots.txt",
@@ -538,6 +554,31 @@ def _report_items(name, report, method, items, state):
     return is_fresh
 
 
+def _filter_route_items(name, report, method, items, state):
+    """Apply the publisher metadata grant and remove unlicensed RSS excerpts."""
+    try:
+        permitted, blocked = rights.filter_metadata_items(items)
+    except Exception as exc:
+        permitted, blocked = [], {"rights registry unavailable": len(items)}
+        report[name] = {
+            "method": method,
+            "status": f"blocked by rights registry: {exc}",
+            "items": 0, "raw_items": len(items), "fresh": False,
+            "latest_item": None,
+            "last_success": state.get(name, {}).get("last_success"),
+        }
+        return permitted
+    _report_items(name, report, method, permitted, state)
+    if blocked:
+        report[name]["raw_items"] = len(items)
+        report[name]["blocked_by_rights"] = blocked
+        report[name]["status"] = (
+            f"HTTP 200, {len(permitted)} permitted, "
+            f"{sum(blocked.values())} blocked by rights registry"
+        )
+    return permitted
+
+
 def collect_bing(report, state):
     all_items = []
     for q in BING_QUERIES:
@@ -548,7 +589,7 @@ def collect_bing(report, state):
         if text is None:
             continue
         items = parse_rss_items(text, "Bing News", "bing")
-        _report_items(name, report, "bing-rss", items, state)
+        items = _filter_route_items(name, report, "bing-rss", items, state)
         all_items.extend(items)
     return all_items
 
@@ -564,7 +605,8 @@ def collect_editorial_bing(report, state):
             continue
         items = parse_rss_items(text, "Bing News", "editorial",
                                 section="editorial")
-        _report_items(name, report, "bing-rss-editorial", items, state)
+        items = _filter_route_items(name, report, "bing-rss-editorial",
+                                    items, state)
         all_items.extend(items)
     return all_items
 
@@ -579,7 +621,8 @@ def collect_googlenews(report, state):
         if text is None:
             continue
         items = parse_rss_items(text, "Google News", "google-news")
-        _report_items(name, report, "google-news-rss", items, state)
+        items = _filter_route_items(name, report, "google-news-rss",
+                                    items, state)
         all_items.extend(items)
     return all_items
 
@@ -865,6 +908,14 @@ def fetch_bodies_for_kept(articles):
             a["body_text"] = ""
             a["body_error"] = "no direct URL"
             continue
+        try:
+            body_allowed, body_reason = rights.body_decision(a["url"])
+        except Exception as exc:
+            body_allowed, body_reason = False, f"rights registry unavailable: {exc}"
+        if not body_allowed:
+            a["body_text"] = ""
+            a["body_error"] = f"blocked by rights registry: {body_reason}"
+            continue
         if not common.robots_allowed(a["url"]):
             a["body_text"] = ""
             a["body_error"] = "robots.txt disallows"
@@ -1009,13 +1060,15 @@ def _resolve_one_title(article):
 
 
 def _resolve_one_page(article):
-    """Fetch one article page and return (real headline, lead image
-    URL). ONE fetch serves both: the og:image is extracted from the
-    same HTML the headline comes from — never a second request per
-    article. On any failure both are "" and the caller keeps the
-    slug title and an empty image_url."""
+    """Fetch one page only when page-metadata rights and robots allow it."""
     url = article.get("url") or ""
     if not url or not _is_direct(url):
+        return "", ""
+    try:
+        page_allowed, _reason = rights.page_metadata_decision(url)
+    except Exception:
+        page_allowed = False
+    if not page_allowed:
         return "", ""
     if not common.robots_allowed(url):
         return "", ""
@@ -1167,6 +1220,28 @@ def collect(day, bodies=False, keep_ids=None):
     paste_articles, paste_found = read_paste_file(day)
     if paste_articles:
         all_items.extend(paste_articles)
+    # Defence in depth: every retained metadata record, including optional
+    # paste input, must pass the same per-publisher rights decision.
+    try:
+        all_items, blocked_rights = rights.filter_metadata_items(all_items)
+        if blocked_rights:
+            report["rights_registry_filter"] = {
+                "method": "metadata-rights-filter",
+                "status": "some candidate records blocked",
+                "items": len(all_items),
+                "blocked_by_rights": blocked_rights,
+                "fresh": False,
+                "latest_item": None,
+                "last_success": None,
+            }
+    except Exception as exc:
+        all_items = []
+        report["rights_registry_filter"] = {
+            "method": "metadata-rights-filter",
+            "status": f"all records blocked: rights registry unavailable: {exc}",
+            "items": 0, "fresh": False, "latest_item": None,
+            "last_success": None,
+        }
     report["paste"] = {"method": "paste",
                        "status": (f"found, {len(paste_articles)} articles"
                                   if paste_found else "no paste file"),
@@ -1352,7 +1427,7 @@ def main():
           f"{meta.get('title_failed', 0)} kept slug "
           f"({meta.get('title_seconds', 0)}s)")
     if meta["robots_fetch_failures"]:
-        print(f"[step1] robots.txt fetch failures (fail-open, allowed): "
+        print(f"[step1] robots.txt fetch failures (fail-closed, blocked): "
               f"{meta['robots_fetch_failures']}")
     if args.bodies and keep_ids:
         print(f"[step1] bodies fetched: {meta['body_ok']}/{meta['body_tried']} kept URLs")

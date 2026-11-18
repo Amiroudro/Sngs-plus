@@ -265,12 +265,18 @@ class _SettingsCard extends StatelessWidget {
             ),
           ),
           const Divider(height: 1),
-          SwitchListTile(
-            contentPadding: EdgeInsets.zero,
-            secondary: const Icon(Icons.dark_mode),
-            title: Text(t('darkMode')),
-            value: state.darkMode,
-            onChanged: (v) => state.setDarkMode(v),
+          // SwitchListTile paints its ink on the nearest Material.
+          // LearnSurface's decorated background sits between the outer
+          // Material and this tile, so give the tile its own Material layer.
+          Material(
+            type: MaterialType.transparency,
+            child: SwitchListTile(
+              contentPadding: EdgeInsets.zero,
+              secondary: const Icon(Icons.dark_mode),
+              title: Text(t('darkMode')),
+              value: state.darkMode,
+              onChanged: (v) => state.setDarkMode(v),
+            ),
           ),
           const Divider(height: 1),
           Padding(
