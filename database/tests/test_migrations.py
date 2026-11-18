@@ -9,6 +9,7 @@ MIGRATIONS = [ROOT / "database" / "migrations" / name for name in (
     "001_study_and_verification_layer.sql",
     "002_rights_translation_exam_assessment.sql",
     "003_operational_rights_registry_sync.sql",
+    "004_event_intelligence.sql",
 )]
 
 
@@ -33,7 +34,9 @@ class StudyMigrationTests(unittest.TestCase):
             "source_checks", "fact_evidence", "questions", "question_options",
             "vocabulary_entries", "vocabulary_occurrences", "review_progress",
             "editorial_corrections", "source_rights_reviews", "article_localizations",
-            "article_exam_assessments",
+            "article_exam_assessments", "event_summary_versions",
+            "event_timeline_entries", "event_article_perspectives",
+            "perspective_fact_links",
         }
         self.assertTrue(expected.issubset(names), expected - names)
 
@@ -242,6 +245,154 @@ class StudyMigrationTests(unittest.TestCase):
                 "VALUES ('fr', 'mcq', 'Invalid language')"
             )
 
+
+
+    def _insert_event(self, slug="event-intelligence-test"):
+        self.db.execute(
+            "INSERT INTO events (slug, status, importance_score) VALUES (?, 'developing', 8)",
+            (slug,),
+        )
+        return self.db.execute(
+            "SELECT id FROM events WHERE slug=?", (slug,)
+        ).fetchone()[0]
+
+    def test_three_summary_levels_are_versioned_and_review_gated(self):
+        event_id = self._insert_event()
+        for level in ("quick", "standard", "deep"):
+            self.db.execute(
+                "INSERT INTO event_summary_versions "
+                "(event_id, language, summary_level, version, content, generation_method) "
+                "VALUES (?, 'en', ?, 1, ?, 'deterministic')",
+                (event_id, level, f"{level} summary"),
+            )
+        self.assertEqual(
+            self.db.execute(
+                "SELECT COUNT(*) FROM event_summary_versions "
+                "WHERE event_id=? AND quality_status='needs_review'",
+                (event_id,),
+            ).fetchone()[0],
+            3,
+        )
+        with self.assertRaises(sqlite3.IntegrityError):
+            self.db.execute(
+                "INSERT INTO event_summary_versions "
+                "(event_id, language, summary_level, version, content) "
+                "VALUES (?, 'en', 'quick', 1, 'duplicate version')",
+                (event_id,),
+            )
+        summary_id = self.db.execute(
+            "SELECT id FROM event_summary_versions WHERE event_id=? AND summary_level='quick'",
+            (event_id,),
+        ).fetchone()[0]
+        self.db.execute(
+            "UPDATE event_summary_versions SET quality_status='approved' WHERE id=?",
+            (summary_id,),
+        )
+        with self.assertRaises(sqlite3.IntegrityError):
+            self.db.execute(
+                "UPDATE event_summary_versions SET content='silent rewrite' WHERE id=?",
+                (summary_id,),
+            )
+        self.db.execute(
+            "INSERT INTO event_summary_versions "
+            "(event_id, language, summary_level, version, content) "
+            "VALUES (?, 'en', 'quick', 2, 'corrected version')",
+            (event_id,),
+        )
+
+    def test_timeline_requires_source_and_preserves_approved_history(self):
+        _, article_id = self._insert_article()
+        event_id = self._insert_event("timeline-test")
+        self.db.execute(
+            "INSERT INTO event_timeline_entries "
+            "(event_id, source_article_id, entry_type, title, description, "
+            "occurred_at, reported_at, chronology_precision, verification_status) "
+            "VALUES (?, ?, 'announcement', 'Announcement', 'Source-backed event', "
+            "'2026-11-18', '2026-11-18T10:00:00Z', 'date_only', 'single_source')",
+            (event_id, article_id),
+        )
+        entry_id = self.db.execute(
+            "SELECT id FROM event_timeline_entries WHERE event_id=?", (event_id,)
+        ).fetchone()[0]
+        self.db.execute(
+            "UPDATE event_timeline_entries SET publication_status='approved' WHERE id=?",
+            (entry_id,),
+        )
+        with self.assertRaises(sqlite3.IntegrityError):
+            self.db.execute(
+                "UPDATE event_timeline_entries SET description='rewritten' WHERE id=?",
+                (entry_id,),
+            )
+        with self.assertRaises(sqlite3.IntegrityError):
+            self.db.execute(
+                "INSERT INTO event_timeline_entries "
+                "(event_id, source_article_id, entry_type, title, description) "
+                "VALUES (?, 999999, 'development', 'Orphan', 'No source')",
+                (event_id,),
+            )
+
+    def test_multiple_perspectives_link_to_shared_facts(self):
+        source_id, article_one = self._insert_article()
+        self.db.execute(
+            "INSERT INTO sources (name, homepage_url) VALUES (?, ?)",
+            ("Second perspective publisher", "https://second.example"),
+        )
+        second_source = self.db.execute(
+            "SELECT id FROM sources WHERE name='Second perspective publisher'"
+        ).fetchone()[0]
+        self.db.execute(
+            "INSERT INTO articles (source_id, canonical_url, original_title) "
+            "VALUES (?, ?, ?)",
+            (second_source, "https://second.example/story", "Second coverage"),
+        )
+        article_two = self.db.execute(
+            "SELECT id FROM articles WHERE canonical_url='https://second.example/story'"
+        ).fetchone()[0]
+        event_id = self._insert_event("perspectives-test")
+        self.db.executemany(
+            "INSERT INTO event_articles (event_id, article_id) VALUES (?, ?)",
+            [(event_id, article_one), (event_id, article_two)],
+        )
+        self.db.execute(
+            "INSERT INTO facts (event_id, fact_text, fact_type, source_article_id) "
+            "VALUES (?, 'Shared reported fact', 'reported', ?)",
+            (event_id, article_one),
+        )
+        fact_id = self.db.execute(
+            "SELECT id FROM facts WHERE event_id=?", (event_id,)
+        ).fetchone()[0]
+        self.db.executemany(
+            "INSERT INTO event_article_perspectives "
+            "(event_id, article_id, framing, emphasis, quality_status) "
+            "VALUES (?, ?, ?, ?, 'approved')",
+            [(event_id, article_one, "Public service framing", "Policy detail"),
+             (event_id, article_two, "Economic framing", "Cost impact")],
+        )
+        perspective_ids = [
+            row[0] for row in self.db.execute(
+                "SELECT id FROM event_article_perspectives WHERE event_id=? ORDER BY id",
+                (event_id,),
+            ).fetchall()
+        ]
+        self.assertEqual(len(perspective_ids), 2)
+        self.db.executemany(
+            "INSERT INTO perspective_fact_links "
+            "(perspective_id, fact_id, relation, verification_status) "
+            "VALUES (?, ?, 'reports', 'reviewed')",
+            [(perspective_ids[0], fact_id), (perspective_ids[1], fact_id)],
+        )
+        self.assertEqual(
+            self.db.execute(
+                "SELECT COUNT(*) FROM perspective_fact_links WHERE fact_id=?",
+                (fact_id,),
+            ).fetchone()[0],
+            2,
+        )
+        with self.assertRaises(sqlite3.IntegrityError):
+            self.db.execute(
+                "UPDATE event_article_perspectives SET framing='silent rewrite' WHERE id=?",
+                (perspective_ids[0],),
+            )
 
 if __name__ == "__main__":
     unittest.main()
