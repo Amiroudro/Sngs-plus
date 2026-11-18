@@ -504,7 +504,7 @@ def main():
     global _LIVE_UNTOUCHED
     _live_paths = [ROOT / "editions" / "index.json",
                    ROOT / "app" / "assets" / "editions" / "index.json",
-                   ROOT / "engine" / "runs" / "tracker.md",
+                   ROOT / "engine-v1" / "tracker.md",
                    ENGINE_V2 / "runs" / "tracker.md",
                    LIVE_RUN / f"review-v2-{DATE}.json"]
     _before = {str(p): sha(p) for p in _live_paths}
