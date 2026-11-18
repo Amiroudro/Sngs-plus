@@ -87,20 +87,19 @@ jobs:
                       for story_id, story in stories.items():
                           if not isinstance(story, dict):
                               continue
-                          # This is a structural gate, not a claim of human or factual verification.
-                          required = ("headline", "summary", "why_it_matters")
-                          if all(isinstance(story.get(k), str) and story[k].strip() for k in required):
-                              story["translation_status"] = "automated_checks_passed"
-                          else:
-                              story.pop("translation_status", None)
+                          # Structural completeness is not editorial approval.
+                          # Preserve only an explicit human-approved status.
+                          if story.get("translation_status") != "approved":
+                              story["translation_status"] = "needs_review"
                   elif isinstance(stories, list):
                       for story in stories:
                           if not isinstance(story, dict):
                               continue
-                          required = ("headline", "summary", "why_it_matters")
-                          if all(isinstance(story.get(k), str) and story[k].strip() for k in required):
-                              story["translation_status"] = "automated_checks_passed"
-                          else:
+                          # Structural completeness is not editorial approval.
+                          # Preserve only an explicit human-approved status.
+                          if story.get("translation_status") != "approved":
+                              story["translation_status"] = "needs_review"
+                  else:
                               story.pop("translation_status", None)
                   else:
                       raise SystemExit(f"Invalid Bangla stories shape: {day}")
