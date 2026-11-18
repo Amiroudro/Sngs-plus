@@ -2,11 +2,9 @@
 /// Pure Dart, no widgets. Runs against the real bundled editions.
 library;
 
-import 'dart:convert';
-
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sarangsho_plus/data/loader.dart';
+import 'fixtures/approved_bn_qr_story.dart';
 import 'package:sarangsho_plus/data/story_layout.dart';
 import 'package:sarangsho_plus/state/app_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,21 +25,8 @@ void main() {
       result.correctRule,
     );
 
-    // Exercise the Bengali layout with a test-only fixture that simulates the
-    // approved display path. Runtime loading still rejects
-    // automated_checks_passed overlays.
-    final qrEdition = state.findEdition('2026-11-08')!;
-    final overlay = jsonDecode(
-      await rootBundle.loadString('assets/editions/bn-2026-11-08.json'),
-    ) as Map<String, dynamic>;
-    final rawStories = overlay['stories'] as Map;
-    for (final story in qrEdition.stories) {
-      final raw = rawStories[story.id];
-      if (raw is Map) {
-        story.bn = BnStory.fromJson(Map<String, dynamic>.from(raw));
-      }
-    }
-    qrEdition.banglaPendingReview = false;
+    // Bengali rendering uses a synthetic reviewed fixture below; bundled
+    // unapproved overlays remain blocked by the production loader.
   });
 
   test('sentence splitting honours the Bengali danda', () {
@@ -147,9 +132,8 @@ void main() {
     }
   });
 
-  test('the Bangla QR story (8 Nov CA02) gets the mockup layout', () {
-    final edition = state.findEdition('2026-11-08')!;
-    final story = edition.stories.firstWhere((s) => s.id == 'CA02');
+  test('a reviewed Bengali QR fixture gets the mockup layout', () {
+    final story = createApprovedBanglaQrStory();
     final layout = buildStoryLayout(story, 'bn');
 
     expect(layout.oneLiner, startsWith('নগদ ব্যবহার কমাতে'));
