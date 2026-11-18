@@ -63,7 +63,7 @@ This plan is based on the actual repository, not a blank-slate design.
 - The current timeline is grouped by publication date, not by persistent event identity.
 - There is no implemented entity graph, world-affairs dataset or statistical indicator explorer.
 - The publisher-rights registry currently has 55 candidate records disabled. Collection must remain blocked until each required permission scope is explicitly approved.
-- The app and website must not treat structural translation checks as human editorial approval.
+- The API and sync workflow require explicit human translation approval. The Android loader still needs the matching client-side gate; follow-up implementation is tracked in [PR #21](https://github.com/Amiroudro/Sngs-plus/pull/21). Until that lands, do not treat an overlay's presence as approval.
 
 ## Design principles
 
