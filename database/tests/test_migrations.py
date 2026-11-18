@@ -36,7 +36,8 @@ class StudyMigrationTests(unittest.TestCase):
             "editorial_corrections", "source_rights_reviews", "article_localizations",
             "article_exam_assessments", "event_summary_versions",
             "event_timeline_entries", "event_article_perspectives",
-            "perspective_fact_links",
+            "perspective_fact_links", "event_summary_sources",
+            "event_summary_facts",
         }
         self.assertTrue(expected.issubset(names), expected - names)
 
@@ -257,7 +258,16 @@ class StudyMigrationTests(unittest.TestCase):
         ).fetchone()[0]
 
     def test_three_summary_levels_are_versioned_and_review_gated(self):
+        _, article_id = self._insert_article()
         event_id = self._insert_event()
+        self.db.execute(
+            "INSERT INTO facts (event_id, fact_text, fact_type, source_article_id) "
+            "VALUES (?, 'Source-backed summary fact', 'reported', ?)",
+            (event_id, article_id),
+        )
+        fact_id = self.db.execute(
+            "SELECT id FROM facts WHERE event_id=?", (event_id,)
+        ).fetchone()[0]
         for level in ("quick", "standard", "deep"):
             self.db.execute(
                 "INSERT INTO event_summary_versions "
@@ -273,6 +283,28 @@ class StudyMigrationTests(unittest.TestCase):
             ).fetchone()[0],
             3,
         )
+        quick_id = self.db.execute(
+            "SELECT id FROM event_summary_versions "
+            "WHERE event_id=? AND summary_level='quick'",
+            (event_id,),
+        ).fetchone()[0]
+        self.db.execute(
+            "INSERT INTO event_summary_sources "
+            "(summary_version_id, article_id, evidence_role) "
+            "VALUES (?, ?, 'primary')",
+            (quick_id, article_id),
+        )
+        self.db.execute(
+            "INSERT INTO event_summary_facts (summary_version_id, fact_id, relation) "
+            "VALUES (?, ?, 'uses')",
+            (quick_id, fact_id),
+        )
+        with self.assertRaises(sqlite3.IntegrityError):
+            self.db.execute(
+                "INSERT INTO event_summary_sources "
+                "(summary_version_id, article_id) VALUES (?, 999999)",
+                (quick_id,),
+            )
         with self.assertRaises(sqlite3.IntegrityError):
             self.db.execute(
                 "INSERT INTO event_summary_versions "
