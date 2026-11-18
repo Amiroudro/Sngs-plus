@@ -335,6 +335,7 @@ class _WordList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      key: const ValueKey('words-list'),
       padding: const EdgeInsets.only(top: 8, bottom: 16),
       itemCount: edition.words.length,
       itemBuilder: (context, i) {
