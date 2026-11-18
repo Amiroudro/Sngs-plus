@@ -62,7 +62,9 @@ List<String> _renderedTexts(WidgetTester tester) {
 
 /// The single allowlisted slot: the tiny original English figure under
 /// a fact tile, e.g. 'Tk 13.5 bn', 'Tk 2-3 bn', 'US$ 113.4 bn'.
-final _originalSlot = RegExp(r'^(Tk|US\$) [\d.,–\- ]+(bn|mn)?$');
+final _originalSlot = RegExp(
+  r'^(Tk|US\$) [\d.,–\- ]+(?:bn|mn|billion|million)?(?:/day)?$',
+);
 
 final _latinDigit = RegExp(r'[0-9]');
 final _englishMonth = RegExp(
