@@ -19,13 +19,11 @@
 /// Latin-digit / Tk / $ scans by pattern, never by blanket skip.
 library;
 
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sarangsho_plus/data/loader.dart';
+import 'fixtures/approved_bn_qr_story.dart';
 import 'package:sarangsho_plus/data/story_layout.dart';
 import 'package:sarangsho_plus/main.dart';
 import 'package:sarangsho_plus/models.dart';
@@ -112,6 +110,29 @@ Set<String> _englishContent() {
   }
 
   for (final edition in sharedState.editions) {
+    // An edition whose Bengali overlay is pending review intentionally
+    // renders its English source content. Exempt only those exact source
+    // strings from Bengali-only digit/month checks; keep Bengali UI chrome
+    // and any actually approved overlay under the full regression checks.
+    if (edition.banglaPendingReview) {
+      for (final story in edition.stories) {
+        add(story.headline);
+        add(story.summary);
+        add(story.whyItMatters);
+        add(story.examFacts);
+        add(story.keyPeople);
+        add(story.figures);
+        add(story.oneLiner);
+        add(story.detail);
+      }
+      for (final mcq in edition.mcqs) {
+        add(mcq.question);
+        for (final option in mcq.options.values) {
+          add(option);
+        }
+        add(mcq.explanation);
+      }
+    }
     for (final w in edition.words) {
       add(w.headword);
       add(w.ipa);
@@ -303,9 +324,8 @@ Future<void> _pumpPushed(
   await _pump(tester);
 }
 
-Edition _qrEdition() =>
-    sharedState.editions.firstWhere((e) => e.date == '2026-11-08');
-Story _qrStory() => _qrEdition().stories.firstWhere((s) => s.id == 'CA02');
+Edition _qrEdition() => createApprovedBanglaQrTestEdition();
+Story _qrStory() => _qrEdition().stories.single;
 
 void main() {
   setUpAll(() async {
@@ -319,34 +339,8 @@ void main() {
       result.correctRule,
     );
 
-    // This regression suite exercises the Bengali rendering path with a
-    // test-only fixture that simulates the approved display path. It does
-    // not grant approval to the source overlay. Production loading remains
-    // fail-closed: automated_checks_passed is not approval.
-    final qrEdition = sharedState.findEdition('2026-11-08')!;
-    final overlay = jsonDecode(
-      await rootBundle.loadString('assets/editions/bn-2026-11-08.json'),
-    ) as Map<String, dynamic>;
-    final rawStories = overlay['stories'] as Map;
-    for (final story in qrEdition.stories) {
-      final raw = rawStories[story.id];
-      if (raw is Map) {
-        story.bn = BnStory.fromJson(Map<String, dynamic>.from(raw));
-      }
-    }
-    // MCQs live in a separate ID-keyed overlay and must be injected too;
-    // otherwise questionIn('bn') silently falls back to English in tests.
-    final rawMcqs = overlay['mcqs'];
-    if (rawMcqs is Map) {
-      for (final mcq in qrEdition.mcqs) {
-        final raw = rawMcqs['${mcq.no}'];
-        if (raw is Map) {
-          mcq.bn = BnMcq.fromJson(Map<String, dynamic>.from(raw));
-        }
-      }
-    }
-    qrEdition.banglaPendingReview = false;
-    sharedState.selectedEditionDate = qrEdition.date;
+    // The story-screen regression uses a synthetic, fully reviewed fixture.
+    // No bundled translation is promoted or marked approved by this test.
   });
 
   // ---- Bug class 1: Latin digits in Bengali text --------------------
