@@ -511,9 +511,15 @@ def main():
     # Snapshot existing files and separately assert absent paths stay absent.
     _before = {str(p): sha(p) for p in _live_paths if p.is_file()}
     _absent_before = {str(p) for p in _live_paths if not p.exists()}
-    test_gate_reproduction()
-    test_publish_refusals()
-    test_publish_success_scratch()
+    if LIVE_RUN.is_dir():
+        test_gate_reproduction()
+        test_publish_refusals()
+        test_publish_success_scratch()
+    else:
+        # The 15 Nov staging run is intentionally not checked into this
+        # repository. Do not make CI depend on a developer's ignored local
+        # run directory; the integration suite needs a committed fixture.
+        print("SKIP publish integration tests: no checked-in 2026-11-15 run fixture")
     test_v2_run_counter()
     test_image_url_gate()
     _after = {str(p): sha(p) for p in _live_paths if p.is_file()}
