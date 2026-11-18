@@ -38,7 +38,7 @@ RUN_2026_11_15 = HERE / "runs" / "2026-11-15"
 LIVE_GUARDS = [
     ROOT / "editions" / "index.json",
     ROOT / "editions" / "data-2026-11-15.json",
-    ROOT / "engine" / "runs" / "tracker.md",
+    ROOT / "engine-v1" / "tracker.md",
     RUN_2026_11_15 / "review-v2-2026-11-15.json",
 ]
 
@@ -88,6 +88,51 @@ def _inject_image_url(scratch):
 
 
 def main():
+    # The checked-in repository intentionally omits the large 15 Nov
+    # staging run and 8 Nov paste artifact. Keep unit-level policy/CLI
+    # checks active, but do not fail CI because ignored local run files
+    # are unavailable on a clean GitHub runner.
+    if not RUN_2026_11_15.is_dir():
+        print("SKIP run-v2 integration suite: no checked-in 2026-11-15 run fixture")
+        found15, count15 = daily.paste_check("2026-11-15")
+        check("no paste file 2026-11-15", found15 is False, f"got {found15}")
+        check("paste count 2026-11-15 is 0", count15 == 0, f"got {count15}")
+
+        print("== approval file parsing ==")
+        with tempfile.TemporaryDirectory() as td:
+            rd = Path(td)
+            ok, why = daily.read_approval(rd, "2026-11-15")
+            check("no approval file -> not approved", ok is False, why)
+            check("no approval file reason names the file",
+                  "approval" in why.lower(), why)
+            (rd / "approval-2026-11-15.json").write_text(
+                json.dumps({"approved": False, "reviewer": "x"}),
+                encoding="utf-8")
+            ok, why = daily.read_approval(rd, "2026-11-15")
+            check("approved:false -> not approved", ok is False, why)
+            (rd / "approval-2026-11-15.json").write_text(
+                json.dumps({"approved": True, "reviewer": "Rudro",
+                            "notes": "spot-checked"}),
+                encoding="utf-8")
+            ok, why = daily.read_approval(rd, "2026-11-15")
+            check("approved:true -> approved", ok is True, why)
+            (rd / "approval-2026-11-15.json").write_text(
+                "{not json", encoding="utf-8")
+            ok, why = daily.read_approval(rd, "2026-11-15")
+            check("malformed approval file -> not approved", ok is False, why)
+
+        print("== CLI usage errors ==")
+        proc = run_cli(["--date", "15-11-2026", "--reuse-run", "2026-11-15"])
+        check("bad --date exits non-zero", proc.returncode != 0)
+        proc = run_cli(["--run-dir", "/tmp/x"])
+        check("--run-dir without --reuse-run exits non-zero",
+              proc.returncode != 0)
+        check("today (Asia/Dhaka) is a valid date",
+              bool(daily.DATE_RE.match(daily.today_dhaka())),
+              daily.today_dhaka())
+        print(f"== {PASS} passed, {FAIL} failed (run integration skipped) ==")
+        return 0 if FAIL == 0 else 1
+
     print("== paste check (v2 read_paste_file) ==")
     found, count = daily.paste_check("2026-11-08")
     check("paste file 2026-11-08 found", found is True, f"got {found}")
