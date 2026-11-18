@@ -152,7 +152,10 @@ void main() {
     // scroll it into view before asserting it exists. The scrollable
     // must be the WORDS list, not the first Scrollable in the tree —
     // that is the scrollable TabBar, which does not move the list.
-    final wordsScrollable = find.byKey(const ValueKey('words-list'));
+    final wordsScrollable = find.descendant(
+      of: find.byKey(const ValueKey('words-list')),
+      matching: find.byType(Scrollable),
+    );
     await tester.scrollUntilVisible(
       find.text(first),
       500,
