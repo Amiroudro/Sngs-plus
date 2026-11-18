@@ -18,6 +18,7 @@ The order below follows dependencies in the current repositories. Each phase mus
 - No unapproved publisher route is fetched.
 - No robots-fetch failure silently permits collection.
 - No structural translation check is treated as human approval.
+- Android, API and sync workflow all enforce the same explicit approval status (Android gate tracked in PR #21).
 - CI passes on a clean checkout.
 
 ## Phase 1 — Shared data contract and importer/exporter
