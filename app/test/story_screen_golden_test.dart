@@ -265,6 +265,8 @@ class _MockImageClient implements HttpClient {
 }
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   setUpAll(() async {
     // Flutter widget tests use the test font unless app fonts are loaded
     // explicitly. Load the same bundled Bengali families used by the app
