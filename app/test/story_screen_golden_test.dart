@@ -337,7 +337,6 @@ void main() {
         _editionFor(story),
         story,
         dark: true,
-      ,
         compareGolden: false);
     });
     testWidgets('v2 fallback light 200pct', (t) async {
@@ -348,7 +347,6 @@ void main() {
         _editionFor(story),
         story,
         textScale: 2.0,
-      ,
         compareGolden: false);
     });
     testWidgets('v2 image light small', (t) async {
