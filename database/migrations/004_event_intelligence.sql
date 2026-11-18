@@ -37,6 +37,30 @@ CREATE TABLE IF NOT EXISTS event_summary_versions (
 CREATE INDEX IF NOT EXISTS idx_event_summaries_public
   ON event_summary_versions(event_id, language, summary_level, quality_status, version DESC);
 
+-- Relational provenance for each summary version. The JSON source list is
+-- retained as a lightweight export field, but these rows are authoritative.
+CREATE TABLE IF NOT EXISTS event_summary_sources (
+  summary_version_id INTEGER NOT NULL
+    REFERENCES event_summary_versions(id) ON DELETE CASCADE,
+  article_id INTEGER NOT NULL REFERENCES articles(id) ON DELETE RESTRICT,
+  evidence_role TEXT NOT NULL DEFAULT 'supporting'
+    CHECK (evidence_role IN ('primary', 'supporting', 'context')),
+  PRIMARY KEY (summary_version_id, article_id)
+);
+CREATE INDEX IF NOT EXISTS idx_event_summary_sources_article
+  ON event_summary_sources(article_id);
+
+CREATE TABLE IF NOT EXISTS event_summary_facts (
+  summary_version_id INTEGER NOT NULL
+    REFERENCES event_summary_versions(id) ON DELETE CASCADE,
+  fact_id INTEGER NOT NULL REFERENCES facts(id) ON DELETE RESTRICT,
+  relation TEXT NOT NULL DEFAULT 'uses'
+    CHECK (relation IN ('uses', 'qualifies', 'disputes')),
+  PRIMARY KEY (summary_version_id, fact_id)
+);
+CREATE INDEX IF NOT EXISTS idx_event_summary_facts_fact
+  ON event_summary_facts(fact_id);
+
 -- Timeline entries require a traceable source article. The event date may be
 -- unknown; published_at records when the source reported it, not when the
 -- underlying event happened.
