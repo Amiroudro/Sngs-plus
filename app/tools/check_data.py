@@ -16,8 +16,8 @@ Verifies, WITHOUT the Flutter SDK:
     enough (synonym/antonym/spelling/analogy).
  6. The verified exam-pattern words exist in the data; no other word
     claims a previous-exam reference.
- 7. Lightweight Dart hygiene: balanced braces/parens per file and every
-    relative import resolves to a file that exists.
+ 7. Lightweight Dart import hygiene: every relative import resolves to an
+    existing file. Dart syntax is checked by `flutter analyze` in CI.
 
 Exit code 0 = all checks pass.
 """
@@ -248,11 +248,11 @@ for w in claimed:
 check(claimed == ["adaptation", "bilateral", "bureaucratic", "mitigation", "sanction"],
       "exactly the 5 verified words, no invented exam references")
 
-print("== 10. Dart hygiene: balanced delimiters + imports resolve ==")
+print("== 10. Dart hygiene: relative imports resolve ==")
 for f in sorted((APP / "lib").rglob("*.dart")):
     src = f.read_text(encoding="utf-8")
-    for a, b, name in [("{", "}", "braces"), ("(", ")", "parens"), ("[", "]", "brackets")]:
-        check(src.count(a) == src.count(b), f"{f.relative_to(APP)}: {name} balanced ({src.count(a)}/{src.count(b)})")
+    # Do not count raw delimiters: parentheses inside comments and strings
+    # are not Dart syntax. The Dart analyzer below is the real parser.
     for m in re.finditer(r"import '([^']+)';", src):
         imp = m.group(1)
         if imp.startswith("package:") or imp.startswith("dart:"):
