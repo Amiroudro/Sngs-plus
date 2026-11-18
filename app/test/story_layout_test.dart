@@ -2,6 +2,9 @@
 /// Pure Dart, no widgets. Runs against the real bundled editions.
 library;
 
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sarangsho_plus/data/loader.dart';
 import 'package:sarangsho_plus/data/story_layout.dart';
@@ -23,6 +26,21 @@ void main() {
       result.correctConsecutive,
       result.correctRule,
     );
+
+    // Exercise the Bengali layout with a test-only approved fixture.
+    // Runtime loading still rejects automated_checks_passed overlays.
+    final qrEdition = state.findEdition('2026-11-08')!;
+    final overlay = jsonDecode(
+      await rootBundle.loadString('assets/editions/bn-2026-11-08.json'),
+    ) as Map<String, dynamic>;
+    final rawStories = overlay['stories'] as Map;
+    for (final story in qrEdition.stories) {
+      final raw = rawStories[story.id];
+      if (raw is Map) {
+        story.bn = BnStory.fromJson(Map<String, dynamic>.from(raw));
+      }
+    }
+    qrEdition.banglaPendingReview = false;
   });
 
   test('sentence splitting honours the Bengali danda', () {
@@ -99,7 +117,11 @@ void main() {
         for (final card in layout.cloze) {
           expect(card.text, contains('______'));
           expect(card.answer, isNotEmpty);
-          expect(RegExp(r'[0-9০-৯]').hasMatch(card.answer), isTrue);
+          expect(
+            RegExp(r'[0-9০-৯]').hasMatch(card.answer),
+            isTrue,
+            reason: '${edition.date} ${story.id}: cloze answer "${card.answer}"',
+          );
           // The blanked sentence still has context around the blank.
           expect(wordCount(card.text.replaceAll('______', '')), greaterThanOrEqualTo(4));
         }
