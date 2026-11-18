@@ -124,7 +124,14 @@ void main() {
 
   testWidgets('english flow: dates → words → detail page', (tester) async {
     final edition = sharedState.selectedEdition!;
-    final first = edition.words.first.headword;
+    // The first word ("decision") has empty Synonyms, so its card
+    // correctly renders no synonym section. Use the first word that
+    // actually has synonyms — the card's behaviour is unchanged.
+    final word = edition.words.firstWhere((w) => w.hasSynonyms);
+    final first = word.headword;
+    // Honest empty case, asserted on the data: the first word has no
+    // synonyms, so its card correctly shows no synonym section.
+    expect(edition.words.first.hasSynonyms, isFalse);
     final dateText = formatEditionDateLong(edition.date, 'bn');
 
     await tester.pumpWidget(
@@ -143,6 +150,20 @@ void main() {
     await tester.tap(find.text(dateText));
     await _pump(tester);
     expect(find.text('শব্দ (২০)'), findsOneWidget);
+    // "postpone" is the 8th word (index 7) — the lazy ListView only
+    // builds the first ~6 rows in the 800×600 test viewport, so
+    // scroll it into view before asserting it exists. The scrollable
+    // must be the WORDS list, not the first Scrollable in the tree —
+    // that is the scrollable TabBar, which does not move the list.
+    final wordsScrollable = find.ancestor(
+      of: find.text('decision'),
+      matching: find.byType(Scrollable),
+    ).first;
+    await tester.scrollUntilVisible(
+      find.text(first),
+      500,
+      scrollable: wordsScrollable,
+    );
     expect(find.text(first), findsWidgets);
 
     // Tap a word → the full exam card on its own dedicated page.

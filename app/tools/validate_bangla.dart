@@ -11,9 +11,9 @@
 /// (a) the `stringsBn` map in `lib/data/strings.dart` — every UI string
 ///     shown in Bengali mode. (The English map is never scanned: it is
 ///     English by design.)
-/// (b) every `bn-*.json` file in `assets/editions/` — story and MCQ string
-///     values only. Top-level provenance, status and renovation metadata
-///     are not displayed and are excluded.
+/// (b) every `bn-*.json` file in `assets/editions/` — every string value
+///     (stories + MCQs). The `note` provenance field is excluded: it is
+///     never displayed.
 /// (c) `data-*.json`, fallback-aware, exactly as `lib/data/loader.dart`
 ///     merges the overlay (`models.dart`: `headlineIn` / `summaryIn` /
 ///     `whyIn` / `factsIn` / `peopleIn` / `figuresIn` and the MCQ
@@ -274,21 +274,19 @@ List<_ScannedValue> _scanBnJson(File file, String relPath) {
   final used = <String, List<int>>{};
   final decoded = jsonDecode(raw);
   final out = <_ScannedValue>[];
-  // Only story and MCQ values are rendered as Bengali content.
-  // Top-level provenance, status, translation and renovation metadata are
-  // not user-facing and must not create false positives.
-  for (final section in ['stories', 'mcqs']) {
-    final content = decoded is Map ? decoded[section] : null;
-    if (content == null) continue;
-    _walkJson(content, section, (path, value) {
-      out.add(_ScannedValue(
-        file: relPath,
-        line: _findLine(lines, used, jsonEncode(value)),
-        location: path,
-        value: value,
-      ));
-    });
-  }
+  _walkJson(decoded, '', (path, value) {
+    // Metadata, never displayed as Bengali text: the ISO edition date,
+    // the language tag, and the provenance note.
+    if (path == 'note' || path == 'edition_date' || path == 'language') {
+      return;
+    }
+    out.add(_ScannedValue(
+      file: relPath,
+      line: _findLine(lines, used, jsonEncode(value)),
+      location: path,
+      value: value,
+    ));
+  });
   return out;
 }
 

@@ -285,6 +285,11 @@ def run(date, fresh=False):
                          "url": it["article"]["url"]}],
             "url": it["article"]["url"],
             "source": it["article"]["source"],
+            # Lead image URL (og:image) captured by Step 1 for
+            # fetched cluster mains; "" for feed-titled mains (never
+            # fetched) and for pages with no og:image. URL only —
+            # never a downloaded file.
+            "image_url": it["article"].get("image_url", "") or "",
             "date": _pub_date(it["article"].get("published", "")),
             "published": it["article"].get("published", ""),
             "body_text": it["article"]["body_text"],

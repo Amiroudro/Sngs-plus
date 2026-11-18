@@ -30,7 +30,7 @@ class ProfileScreen extends StatelessWidget {
               width: 60,
               height: 60,
               decoration: BoxDecoration(
-                color: AppColors.accentFor(
+                color: AppColors.primaryFor(
                   Theme.of(context).brightness,
                 ),
                 borderRadius: BorderRadius.circular(AppRadii.small),
@@ -111,11 +111,11 @@ class ProfileScreen extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.only(left: 3),
                         child: Container(
-                          width: 18,
-                          height: 18,
+                          width: 20,
+                          height: 20,
                           decoration: BoxDecoration(
                             color: done
-                                ? AppColors.accentFor(
+                                ? AppColors.primaryFor(
                                     Theme.of(context).brightness,
                                   )
                                 : Colors.transparent,
@@ -231,6 +231,9 @@ class _SettingsCard extends StatelessWidget {
                       // Explicit colours in BOTH states. The unselected
                       // foreground was left null before, so the segment
                       // label resolved to no colour at all.
+                      // minimumSize 48: the M3 default segment height
+                      // is 40px, below this app's 44px touch floor.
+                      minimumSize: const Size(0, 48),
                       foregroundColor:
                           Theme.of(context).brightness == Brightness.dark
                               ? AppColors.darkInk
@@ -262,15 +265,12 @@ class _SettingsCard extends StatelessWidget {
             ),
           ),
           const Divider(height: 1),
-          Material(
-            color: Colors.transparent,
-            child: SwitchListTile(
-              contentPadding: EdgeInsets.zero,
-              secondary: const Icon(Icons.dark_mode),
-              title: Text(t('darkMode')),
-              value: state.darkMode,
-              onChanged: (v) => state.setDarkMode(v),
-            ),
+          SwitchListTile(
+            contentPadding: EdgeInsets.zero,
+            secondary: const Icon(Icons.dark_mode),
+            title: Text(t('darkMode')),
+            value: state.darkMode,
+            onChanged: (v) => state.setDarkMode(v),
           ),
           const Divider(height: 1),
           Padding(
@@ -296,7 +296,9 @@ class _SettingsCard extends StatelessWidget {
                       // an explicit text and background colour, in
                       // both light and dark mode.
                       Row(
-                        children: scales.map((s) {
+                        children: scales.asMap().entries.map((e) {
+                          final i = e.key;
+                          final s = e.value;
                           final label = switch (s) {
                             0.9 => t('fontSmall'),
                             1.0 => t('fontNormal'),
@@ -305,7 +307,11 @@ class _SettingsCard extends StatelessWidget {
                           };
                           return Expanded(
                             child: Padding(
-                              padding: const EdgeInsets.only(right: 6),
+                              // No trailing gap after the last chip:
+                              // the row is exactly full-width.
+                              padding: EdgeInsets.only(
+                                right: i == scales.length - 1 ? 0 : 6,
+                              ),
                               child: _FontSizeButton(
                                 label: label,
                                 selected: state.fontScale == s,
@@ -349,7 +355,7 @@ class _FontSizeButton extends StatelessWidget {
     return Material(
       color: selected ? ink : Colors.transparent,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: AppShapes.button.radius,
         side: BorderSide(
           color: selected
               ? ink
@@ -362,12 +368,25 @@ class _FontSizeButton extends StatelessWidget {
         child: SizedBox(
           height: 48,
           child: Center(
-            child: Text(
-              label,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w700,
-                color: selected ? onInk : ink,
+            // FittedBox scaleDown: at 390px "সাধারণ" / "খুব বড়" at
+            // 13px w700 are wider than one chip (~67px) and wrapped
+            // to two lines; the label now shrinks slightly instead
+            // of wrapping, and never clips. Still one line, still
+            // 48px tall, still 13px when it fits.
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  label,
+                  maxLines: 1,
+                  softWrap: false,
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: selected ? onInk : ink,
+                  ),
+                ),
               ),
             ),
           ),
@@ -400,9 +419,9 @@ class _StreakCard extends StatelessWidget {
               Container(
                 width: 48,
                 height: 48,
-                // Solid red tile, same language as the Home rows and
+                // Solid forest tile, same language as the Home rows and
                 // date rows — not a bordered box (v1.2.1 craft pass).
-                color: AppColors.accentFor(
+                color: AppColors.primaryFor(
                   Theme.of(context).brightness,
                 ),
                 child: const Icon(

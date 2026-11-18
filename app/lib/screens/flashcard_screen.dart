@@ -75,7 +75,6 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
     final state = widget.state;
     final words = _words;
     final dark = Theme.of(context).brightness == Brightness.dark;
-    final accent = AppColors.accentFor(Theme.of(context).brightness);
     return Scaffold(
       appBar: AppBar(
         title: Text(state.t('flashcards')),
@@ -112,7 +111,9 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
                                   backgroundColor: dark
                                       ? AppColors.darkHairline
                                       : AppColors.hairline,
-                                  valueColor: AlwaysStoppedAnimation(accent),
+                                  valueColor: const AlwaysStoppedAnimation(
+                                    AppColors.pink,
+                                  ),
                                 ),
                               ),
                             ),
@@ -192,7 +193,7 @@ class _DoneView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final accent = AppColors.accentFor(Theme.of(context).brightness);
+    final primary = AppColors.primaryFor(Theme.of(context).brightness);
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24),
@@ -203,7 +204,7 @@ class _DoneView extends StatelessWidget {
               width: 56,
               height: 56,
               // Quiet mark, not an oversized badge (v1.2.1 craft pass).
-              color: accent,
+              color: primary,
               child: const Icon(
                 Icons.check,
                 size: 28,

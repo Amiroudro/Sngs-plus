@@ -62,34 +62,6 @@ Map<String, dynamic> editionJson(String date, {String headline = 'H'}) => {
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  group('compact edition index parsing', () {
-    test('derives bundled English and Bangla filenames from the date', () {
-      final entry = EditionIndexEntry.fromJson({
-        'edition_date': '2026-11-15',
-        'status': 'published',
-      });
-      expect(entry.date, '2026-11-15');
-      expect(entry.file, 'data-2026-11-15.json');
-      expect(entry.bnFile, 'bn-2026-11-15.json');
-    });
-
-    test('preserves an explicit filename from the remote index', () {
-      final entry = EditionIndexEntry.fromJson({
-        'edition_date': '2026-11-15',
-        'file': 'data-custom.json',
-        'status': 'published',
-      });
-      expect(entry.file, 'data-custom.json');
-      expect(entry.bnFile, 'bn-custom.json');
-    });
-
-    test('missing date and filename remain empty', () {
-      final entry = EditionIndexEntry.fromJson({'status': 'published'});
-      expect(entry.date, '');
-      expect(entry.file, '');
-    });
-  });
-
   group('phase5: new story fields', () {
     test('parses all new fields', () {
       final story = Story.fromJson(newFieldStoryJson());
@@ -751,12 +723,13 @@ void main() {
           result.correctConsecutive,
           result.correctRule,
         );
-        // Bundled editions run 2026-11-01..15; the fake server offers
-        // 2026-11-16 through the DEFAULT Pages URL.
+        // Bundled editions run 2026-11-01..17; the fake server offers
+        // 2026-11-18 through the DEFAULT Pages URL.
         final bundledDates = state.editions.map((e) => e.date).toSet();
-        expect(bundledDates, contains('2026-11-13'));
-        expect(bundledDates, isNot(contains('2026-11-16')));
-        final edition = editionJson('2026-11-16', headline: 'Fresh story');
+        expect(bundledDates, contains('2026-11-16'));
+        expect(bundledDates, contains('2026-11-17'));
+        expect(bundledDates, isNot(contains('2026-11-18')));
+        final edition = editionJson('2026-11-18', headline: 'Fresh story');
         var indexFetches = 0;
         final service = EditionDownloadService(
           fetcher: (url) async {
@@ -766,14 +739,14 @@ void main() {
               return jsonEncode({
                 'editions': [
                   {
-                    'edition_date': '2026-11-16',
-                    'file': 'data-2026-11-16.json',
+                    'edition_date': '2026-11-18',
+                    'file': 'data-2026-11-18.json',
                     'status': 'published',
                   },
                 ],
               });
             }
-            if (url.toString().endsWith('data-2026-11-16.json')) {
+            if (url.toString().endsWith('data-2026-11-18.json')) {
               return jsonEncode(edition);
             }
             throw const HttpException('404'); // no bn overlay offered
@@ -783,9 +756,9 @@ void main() {
         final check = await refreshEditions(state, service: service);
         expect(check.error, isNull);
         expect(indexFetches, 1);
-        expect(check.downloaded, ['2026-11-16']);
+        expect(check.downloaded, ['2026-11-18']);
         final saved = File(
-          '${tempDir.path}/downloaded_editions/data-2026-11-16.json',
+          '${tempDir.path}/downloaded_editions/data-2026-11-18.json',
         );
         expect(await saved.exists(), isTrue);
         final parsed = jsonDecode(await saved.readAsString());
@@ -796,7 +769,7 @@ void main() {
         // the service writes to the real documents dir, so the same
         // refreshEditions call reloads and the new edition appears
         // in state immediately.
-        expect(state.editions.map((e) => e.date), isNot(contains('2026-11-16')));
+        expect(state.editions.map((e) => e.date), isNot(contains('2026-11-18')));
       } finally {
         await tempDir.delete(recursive: true);
       }

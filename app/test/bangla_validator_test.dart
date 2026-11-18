@@ -149,11 +149,8 @@ Future<
   final rawEntries = indexJson['editions'];
   if (rawEntries is List) {
     for (final e in rawEntries) {
-      if (e is Map) {
-        final date = e['edition_date']?.toString() ?? '';
-        final file = e['file'] as String? ??
-            (date.isEmpty ? '' : 'data-$date.json');
-        if (file.isNotEmpty) files.add(file);
+      if (e is Map && e['file'] is String) {
+        files.add(e['file'] as String);
       }
     }
   }
@@ -162,13 +159,12 @@ Future<
     final bnFile = file.replaceFirst('data-', 'bn-');
     final bnRaw = await _readAsset('assets/editions/$bnFile');
     final bn = jsonDecode(bnRaw) as Map<String, dynamic>;
-    for (final section in ['stories', 'mcqs']) {
-      final content = bn[section];
-      if (content == null) continue;
-      _walkJson(content, section, (path, value) {
-        check('assets/editions/$bnFile', path, value);
-      });
-    }
+    _walkJson(bn, '', (path, value) {
+      if (path == 'note' || path == 'edition_date' || path == 'language') {
+        return;
+      }
+      check('assets/editions/$bnFile', path, value);
+    });
 
     final dataRaw = await _readAsset('assets/editions/$file');
     final data = jsonDecode(dataRaw) as Map<String, dynamic>;
@@ -352,11 +348,11 @@ void main() {
         (snapshot['totals'] as Map)['suppressed']);
   });
 
-  test('allowlist suppresses only the corrected HSC baseline date spans', () async {
+  test('allowlist suppresses the pending HSC date spans', () async {
     final allowlist = await _loadAllowlist();
     final result = await _scanAll(allowlist);
     const file = 'assets/editions/bn-2026-11-02.json';
-    const spans = ['1 December', '1 December 2026', '1-31 December'];
+    const spans = ['2 December', '2 December 2026', '2-31 December'];
 
     // The pending-fix entries must actually be doing work.
     final suppressedHere =
@@ -364,7 +360,7 @@ void main() {
     expect(suppressedHere, greaterThan(0));
 
     // And no UNSUPPRESSED violation may sit inside an allowlisted span:
-    // e.g. the '1' and 'December' of '1 December' must never be reported,
+    // e.g. the '2' and 'December' of '2 December' must never be reported,
     // while the '31 December' results date (not allowlisted) still is.
     for (final v in result.violations) {
       if (v.file != file) continue;

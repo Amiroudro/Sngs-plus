@@ -153,6 +153,20 @@ Set<String> _englishContent() {
         }
       }
     }
+    // Per-story learning-module vocabulary (2026-11-17 renovation):
+    // same English learning content as the edition words/phrases above
+    // — headwords, examples, synonyms and antonyms are rendered verbatim
+    // on the story screen, so they belong in the exemption set too.
+    for (final story in edition.stories) {
+      final module = story.learningModule;
+      if (module == null) continue;
+      for (final v in module.vocabulary) {
+        add(v.word);
+        add(v.example);
+        add(v.synonym);
+        add(v.antonym);
+      }
+    }
   }
   return _englishContentCache = out;
 }

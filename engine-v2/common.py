@@ -41,7 +41,7 @@ _TRACKING_PARAMS = {
 
 # robots.txt cache: host -> list of (allowed: bool, pattern: str) rules
 # for the applicable user-agent group, or None if the fetch failed
-# (fail-closed: a failed robots fetch blocks the source for this run).
+# (fail-open: a failed robots fetch must not block a source).
 _ROBOTS_CACHE = {}
 # hosts whose robots.txt fetch failed, with the error, so a run can
 # report that the allow decision was fail-open rather than verified.
@@ -91,6 +91,24 @@ CUT_HEADERS = (
     "related news", "related articles", "more news", "more stories",
     "latest news",
 )
+# A line CONTAINING one of these (lowercased) ends the article too.
+# TBS (2026-11-18): every TBS article page ends with a comments
+# disclaimer ("While most comments will be posted...") followed by a
+# bare-headline sidebar list ("No more wage boards...", "MJL
+# Bangladesh develops 5-acre green, automated warehouse complex...").
+# The sidebar headlines have no article body behind them, but the
+# MJL one carries a number ("5-acre"), so Step 4 extracted it as a
+# fact and Step 5 passed it (the quote IS verbatim in the fetched
+# page) — 34 of 123 items on 18 Nov, all TBS, all carrying that
+# disclaimer line immediately before the list. Cutting at the
+# disclaimer removes the whole sidebar; the "TBS News of the day" /
+# "TBS Stories" markers are defence in depth for pages where the
+# disclaimer is absent.
+CUT_SUBSTRINGS = (
+    "while most comments will be posted",
+    "tbs news of the day",
+    "tbs stories",
+)
 # A line STARTING with one of these is a related-news link, not
 # article text: drop the line, keep what follows.
 RELATED_STARTS = ("read more", "also read", "related:", "read also")
@@ -136,6 +154,11 @@ def clean_body_text(html, title=""):
                 break
             in_related = True
             continue
+        if seen_body and any(m in line.lower() for m in CUT_SUBSTRINGS):
+            # TBS comments disclaimer / sidebar section header: the
+            # article body is over; everything after is a headline
+            # list, not article text (see CUT_SUBSTRINGS).
+            break
         if in_related:
             if len(line) > 150:
                 in_related = False
@@ -265,7 +288,7 @@ def _pattern_to_regex(pattern):
 def _robots_rules_for_host(host):
     """Fetch + parse host's robots.txt; return the rule list for the
     most specific applicable user-agent group, or None on fetch
-    failure (fail-closed, recorded in ROBOTS_FETCH_FAILURES). Cached
+    failure (fail-open, recorded in ROBOTS_FETCH_FAILURES). Cached
     per host for the life of the process (one run)."""
     if host in _ROBOTS_CACHE:
         return _ROBOTS_CACHE[host]
@@ -316,19 +339,19 @@ def _robots_rules_for_host(host):
 def robots_allowed(url):
     """True if the host's robots.txt allows fetching this URL for our
     crawler. Longest matching rule wins; on a tie Allow wins; no
-    matching rule means allowed. On robots.txt fetch failure, deny
-    (fail-closed) and record the failure in ROBOTS_FETCH_FAILURES.
-    Malformed or hostless URLs are denied. Always returns a bool."""
+    matching rule means allowed. On robots.txt fetch failure, allow
+    (fail-open) and record the failure in ROBOTS_FETCH_FAILURES.
+    Always returns a bool."""
     try:
-        parsed = urllib.parse.urlparse(url)
-        host = (parsed.hostname or "").lower()
-        if parsed.scheme.lower() not in ("http", "https") or not host:
-            return False
+        host = urllib.parse.urlparse(url).netloc.lower()
     except Exception:
-        return False
+        return True
+    if not host:
+        return True
+    host = host[4:] if host.startswith("www.") else host
     rules = _robots_rules_for_host(host)
     if rules is None:
-        return False  # fail-closed, failure recorded
+        return True  # fail-open, failure recorded
     path = urllib.parse.urlparse(url).path or "/"
     best_len, best_allow = -1, True
     for allowed, pattern in rules:

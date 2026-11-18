@@ -3,7 +3,7 @@
 /// The edition data carries NO numeric 0-100 score. `exam_relevance`
 /// is a free-text label ("High", "Medium", "High — ..."). This shows
 /// the level only, as plain text — no pill, no star, no tint:
-/// `● উচ্চ` (red) / `● মাধ্যমিক` (amber) / `● কম` (faint).
+/// `● উচ্চ` (pink) / `● মাধ্যমিক` (neutral) / `● কম` (faint).
 /// When a story has no relevance label at all, it renders nothing.
 /// The full raw label stays available as a tooltip.
 library;
@@ -43,7 +43,7 @@ class RelevanceMark extends StatelessWidget {
     final brightness = Theme.of(context).brightness;
     final color = switch (level) {
       'High' => AppColors.accentFor(brightness),
-      'Medium' => AppColors.amberFor(brightness),
+      'Medium' => AppColors.secondaryFor(brightness),
       _ => AppColors.faintFor(brightness),
     };
     var text = '● $label';

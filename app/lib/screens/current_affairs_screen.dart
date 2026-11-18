@@ -105,7 +105,7 @@ class _DateRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = Theme.of(context).brightness == Brightness.dark;
-    final accent = AppColors.accentFor(Theme.of(context).brightness);
+    final primary = AppColors.primaryFor(Theme.of(context).brightness);
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -122,7 +122,7 @@ class _DateRow extends StatelessWidget {
                   Container(
                     width: 40,
                     height: 40,
-                    color: accent,
+                    color: primary,
                     alignment: Alignment.center,
                     child: const Icon(
                       Icons.newspaper,
@@ -203,7 +203,7 @@ class _DayStories extends StatelessWidget {
       return a.id.compareTo(b.id);
     });
     final dark = Theme.of(context).brightness == Brightness.dark;
-    final accent = AppColors.accentFor(Theme.of(context).brightness);
+    const accent = AppColors.pink;
     return Column(
       children: [
         for (var i = 0; i < stories.length; i++)

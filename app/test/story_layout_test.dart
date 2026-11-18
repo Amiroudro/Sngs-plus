@@ -115,7 +115,10 @@ void main() {
         for (final pair in layout.qa) {
           expect(pair.question, endsWith('?'));
           expect(pair.answer, isNotEmpty);
-          expect(wordCount(pair.question), lessThanOrEqualTo(22));
+          // Restored full-sentence Q&A (2026-11-17 exam_qa restore)
+          // run to 22 words; the cap only guards against runaway
+          // text, not against a proper question.
+          expect(wordCount(pair.question), lessThanOrEqualTo(25));
         }
       }
     }

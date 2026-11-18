@@ -1,75 +1,75 @@
 {
   "Bing News: Bangladesh": {
     "method": "bing-rss",
-    "last_success": "2026-11-15T18:28:35+00:00"
+    "last_success": "2026-11-18T02:10:01+00:00"
   },
   "Bing News: Bangladesh economy": {
     "method": "bing-rss",
-    "last_success": "2026-11-15T18:28:36+00:00"
+    "last_success": "2026-11-18T02:10:02+00:00"
   },
   "Bing News: Bangladesh politics": {
     "method": "bing-rss",
-    "last_success": "2026-11-15T18:28:38+00:00"
+    "last_success": "2026-11-18T02:10:04+00:00"
   },
   "Bing News: Bangladesh bank": {
     "method": "bing-rss",
-    "last_success": "2026-11-15T18:28:38+00:00"
+    "last_success": "2026-11-18T02:10:05+00:00"
   },
   "Bing News: Bangladesh education jobs": {
     "method": "bing-rss",
-    "last_success": "2026-11-15T18:28:40+00:00"
+    "last_success": "2026-11-18T02:10:06+00:00"
   },
   "Bing News: site:thedailystar.net": {
     "method": "bing-rss",
-    "last_success": "2026-11-15T18:28:40+00:00"
+    "last_success": "2026-11-18T02:10:07+00:00"
   },
   "Bing News: site:tbsnews.net": {
     "method": "bing-rss",
-    "last_success": "2026-11-15T18:28:41+00:00"
+    "last_success": "2026-11-18T02:10:08+00:00"
   },
   "Bing News: site:dhakatribune.com": {
     "method": "bing-rss",
-    "last_success": "2026-11-15T18:28:41+00:00"
+    "last_success": "2026-11-18T02:10:09+00:00"
   },
   "Bing News: site:thefinancialexpress.com.bd": {
     "method": "bing-rss",
-    "last_success": "2026-11-15T18:28:42+00:00"
+    "last_success": "2026-11-18T02:10:10+00:00"
   },
   "Bing News: site:en.prothomalo.com": {
     "method": "bing-rss",
-    "last_success": "2026-11-15T18:28:43+00:00"
+    "last_success": "2026-11-18T02:10:11+00:00"
   },
   "Prothom Alo English": {
     "method": "rss",
-    "last_success": "2026-11-15T18:28:49+00:00"
+    "last_success": "2026-11-18T02:10:22+00:00"
   },
   "Prothom Alo English news sitemap": {
     "method": "sitemap",
-    "last_success": "2026-11-15T18:28:49+00:00"
+    "last_success": "2026-11-18T02:10:22+00:00"
   },
   "Editorial Bing: site:thedailystar.net/opinion": {
     "method": "bing-rss-editorial",
-    "last_success": "2026-11-15T18:28:50+00:00"
+    "last_success": "2026-11-18T02:10:23+00:00"
   },
   "Editorial Bing: site:en.prothomalo.com/opinion": {
     "method": "bing-rss-editorial",
-    "last_success": "2026-11-15T18:28:52+00:00"
+    "last_success": "2026-11-18T02:10:25+00:00"
   },
   "Editorial Bing: site:tbsnews.net/thoughts": {
     "method": "bing-rss-editorial",
-    "last_success": "2026-11-15T18:28:53+00:00"
+    "last_success": "2026-11-18T02:10:26+00:00"
   },
   "Editorial Bing: site:thefinancialexpress.com.bd/editorial": {
     "method": "bing-rss-editorial",
-    "last_success": "2026-11-15T18:28:54+00:00"
+    "last_success": "2026-11-18T02:10:27+00:00"
   },
   "Editorial Bing: site:dhakatribune.com/opinion": {
     "method": "bing-rss-editorial",
-    "last_success": "2026-11-15T18:28:55+00:00"
+    "last_success": "2026-11-18T02:10:28+00:00"
   },
   "TBS sitemap index": {
     "method": "sitemap-index",
-    "last_success": "2026-11-15T18:28:57+00:00"
+    "last_success": "2026-11-18T02:10:32+00:00"
   },
   "TBS sitemap 2026-1": {
     "method": "sitemap",
@@ -77,66 +77,70 @@
   },
   "TBS sitemap 2026-2": {
     "method": "sitemap",
-    "last_success": "2026-11-15T18:29:04+00:00"
+    "last_success": "2026-11-18T02:10:34+00:00"
   },
   "Jugantor news sitemap": {
     "method": "sitemap",
-    "last_success": "2026-11-15T18:29:08+00:00"
+    "last_success": "2026-11-18T02:10:38+00:00"
   },
   "Prothom Alo Bangla": {
     "method": "rss",
-    "last_success": "2026-11-15T18:29:10+00:00"
+    "last_success": "2026-11-18T02:10:41+00:00"
   },
   "Daily Star sitemap 2026": {
     "method": "sitemap",
-    "last_success": "2026-11-15T18:29:15+00:00"
+    "last_success": "2026-11-18T02:10:49+00:00"
   },
   "Daily Star section: World": {
     "method": "section",
-    "last_success": "2026-11-15T18:23:25+00:00"
+    "last_success": "2026-11-18T02:10:52+00:00"
   },
   "Daily Star section: Bangladesh": {
     "method": "section",
-    "last_success": "2026-11-15T18:23:21+00:00"
+    "last_success": "2026-11-18T02:10:50+00:00"
   },
   "Daily Star section: Business": {
     "method": "section",
-    "last_success": "2026-11-15T18:23:22+00:00"
+    "last_success": "2026-11-18T02:10:52+00:00"
   },
   "Bing News: site:ittefaq.com.bd": {
     "method": "bing-rss",
-    "last_success": "2026-11-15T18:28:43+00:00"
+    "last_success": "2026-11-18T02:10:12+00:00"
   },
   "Bing News: site:banglatribune.com": {
     "method": "bing-rss",
-    "last_success": "2026-11-15T18:28:44+00:00"
+    "last_success": "2026-11-18T02:10:13+00:00"
   },
   "Bing News: site:jagonews24.com": {
     "method": "bing-rss",
-    "last_success": "2026-11-15T18:28:45+00:00"
+    "last_success": "2026-11-18T02:10:14+00:00"
   },
   "Bing News: site:bdnews24.com": {
     "method": "bing-rss",
-    "last_success": "2026-11-15T18:28:45+00:00"
+    "last_success": "2026-11-18T02:10:15+00:00"
   },
   "Bing News: site:unb.com.bd": {
     "method": "bing-rss",
-    "last_success": "2026-11-15T18:28:46+00:00"
+    "last_success": "2026-11-18T02:10:16+00:00"
   },
   "Bing News: site:bssnews.net": {
     "method": "bing-rss",
-    "last_success": "2026-11-15T18:28:46+00:00"
+    "last_success": "2026-11-18T02:10:17+00:00"
   },
   "Bing News: site:newagebd.net": {
     "method": "bing-rss",
-    "last_success": "2026-11-15T18:28:47+00:00"
+    "last_success": "2026-11-18T02:10:18+00:00"
   },
   "Prothom Alo Bangla news sitemap": {
     "method": "sitemap",
-    "last_success": "2026-11-15T18:29:11+00:00"
+    "last_success": "2026-11-18T02:10:42+00:00"
   },
   "bdnews24 news sitemap": {
     "method": "sitemap",
-    "last_success": "2026-11-15T18:29:12+00:00"
+    "last_success": "2026-11-18T02:10:43+00:00"
+  },
+  "TBS sitemap 2019-1": {
+    "method": "sitemap",
+    "last_success": "2026-11-17T01:59:30+00:00"
   }
 }

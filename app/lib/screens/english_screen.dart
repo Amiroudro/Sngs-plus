@@ -101,7 +101,7 @@ class _DateRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = Theme.of(context).brightness == Brightness.dark;
-    final accent = AppColors.accentFor(Theme.of(context).brightness);
+    final primary = AppColors.primaryFor(Theme.of(context).brightness);
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -118,7 +118,7 @@ class _DateRow extends StatelessWidget {
                   Container(
                     width: 40,
                     height: 40,
-                    color: accent,
+                    color: primary,
                     alignment: Alignment.center,
                     child: const Icon(
                       Icons.translate,
@@ -263,9 +263,12 @@ class _EditionWordsScreenState extends State<EditionWordsScreen>
               controller: _tabs,
               // Scrollable so the long Bengali tab labels
               // ('শব্দবন্ধ ও বাগধারা', 'পুনরালোচনা (5)') are never cut.
+              // No labelColor here: the theme's pinkText active label
+              // must apply in both modes. The old explicit
+              // colorScheme.primary made the light-mode active label
+              // forest while the underline stayed pink.
               isScrollable: true,
               tabAlignment: TabAlignment.start,
-              labelColor: Theme.of(context).colorScheme.primary,
               tabs: [
                 Tab(
                   text: storyDigits(
@@ -403,17 +406,17 @@ class _PhraseRow extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(
         horizontal: AppSpacing.screen,
-        vertical: 4,
+        vertical: AppSpacing.s4,
       ),
       decoration: BoxDecoration(
         color: dark ? AppColors.darkSurfaceSoft : AppColors.surfaceSoft,
-        borderRadius: BorderRadius.circular(AppRadii.learn),
+        borderRadius: AppShapes.soft,
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
           onTap: onTap,
-          borderRadius: BorderRadius.circular(AppRadii.learn),
+          borderRadius: AppShapes.soft,
           child: Container(
             constraints: const BoxConstraints(minHeight: 56),
             padding: const EdgeInsets.symmetric(
@@ -452,12 +455,19 @@ class _PhraseRow extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 if (hasValue(phrase.type))
-                  Text(
-                    phrase.type!,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: AppColors.faintFor(
-                        Theme.of(context).brightness,
+                  // Flexible + ellipsis: a long type
+                  // ("Phrasal verb / collocation") must never push
+                  // the row past the screen at 200% text scale.
+                  Flexible(
+                    child: Text(
+                      phrase.type!,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: AppColors.faintFor(
+                          Theme.of(context).brightness,
+                        ),
                       ),
                     ),
                   ),

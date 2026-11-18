@@ -66,7 +66,7 @@ browser route to `Amiroudro/sarangsho-plus-editions`.
 
 **The flip is an edit to that one file, and nothing else.** Replace
 steps 2–5 with the v2 run order in §3, replace the v1 auto-publish
-rule with the v2 gate + human-gate rule in §4, and keep the schedule
+rule with the v2 gate + auto-publish rule in §4 (Edition 11 auto-publishes on 15/15; first-edition human gate removed 2026-11-15 23:31), and keep the schedule
 (`08:00 Asia/Dhaka`), the paste deadline (07:30, §2), the browser
 sync route (§6) and the reporting step unchanged. Do NOT change the
 cron's id, schedule, owner or delivery. Do NOT delete the v1 body —

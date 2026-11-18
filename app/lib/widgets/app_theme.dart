@@ -1,14 +1,18 @@
-/// NEXUS editorial design system for Sarangsho Plus (v1.2.0 redesign).
+/// Editorial design system for Sarangsho Plus (2.0 palette).
 ///
-/// Red / black / white newspaper system, Bengali-first.
-/// * ONE accent only: cool crimson #B4232A (hue ~357, no orange), used
-///   only as a thin accent — numerals, small labels, square arrow,
-///   active nav item. Never a large fill, never a gradient.
-/// * Paper is true white; surfaces are distinguished by hairlines, not
+/// Forest Green / Oat / Flamingo Pink (Rudro, 2026-11-18 — replaces
+/// the NEXUS red-black-white palette; layout and components stay).
+/// * Forest #1E3A2B is the primary: logo block, numeral block, square
+///   arrow buttons, primary buttons, dark-mode base. White text on it.
+/// * Oat #EEE6D6 is the light paper/surface. Ink text on oat is 15:1.
+/// * Pink #FF7AB8 is a restrained accent ONLY: dots, indicators,
+///   active states, small pops. Never a large pink surface, never
+///   pink body text (1.94:1 on oat) — text uses darkened pink
+///   #9E2A5C (light) / lightened pink #FF9ECB (dark).
+/// * Paper is oat; surfaces are distinguished by hairlines, not
 ///   fills. News rows: radius 0, no card, no shadow. Learning surfaces:
 ///   radius 12, no shadow (except the flashcard, one soft shadow).
-/// * Green survives ONLY as a state colour (success #1E7A46): correct
-///   answers, "reviewed ✓", quiz ring at >=80%. Never a brand colour.
+/// * Success is a forest shade, error a pink shade — no new hues.
 /// * Typography carries hierarchy: weight + size + spacing.
 /// * One motion language: Cubic(0.16,1,0.3,1), 180/320/360ms.
 library;
@@ -25,48 +29,76 @@ import '../state/app_state.dart';
 /// Colours — NEXUS tokens (§2.1 of REDESIGN_PLAN.md)
 /// ---------------------------------------------------------------------------
 class AppColors {
-  // The ONLY accent: cool crimson, blue-leaning, no orange.
-  static const red = Color(0xFFB4232A);
-  static const redDark = Color(0xFF8F1B21);
-  static const redLight = Color(0xFFE5484D); // dark-mode accent
-  static const redSoft = Color(0xFFFBECEC); // rare tint
+  // --- The 2.0 palette (Rudro, 2026-11-18 — replaces NEXUS red) ---------
+  // Forest Green #1E3A2B: primary/deep — headers, primary elements,
+  // dark-mode base. Oat #EEE6D6: light background/surface.
+  // Flamingo Pink #FF7AB8: restrained accent ONLY — small pops,
+  // indicators, active states. Never a large pink surface, never pink
+  // body text: raw pink on oat is 1.94:1. Text uses the darkened pink
+  // `pinkText` (light) or the lightened pink `pinkLight` (dark).
+  // Only these three hues plus their tints/shades plus neutral text
+  // colours — no new hues. Success is a forest shade, error a pink
+  // shade, medium relevance a neutral (see below).
+  static const forest = Color(0xFF1E3A2B);
+  static const forestLight = Color(0xFF2F5442); // dark-mode primary fill
+  static const oat = Color(0xFFEEE6D6);
+  static const oatSoft = Color(0xFFF5EFE0); // lighter oat tint
+  static const pink = Color(0xFFFF7AB8);
+  static const pinkText = Color(0xFF9E2A5C); // darkened pink, text on light
+  static const pinkLight = Color(0xFFFF9ECB); // lightened pink, text on dark
+  static const pinkSoft = Color(0xFFF9DCE8); // rare light pink tint
 
-  // Ink / paper neutrals (light).
-  static const paper = Color(0xFFFFFFFF); // true white
-  static const surface = Color(0xFFFFFFFF);
-  static const surfaceSoft = Color(0xFFF4F2EE); // learning surfaces only
+  // Ink / paper neutrals (light) — oat paper, near-black ink.
+  static const paper = oat;
+  static const surface = oat;
+  static const surfaceSoft = oatSoft;
   static const ink = Color(0xFF111110);
   static const inkSecondary = Color(0xFF5C564E);
-  static const inkFaint = Color(0xFF8A847C);
-  static const hairline = Color(0xFFE3DED6);
-  static const amber = Color(0xFF9A6A12); // Medium relevance only
-  static const amberSoft = Color(0xFFFBF3DF);
-  static const error = Color(0xFFB3261E);
+  // Darkened from the old #8A847C: 4.77:1 on oat (the old value was
+  // 2.98:1 on oat and failed WCAG for 12px captions).
+  static const inkFaint = Color(0xFF6B6357);
+  static const hairline = Color(0xFFB5A67F); // oat-dark divider, visible
+  static const error = pinkText;
 
-  /// Success green — a STATE colour only (correct answers, reviewed
-  /// check, >=80% quiz ring). Never a background, button or header.
-  static const success = Color(0xFF1E7A46);
-  static const successLight = Color(0xFF6FC79B); // dark-mode success
+  /// Success is a STATE colour only (correct answers, reviewed
+  /// check, >=80% quiz ring) — a forest shade, never a new hue.
+  static const success = forest;
+  static const successLight = Color(0xFF7FB89A); // dark-mode success
 
-  // Dark mode.
-  static const darkPaper = Color(0xFF131311);
-  static const darkSurface = Color(0xFF1E1E1B);
-  static const darkSurfaceSoft = Color(0xFF2A2A26);
-  static const darkInk = Color(0xFFF2EFE9);
-  static const darkInkSecondary = Color(0xFFB8B2A8);
-  static const darkInkFaint = Color(0xFF8A857C);
-  static const darkHairline = Color(0xFF33332E);
-  static const darkRedSoft = Color(0xFF2E1A1A);
-  static const darkError = Color(0xFFFF8A80);
-  static const darkAmber = Color(0xFFD9A441);
+  // Dark mode — base is Forest Green.
+  static const darkPaper = Color(0xFF14261C); // darker forest shade
+  static const darkSurface = forest;
+  static const darkSurfaceSoft = Color(0xFF2A4A3A); // lighter forest tint
+  static const darkInk = oat;
+  static const darkInkSecondary = Color(0xFFCFC6B2); // muted oat
+  static const darkInkFaint = Color(0xFFBFB69E); // dim oat (4.86:1 on soft)
+  static const darkHairline = Color(0xFF33503F);
+  static const darkPinkSoft = Color(0xFF3A2430);
+  static const darkError = pinkLight;
 
-  /// Brand accent as text/icon colour for the current brightness.
+  /// Text accent for the current brightness: darkened pink on light
+  /// (5.76:1 on oat), lightened pink on dark (8.31:1 on dark paper).
+  /// Use for accent TEXT (numerals, category labels, active tab,
+  /// search highlight, quiz mode label). Never for a fill behind
+  /// white text — use [primaryFor] for fills.
   static Color accentFor(Brightness brightness) =>
-      brightness == Brightness.dark ? redLight : red;
+      brightness == Brightness.dark ? pinkLight : pinkText;
 
-  /// Warning amber as text colour for the current brightness.
-  static Color amberFor(Brightness brightness) =>
-      brightness == Brightness.dark ? darkAmber : amber;
+  /// Primary fill for the current brightness: forest on light, a
+  /// lighter forest on dark. White text/icons on it in both modes
+  /// (12.39:1 light, 8.51:1 dark). Use for the logo block, numeral
+  /// block, square arrow buttons, icon tiles, primary buttons.
+  static Color primaryFor(Brightness brightness) =>
+      brightness == Brightness.dark ? forestLight : forest;
+
+  /// Text/icon colour on a raw-pink accent fill: white on light,
+  /// forest on dark (raw pink takes dark text in dark mode).
+  static Color onAccentFor(Brightness brightness) =>
+      brightness == Brightness.dark ? forest : Colors.white;
+
+  /// Raw pink pop (non-text only): dots, indicator bars, progress
+  /// value, switch track, selected-option border. Never text.
+  static const Color pop = pink;
 
   static Color successFor(Brightness brightness) =>
       brightness == Brightness.dark ? successLight : success;
@@ -89,11 +121,31 @@ class AppColors {
       b == Brightness.dark ? darkHairline : hairline;
 
   // --- Story screen tokens (Phase 2, mockup image-6) ------------------
-  // Warm off-white paper, ONE accent #B3202A used only for key
-  // numbers / answers. Dark mode is the same structure on a warm
-  // dark paper with a restrained lighter accent.
-  static const storyAccent = Color(0xFFB3202A);
-  static const storyAccentDark = Color(0xFFE5484D);
+  // The Story screen is restyled LAST (after the corrected
+  // learning-module model). Its tokens keep the "one accent" shape
+  // but now point at the 2.0 palette: the accent is the primary
+  // (forest) because the story screen uses it as a FilledButton
+  // background behind WHITE text — raw pink would be 2.41:1 there.
+  // Text and fill are SPLIT (Stage 4): small label text in the fill
+  // accent (forestLight) is only 2.10:1 on the warm dark story paper
+  // #1A1714, so text uses [storyTextAccentFor] instead.
+  static const storyAccent = forest;
+  static const storyAccentDark = forestLight;
+
+  /// Text accent for the Story screen ONLY: small labels, tile
+  /// values, Q→A answers and cloze text. Light keeps forest
+  /// (11.69:1 on story paper #FBF8F3, 12.39:1 on story surface
+  /// #FFFFFF); dark uses the lighter forest tint successLight
+  /// #7FB89A (7.84:1 on story paper #1A1714, 7.08:1 on story surface
+  /// #262019) — the same hue family as the fill accent, so the
+  /// screen keeps its one-accent identity. Fills (primary button,
+  /// chart bars, relevance dots) keep [storyAccentFor]: white text
+  /// on forestLight is 8.51:1.
+  static const storyTextAccent = forest;
+  static const storyTextAccentDark = successLight;
+
+  static Color storyTextAccentFor(Brightness b) =>
+      b == Brightness.dark ? storyTextAccentDark : storyTextAccent;
   static const storyPaper = Color(0xFFFBF8F3);
   static const storyPaperDark = Color(0xFF1A1714);
   static const storySurface = Color(0xFFFFFFFF);
@@ -140,6 +192,9 @@ class AppRadii {
 
 /// The one soft shadow left in the app: the flashcard only.
 class AppShadows {
+  /// News system: shadows deleted entirely.
+  static const List<BoxShadow> none = [];
+
   static const List<BoxShadow> learn = [
     BoxShadow(
       color: Color(0x0F1C1A17),
@@ -154,6 +209,201 @@ class AppShadows {
       offset: Offset(0, 4),
     ),
   ];
+}
+
+/// ---------------------------------------------------------------------------
+/// Shapes — ONE centralized shape system (MASTER.md §3.4).
+///
+/// Every box, round, corner, button and shape in the app comes from
+/// here. [AppShapes] is the semantic layer on top of the raw
+/// [AppRadii] numbers: the NEXUS radii ARE the shape tokens' values,
+/// so the two can never drift apart.
+///
+/// * The default shape is the **box** (radius 0), used most of the
+///   time: every news surface, row, tile, the masthead logo block,
+///   the numeral block, the square arrow button, the bottom nav.
+/// * Variants ([box]/[small]/[medium]/[soft]/[round]/[sheet]) are
+///   used on demand only, via a [ShapeRole].
+/// * A screen that needs a shape it does not have asks [AppShapes]
+///   for a variant — it never invents a radius inline. If no existing
+///   role fits, add a role; do not reuse a wrong role.
+///
+/// One-line change test: editing one value in [AppShapes] changes
+/// every use of that role across all five tabs with no other file
+/// edited. Theme-level widgets ([buildLightTheme]/[buildDarkTheme])
+/// and components ([LearnSurface], [MetaPill]) read their shapes
+/// from here too, so theme and components agree by construction.
+///
+/// The roles hold theme-independent geometry only (radius, padding,
+/// border width, min height, shadows). Colours are resolved per
+/// brightness through [ShapeRole.borderFor]/[ShapeRole.decoration],
+/// which read [AppColors] — never a literal colour or number in a
+/// role. The three dimensions with no [AppSpacing] token
+/// ([inputVerticalPadding], [metaPillRadius]) are named constants
+/// owned here, so the roles themselves contain no literals.
+/// ---------------------------------------------------------------------------
+class ShapeRole {
+  /// Corner radii for this role.
+  final BorderRadius radius;
+
+  /// Inner padding for this role.
+  final EdgeInsets padding;
+
+  /// Border width in logical pixels; 0 means no border.
+  final double borderWidth;
+
+  /// Minimum height (buttons), or null when the role has none.
+  final double? minHeight;
+
+  /// Shadows for this role (news roles: [AppShadows.none]).
+  final List<BoxShadow> shadows;
+
+  const ShapeRole({
+    required this.radius,
+    required this.padding,
+    this.borderWidth = 0,
+    this.minHeight,
+    this.shadows = const [],
+  });
+
+  /// The role's border in the current brightness. The colour is the
+  /// hairline token (or [color] when a caller needs pink, e.g. a
+  /// focused input); the width comes from the role.
+  BorderSide borderFor(Brightness brightness, {Color? color}) {
+    if (borderWidth == 0) return BorderSide.none;
+    return BorderSide(
+      color: color ?? AppColors.hairlineFor(brightness),
+      width: borderWidth,
+    );
+  }
+
+  /// A full [BoxDecoration] for this role: radius + border + shadow,
+  /// filled with [color].
+  BoxDecoration decoration(
+    Brightness brightness, {
+    required Color color,
+    Color? borderColor,
+  }) {
+    return BoxDecoration(
+      color: color,
+      borderRadius: radius,
+      border: borderWidth == 0
+          ? null
+          : Border.all(
+              color: borderColor ?? AppColors.hairlineFor(brightness),
+              width: borderWidth,
+            ),
+      boxShadow: shadows,
+    );
+  }
+}
+
+class AppShapes {
+  /// 1px hairline border width (cards, chips, inputs).
+  static const double hairlineWidth = 1;
+
+  /// 1.5px border width (focused input, selected option).
+  static const double strongBorderWidth = 1.5;
+
+  /// Input vertical padding — 14px; no [AppSpacing] token exists
+  /// for 14, so the shape system owns this value.
+  static const double inputVerticalPadding = 14;
+
+  /// MetaPill corner radius — 2px (square pill); no [AppRadii]
+  /// token exists for 2, so the shape system owns this value.
+  static const double metaPillRadius = 2;
+
+  // --- Variants (on demand only) -------------------------------------
+  /// Default shape: box, square corners. Used most of the time.
+  static BorderRadius get box => BorderRadius.circular(AppRadii.news);
+
+  /// 4px: search field, rendered share card.
+  static BorderRadius get small => BorderRadius.circular(AppRadii.small);
+
+  /// 8px: buttons.
+  static BorderRadius get medium => BorderRadius.circular(AppRadii.button);
+
+  /// 12px: learning surfaces (LearnSurface, flashcard).
+  static BorderRadius get soft => BorderRadius.circular(AppRadii.learn);
+
+  /// 999px: chips — the one round element, learning contexts only.
+  static BorderRadius get round => BorderRadius.circular(AppRadii.chip);
+
+  /// 16px, top corners only: bottom sheets.
+  static BorderRadius get sheet =>
+      const BorderRadius.vertical(top: Radius.circular(AppRadii.sheet));
+
+  /// 2px: MetaPill.
+  static BorderRadius get metaPill =>
+      BorderRadius.circular(metaPillRadius);
+
+  // --- Semantic roles --------------------------------------------------
+  /// News rows, story rows, saved-story rows: a "card" here is a
+  /// ruled row, not a rounded card. Box, 16px padding, 1px hairline
+  /// border, no shadow.
+  static const ShapeRole card = ShapeRole(
+    radius: BorderRadius.zero,
+    padding: EdgeInsets.all(AppSpacing.s16),
+    borderWidth: hairlineWidth,
+  );
+
+  /// Learning surfaces: LearnSurface, collapsed word rows, phrase
+  /// cards, revision rows, quiz mode/review/mistake items, Profile
+  /// cards. Soft 12px, 16px padding, no border, no shadow.
+  static const ShapeRole cardSoft = ShapeRole(
+    radius: BorderRadius.all(Radius.circular(AppRadii.learn)),
+    padding: EdgeInsets.all(AppSpacing.s16),
+  );
+
+  /// Primary / secondary / text buttons: always medium 8px, min
+  /// height 48px, horizontal 16px / vertical 12px padding.
+  static const ShapeRole button = ShapeRole(
+    radius: BorderRadius.all(Radius.circular(AppRadii.button)),
+    padding: EdgeInsets.symmetric(
+      horizontal: AppSpacing.s16,
+      vertical: AppSpacing.s12,
+    ),
+    minHeight: AppSpacing.s48,
+  );
+
+  /// Font-size chips, search-recents ActionChips, word-form /
+  /// exam-type chips: always round, horizontal 12px / vertical 8px,
+  /// 1px hairline border.
+  static const ShapeRole chip = ShapeRole(
+    radius: BorderRadius.all(Radius.circular(AppRadii.chip)),
+    padding: EdgeInsets.symmetric(
+      horizontal: AppSpacing.s12,
+      vertical: AppSpacing.s8,
+    ),
+    borderWidth: hairlineWidth,
+  );
+
+  /// Masthead block, TopStoryHero, story banner/hero image area:
+  /// box, full-bleed, 16px padding. (The 1px hairline *below* a
+  /// banner is a layout rule, not a box border.)
+  static const ShapeRole banner = ShapeRole(
+    radius: BorderRadius.zero,
+    padding: EdgeInsets.all(AppSpacing.s16),
+  );
+
+  /// Share-preview dialog, alerts: 12px, 16px padding.
+  /// Use [sheet] when the dialog is a bottom sheet.
+  static const ShapeRole dialog = ShapeRole(
+    radius: BorderRadius.all(Radius.circular(AppRadii.learn)),
+    padding: EdgeInsets.all(AppSpacing.s16),
+  );
+
+  /// Search field: always small 4px, horizontal 16px / vertical
+  /// 14px, 1px hairline border (focused: 1.5px pink — applied by the
+  /// input theme, not the role).
+  static const ShapeRole input = ShapeRole(
+    radius: BorderRadius.all(Radius.circular(AppRadii.small)),
+    padding: EdgeInsets.symmetric(
+      horizontal: AppSpacing.s16,
+      vertical: inputVerticalPadding,
+    ),
+    borderWidth: hairlineWidth,
+  );
 }
 
 /// ---------------------------------------------------------------------------
@@ -190,7 +440,7 @@ class AppType {
     letterSpacing: -0.3,
   );
   static const TextStyle title = TextStyle(
-    fontSize: 22,
+    fontSize: 20,
     height: 1.25,
     fontWeight: FontWeight.w800,
   );
@@ -305,9 +555,9 @@ PreferredSize appBarHairline(BuildContext context) {
 /// ---------------------------------------------------------------------------
 ThemeData buildLightTheme() {
   const scheme = ColorScheme.light(
-    primary: AppColors.red,
+    primary: AppColors.forest,
     onPrimary: Colors.white,
-    secondary: AppColors.red,
+    secondary: AppColors.pinkText,
     onSecondary: Colors.white,
     surface: AppColors.surface,
     onSurface: AppColors.ink,
@@ -346,20 +596,56 @@ ThemeData buildLightTheme() {
       selectedColor: AppColors.ink,
       checkmarkColor: Colors.white,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppRadii.chip),
-        side: const BorderSide(color: AppColors.hairline),
+        borderRadius: AppShapes.chip.radius,
+        side: AppShapes.chip.borderFor(Brightness.light),
       ),
       labelStyle: AppType.chip,
     ),
+    segmentedButtonTheme: SegmentedButtonThemeData(
+      style: ButtonStyle(
+        backgroundColor: WidgetStateProperty.resolveWith(
+          (states) => states.contains(WidgetState.selected)
+              ? AppColors.ink
+              : AppColors.paper,
+        ),
+        foregroundColor: WidgetStateProperty.resolveWith(
+          (states) => states.contains(WidgetState.selected)
+              ? Colors.white
+              : AppColors.ink,
+        ),
+        side: WidgetStateProperty.all(
+          const BorderSide(
+            color: AppColors.hairline,
+            width: AppShapes.hairlineWidth,
+          ),
+        ),
+        shape: WidgetStateProperty.all(
+          RoundedRectangleBorder(borderRadius: AppShapes.button.radius),
+        ),
+        textStyle: WidgetStateProperty.all(
+          const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
+        ),
+      ),
+    ),
+    dialogTheme: DialogThemeData(
+      backgroundColor: AppColors.surface,
+      shape: RoundedRectangleBorder(borderRadius: AppShapes.dialog.radius),
+    ),
+    bottomSheetTheme: BottomSheetThemeData(
+      backgroundColor: AppColors.surface,
+      modalBackgroundColor: AppColors.surface,
+      shape: RoundedRectangleBorder(borderRadius: AppShapes.sheet),
+      dragHandleColor: AppColors.inkFaint,
+    ),
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
-        backgroundColor: AppColors.red,
+        backgroundColor: AppColors.forest,
         foregroundColor: Colors.white,
         disabledBackgroundColor: AppColors.hairline,
         disabledForegroundColor: AppColors.inkFaint,
         minimumSize: const Size(0, 48),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppRadii.button),
+          borderRadius: AppShapes.button.radius,
         ),
         textStyle: const TextStyle(
           fontSize: 15,
@@ -373,7 +659,7 @@ ThemeData buildLightTheme() {
         minimumSize: const Size(0, 48),
         side: const BorderSide(color: AppColors.ink, width: 1.5),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppRadii.button),
+          borderRadius: AppShapes.button.radius,
         ),
         textStyle: const TextStyle(
           fontSize: 15,
@@ -383,7 +669,7 @@ ThemeData buildLightTheme() {
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        foregroundColor: AppColors.red,
+        foregroundColor: AppColors.pinkText,
         textStyle: const TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w700,
@@ -394,22 +680,22 @@ ThemeData buildLightTheme() {
       thumbColor: WidgetStateProperty.all(Colors.white),
       trackColor: WidgetStateProperty.resolveWith(
         (states) => states.contains(WidgetState.selected)
-            ? AppColors.red
+            ? AppColors.pink
             : AppColors.hairline,
       ),
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: AppColors.surface,
-      selectedItemColor: AppColors.red,
+      selectedItemColor: AppColors.pinkText,
       unselectedItemColor: AppColors.inkFaint,
       selectedLabelStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
       unselectedLabelStyle: TextStyle(fontSize: 12),
       elevation: 0,
     ),
     tabBarTheme: const TabBarThemeData(
-      labelColor: AppColors.red,
+      labelColor: AppColors.pinkText,
       unselectedLabelColor: AppColors.inkSecondary,
-      indicatorColor: AppColors.red,
+      indicatorColor: AppColors.pinkText,
       indicatorSize: TabBarIndicatorSize.tab,
       labelStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
       unselectedLabelStyle: TextStyle(fontSize: 14),
@@ -422,21 +708,21 @@ ThemeData buildLightTheme() {
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: AppColors.surface,
-      contentPadding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.s16,
-        vertical: 14,
-      ),
+      contentPadding: AppShapes.input.padding,
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(AppRadii.small),
-        borderSide: const BorderSide(color: AppColors.hairline),
+        borderRadius: AppShapes.input.radius,
+        borderSide: AppShapes.input.borderFor(Brightness.light),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(AppRadii.small),
-        borderSide: const BorderSide(color: AppColors.hairline),
+        borderRadius: AppShapes.input.radius,
+        borderSide: AppShapes.input.borderFor(Brightness.light),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(AppRadii.small),
-        borderSide: const BorderSide(color: AppColors.red, width: 1.5),
+        borderRadius: AppShapes.input.radius,
+        borderSide: const BorderSide(
+          color: AppColors.pinkText,
+          width: AppShapes.strongBorderWidth,
+        ),
       ),
     ),
     pageTransitionsTheme: const PageTransitionsTheme(
@@ -450,10 +736,10 @@ ThemeData buildLightTheme() {
 
 ThemeData buildDarkTheme() {
   const scheme = ColorScheme.dark(
-    primary: AppColors.redLight,
-    onPrimary: Colors.white,
-    secondary: AppColors.redLight,
-    onSecondary: Colors.white,
+    primary: AppColors.pinkLight,
+    onPrimary: AppColors.forest,
+    secondary: AppColors.pinkLight,
+    onSecondary: AppColors.forest,
     surface: AppColors.darkSurface,
     onSurface: AppColors.darkInk,
     surfaceContainerLow: AppColors.darkSurfaceSoft,
@@ -491,20 +777,56 @@ ThemeData buildDarkTheme() {
       selectedColor: AppColors.darkInk,
       checkmarkColor: AppColors.darkPaper,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppRadii.chip),
-        side: const BorderSide(color: AppColors.darkHairline),
+        borderRadius: AppShapes.chip.radius,
+        side: AppShapes.chip.borderFor(Brightness.dark),
       ),
       labelStyle: AppType.chip,
     ),
+    segmentedButtonTheme: SegmentedButtonThemeData(
+      style: ButtonStyle(
+        backgroundColor: WidgetStateProperty.resolveWith(
+          (states) => states.contains(WidgetState.selected)
+              ? AppColors.darkInk
+              : AppColors.darkSurface,
+        ),
+        foregroundColor: WidgetStateProperty.resolveWith(
+          (states) => states.contains(WidgetState.selected)
+              ? AppColors.darkPaper
+              : AppColors.darkInk,
+        ),
+        side: WidgetStateProperty.all(
+          const BorderSide(
+            color: AppColors.darkHairline,
+            width: AppShapes.hairlineWidth,
+          ),
+        ),
+        shape: WidgetStateProperty.all(
+          RoundedRectangleBorder(borderRadius: AppShapes.button.radius),
+        ),
+        textStyle: WidgetStateProperty.all(
+          const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
+        ),
+      ),
+    ),
+    dialogTheme: DialogThemeData(
+      backgroundColor: AppColors.darkSurface,
+      shape: RoundedRectangleBorder(borderRadius: AppShapes.dialog.radius),
+    ),
+    bottomSheetTheme: BottomSheetThemeData(
+      backgroundColor: AppColors.darkSurface,
+      modalBackgroundColor: AppColors.darkSurface,
+      shape: RoundedRectangleBorder(borderRadius: AppShapes.sheet),
+      dragHandleColor: AppColors.darkInkFaint,
+    ),
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
-        backgroundColor: AppColors.redLight,
+        backgroundColor: AppColors.forestLight,
         foregroundColor: Colors.white,
         disabledBackgroundColor: AppColors.darkHairline,
         disabledForegroundColor: AppColors.darkInkFaint,
         minimumSize: const Size(0, 48),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppRadii.button),
+          borderRadius: AppShapes.button.radius,
         ),
         textStyle: const TextStyle(
           fontSize: 15,
@@ -518,7 +840,7 @@ ThemeData buildDarkTheme() {
         minimumSize: const Size(0, 48),
         side: const BorderSide(color: AppColors.darkInk, width: 1.5),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppRadii.button),
+          borderRadius: AppShapes.button.radius,
         ),
         textStyle: const TextStyle(
           fontSize: 15,
@@ -528,7 +850,7 @@ ThemeData buildDarkTheme() {
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        foregroundColor: AppColors.redLight,
+        foregroundColor: AppColors.pinkLight,
         textStyle: const TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w700,
@@ -539,22 +861,22 @@ ThemeData buildDarkTheme() {
       thumbColor: WidgetStateProperty.all(Colors.white),
       trackColor: WidgetStateProperty.resolveWith(
         (states) => states.contains(WidgetState.selected)
-            ? AppColors.redLight
+            ? AppColors.pink
             : AppColors.darkHairline,
       ),
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: AppColors.darkSurface,
-      selectedItemColor: AppColors.redLight,
+      selectedItemColor: AppColors.pinkLight,
       unselectedItemColor: AppColors.darkInkFaint,
       selectedLabelStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
       unselectedLabelStyle: TextStyle(fontSize: 12),
       elevation: 0,
     ),
     tabBarTheme: const TabBarThemeData(
-      labelColor: AppColors.redLight,
+      labelColor: AppColors.pinkLight,
       unselectedLabelColor: AppColors.darkInkSecondary,
-      indicatorColor: AppColors.redLight,
+      indicatorColor: AppColors.pinkLight,
       indicatorSize: TabBarIndicatorSize.tab,
       labelStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
       unselectedLabelStyle: TextStyle(fontSize: 14),
@@ -567,21 +889,21 @@ ThemeData buildDarkTheme() {
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: AppColors.darkSurface,
-      contentPadding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.s16,
-        vertical: 14,
-      ),
+      contentPadding: AppShapes.input.padding,
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(AppRadii.small),
-        borderSide: const BorderSide(color: AppColors.darkHairline),
+        borderRadius: AppShapes.input.radius,
+        borderSide: AppShapes.input.borderFor(Brightness.dark),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(AppRadii.small),
-        borderSide: const BorderSide(color: AppColors.darkHairline),
+        borderRadius: AppShapes.input.radius,
+        borderSide: AppShapes.input.borderFor(Brightness.dark),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(AppRadii.small),
-        borderSide: const BorderSide(color: AppColors.redLight, width: 1.5),
+        borderRadius: AppShapes.input.radius,
+        borderSide: const BorderSide(
+          color: AppColors.pinkLight,
+          width: AppShapes.strongBorderWidth,
+        ),
       ),
     ),
     pageTransitionsTheme: const PageTransitionsTheme(
@@ -637,13 +959,16 @@ class LearnSurface extends StatelessWidget {
   final EdgeInsetsGeometry margin;
   final VoidCallback? onTap;
 
+  /// Default padding mirrors [AppShapes.cardSoft] padding (16px);
+  /// it is spelled out here because a const constructor default
+  /// cannot read a field off another const object.
   const LearnSurface({
     super.key,
     required this.child,
-    this.padding = const EdgeInsets.all(AppSpacing.cardPadding),
+    this.padding = const EdgeInsets.all(AppSpacing.s16),
     this.margin = const EdgeInsets.symmetric(
       horizontal: AppSpacing.screen,
-      vertical: 4,
+      vertical: AppSpacing.s4,
     ),
     this.onTap,
   });
@@ -656,7 +981,7 @@ class LearnSurface extends StatelessWidget {
       padding: padding,
       decoration: BoxDecoration(
         color: dark ? AppColors.darkSurfaceSoft : AppColors.surfaceSoft,
-        borderRadius: BorderRadius.circular(AppRadii.learn),
+        borderRadius: AppShapes.cardSoft.radius,
       ),
       child: child,
     );
@@ -672,15 +997,66 @@ class LearnSurface extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(AppRadii.learn),
+        borderRadius: AppShapes.cardSoft.radius,
         child: box,
       ),
     );
   }
 }
 
+/// Status pill, restyled as [MetaPill] (replaces the old green
+/// `StatusPill`): square (2px radius), 1px hairline border, paper
+/// background, ink 12px w700 text, optional 13px icon. No tint fill.
+/// Display-only — not a button, so it has no 44px touch target.
+class MetaPill extends StatelessWidget {
+  final String text;
+  final IconData? icon;
+
+  const MetaPill({super.key, required this.text, this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    final dark = Theme.of(context).brightness == Brightness.dark;
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.s8,
+        vertical: AppSpacing.s4,
+      ),
+      decoration: BoxDecoration(
+        color: dark ? AppColors.darkSurface : AppColors.surface,
+        border: Border.all(
+          color: dark ? AppColors.darkHairline : AppColors.hairline,
+          width: AppShapes.hairlineWidth,
+        ),
+        borderRadius: AppShapes.metaPill,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (icon != null) ...[
+            Icon(
+              icon,
+              size: 13,
+              color: dark ? AppColors.darkInk : AppColors.ink,
+            ),
+            const SizedBox(width: AppSpacing.s4),
+          ],
+          Text(
+            text,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: dark ? AppColors.darkInk : AppColors.ink,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 /// One designed empty state for every screen: square hairline icon
-/// tile with a red icon, a 64px hairline rule, title, one-line body.
+/// tile with a pink icon, a 64px hairline rule, title, one-line body.
 class EmptyState extends StatelessWidget {
   final IconData icon;
   final String? title;
@@ -760,7 +1136,7 @@ class EmptyState extends StatelessWidget {
   }
 }
 
-/// News section label: small red label above an ink heading, hairline
+/// News section label: small pink label above an ink heading, hairline
 /// below the pair. News screens only.
 class NewsSectionLabel extends StatelessWidget {
   final String label;

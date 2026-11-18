@@ -50,6 +50,7 @@ import subprocess
 import sys
 import tempfile
 import unicodedata
+import urllib.parse
 from datetime import date as _date, datetime, timedelta
 from pathlib import Path
 
@@ -68,6 +69,7 @@ _MONTH_RE = re.compile(
     r"\b(January|February|March|April|May|June|July|August|September|"
     r"October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|"
     r"Nov|Dec)\b", re.IGNORECASE)
+_ISO_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 _FORBIDDEN_OPTIONS = ("সবগুলো", "কোনোটিই নয়", "কোনোটিই না", "সবগুলোই")
 _NEG_STEM_RE = re.compile(r"\b(not|never|except|incorrect)\b", re.IGNORECASE)
 _NEG_STEM_BN_RE = re.compile(r"(^|\s)নয়(\s|\?|$)")
@@ -191,9 +193,14 @@ def longest_counts(mcqs):
 def bn_hygiene_violations(node, path=""):
     """BN prose hygiene: no ASCII digits, no 'Tk', no English month
     names. Walks stories + mcqs only -- metadata fields
-    (edition_date, language, note) are not Bengali prose."""
+    (edition_date, language, note) are not Bengali prose. Neither
+    is image_url: a publisher URL's Latin digits (e.g. /2026/11/17/
+    in a TBS image path) are not a prose violation -- the URL is
+    validated separately as a URL (check 15)."""
     out = []
     if isinstance(node, str):
+        if path.endswith("image_url"):
+            return []
         if re.search(r"[0-9]", node):
             out.append(("asciiDigits", node[:60]))
         if re.search(r"Tk(?![A-Za-z])", node):
@@ -230,7 +237,7 @@ CHECK_TITLES = {
     12: "BN overlay: same story ids + MCQ numbers 1-25, correct letters unchanged, shape asserts pass, number-token check 0 misses, no ASCII digits/Tk/English months",
     13: "editorial slot recorded (filled score >= 2, or empty with non-empty empty_reason)",
     14: "analytical <= 2, all from score-3 items; SRS count recorded",
-    15: "tools/validate_editions.py clean on the converted edition",
+    15: "tools/validate_editions.py clean on the converted edition + renovated standard (exactly 2 EN + 2 BN exam_qa per story, BN english_fallback_allowed False) + image_url on every story ('' or a valid http(s) URL, never a local path/file/data: URI) + learning-module-v2 shape when the edition declares renovation_format 'learning-module-v2' (11 keys/story in order, 4 MCQs/story with answers + explanations tracing to the story, no empty-string GK without the marker)",
 }
 
 
@@ -717,13 +724,154 @@ def check_gate(date_str, run_dir, staging_dir):
     return checks, context
 
 
+def _valid_image_url(value):
+    """image_url rule (Phase 0, ws5): the value must be a string;
+    "" means the article has no lead image (the app shows a
+    designed typographic banner instead). A non-empty value must be
+    an http(s) URL with a host — never a local path, never a
+    downloaded file, never a data: URI, never null."""
+    if not isinstance(value, str):
+        return False
+    if value == "":
+        return True
+    try:
+        parts = urllib.parse.urlparse(value)
+    except Exception:  # noqa: BLE001 - unparseable is invalid
+        return False
+    return parts.scheme in ("http", "https") and bool(parts.netloc)
+
+
+def check_renovated_standard(date_str, staging_dir):
+    """Enforce the renovated-archive standard on the staged files
+    (same three rules as the repo's tools/validate_renovated_editions.py,
+    which runs on every push to the editions repo): exactly 2 English
+    short Q&A per story, exactly 2 Bangla short Q&A per story, and the
+    BN overlay's english_fallback_allowed exactly False. The local
+    tools/validate_editions.py does NOT check any of these -- that gap
+    is why the 15 Nov dry-run converter output (5/6 Q&A per story,
+    editorial 0, no fallback flag) would have passed this gate 15/15
+    and then failed the repo validator with 31 errors (the run #17
+    lesson, 2026-11-17). Returns (ok, detail).
+
+    Also enforces the story-banner image_url rule (Phase 0, ws5):
+    every story in both overlays carries the image_url key (the
+    converter never omits it, never null), and its value is "" or a
+    valid http(s) URL — a local path, a downloaded file or a data:
+    URI fails the gate."""
+    staging_dir = Path(staging_dir)
+    try:
+        data = load_json(staging_dir / f"data-{date_str}.json")
+        bn = load_json(staging_dir / f"bn-{date_str}.json")
+    except Exception as exc:  # noqa: BLE001 - unreadable files fail the check
+        return False, f"cannot load staged data/bn files: {exc}"
+    bad = []
+    for s in data.get("stories", []):
+        n = len(s.get("exam_qa", []))
+        if n != 2:
+            bad.append(f"{s.get('id')}: EN exam_qa {n} (want 2)")
+    bn_stories = bn.get("stories", {}) or {}
+    for sid, bs in bn_stories.items():
+        n = len(bs.get("exam_qa", []))
+        if n != 2:
+            bad.append(f"{sid}: BN exam_qa {n} (want 2)")
+    if bn.get("english_fallback_allowed") is not False:
+        bad.append("BN english_fallback_allowed is not False")
+    for s in data.get("stories", []):
+        if "image_url" not in s:
+            bad.append(f"{s.get('id')}: image_url key missing "
+                       "(converter must always emit it, never omit)")
+        elif not _valid_image_url(s.get("image_url")):
+            bad.append(f"{s.get('id')}: image_url "
+                       f"{str(s.get('image_url'))[:80]!r} is not '' or a "
+                       "valid http(s) URL")
+    for sid, bs in bn_stories.items():
+        if "image_url" not in bs:
+            bad.append(f"{sid}: BN image_url key missing")
+        elif not _valid_image_url(bs.get("image_url")):
+            bad.append(f"{sid}: BN image_url "
+                       f"{str(bs.get('image_url'))[:80]!r} is not '' or a "
+                       "valid http(s) URL")
+    if bad:
+        return False, ("renovated standard FAILED: " + "; ".join(bad[:8])
+                       + (f" (+{len(bad) - 8} more)" if len(bad) > 8 else ""))
+    n_stories = len(data.get("stories", []))
+    n_img = sum(1 for s in data.get("stories", [])
+                if s.get("image_url"))
+    return True, (f"renovated standard OK: {n_stories} stories x exactly "
+                  f"2 EN + 2 BN exam_qa, BN english_fallback_allowed False; "
+                  f"image_url on {n_img}/{n_stories} stories "
+                  f"({n_stories - n_img} '' — typographic banner)")
+
+
+def check_learning_module_v2(date_str, staging_dir):
+    """Learning-module v2 shape (learning_module.py::validate_module),
+    enforced ONLY when the staged edition declares
+    renovation_format == "learning-module-v2". Editions without that
+    key (every live edition before the format is proven, including
+    Edition 12) skip this entirely and keep the previous check-15
+    behaviour. Returns (ok, detail)."""
+    staging_dir = Path(staging_dir)
+    try:
+        data = load_json(staging_dir / f"data-{date_str}.json")
+    except Exception as exc:  # noqa: BLE001 - unreadable files fail the check
+        return False, f"cannot load staged data-{date_str}.json: {exc}"
+    if data.get("renovation_format") != "learning-module-v2":
+        return True, ("no learning-module-v2 format declared "
+                      "(renovation_format "
+                      f"{data.get('renovation_format')!r}) — v2 shape not "
+                      "applicable")
+    if not _ISO_RE.match(str(data.get("renovation_date") or "")):
+        return False, ("renovation_format is 'learning-module-v2' but "
+                       f"renovation_date is not ISO "
+                       f"({data.get('renovation_date')!r})")
+    try:
+        sys.path.insert(0, str(HERE))
+        import learning_module
+    except Exception as exc:  # noqa: BLE001 - missing module fails the check
+        return False, f"cannot import learning_module: {exc}"
+    headwords = [w.get("Headword / phrase", "")
+                 for w in data.get("words", [])]
+    problems = []
+    n_gk = 0
+    n_vocab = 0
+    for s in data.get("stories", []):
+        if s.get("learning_module") is None:
+            problems.append(f"{s.get('id')}: learning_module missing")
+            continue
+        probs = learning_module.validate_module(
+            s.get("learning_module"), s, headwords,
+            is_editorial=(s.get("category") == "Editorial & Opinion"))
+        problems += [f"{s.get('id')}: {p}" for p in probs]
+        lm = s.get("learning_module") or {}
+        if isinstance(lm.get("topic_gk"), dict):
+            n_gk += 1
+        n_vocab += len(lm.get("vocabulary", []) or [])
+    if problems:
+        return False, ("learning-module-v2 FAILED: " + "; ".join(problems[:8])
+                       + (f" (+{len(problems) - 8} more)"
+                          if len(problems) > 8 else ""))
+    n_stories = len(data.get("stories", []))
+    return True, (f"learning-module-v2 OK: {n_stories} stories x 11 keys "
+                  f"in order, 4 MCQs/story with answers + explanations "
+                  f"tracing to the story, GK entry on {n_gk}/{n_stories} "
+                  f"stories (marker on the rest), {n_vocab} matched "
+                  "vocabulary words")
+
+
 def check_15_validator(date_str, staging_dir):
     """Run tools/validate_editions.py on the converted edition in a
     scratch copy of the repo tree (live editions/ is never touched):
     copy editions/ + app/assets/editions/ + the validator + its
     allowlist to a temp dir, insert the staged data/bn/index files,
     run the validator there. Any FAIL (non-zero exit) is a gate
-    failure; validator FLAGs are informational, not failures."""
+    failure; validator FLAGs are informational, not failures.
+    The renovated-archive standard (exactly 2 EN + 2 BN exam_qa per
+    story, BN english_fallback_allowed False) is checked first, on
+    the staged files directly -- the local validator does not enforce
+    it, and the repo validator runs only after publish. When the
+    staged edition declares renovation_format 'learning-module-v2',
+    the v2 module shape is checked next (same order: a shape failure
+    fails the gate before the repo validator runs)."""
     staging_dir = Path(staging_dir)
     data_path = staging_dir / f"data-{date_str}.json"
     bn_path = staging_dir / f"bn-{date_str}.json"
@@ -734,6 +882,12 @@ def check_15_validator(date_str, staging_dir):
         return False, f"staged bn-{date_str}.json missing -- cannot run validator"
     if not index_path.exists():
         return False, f"staged index-{date_str}.json missing -- cannot run validator"
+    renov_ok, renov_detail = check_renovated_standard(date_str, staging_dir)
+    if not renov_ok:
+        return False, renov_detail
+    lm_ok, lm_detail = check_learning_module_v2(date_str, staging_dir)
+    if not lm_ok:
+        return False, lm_detail
     validator = TOOLS_DIR / "validate_editions.py"
     allowlist = TOOLS_DIR / "validate_editions_allowlist.json"
     if not validator.exists() or not allowlist.exists():
@@ -764,7 +918,8 @@ def check_15_validator(date_str, staging_dir):
                 n_flags = sum(1 for ln in out if ln.strip().startswith("- ")
                               and "longest-correct" in ln)
                 return True, (f"exit 0, ALL EDITIONS PASS on scratch copy "
-                              f"incl. staged {date_str}"
+                              f"incl. staged {date_str}; {renov_detail}; "
+                              f"{lm_detail}"
                               + (f"; {n_flags} longest-correct flags, all "
                                  "pre-existing live editions" if n_flags else ""))
             return False, (f"validator exit {proc.returncode} on scratch "

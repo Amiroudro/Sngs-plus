@@ -33,6 +33,7 @@ import '../models.dart';
 import '../services/share_service.dart';
 import '../state/app_state.dart';
 import '../widgets/app_theme.dart';
+import 'learning_module_section.dart';
 
 class StoryDetailScreen extends StatefulWidget {
   final Edition edition;
@@ -56,6 +57,17 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
 
   /// Collapsed "পুরো সারাংশ ও সূত্র দেখুন" section.
   bool _summaryOpen = false;
+
+  /// The banner image failed to load (offline, or the publisher's
+  /// server did not answer): the typographic banner takes over.
+  bool _bannerImageFailed = false;
+
+  /// True when the banner is the typographic hero (no image URL, or
+  /// the image failed): the headline lives INSIDE the banner, so the
+  /// standalone headline below is skipped — the headline renders
+  /// exactly once in every state.
+  bool get _showTypographicBanner =>
+      _story.bannerImageUrl == null || _bannerImageFailed;
 
   Story get _story => widget.story;
   Edition get _edition => widget.edition;
@@ -90,6 +102,10 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
     final paper = AppColors.storyPaperFor(brightness);
     final ink = AppColors.inkFor(brightness);
     final accent = AppColors.storyAccentFor(brightness);
+    // Text accent (Stage 4 token split): labels, tile values, Q→A
+    // answers and cloze text use this, not the fill accent — the
+    // fill accent as text is 2.10:1 on the dark story paper.
+    final textAccent = AppColors.storyTextAccentFor(brightness);
     final hairline = AppColors.storyHairlineFor(brightness);
     final bookmarked = _state.isStoryBookmarked(edition.date, story.id);
     final read = _state.isStoryRead(edition.date, story.id);
@@ -105,19 +121,24 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
         level: story.relevanceLevel,
         lang: lang,
       ),
-      const SizedBox(height: 14),
-      Hero(
-        tag: _heroTag,
-        child: Material(
-          type: MaterialType.transparency,
-          child: Text(
-            story.headlineIn(lang),
-            style: AppType.storyHeadline.copyWith(color: ink),
+      // With a banner image the headline sits below the meta line,
+      // as before. Without one it lives inside the typographic
+      // banner above — never in both places.
+      if (!_showTypographicBanner) ...[
+        const SizedBox(height: 14),
+        Hero(
+          tag: _heroTag,
+          child: Material(
+            type: MaterialType.transparency,
+            child: Text(
+              story.headlineIn(lang),
+              style: AppType.storyHeadline.copyWith(color: ink),
+            ),
           ),
         ),
-      ),
+      ],
       const SizedBox(height: 30),
-      _LabelHeading(label: t('oneLiner'), accent: accent),
+      _LabelHeading(label: t('oneLiner'), accent: textAccent),
       const SizedBox(height: 8),
       Text(
         storyDigits(layout.oneLiner, lang),
@@ -162,7 +183,7 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
       ],
       if (layout.whySentence != null) ...[
         const SizedBox(height: 30),
-        _LabelHeading(label: t('whyItMatters'), accent: accent),
+        _LabelHeading(label: t('whyItMatters'), accent: textAccent),
         const SizedBox(height: 8),
         Text(
           storyDigits(layout.whySentence!, lang),
@@ -178,7 +199,7 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
             pair: layout.qa[i],
             lang: lang,
             ink: ink,
-            accent: accent,
+            accent: textAccent,
           ),
           if (i < layout.qa.length - 1) ...[
             const SizedBox(height: 14),
@@ -216,6 +237,17 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
         open: _summaryOpen,
         onToggle: () => setState(() => _summaryOpen = !_summaryOpen),
       ),
+      // Learning module (2026-11-17 renovation): rendered only when
+      // this story carries one. Older data renders exactly as before —
+      // no crash, no empty sections.
+      if (story.learningModule != null) ...[
+        const SizedBox(height: 30),
+        LearningModuleSection(
+          module: story.learningModule!,
+          lang: lang,
+          state: _state,
+        ),
+      ],
       const SizedBox(height: 24),
     ];
 
@@ -250,10 +282,29 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
       body: SafeArea(
         bottom: false,
         child: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: sections,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _StoryBanner(
+                story: story,
+                lang: lang,
+                state: _state,
+                heroTag: _heroTag,
+                typographic: _showTypographicBanner,
+                onImageError: () {
+                  if (!_bannerImageFailed) {
+                    setState(() => _bannerImageFailed = true);
+                  }
+                },
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: sections,
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -326,6 +377,287 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
   }
 }
 
+/// Story banner (2.0): the source article's og:image HOTLINKED from
+/// the publisher's server, with clear attribution and tap-to-open
+/// the original — never downloaded, copied or hosted. When the story
+/// carries no image (old editions, editorial slot) or the image
+/// fails to load, the typographic hero banner takes over: forest
+/// block, hero number + headline in white. The banner is the
+/// `banner` shape role (box, full-bleed, hairline below) — no
+/// per-screen radii.
+class _StoryBanner extends StatelessWidget {
+  final Story story;
+  final String lang;
+  final AppState state;
+  final String heroTag;
+  final bool typographic;
+  final VoidCallback onImageError;
+
+  const _StoryBanner({
+    required this.story,
+    required this.lang,
+    required this.state,
+    required this.heroTag,
+    required this.typographic,
+    required this.onImageError,
+  });
+
+  /// The article URL the attribution bar opens: the v2 news source
+  /// URL when the module carries one, else the story's first source.
+  String? get _articleUrl {
+    final moduleUrl = story.learningModule?.newsSourceObj?.url;
+    if (moduleUrl != null && moduleUrl.trim().isNotEmpty) {
+      return moduleUrl.trim();
+    }
+    if (story.sources.isNotEmpty) return story.sources.first.url;
+    return null;
+  }
+
+  /// The publication credited for the image, same priority.
+  String? get _creditPublication {
+    final modulePub = story.learningModule?.newsSourceObj?.publication;
+    if (modulePub != null && modulePub.trim().isNotEmpty) {
+      return modulePub.trim();
+    }
+    if (story.sourcePublications.isNotEmpty) {
+      return story.sourcePublications.first;
+    }
+    return null;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final imageUrl = story.bannerImageUrl;
+    if (!typographic && imageUrl != null) {
+      return _ImageBanner(
+        imageUrl: imageUrl,
+        creditPublication: _creditPublication,
+        articleUrl: _articleUrl,
+        state: state,
+        onImageError: onImageError,
+      );
+    }
+    return _typographicBanner(context);
+  }
+
+  Widget _typographicBanner(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final fill = AppColors.primaryFor(brightness);
+    final accent = AppColors.accentFor(brightness);
+    // Banner text: white on forest in light mode; the dark theme's
+    // own ink (oat) on the lighter forest fill in dark mode — the
+    // same ink the headline would carry on paper in that mode, so it
+    // stays a token colour in both themes (never near-black on forest).
+    final bannerInk = brightness == Brightness.dark
+        ? AppColors.darkInk
+        : Colors.white;
+    final bannerSecondary = brightness == Brightness.dark
+        ? AppColors.darkInkSecondary
+        : Colors.white.withValues(alpha: 0.85);
+    final module = story.learningModule;
+    final figure = module?.heroFigure;
+    final figureLabel = module?.heroLabel;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Container(
+          color: fill,
+          padding: AppShapes.banner.padding,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                sectionName(sectionFor(story.category), lang),
+                style: TextStyle(
+                  fontSize: 12,
+                  height: 1.4,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 0.6,
+                  color: accent,
+                ),
+              ),
+              if (figure != null && figure.trim().isNotEmpty) ...[
+                const SizedBox(height: AppSpacing.s12),
+                Text(
+                  storyDigits(figure, lang),
+                  style: TextStyle(
+                    fontFamily: 'HindSiliguri',
+                    fontSize: 40,
+                    height: 1.1,
+                    fontWeight: FontWeight.w900,
+                    color: bannerInk,
+                  ),
+                ),
+                if (figureLabel != null &&
+                    figureLabel.trim().isNotEmpty) ...[
+                  const SizedBox(height: AppSpacing.s4),
+                  Text(
+                    storyDigits(figureLabel, lang),
+                    style: TextStyle(
+                      fontSize: 13,
+                      height: 1.5,
+                      color: bannerSecondary,
+                    ),
+                  ),
+                ],
+                const SizedBox(height: AppSpacing.s12),
+              ] else
+                const SizedBox(height: AppSpacing.s8),
+              Hero(
+                tag: heroTag,
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: Text(
+                    story.headlineIn(lang),
+                    style: AppType.storyHeadline.copyWith(
+                      color: bannerInk,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Container(height: 1, color: AppColors.hairlineFor(brightness)),
+      ],
+    );
+  }
+}
+
+/// The hotlinked image half of the banner: 16:9 image from the
+/// publisher's server + the attribution bar underneath. The image is
+/// never cached to disk by this app — `Image.network` holds it in
+/// memory only, and a failed load shows a compact forest placeholder
+/// for one frame, then the parent flips to the full typographic
+/// banner. The full banner must never render inside this 16:9 box:
+/// it is far taller and overflows (87px at 100% text, 792px at 200%).
+class _ImageBanner extends StatelessWidget {
+  final String imageUrl;
+  final String? creditPublication;
+  final String? articleUrl;
+  final AppState state;
+  final VoidCallback onImageError;
+
+  const _ImageBanner({
+    required this.imageUrl,
+    required this.creditPublication,
+    required this.articleUrl,
+    required this.state,
+    required this.onImageError,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final secondary = AppColors.secondaryFor(brightness);
+    final surface = AppColors.storySurfaceFor(brightness);
+    final hairline = AppColors.storyHairlineFor(brightness);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        AspectRatio(
+          aspectRatio: 16 / 9,
+          child: Image.network(
+            imageUrl,
+            fit: BoxFit.cover,
+            // While loading, a fixed-size forest-tinted block holds
+            // the space so the page never jumps when the image lands.
+            loadingBuilder: (context, child, progress) {
+              if (progress == null) return child;
+              return Container(
+                color: AppColors.primaryFor(brightness),
+                alignment: Alignment.center,
+                child: const CircularProgressIndicator(
+                  color: Colors.white,
+                  strokeWidth: 3,
+                ),
+              );
+            },
+            errorBuilder: (context, error, stackTrace) {
+              // Report once per build pass; the parent flips to the
+              // typographic banner (and suppresses the standalone
+              // headline) on the next frame. This frame shows a
+              // compact placeholder in the same 16:9 box, never the
+              // full banner and never a broken image.
+              WidgetsBinding.instance.addPostFrameCallback(
+                (_) => onImageError(),
+              );
+              return Container(
+                color: AppColors.primaryFor(brightness),
+                alignment: Alignment.center,
+                child: Icon(
+                  Icons.image_outlined,
+                  size: 32,
+                  color: Colors.white.withValues(alpha: 0.7),
+                ),
+              );
+            },
+          ),
+        ),
+        // Two rows, not one: at 100% text the credit + the
+        // open-original button do not fit one 390px row (the label
+        // alone needs ~185px and the credit ~170px), and squeezing
+        // the button into a flex share wraps its label. The credit
+        // sits on its own line with the button right-aligned below
+        // it — no truncation, no wrap, and at 200% text both rows
+        // wrap instead of overflowing.
+        Container(
+          color: surface,
+          padding: const EdgeInsets.fromLTRB(
+            AppSpacing.s16,
+            AppSpacing.s8,
+            AppSpacing.s16,
+            AppSpacing.s8,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.image_outlined, size: 14, color: secondary),
+                  const SizedBox(width: AppSpacing.s8),
+                  Expanded(
+                    child: Text(
+                      creditPublication != null
+                          ? '${state.t('lmPhotoCredit')}: $creditPublication'
+                          : state.t('lmPhotoCredit'),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 12,
+                        height: 1.4,
+                        color: secondary,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              if (articleUrl != null)
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () => openExternalUrl(articleUrl),
+                    style: TextButton.styleFrom(
+                      // 44px: the thumb-zone tap target. A 36px
+                      // button is wide enough but too short to tap
+                      // reliably one-handed.
+                      minimumSize: const Size(0, 44),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.s8,
+                      ),
+                    ),
+                    child: Text(state.t('lmOpenOriginal')),
+                  ),
+                ),
+            ],
+          ),
+        ),
+        Container(height: 1, color: hairline),
+      ],
+    );
+  }
+}
+
 /// Meta line: category · Bangla date · source, then the importance
 /// row ("পরীক্ষায় গুরুত্ব" + 3 dots + word). Never a raw ISO date
 /// or an English tag list.
@@ -349,6 +681,9 @@ class _MetaLine extends StatelessWidget {
     final brightness = Theme.of(context).brightness;
     final secondary = AppColors.secondaryFor(brightness);
     final accent = AppColors.storyAccentFor(brightness);
+    // Relevance dots keep the fill accent; the level word is text,
+    // so it takes the text accent (Stage 4 token split).
+    final textAccent = AppColors.storyTextAccentFor(brightness);
     final ink = AppColors.inkFor(brightness);
     final hairline = AppColors.storyHairlineFor(brightness);
     final meta = [
@@ -377,7 +712,13 @@ class _MetaLine extends StatelessWidget {
         ),
         if (filled > 0) ...[
           const SizedBox(height: 10),
-          Row(
+          // Wrap, not Row: at 200% text the label + dots + word do
+          // not fit one line, and the dots + word drop below instead
+          // of overflowing past the screen edge.
+          Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 8,
+            runSpacing: 4,
             children: [
               Text(
                 lang == 'bn' ? 'পরীক্ষায় গুরুত্ব' : 'Exam relevance',
@@ -387,8 +728,8 @@ class _MetaLine extends StatelessWidget {
                   color: ink,
                 ),
               ),
-              const SizedBox(width: 8),
               Row(
+                mainAxisSize: MainAxisSize.min,
                 children: List.generate(3, (i) {
                   final on = i < filled;
                   return Padding(
@@ -407,13 +748,12 @@ class _MetaLine extends StatelessWidget {
                   );
                 }),
               ),
-              const SizedBox(width: 4),
               Text(
                 levelWord,
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w800,
-                  color: accent,
+                  color: textAccent,
                 ),
               ),
             ],
@@ -468,7 +808,9 @@ class _FactTiles extends StatelessWidget {
     final surface = AppColors.storySurfaceFor(brightness);
     final secondary = AppColors.secondaryFor(brightness);
     final ink = AppColors.inkFor(brightness);
-    final accent = AppColors.storyAccentFor(brightness);
+    // Numeric tile values are text: the text accent, not the fill
+    // accent (Stage 4 token split).
+    final textAccent = AppColors.storyTextAccentFor(brightness);
     final hairline = AppColors.storyHairlineFor(brightness);
     final rows = <Widget>[];
     for (var i = 0; i < tiles.length; i += 2) {
@@ -516,7 +858,7 @@ class _FactTiles extends StatelessWidget {
                             fontSize: 20,
                             height: 1.3,
                             fontWeight: FontWeight.w800,
-                            color: pair[j].isNumeric ? accent : ink,
+                            color: pair[j].isNumeric ? textAccent : ink,
                           ),
                         ),
                         if (pair[j].original != null) ...[
@@ -702,6 +1044,9 @@ class _ClozeCard extends StatelessWidget {
     final ink = AppColors.inkFor(brightness);
     final secondary = AppColors.secondaryFor(brightness);
     final accent = AppColors.storyAccentFor(brightness);
+    // Blank + revealed answer are text: the text accent. The
+    // জানি / জানি না buttons keep the fill accent (Stage 4 split).
+    final textAccent = AppColors.storyTextAccentFor(brightness);
     final hairline = AppColors.storyHairlineFor(brightness);
     final result = state.recallResult(editionDate, storyId, index);
     return Container(
@@ -714,7 +1059,7 @@ class _ClozeCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _ClozeText(text: card.text, lang: lang, ink: ink, accent: accent),
+          _ClozeText(text: card.text, lang: lang, ink: ink, accent: textAccent),
           const SizedBox(height: 12),
           if (!revealed)
             SizedBox(
@@ -744,7 +1089,7 @@ class _ClozeCard extends StatelessWidget {
                       fontSize: 16,
                       height: 1.6,
                       fontWeight: FontWeight.w800,
-                      color: accent,
+                      color: textAccent,
                     ),
                   ),
                 ),
@@ -1133,7 +1478,7 @@ class _ShareCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final lang = state.lang;
-    const accent = AppColors.red;
+    const accent = AppColors.forest;
     return Container(
       width: 320,
       decoration: BoxDecoration(

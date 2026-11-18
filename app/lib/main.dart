@@ -159,7 +159,7 @@ class _LoadingScreen extends StatelessWidget {
       );
     }
     final dark = Theme.of(context).brightness == Brightness.dark;
-    final accent = AppColors.accentFor(Theme.of(context).brightness);
+    final primary = AppColors.primaryFor(Theme.of(context).brightness);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -170,7 +170,7 @@ class _LoadingScreen extends StatelessWidget {
               const SizedBox(height: AppSpacing.s16),
               Row(
                 children: [
-                  Container(width: 40, height: 40, color: accent),
+                  Container(width: 40, height: 40, color: primary),
                   const SizedBox(width: 12),
                   const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -194,7 +194,7 @@ class _LoadingScreen extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(width: 32, height: 40, color: accent),
+                    Container(width: 32, height: 40, color: primary),
                     const SizedBox(width: 12),
                     const Expanded(
                       child: Column(
@@ -255,7 +255,7 @@ class _AppShellState extends State<AppShell> {
   Widget build(BuildContext context) {
     final state = widget.state;
     final dark = Theme.of(context).brightness == Brightness.dark;
-    final accent = AppColors.accentFor(Theme.of(context).brightness);
+    const accent = AppColors.pink;
     final pages = [
       HomeScreen(state: state),
       CurrentAffairsScreen(state: state),

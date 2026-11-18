@@ -181,3 +181,39 @@ the gate — it never publishes on its own; auto-publish is the cron's
 separate step (write approval file + `publish_v2.py --publish`). The
 Edition 7 lesson (checks verify form, not content) still stands as a
 warning in the run report.
+
+### Addendum 2026-11-17 ~07:30 — renovated standard taught to v2 before Edition 11
+
+The gap flagged 2026-11-16 (local checker does not enforce the renovated
+standard) was real and would have bitten Edition 11 at 08:00 today. The
+15 Nov dry-run converter output carried EN exam_qa 5/5/3/0 and BN 6/6/4/0
+with no `english_fallback_allowed` flag — a faithful replica of the repo's
+`tools/validate_renovated_editions.py` (fetched live from the editions repo)
+fails it with 31 errors (30 Q&A + 1 fallback), while the 15-check gate
+passed it 15/15 because check 15 only ran the old `validate_editions.py`.
+Fixed before the run, in `convert_to_app.py` + `publish_v2.py`:
+- Converter builds exactly 2 EN + 2 BN exam_qa per story (BN why-QA counts
+  as one of the two); the editorial gets 2 mechanical Q&A derived from its
+  summary sentence + source publication; BN overlay sets
+  `english_fallback_allowed: false`. Three new converter self-checks fail
+  the conversion (exit 1) if any story yields fewer than 2.
+- Gate check 15 now enforces the same three rules on the staged files
+  before running the old validator; `CONTRACTS.md` check 15 updated.
+- Verified by CAT's own re-runs: converter 22/22 self-checks on the 15 Nov
+  run; gate 15/15 on a scratch copy with regenerated staging; replica
+  validator on the regenerated output: 0 Q&A/fallback errors (was 31).
+  `test_publish_v2.py` ALL PASS, `test_run_v2_daily.py` 38/38. Live
+  15 Nov staging regenerated with the fixed converter; live review file
+  hash unchanged.
+- RESIDUAL, NOT FIXED: the same replica run still fails the regenerated
+  output with 89 errors — all empty vocab/phrase enrichment fields
+  (20 words x Bangla phonetic/Synonyms/Antonyms/Collocations, 9 phrases x
+  Common collocations). v2 Step 10 produces none of these and no honest
+  source exists in the repo (converter report already lists this as
+  unmeetable); filling them needs a Step 10 enrichment source, not a
+  converter patch. A duplicate-headword risk also exists (15 Nov words
+  collided once: 'export' vs Edition 10) — Step 10 has no archive dedupe.
+  Edition 11 will therefore still trip the repo validator on word/phrase
+  fields after it publishes; that failure is visible (red X) but does not
+  block Pages or the app. Decision for Rudro: ship as-is and build the
+  Step 10 enrichment next, or hold v2 editions until it lands.

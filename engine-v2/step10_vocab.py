@@ -11,9 +11,15 @@ A curated, editable word/phrase bank lives in rules/vocab_bank.json
 Step 10 selects from the bank ONLY the words/phrases that occur
 verbatim in a kept article (fact quote first, else a sentence of the
 article body). Every selected item therefore traces to an article
-sentence, which is used as its example. Words/phrases that already
-appeared in a v1 edition are enriched with that edition's IPA,
-phonetics, synonyms, antonyms and collocations.
+sentence, which is used as its example. Words/phrases are enriched
+from rules/enrichment.json FIRST (curated IPA, Bangla phonetic,
+synonyms, antonyms, word family, collocations — checked against the
+Free Dictionary API and Datamuse), falling back to an earlier
+edition's record via load_v1_enrichment().
+
+A headword/phrase used in any earlier edition is never selected
+again (load_previous_headwords): the 17 Nov edition repeated
+"postpone" from 13 Nov, which the repo validator flagged.
 
 Revision words come from the previous editions' word lists: the most
 recent v2 dry-run vocab file if one exists, else the v1 editions dir.
@@ -30,6 +36,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 BANK_PATH = HERE / "rules" / "vocab_bank.json"
+ENRICHMENT_PATH = HERE / "rules" / "enrichment.json"
 EDITIONS_DIR = HERE.parent / "editions"
 
 N_WORDS = 20
@@ -87,6 +94,126 @@ def load_v1_enrichment(editions_dir=EDITIONS_DIR):
             if k and k not in phrases:
                 phrases[k] = rec
     return words, phrases
+
+
+def load_enrichment(enrichment_path=ENRICHMENT_PATH):
+    """Curated enrichment {"words": {...}, "phrases": {...}}.
+
+    Keys are lowercased headwords/phrases. Word entries carry
+    ipa / bangla_phonetic / synonyms / antonyms / word_family /
+    collocations (+ provenance); phrase entries carry collocations /
+    usage / exam_value (+ provenance). Returns ({}, {}) when the
+    file is absent, so the archive fallback still works.
+    """
+    p = Path(enrichment_path)
+    if not p.is_file():
+        return {}, {}
+    try:
+        data = json.loads(p.read_text(encoding="utf-8"))
+    except Exception:
+        return {}, {}
+    words = {str(k).strip().lower(): v
+             for k, v in (data.get("words", {}) or {}).items()}
+    phrases = {str(k).strip().lower(): v
+               for k, v in (data.get("phrases", {}) or {}).items()}
+    return words, phrases
+
+
+def load_previous_headwords(date, runs_dir=None,
+                            editions_dir=EDITIONS_DIR):
+    """Headwords/phrases used by editions strictly before `date`.
+
+    Scans v2 dry-run vocab files (runs/<d>/vocab-<d>.json) and the v1
+    editions dir (data-<d>.json). Returns (words, phrases) as sets of
+    lowercased headwords. Used to dedupe: a headword never repeats
+    across editions (17 Nov repeated "postpone" from 13 Nov).
+    """
+    words, phrases = set(), set()
+    if runs_dir is not None:
+        rd = Path(runs_dir)
+        if rd.is_dir():
+            for f in sorted(rd.glob("*/vocab-*.json")):
+                m = re.search(r"vocab-(\d{4}-\d{2}-\d{2})\.json$",
+                              f.name)
+                if not m or m.group(1) >= date:
+                    continue
+                try:
+                    data = json.loads(f.read_text(encoding="utf-8"))
+                except Exception:
+                    continue
+                for rec in data.get("words", []) or []:
+                    k = str(rec.get("Headword / phrase", "")).strip().lower()
+                    if k:
+                        words.add(k)
+                for rec in data.get("phrases", []) or []:
+                    k = str(rec.get("Phrase", "")).strip().lower()
+                    if k:
+                        phrases.add(k)
+    d = Path(editions_dir)
+    if d.is_dir():
+        for f in sorted(d.glob("data-*.json")):
+            m = re.search(r"data-(\d{4}-\d{2}-\d{2})\.json$", f.name)
+            if not m or m.group(1) >= date:
+                continue
+            try:
+                data = json.loads(f.read_text(encoding="utf-8"))
+            except Exception:
+                continue
+            for rec in data.get("words", []) or []:
+                k = str(rec.get("Headword / phrase", "")).strip().lower()
+                if k:
+                    words.add(k)
+            for rec in data.get("phrases", []) or []:
+                k = str(rec.get("Phrase", "")).strip().lower()
+                if k:
+                    phrases.add(k)
+    return words, phrases
+
+
+def _word_enrichment(w, curated_words, enr_words):
+    """Merged enrichment for one word, app field names.
+
+    Curated rules/enrichment.json wins; the v1 archive record fills
+    any field the curated entry leaves empty.
+    """
+    arch = enr_words.get(w.lower(), {}) or {}
+    cur = curated_words.get(w.lower(), {}) or {}
+    return {
+        "IPA": cur.get("ipa") or arch.get("IPA", ""),
+        "Bangla phonetic": (cur.get("bangla_phonetic")
+                            or arch.get("Bangla phonetic", "")),
+        "Synonyms": cur.get("synonyms") or arch.get("Synonyms", ""),
+        "Antonyms": cur.get("antonyms") or arch.get("Antonyms", ""),
+        "Word family / derivatives": (cur.get("word_family")
+                                      or arch.get(
+                                          "Word family / derivatives", "")),
+        "Collocations / patterns": (cur.get("collocations")
+                                    or arch.get(
+                                        "Collocations / patterns", "")),
+        "BCS / Bank relevance": arch.get("BCS / Bank relevance",
+                                         DEFAULT_BCS),
+    }
+
+
+def _phrase_enrichment(p, curated_phrases, enr_phrases):
+    """Merged enrichment for one phrase, app field names.
+
+    Curated rules/enrichment.json wins; the v1 archive record fills
+    any field the curated entry leaves empty.
+    """
+    arch = enr_phrases.get(p.lower(), {}) or {}
+    cur = curated_phrases.get(p.lower(), {}) or {}
+    return {
+        "Usage / register": (cur.get("usage")
+                             or arch.get("Usage / register", "")
+                             or DEFAULT_USAGE),
+        "Common collocations / grammar pattern": (
+            cur.get("collocations")
+            or arch.get("Common collocations / grammar pattern", "")),
+        "Exam value": (cur.get("exam_value")
+                       or arch.get("Exam value", "")
+                       or DEFAULT_EXAM_VALUE),
+    }
 
 
 def load_previous_words(date, runs_dir=None, editions_dir=EDITIONS_DIR):
@@ -247,7 +374,10 @@ def build_vocab(items, date, runs_dir=None, editions_dir=EDITIONS_DIR,
     "revision_words", "stats"} in the v1 app contract shape.
     """
     bank = bank or load_bank()
+    curated_words, curated_phrases = load_enrichment()
     enr_words, enr_phrases = load_v1_enrichment(editions_dir)
+    prev_words, prev_phrases = load_previous_headwords(
+        date, runs_dir=runs_dir, editions_dir=editions_dir)
 
     # Per-item text, computed once.
     per_item = []
@@ -283,32 +413,34 @@ def build_vocab(items, date, runs_dir=None, editions_dir=EDITIONS_DIR,
         matched.append((-len(hits), -len(w), w, entry, hits))
     matched.sort(key=lambda t: (t[0], t[1], t[2]))
 
+    # Dedupe: a headword used in any earlier edition never repeats.
+    # Filter BEFORE taking the top 20 so the next-ranked words fill
+    # the slots (2026-11-18: 17 Nov repeated "postpone" from 13 Nov).
+    deduped_words = [t for t in matched if t[2].lower() not in prev_words]
+
     words = []
-    for _neg_n, _neg_l, w, entry, hits in matched[:N_WORDS]:
+    for _neg_n, _neg_l, w, entry, hits in deduped_words[:N_WORDS]:
         it, example = hits[0]
-        enr = enr_words.get(w.lower(), {})
+        enr = _word_enrichment(w, curated_words, enr_words)
         words.append({
             "Headword / phrase": w,
-            "IPA": enr.get("IPA", ""),
-            "Bangla phonetic": enr.get("Bangla phonetic", ""),
+            "IPA": enr["IPA"],
+            "Bangla phonetic": enr["Bangla phonetic"],
             "Part of speech / type": entry.get("pos", ""),
             "Difficulty": entry.get("diff", ""),
             "Bangla meaning": entry.get("bn", ""),
             "English definition": entry.get("def", ""),
-            "Synonyms": enr.get("Synonyms", ""),
-            "Antonyms": enr.get("Antonyms", ""),
-            "Word family / derivatives": enr.get(
-                "Word family / derivatives", ""),
-            "Collocations / patterns": enr.get(
-                "Collocations / patterns", ""),
+            "Synonyms": enr["Synonyms"],
+            "Antonyms": enr["Antonyms"],
+            "Word family / derivatives": enr["Word family / derivatives"],
+            "Collocations / patterns": enr["Collocations / patterns"],
             "Original example": example,
             "Newspaper context note": it.get("headline", ""),
             "Source publication": it.get("source", ""),
             "Article headline": it.get("headline", ""),
             "Publication date": it.get("date", ""),
             "Direct source URL": it.get("url", ""),
-            "BCS / Bank relevance": enr.get("BCS / Bank relevance",
-                                            DEFAULT_BCS),
+            "BCS / Bank relevance": enr["BCS / Bank relevance"],
             "Priority": "High" if len(hits) >= 2 else "Medium",
         })
 
@@ -327,26 +459,29 @@ def build_vocab(items, date, runs_dir=None, editions_dir=EDITIONS_DIR,
         matched_ph.append((-len(hits), -len(p), p, entry, hits))
     matched_ph.sort(key=lambda t: (t[0], t[1], t[2]))
 
+    # Dedupe phrases the same way as words (see above).
+    deduped_phrases = [t for t in matched_ph
+                       if t[2].lower() not in prev_phrases]
+
     phrases = []
-    for _neg_n, _neg_l, p, entry, hits in matched_ph[:N_PHRASES]:
+    for _neg_n, _neg_l, p, entry, hits in deduped_phrases[:N_PHRASES]:
         it, exs = hits[0]
-        enr = enr_phrases.get(p.lower(), {})
+        enr = _phrase_enrichment(p, curated_phrases, enr_phrases)
         phrases.append({
             "Phrase": p,
             "Type": entry.get("type", ""),
             "Bangla meaning": entry.get("bn", ""),
             "English explanation": entry.get("explanation", ""),
-            "Usage / register": enr.get("Usage / register",
-                                        DEFAULT_USAGE),
+            "Usage / register": enr["Usage / register"],
             "Original example 1": exs[0] if exs else "",
             "Original example 2": exs[1] if len(exs) > 1 else "",
-            "Common collocations / grammar pattern": enr.get(
-                "Common collocations / grammar pattern", ""),
+            "Common collocations / grammar pattern":
+                enr["Common collocations / grammar pattern"],
             "Source publication": it.get("source", ""),
             "Article headline": it.get("headline", ""),
             "Publication date": it.get("date", ""),
             "Direct source URL": it.get("url", ""),
-            "Exam value": enr.get("Exam value", DEFAULT_EXAM_VALUE),
+            "Exam value": enr["Exam value"],
         })
 
     # ---- revision ----------------------------------------------------
@@ -369,6 +504,8 @@ def build_vocab(items, date, runs_dir=None, editions_dir=EDITIONS_DIR,
              "bank_phrases": len(bank.get("phrases", [])),
              "matched_words": len(matched),
              "matched_phrases": len(matched_ph),
+             "deduped_words": len(matched) - len(deduped_words),
+             "deduped_phrases": len(matched_ph) - len(deduped_phrases),
              "words": len(words),
              "phrases": len(phrases),
              "revision_words": len(revision),

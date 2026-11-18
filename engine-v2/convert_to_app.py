@@ -31,6 +31,15 @@ Usage:
   python3 convert_to_app.py --date 2026-11-15
   python3 convert_to_app.py --date 2026-11-15 --run-dir runs/2026-11-15 \
       --staging runs/2026-11-15/app-format
+  python3 convert_to_app.py --date 2026-11-17 --learning-modules \
+      --run-dir <scratch-run> --staging <scratch-staging>
+      # opt-in ONLY: attach the 11-section learning_module (v2) to
+      # every story (learning_module.py) and set renovation_format
+      # "learning-module-v2". Default OFF -- the live daily path
+      # (run_v2_daily.py) never passes the flag, so Edition 12 (18 Nov
+      # 08:00) and every unproven run convert exactly as before. The
+      # new format is wired into the live path only after a dry-run
+      # proves gate 15/15 with it (target: Edition 13 at the earliest).
 """
 import argparse
 import copy
@@ -42,6 +51,12 @@ import unicodedata
 from datetime import date as _date, datetime, timedelta
 from email.utils import parsedate_to_datetime
 from pathlib import Path
+
+try:
+    import learning_module
+except ImportError:  # imported from another cwd: engine-v2 dir is HERE
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import learning_module
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
@@ -424,7 +439,14 @@ def build_story_fields(item, article, day_iso, items_by_id):
     # --- what_happened: one bullet per quote.
     what_happened = quotes if quotes else [summary]
 
-    # --- exam_qa: filtered v2 Q&A (no HTML, no why-QA in EN, cap 5).
+    # --- exam_qa: filtered v2 Q&A (no HTML, no why-QA in EN).
+    # Renovated-archive standard (GitHub "Validate renovated
+    # editions", tools/validate_renovated_editions.py): exactly 2
+    # short Q&A per story, EN and BN. The BN why-QA counts as one
+    # of the two, so trim AFTER inserting it. Before this fix the
+    # converter capped at 5 (EN) / 5+why (BN) and the editorial had
+    # 0 -- the 15 Nov dry-run output would have failed the repo
+    # validator with 31 errors while the 15-check gate passed it.
     qa_all = items_by_id.get("_qa", {}).get(item["id"], [])
     exam_qa_en, exam_qa_bn = [], []
     why_qa = None
@@ -436,15 +458,17 @@ def build_story_fields(item, article, day_iso, items_by_id):
         qq, aa = clean(q.get("question", "")), clean(q.get("answer", ""))
         if not qq or not aa or "<" in qq or ">" in qq or "<" in aa or ">" in aa:
             continue
-        if len(exam_qa_en) < 5:
+        if len(exam_qa_en) < 2:
             exam_qa_en.append({"q": qq, "a": aa})
-        if len(exam_qa_bn) < 5:
+        if len(exam_qa_bn) < 2:
             exam_qa_bn.append({"q": bn_sanitise(qq), "a": bn_sanitise(aa)})
     if why_qa:
         wa = clean(why_qa.get("answer", ""))
         if wa:
             exam_qa_bn.insert(0, {"q": "এই খবরটি কেন গুরুত্বপূর্ণ?",
                                   "a": bn_sanitise(wa)})
+    exam_qa_en = exam_qa_en[:2]
+    exam_qa_bn = exam_qa_bn[:2]
 
     # --- recall cards: blank the value in its quote (EN) / the Bangla
     # number in the fact line (BN). Max 2 each.
@@ -494,10 +518,18 @@ def build_story_fields(item, article, day_iso, items_by_id):
             break
 
     src = (item.get("sources") or [{}])[0]
+    # Story banner image: the lead image URL (og:image) Step 1
+    # captured for the article — the URL only, never a downloaded
+    # file. Empty string when the article has none (the app shows a
+    # designed typographic banner instead). The key is always
+    # present, never null. Page item first, article record fallback.
+    image_url = (item.get("image_url") or article.get("image_url")
+                 or "")
     en_story = {
         "id": "",  # filled by caller (CA number)
         "headline": headline,
         "category": category_for(item),
+        "image_url": image_url,
         "event_date": event_date,
         "article_date": article_date,
         "summary": summary,
@@ -526,7 +558,7 @@ def build_story_fields(item, article, day_iso, items_by_id):
                              "original": bn_sanitise(orig)})
     bn_story = {
         "headline": bn_sanitise(headline),
-        "translation_status": "needs_review",
+        "image_url": image_url,
         "summary": bn_text,
         "why_it_matters": bn_why,
         "exam_facts": bn_text,
@@ -555,10 +587,30 @@ def build_editorial_story(ed_item, day_iso, ca_id):
     notes = ["EDITORIAL: structured fields are mechanically derived from "
              "the slot's single summary sentence (headline/source/url/ "
              "summary is all v2 carries for the মতামত slot); no figures, "
-             "no key people, no Q&A exist for it."]
+             "no key people, no Q&A exist for it -- except the 2 exam_qa "
+             "below, which are mechanically derived from the same "
+             "sentence + source (renovated-archive standard: exactly 2 "
+             "short Q&A per story)."]
     headline = clean(ed_item.get("headline", ""))
     summary_src = clean(ed_item.get("summary", ""))
     summary = f"Opinion: {summary_src}" if summary_src else headline
+    source_name = clean(ed_item.get("source", ""))
+    # Exactly 2 mechanical Q&A (renovated-archive standard): the
+    # editorial's main argument (= its one summary sentence) and its
+    # publication. No invented facts; if the source is missing, the
+    # second Q&A falls back to the headline.
+    ed_qa_en = [
+        {"q": "What is the main argument of this editorial?",
+         "a": summary_src if summary_src else headline},
+        {"q": "Which publication carried this editorial?",
+         "a": source_name if source_name else headline},
+    ]
+    ed_qa_bn = [
+        {"q": "এই সম্পাদকীয়ের মূল বক্তব্য কী?",
+         "a": bn_sanitise(summary_src) if summary_src else bn_sanitise(headline)},
+        {"q": "কোন প্রকাশনা এই সম্পাদকীয়টি প্রকাশ করেছে?",
+         "a": bn_sanitise(source_name) if source_name else bn_sanitise(headline)},
+    ]
     article_date = ed_item.get("_article_date", day_iso)
     keywords = []
     for w in content_words(headline):
@@ -570,6 +622,11 @@ def build_editorial_story(ed_item, day_iso, ca_id):
         "id": ca_id,
         "headline": headline,
         "category": "Editorial & Opinion",
+        # Editorial articles are never fetched by Step 1 (they are
+        # excluded from clusters), so no og:image is ever captured
+        # for the মতামত slot: always "" — the app shows its
+        # typographic banner. The key is always present, never null.
+        "image_url": "",
         "event_date": article_date,
         "article_date": article_date,
         "summary": summary,
@@ -589,14 +646,14 @@ def build_editorial_story(ed_item, day_iso, ca_id):
                        "value": clean(ed_item.get("source", "")),
                        "original": summary_src}],
         "what_happened": [summary_src] if summary_src else [headline],
-        "exam_qa": [],
+        "exam_qa": ed_qa_en,
         "recall_cards": [],
         "keywords": keywords,
         "detail": summary_src if summary_src else headline,
     }
     bn_story = {
         "headline": bn_sanitise(headline),
-        "translation_status": "needs_review",
+        "image_url": "",
         "summary": bn_sanitise(summary_src) if summary_src else bn_sanitise(headline),
         "why_it_matters": bn_sanitise(f"মতামত: {summary_src}"),
         "exam_facts": bn_sanitise(summary_src) if summary_src else bn_sanitise(headline),
@@ -607,7 +664,7 @@ def build_editorial_story(ed_item, day_iso, ca_id):
                        "value": bn_sanitise(clean(ed_item.get("source", ""))),
                        "original": bn_sanitise(summary_src)}],
         "what_happened": [bn_sanitise(summary_src)] if summary_src else [bn_sanitise(headline)],
-        "exam_qa": [],
+        "exam_qa": ed_qa_bn,
         "recall_cards": [],
         "keywords": [bn_sanitise(k) for k in keywords],
         "detail": bn_sanitise(summary_src) if summary_src else bn_sanitise(headline),
@@ -884,7 +941,7 @@ def pick_distractors(correct_text, pool, used=None):
     return out
 
 
-def convert(date_str, run_dir, staging_dir):
+def convert(date_str, run_dir, staging_dir, learning_modules=False):
     day = datetime.strptime(date_str, "%Y-%m-%d").date()
     day_iso = date_str
     run_dir = Path(run_dir)
@@ -1061,6 +1118,55 @@ def convert(date_str, run_dir, staging_dir):
     log(f"vocab: {len(words)} words, {len(phrases)} phrases, "
         f"{len(revision)} revision (verbatim from v2)")
 
+    # --- learning modules (v2, opt-in ONLY) ---------------------------
+    # Default OFF: the live daily path never passes --learning-modules,
+    # so the live conversion is byte-identical to before. When the flag
+    # IS passed (dry-runs only, until the format is proven), every
+    # story gets learning_module.py's 11-section module and the data
+    # file declares renovation_format "learning-module-v2". The gate
+    # (publish_v2.py check 15) validates the shape + answer traces.
+    lm_notes = {}
+    lm_gk_used = []
+    if learning_modules:
+        gk_entries = learning_module.load_gk_entries()
+        if not learning_module.GK_PATH.exists():
+            raise SystemExit(
+                "learning modules requested but the GK knowledge file "
+                f"is missing: {learning_module.GK_PATH} -- refusing to "
+                "emit GK sections without their sourced entries")
+        enrichment = learning_module.load_enrichment()
+        base_ctx = {
+            "questions": questions,
+            "vocab_words": words,
+            "enrichment": enrichment,
+            "gk_entries": gk_entries,
+            "page_items": news_items,
+            "articles": articles,
+            "edition_stories": stories_en,
+            "date": day_iso,
+        }
+        for i, item in enumerate(news_items):
+            ca = f"CA{i + 1:02d}"
+            ctx = dict(base_ctx)
+            ctx["ca_id"] = ca
+            module, notes = learning_module.build_module(
+                stories_en[i], stories_bn[ca], item, ctx)
+            stories_en[i]["learning_module"] = module
+            lm_notes[ca] = notes
+            if any("GK entry '" in n for n in notes):
+                lm_gk_used.append(ca)
+        ed_ctx = dict(base_ctx)
+        ed_ctx["ca_id"] = ed_ca
+        ed_ctx["is_editorial"] = True
+        module, notes = learning_module.build_module(
+            stories_en[-1], stories_bn[ed_ca], ed_item, ed_ctx)
+        stories_en[-1]["learning_module"] = module
+        lm_notes[ed_ca] = notes
+        log(f"learning modules: 15 stories, GK entry used on "
+            f"{lm_gk_used or 'none'}; vocabulary matched "
+            f"{sum(len(s.get('learning_module', {}).get('vocabulary', [])) for s in stories_en)} "
+            f"edition words in total")
+
     # --- MCQs ------------------------------------------------------------
     seed = int(date_str.replace("-", ""))
     rng = random.Random(seed)
@@ -1186,19 +1292,29 @@ def convert(date_str, run_dir, staging_dir):
                            "(runs/<date>/app-format/) and were never copied "
                            "to editions/."),
     }
+    if learning_modules:
+        # Learning-module v2 edition: the app renders the 11-section
+        # module per story; the gate validates its shape (check 15).
+        data["renovation_format"] = learning_module.RENOVATION_FORMAT
+        data["renovation_date"] = day_iso
     # counts.sources is not a v1 counts key; index carries sources count.
     bn = {
         "edition_date": day_iso,
         "status": "published",
         "language": "bn",
+        # Renovated-archive contract: the repo validator
+        # (tools/validate_renovated_editions.py) requires this flag to
+        # be exactly False -- English fallback is disabled for the BN
+        # overlay. The live v1 editions already carry it.
+        "english_fallback_allowed": False,
         "note": ("Bengali overlay rendered from the v2 engine's Bangla "
                  "fact lines (fact_lines) and sanitised v2 questions. "
                  "Figures, dates, names and money are rendered in "
                  "authentic Bengali: Bangla digits, Bangla month names, "
                  "Taka as টাকা/কোটি/লাখ, and Bengali transliterations of "
                  "proper nouns. Source publication names stay as in "
-                 "English. Where a field is missing here, the app falls "
-                 "back to the English source text."),
+                 "English. English fallback is disabled for this overlay "
+                 "(english_fallback_allowed is false)."),
         "stories": stories_bn,
         "mcqs": {str(m["no"]): m["_bn"] for m in mcqs},
     }
@@ -1215,7 +1331,11 @@ def convert(date_str, run_dir, staging_dir):
                    f"Rank-15 page item {dropped_story['id']} "
                    f"({dropped_story['headline'][:60]}) not carried -- 15-story "
                    "ceiling. EN prose is rendered from facts_en quotes; BN from "
-                   f"fact_lines. See conversion-report-{day_iso}.md."),
+                   f"fact_lines. See conversion-report-{day_iso}.md."
+                   + (" Learning modules (v2, 11 sections) attached to all "
+                      "15 stories; GK entry used on "
+                      f"{', '.join(lm_gk_used) if lm_gk_used else 'no story'}."
+                      if learning_modules else "")),
         "stories": counts["stories"],
         "words": counts["words"],
         "phrases": counts["phrases"],
@@ -1278,6 +1398,12 @@ def convert(date_str, run_dir, staging_dir):
     for path, val in _walk(bn):
         if path in ("note", "edition_date", "language"):
             continue
+        # image_url is a publisher URL, not Bengali prose: its Latin
+        # digits (e.g. /2026/11/17/ in a TBS image path) are not a
+        # hygiene violation. The gate validates it separately as a
+        # URL (check 15); the prose scan must not see it.
+        if path.endswith(".image_url"):
+            continue
         for kind, match in bn_violations(val):
             bn_viol.append((path, kind, match))
     check("BN overlay: no Bangla violations (python replica)",
@@ -1310,6 +1436,24 @@ def convert(date_str, run_dir, staging_dir):
               for k in ("headline", "summary", "why_it_matters",
                         "exam_facts", "figures")),
           "all stories carry headline/summary/why/exam_facts/figures")
+    # Renovated-archive standard (repo validator
+    # tools/validate_renovated_editions.py): exactly 2 EN + 2 BN
+    # short Q&A per story, BN english_fallback_allowed False. The
+    # converter enforces this at build time; this self-check fails
+    # the conversion (exit 1) if a story ever yields fewer than 2
+    # usable Q&A, instead of letting the gate auto-publish a file
+    # the repo validator then fails (run #17 lesson, 2026-11-17).
+    check("renovated standard: exactly 2 EN exam_qa per story",
+          all(len(s.get("exam_qa", [])) == 2 for s in stories_en),
+          str([(s["id"], len(s.get("exam_qa", []))) for s in stories_en
+               if len(s.get("exam_qa", [])) != 2]))
+    check("renovated standard: exactly 2 BN exam_qa per story",
+          all(len(bs.get("exam_qa", [])) == 2 for bs in stories_bn.values()),
+          str([(sid, len(bs.get("exam_qa", [])))
+               for sid, bs in stories_bn.items()
+               if len(bs.get("exam_qa", [])) != 2]))
+    check("renovated standard: BN english_fallback_allowed is False",
+          bn.get("english_fallback_allowed") is False)
     check("EN one_liners <= 20 words",
           all(len(s["one_liner"].split()) <= 20 for s in stories_en))
     check("key_facts 1-4 per story",
@@ -1321,18 +1465,65 @@ def convert(date_str, run_dir, staging_dir):
     check("every story has >=1 http source",
           all(s["sources"] and str(s["sources"][0].get("url", "")).startswith("http")
               for s in stories_en))
+    # Story banner image (Phase 0, ws5): the key is always present,
+    # a string, "" or a valid http(s) URL — never null, never a
+    # local path, never a data: URI, never a downloaded file.
+    def _img_ok(v):
+        return (isinstance(v, str)
+                and (v == "" or v.startswith(("http://", "https://"))))
+    bad_img = [(s["id"], s.get("image_url")) for s in stories_en
+               if not _img_ok(s.get("image_url"))]
+    bad_img += [(sid, bs.get("image_url")) for sid, bs in stories_bn.items()
+                if not _img_ok(bs.get("image_url"))]
+    check("every story carries image_url ('' or http(s) URL, never null/local/data:)",
+          not bad_img, str(bad_img))
+    # Learning-module v2 shape (opt-in only): the same validator the
+    # gate runs (publish_v2.py check 15) — 11 keys in order, 4 MCQs
+    # with traced answers + explanations, no unmarked empty GK.
+    if learning_modules:
+        lm_problems = []
+        edition_headwords = [w.get("Headword / phrase", "")
+                             for w in words]
+        for s in stories_en:
+            probs = learning_module.validate_module(
+                s.get("learning_module"), s, edition_headwords,
+                is_editorial=(s["id"] == ed_ca))
+            lm_problems += [f"{s['id']}: {p}" for p in probs]
+        check("learning_module v2 shape (11 keys, 4 MCQs, traced "
+              "answers, no unmarked empty GK)",
+              not lm_problems, str(lm_problems[:5]))
     report["self_checks"] = checks
     report["notes"].extend(
         f"{ca}: {'; '.join(n for n in story_notes[ca])}" for ca in story_notes
         if story_notes[ca])
+    if learning_modules:
+        report["notes"].append(
+            "learning-module v2: GK entry used on "
+            f"{', '.join(lm_gk_used) if lm_gk_used else 'no story'}; "
+            "every other story carries the per-section marker for "
+            "topic_gk/institutions/extra_knowledge (no GK entry in "
+            "rules/gk_knowledge.json for its topic — never guessed). "
+            f"Vocabulary matched "
+            f"{sum(len(s.get('learning_module', {}).get('vocabulary', [])) for s in stories_en)} "
+            "edition Step 10 words in total across 15 stories (most "
+            "stories match 0 by headline — the list is left short, "
+            "never padded). Written-prep analytical questions are the "
+            "Step 8 analytical where one exists for the story, else a "
+            "generic template question whose outline is the story's "
+            "own facts.")
+        report["notes"].extend(
+            f"{ca} [learning-module]: {'; '.join(ns)}"
+            for ca, ns in sorted(lm_notes.items()) if ns)
     report["empty_fields"] = [
         {"field": "key_people (EN + BN, all stories)",
          "why": "v2 carries no key_people anywhere (no Step 4/5/6 field, "
                 "no items-file field). Left empty; neither validator "
                 "requires it."},
-        {"field": "exam_qa / recall_cards for the editorial story (CA15)",
-         "why": "the v2 editorial slot has no questions and no numeric "
-                "facts to blank; lists left empty (shape-only checks)."},
+        {"field": "recall_cards for the editorial story (CA15)",
+         "why": "the v2 editorial slot has no numeric facts to blank; "
+                "the list is left empty (shape-only checks). Its exam_qa "
+                "is NOT empty: 2 mechanical Q&A derived from the summary "
+                "sentence + source (renovated-archive standard)."},
         {"field": "Synonyms / Antonyms / Word family / Collocations / IPA / "
                   "Bangla phonetic on today's 20 words",
          "why": "v2 Step 10 enriches only words that appeared in an "
@@ -1390,6 +1581,7 @@ def convert(date_str, run_dir, staging_dir):
         ["counts", "len() of each list; sources = deduped story sources"],
         ["story.id", "CA01..CA15 in at_a_glance (ranked) order; editorial last"],
         ["story.headline", "v2 page headline, verbatim"],
+        ["story.image_url", "v2 page item image_url (Step 1 og:image, the URL only, never downloaded); '' when the article has none; editorial always '' (editorial articles are never fetched)"],
         ["story.category", "v2 topic_primary mapped to the 7 fixed v1 categories (ENV->Bangladesh, SCI->Technology, SPORT/PEOPLE->Bangladesh if headline names Bangladesh else World)"],
         ["story.event_date / article_date", "articles file 'published' parsed to ISO; fallback edition date"],
         ["story.summary (EN)", "first 2 facts_en QUOTES (verbatim article sentences) whose numbers survive into the BN summary; <=90 words"],
@@ -1402,8 +1594,12 @@ def convert(date_str, run_dir, staging_dir):
         ["story.one_liner (EN)", "first fact quote truncated to 20 words"],
         ["story.key_facts (EN)", "facts_en: label = 'what' (<=12 words), value = value+unit or fact date or first number, original = verbatim quote"],
         ["story.what_happened (EN)", "one bullet per facts_en quote"],
-        ["story.exam_qa (EN)", "filtered v2 Q&A for the story (HTML dropped, why-QA excluded, cap 5)"],
+        ["story.exam_qa (EN)", "filtered v2 Q&A for the story (HTML dropped, why-QA excluded, exactly 2 -- renovated-archive standard)"],
         ["story.recall_cards (EN)", "first 2 facts with values: value blanked in its quote"],
+        ["story.learning_module (opt-in --learning-modules only)",
+         "11-section v2 module (learning_module.py): hero/news_summary/verified_facts from the story's own facts; topic_gk/institutions/extra_knowledge from rules/gk_knowledge.json (sourced entries) or the per-section marker; mcq_practice 4/story (usable Step 8 MCQs first, then synthesised from the story's own facts; editorial: 4 mechanical MCQs from the edition file itself); written_prep from the Step 8 analytical where one exists, else a templated question with the story's own facts as outline; vocabulary = matched edition Step 10 words only (headline or source URL); revision from the story's own Q&A/recall cards; deep_prep from the GK entry or a category-templated title list"],
+        ["renovation_format / renovation_date (opt-in only)",
+         "\"learning-module-v2\" + the edition date, when --learning-modules was passed"],
         ["story.keywords", "headline content words (len>=4, stopwords removed, max 5)"],
         ["story.detail (EN)", "all facts_en quotes joined"],
         ["BN story.headline", "v2 headline, bn_sanitised (digits/months/Tk) -- NOT translated"],
@@ -1412,7 +1608,8 @@ def convert(date_str, run_dir, staging_dir):
         ["BN story.figures", "bn_sanitised EN figures"],
         ["BN story.key_facts", "label/value = bn_sanitised EN key_fact; original = Bangla fact line"],
         ["BN story.what_happened", "v2 fact_lines"],
-        ["BN story.exam_qa", "sanitised v2 Q&A incl. the Bangla why-QA"],
+        ["BN story.exam_qa", "sanitised v2 Q&A incl. the Bangla why-QA as one of exactly 2 (renovated-archive standard)"],
+        ["BN english_fallback_allowed", "False -- renovated-archive contract, repo validator requires it"],
         ["BN story.recall_cards", "first 2 fact lines: first Bangla number blanked"],
         ["BN story.detail", "focus_paragraph (score-3) sanitised, else fact_lines joined"],
         ["words / phrases / revision_words", "verbatim from vocab-<date>.json (phrase ex2 repaired when empty -- see repairs)"],
@@ -1528,10 +1725,16 @@ def main(argv=None):
                     help="v2 run dir (default runs/<date>)")
     ap.add_argument("--staging", default="",
                     help="staging dir (default runs/<date>/app-format)")
+    ap.add_argument("--learning-modules", action="store_true",
+                    help="opt-in ONLY: attach the 11-section learning_module "
+                         "(v2) to every story and set renovation_format "
+                         "'learning-module-v2'. Default OFF -- the live "
+                         "daily path never passes this flag.")
     args = ap.parse_args(argv)
     run_dir = Path(args.run_dir) if args.run_dir else HERE / "runs" / args.date
     staging = Path(args.staging) if args.staging else run_dir / "app-format"
-    report, _data, _bn, _index = convert(args.date, run_dir, staging)
+    report, _data, _bn, _index = convert(args.date, run_dir, staging,
+                                         learning_modules=args.learning_modules)
     failed = [c for c in report["self_checks"] if not c["ok"]]
     return 1 if failed else 0
 

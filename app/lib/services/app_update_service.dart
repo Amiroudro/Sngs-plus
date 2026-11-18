@@ -59,7 +59,7 @@ class UpdateInfo {
 
 class AppUpdateService {
   /// This build's version code — keep in sync with pubspec.yaml.
-  static const int currentVersionCode = 2013;
+  static const int currentVersionCode = 2015;
 
   /// The one place the version-file URL lives. version.json sits
   /// next to the editions feed on the same Pages site.

@@ -372,7 +372,7 @@ void main() {
       await tester.tap(find.byIcon(Icons.volume_up));
       await _pump(tester);
       expect(tts.spoken, ['gratuity']);
-      expect(find.text('উচ্চারণ চালানো যায়নি'), findsNothing);
+      expect(find.text('উচ্চারণ চালাতে পারছি না।'), findsNothing);
       expect(tester.takeException(), isNull);
     });
 
@@ -386,7 +386,7 @@ void main() {
       await _pumpDetail(tester, state, tts: failing);
       await tester.tap(find.byIcon(Icons.volume_up));
       await _pump(tester);
-      expect(find.text('উচ্চারণ চালানো যায়নি'), findsOneWidget);
+      expect(find.text('উচ্চারণ চালাতে পারছি না।'), findsOneWidget);
       expect(tester.takeException(), isNull);
     });
 
@@ -435,32 +435,30 @@ void main() {
     testWidgets('due word listed, known / not-due / unanswered hidden',
         (tester) async {
       final state = await freshState();
-      final edition = state.findEdition('2026-11-15')!;
-      final dueWord = edition.words[0].headword;
-      final futureWord = edition.words[1].headword;
-      final knownWord = edition.words[2].headword;
-      final unansweredWord = edition.words[3].headword;
       final today = DateTime.now();
-      await state.setWordResult(edition.date, dueWord, false,
+      // 2026-11-08 is outside the 7-edition revision window now
+      // that 16 editions are bundled (window: 10..16 Nov), so the
+      // due / not-due / known words come from 2026-11-16 instead.
+      await state.setWordResult('2026-11-16', 'submerged', false,
           now: today.subtract(const Duration(days: 2)));
-      await state.setWordResult(edition.date, futureWord, false,
+      await state.setWordResult('2026-11-16', 'embankment', false,
           now: today); // due tomorrow, not due yet
-      await state.setWordResult(edition.date, knownWord, true);
+      await state.setWordResult('2026-11-16', 'equivalent', true);
 
       await tester.pumpWidget(
         MaterialApp(
           theme: buildLightTheme(),
-          home: EditionWordsScreen(edition: edition, state: state),
+          home: EditionWordsScreen(edition: edition8Nov, state: state),
         ),
       );
       await _pump(tester);
       expect(find.text('পুনরালোচনা (১)'), findsOneWidget);
       await tester.tap(find.text('পুনরালোচনা (১)'));
       await _pump(tester);
-      expect(find.text(dueWord), findsOneWidget);
-      expect(find.text(futureWord), findsNothing);
-      expect(find.text(knownWord), findsNothing);
-      expect(find.text(unansweredWord), findsNothing);
+      expect(find.text('submerged'), findsOneWidget);
+      expect(find.text('embankment'), findsNothing);
+      expect(find.text('equivalent'), findsNothing);
+      expect(find.text('annually'), findsNothing);
       expect(find.text('আজকের পড়া'), findsOneWidget);
       expect(tester.takeException(), isNull);
     });

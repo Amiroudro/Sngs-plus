@@ -50,14 +50,14 @@ class CollapsedWordRow extends StatelessWidget {
       key: ValueKey('word-row-${word.headword}'),
       margin: const EdgeInsets.symmetric(
         horizontal: AppSpacing.screen,
-        vertical: 4,
+        vertical: AppSpacing.s4,
       ),
       decoration: BoxDecoration(
         color: dark ? AppColors.darkSurfaceSoft : AppColors.surfaceSoft,
-        borderRadius: BorderRadius.circular(AppRadii.learn),
+        borderRadius: AppShapes.soft,
         border: Border(
           left: BorderSide(
-            color: open ? accent : Colors.transparent,
+            color: open ? AppColors.pink : Colors.transparent,
             width: 4,
           ),
         ),
@@ -66,7 +66,7 @@ class CollapsedWordRow extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: onToggle,
-          borderRadius: BorderRadius.circular(AppRadii.learn),
+          borderRadius: AppShapes.soft,
           child: Container(
             constraints: const BoxConstraints(minHeight: 56),
             padding: const EdgeInsets.symmetric(
@@ -135,11 +135,19 @@ class CollapsedWordRow extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 if (hasValue(word.partOfSpeech))
-                  Text(
-                    word.partOfSpeech!,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: dark ? AppColors.darkInkFaint : AppColors.inkFaint,
+                  // Flexible + ellipsis: a long part of speech
+                  // ("Verb (past participle) / Adjective") must never
+                  // push the row past the screen at 200% text scale.
+                  Flexible(
+                    child: Text(
+                      word.partOfSpeech!,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color:
+                            dark ? AppColors.darkInkFaint : AppColors.inkFaint,
+                      ),
                     ),
                   ),
                 const SizedBox(width: 4),
@@ -250,7 +258,7 @@ class WordCard extends StatelessWidget {
     this.highlight,
     this.margin = const EdgeInsets.symmetric(
       horizontal: AppSpacing.screen,
-      vertical: 4,
+      vertical: AppSpacing.s4,
     ),
   });
 
@@ -649,13 +657,13 @@ class _LearnChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = Theme.of(context).brightness == Brightness.dark;
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: AppShapes.chip.padding,
       decoration: BoxDecoration(
         color: dark ? AppColors.darkSurface : AppColors.surface,
         border: Border.all(
           color: dark ? AppColors.darkHairline : AppColors.hairline,
         ),
-        borderRadius: BorderRadius.circular(AppRadii.chip),
+        borderRadius: AppShapes.chip.radius,
       ),
       child: Text(
         label,

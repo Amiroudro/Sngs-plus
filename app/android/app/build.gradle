@@ -95,10 +95,11 @@ flutter {
 
 dependencies {}
 
-// Edition validators gate the RELEASE build as well as CI.
+// Phase 5: edition validators gate the RELEASE build (backstop — the
+// primary gate is tools/build_release.sh, which the build agent runs).
 // A bad edition, or a missing validator file, fails the build instead
-// of shipping. `dart` is resolved from FLUTTER_ROOT, then PATH;
- // python3 is expected on PATH.
+// of shipping. `dart` is resolved from FLUTTER_ROOT, then the local
+// ~/tools/flutter install, then PATH; python3 is expected on PATH.
 def findDart() {
     def flutterRoot = System.getenv('FLUTTER_ROOT')
     if (flutterRoot != null) {
@@ -120,10 +121,12 @@ def findDart() {
 
 tasks.register('validateEditions') {
     doLast {
-        // Both committed validators live under app/tools.
+        // Edition validator lives at the REPO root (sarangsho-plus/tools);
+        // the Bengali validator lives under app/tools.
+        def repoToolsDir = "${rootProject.projectDir}/../../tools"
         def appToolsDir = "${rootProject.projectDir}/../tools"
         exec {
-            commandLine 'python3', "${appToolsDir}/check_data.py"
+            commandLine 'python3', "${repoToolsDir}/validate_editions.py"
         }
         exec {
             commandLine findDart(), "${appToolsDir}/validate_bangla.dart"

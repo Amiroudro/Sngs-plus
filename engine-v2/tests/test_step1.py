@@ -513,6 +513,7 @@ def main():
     fake_pages = {
         "https://www.tbsnews.net/bangladesh/cabinet-approves-draft-ordinance-public-procurement-111":
             '<html><head><meta property="og:title" content="Cabinet approves draft ordinance on public procurement">'
+            '<meta property="og:image" content="https://cdn.tbsnews.net/images/cabinet-ordinance.jpg">'
             '<title>Cabinet Approves Draft Ordinance Public Procurement | The Business Standard</title></head></html>',
     }
     real_fetch, real_robots = common.fetch_text, common.robots_allowed
@@ -526,7 +527,9 @@ def main():
             if _fetch_calls[url] == 1:
                 raise Exception("boom once")
             return ('<html><head><meta property="og:title" '
-                    'content="Flaky story resolves on retry"></head></html>')
+                    'content="Flaky story resolves on retry">'
+                    '<meta property="og:image" '
+                    'content="/images/flaky-story.jpg"></head></html>')
         raise Exception("boom")
 
     try:
@@ -614,6 +617,27 @@ def main():
               arts[4]["title"])
         check("resolve_slug_titles: counts (2 resolved, 1 failed)",
               res == 2 and fail == 1, f"resolved={res} failed={fail}")
+        # og:image (Phase 0, ws5): the lead image URL comes from the
+        # SAME fetch as the title — no second request per article.
+        check("resolve_slug_titles: og:image captured for the resolved main",
+              arts[0].get("image_url")
+              == "https://cdn.tbsnews.net/images/cabinet-ordinance.jpg",
+              arts[0].get("image_url", ""))
+        check("resolve_slug_titles: relative og:image resolved against the article URL",
+              arts[4].get("image_url")
+              == "https://www.tbsnews.net/images/flaky-story.jpg",
+              arts[4].get("image_url", ""))
+        check("resolve_slug_titles: fetch failure leaves image_url empty",
+              arts[1].get("image_url", "") == "",
+              repr(arts[1].get("image_url")))
+        check("resolve_slug_titles: non-main member carries no image_url",
+              arts[2].get("image_url", "") == "",
+              repr(arts[2].get("image_url")))
+        check("resolve_slug_titles: no second HTTP request per article "
+              "(image comes from the title fetch)",
+              _fetch_calls.get(
+                  "https://www.tbsnews.net/bangladesh/cabinet-approves-draft-ordinance-public-procurement-111", 0) == 1,
+              f"calls={_fetch_calls}")
         # Evidence-quote invariant: decide the RESOLVED main; the
         # quote must be a verbatim substring of headline + summary.
         from step3_decide import decide
@@ -656,6 +680,49 @@ def main():
             "2026-11-15", path=Path(td) / "paste-2099-01-01.md")
         check("read_paste_file: missing file returns ([], False)",
               missing == [] and found2 is False, f"found={found2}")
+
+    # 7. og:image extraction (Phase 0, ws5 — story banner images).
+    # URL only, never downloaded; relative URLs resolved against the
+    # article URL; only http(s) accepted.
+    print("\n--- og:image extraction unit tests ---")
+    _base = "https://www.tbsnews.net/bangladesh/some-story-123"
+    check("extract_page_image: absolute og:image kept verbatim",
+          s1.extract_page_image(
+              '<meta property="og:image" content="https://cdn.tbsnews.net/img/x.jpg">',
+              _base) == "https://cdn.tbsnews.net/img/x.jpg")
+    check("extract_page_image: relative og:image resolved against the article URL",
+          s1.extract_page_image(
+              '<meta property="og:image" content="/images/x.jpg">',
+              _base) == "https://www.tbsnews.net/images/x.jpg")
+    check("extract_page_image: protocol-relative og:image inherits the article scheme",
+          s1.extract_page_image(
+              '<meta property="og:image" content="//cdn.example.com/x.jpg">',
+              _base) == "https://cdn.example.com/x.jpg")
+    check("extract_page_image: og:image:url (content-first attrs) accepted",
+          s1.extract_page_image(
+              '<meta content="https://cdn.example.com/y.jpg" property="og:image:url">',
+              _base) == "https://cdn.example.com/y.jpg")
+    check("extract_page_image: missing og:image returns ''",
+          s1.extract_page_image(
+              "<html><head><title>No image here</title></head></html>",
+              _base) == "")
+    check("extract_page_image: empty og:image returns ''",
+          s1.extract_page_image(
+              '<meta property="og:image" content="">', _base) == "")
+    check("extract_page_image: data: URI rejected (never a downloaded file)",
+          s1.extract_page_image(
+              '<meta property="og:image" content="data:image/png;base64,AAA">',
+              _base) == "")
+    check("extract_page_image: non-http(s) scheme rejected",
+          s1.extract_page_image(
+              '<meta property="og:image" content="ftp://example.com/x.jpg">',
+              _base) == "")
+    check("extract_page_image: HTML entities in the URL unescaped",
+          s1.extract_page_image(
+              '<meta property="og:image" content="https://cdn.example.com/x.jpg?a=1&amp;b=2">',
+              _base) == "https://cdn.example.com/x.jpg?a=1&b=2")
+    check("extract_page_image: empty HTML returns ''",
+          s1.extract_page_image("", _base) == "")
 
     print(f"\n=== RESULT: {len(PASSES)} PASS, {len(FAILURES)} FAIL ===")
     if FAILURES:

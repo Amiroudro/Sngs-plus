@@ -49,35 +49,19 @@ def load(p):
     return json.loads(Path(p).read_text(encoding="utf-8"))
 
 
-print("== 1. App edition assets match the canonical source editions ==")
-# The canonical editions/index.json carries counts and filenames. The
-# app index is intentionally compact (edition_date + status only), so
-# compare its date/status registry rather than requiring byte identity.
-source_index = load(SRC / "index.json")
-asset_index = load(ASSETS / "index.json")
-source_entries = source_index.get("editions", [])
-asset_entries = asset_index.get("editions", [])
-check(
-    [(e.get("edition_date"), e.get("status")) for e in source_entries] ==
-    [(e.get("edition_date"), e.get("status")) for e in asset_entries],
-    "app index dates/statuses match canonical index")
-check(
-    asset_index.get("correct_consecutive_editions") ==
-    source_index.get("correct_consecutive_editions"),
-    "app index carries canonical tracker count")
-check(
-    asset_index.get("correct_rule") == source_index.get("correct_rule"),
-    "app index carries canonical tracker rule")
-_asset_names = [e["file"] for e in source_entries]
+print("== 1. Asset copies byte-identical to source editions ==")
+# Edition-count-agnostic: iterate index.json instead of hard-coding dates.
+_index_pre = load(ASSETS / "index.json")
+_asset_names = ["index.json"] + [e["file"] for e in _index_pre["editions"]]
 for name in _asset_names:
     check(md5(SRC / name) == md5(ASSETS / name), f"{name} identical")
 # bn overlays live only in assets (no source copy): just check presence.
-for e in source_entries:
-    bn = "bn-" + e["edition_date"] + ".json"
+for e in _index_pre["editions"]:
+    bn = "bn-" + e["file"][5:]
     check((ASSETS / bn).exists(), f"{bn} present in assets")
 
-print("== 2. Editions parse; counts match canonical index.json ==")
-index = source_index
+print("== 2. Editions parse; counts match index.json ==")
+index = load(ASSETS / "index.json")
 editions = {}
 for entry in index["editions"]:
     d = load(ASSETS / entry["file"])

@@ -1,0 +1,124 @@
+{
+  "_readme": "Allowlist for tools/validate_editions.py. Each entry suppresses ONE kind of finding, in ONE file, only where the finding matches the given substring or kind. Nothing else is allowlisted. Do NOT add entries without a written reason in the entry itself. Same pattern as app/tools/validate_bangla_allowlist.json.",
+  "entries": [
+    {
+      "file": "editions/data-2026-11-02.json",
+      "kind": "pending-fix",
+      "reason": "PENDING HSC DATE FIX (awaits Rudro). The correct start date is 1 December 2026 (official Inter-Education Board Coordination Committee notice, 4 Nov 2026). The tested fix script fix-2026-11-02-hsc-date.py depends on the exact occurrence counts of these strings (headline, summary, exam_facts '2-31 December', figures, 'supplementary' word example, MCQ 16 option B + explanation). Phase 5 left them untouched and the validator enforces the baseline counts; it reports them as KNOWN-PENDING, never as a failure.",
+      "substring": "2 December"
+    },
+    {
+      "file": "editions/data-2026-11-02.json",
+      "kind": "pending-fix",
+      "reason": "Same pending HSC fix: MCQ 16 option B is the full date '2 December 2026'.",
+      "substring": "2 December 2026"
+    },
+    {
+      "file": "editions/data-2026-11-02.json",
+      "kind": "pending-fix",
+      "reason": "Same pending HSC fix: CA04 exam_facts carries the range '2-31 December'. The fix script replaces this range as one unit.",
+      "substring": "2-31 December"
+    },
+    {
+      "file": "assets/editions/bn-2026-11-02.json",
+      "kind": "pending-fix",
+      "reason": "Same pending HSC fix, Bengali overlay: headline, summary, figures, MCQ 16 explanation. Baseline counts enforced, reported as KNOWN-PENDING.",
+      "substring": "2 December"
+    },
+    {
+      "file": "assets/editions/bn-2026-11-02.json",
+      "kind": "pending-fix",
+      "reason": "Same pending HSC fix, Bengali overlay: MCQ 16 option B '2 December 2026'.",
+      "substring": "2 December 2026"
+    },
+    {
+      "file": "assets/editions/bn-2026-11-02.json",
+      "kind": "pending-fix",
+      "reason": "Same pending HSC fix, Bengali overlay: CA04 exam_facts range '2-31 December'.",
+      "substring": "2-31 December"
+    },
+    {
+      "file": "editions/data-2026-11-07.json",
+      "kind": "descriptive-date",
+      "reason": "CA14 story-source 'date' is not a date at all ('Current official conference information', the UNFCCC COP31 about-page). There is no date to normalize to; left as-is. The validator's ISO-date rule does not apply to it.",
+      "substring": "Current official conference information"
+    },
+    {
+      "file": "editions/data-2026-11-07.json",
+      "kind": "descriptive-date",
+      "reason": "Top-level source S22 'Publication date' is the same descriptive note ('Current official conference information'). No date to normalize.",
+      "substring": "Current official conference information"
+    },
+    {
+      "file": "editions/data-2026-11-07.json",
+      "kind": "descriptive-date",
+      "reason": "Top-level 'Event / reference date' values that name only a reference year (S16, S17, S18, S21) or a review window (C01-C07) carry no full date; normalizing them would invent one. Left as-is.",
+      "substring": null
+    },
+    {
+      "file": "editions/data-2026-11-07.json",
+      "kind": "descriptive-date",
+      "reason": "The 7 Nov Revision records (paradox, sovereign, refinancing, remuneration, mitigation) come from the pre-November external feed and carry the descriptive Publication date 'Earlier feed entry' instead of a date. No date exists to normalize to.",
+      "substring": "Earlier feed entry"
+    },
+    {
+      "file": "editions/data-2026-11-07.json",
+      "kind": "known-format",
+      "reason": "7 Nov revision words (paradox, sovereign, refinancing, remuneration, mitigation) come from the pre-November external feed, not from editions 1-6, and their 'Original example' is a quiz question ('What word describes...?') whose answer is the headword, not a sentence containing it. No source example exists to restore mechanically. Left as-is; the validator exempts Revision-type question-form examples.",
+      "substring": null
+    },
+    {
+      "file": null,
+      "kind": "known-content",
+      "reason": "LONGEST-OPTION TELL. In 7 of 8 editions the correct answer text is strictly the longest option in 12-16 of 25 MCQs (48-64% by characters). Shuffling moves texts between letters but cannot change which text is longest, so no shuffle can bring longest-correct to <=40%. Reaching it needs option-TEXT rewrites (shorten correct options / lengthen distractors) -- a content decision for Rudro, not a data-format fix. The validator reports the per-edition longest-correct count as a FLAG, not a failure.",
+      "substring": null
+    },
+    {
+      "file": null,
+      "kind": "by-design",
+      "reason": "STORY<->WORD URL REUSE. A word's 'Direct source URL' is the article the word came from, which is also (correctly) listed as its story's source -- so the same URL appears once per story and again per word/phrase drawn from it (e.g. 7 Nov TBS business-approval URL x11). That is provenance, not duplication. The validator fails only on duplicates WITHIN one story's source list or WITHIN the top-level sources list (the 3 all-null 7 Nov stub entries were the only true duplicates and were removed in Phase 5).",
+      "substring": null
+    }
+  ],
+  "headwords": {
+    "absconding": "participial adjective/verb as printed ('remains absconding'); MCQ 5, 2 Nov",
+    "affiliated": "adjective ('affiliated organisations')",
+    "alleged": "adjective ('alleged role')",
+    "authorised": "adjective ('authorised capital')",
+    "befitting": "adjective ('a befitting reply')",
+    "convicted": "past participle as printed; no MCQ reference",
+    "deceased": "adjective/noun ('the seven deceased')",
+    "defaced": "past participle as printed ('has been defaced'); MCQs 5, 15, 8 Nov",
+    "hazardous": "adjective ending in -s, not a plural",
+    "impaired": "adjective ('impaired balance sheet')",
+    "infamous": "adjective ending in -s, not a plural",
+    "integrated": "adjective ('integrated plan')",
+    "meeting": "base noun ('today's meeting' on garment workers' minimum wages); 17 Nov",
+    "outstanding": "adjective ('textbooks still outstanding')",
+    "proceeds": "plural noun ('proceeds of crime')",
+    "refinancing": "gerund noun (financial process noun); 7 Nov revision word",
+    "revolving": "adjective ('revolving fund')",
+    "stalled": "past participle as printed ('has stalled'); MCQ 6, 8 Nov",
+    "subdued": "adjective ('subdued sentiment')",
+    "unencumbered": "adjective ('unencumbered assets')",
+    "vandalised": "past participle as printed ('was vandalised'); MCQ 8, 8 Nov",
+    "stratified": "adjective ('stratified cross-validation'); 9 Nov",
+    "syllabus": "base noun, not a plural; 9 Nov",
+    "uninterrupted": "adjective ('uninterrupted supply'); 9 Nov",
+    "staggering": "adjective ('staggering figures'); 10 Nov",
+    "classified": "adjective ('classified investments'); 10 Nov",
+    "obligations": "plural noun ('debt obligations'); 11 Nov — precedent: 'proceeds'",
+    "deferred": "adjective ('90-day deferred payment'); 12 Nov",
+    "irregularities": "noun, plural of irregularity; 12 Nov",
+    "reserves": "noun ('gross reserves'); 13 Nov",
+    "unhedged": "adjective ('unhedged exposure'); 13 Nov",
+    "submerged": "adjective ('submerged homestead'); 16 Nov",
+    "concerted": "adjective ('concerted efforts'); 18 Nov",
+    "concentrated": "adjective ('concentrated in fewer companies'); 18 Nov"
+  },
+  "notes": [
+    "BN key_facts[].original is the raw figure text AS WRITTEN IN THE BN FILE (Bengali text, Bangla digits) -- never the English figure. Reason: tools/validate_bangla.dart scans every string in bn-*.json and flags Latin digits / 'Tk' / English months, so an English original would break Phase 4 validation and no allowlist entry may be added for it. The English figure stays available in the EN story's key_facts for runtime use. The validator enforces this (BN originals must contain no [0-9], no 'Tk', no English month). A one-off patch (2026-11-11, /tmp/fix-bn-originals.py) corrected the 458 BN tiles that the first Phase 5 apply had written with English originals; phase5-data.py now derives BN originals from BN text.",
+    "The 2 Nov CA04 story's new fields are deliberately empty (one_liner '', key_facts [], what_happened [], exam_qa [], recall_cards [], keywords ['jobs & education'], no 'detail' key) so that deriving them cannot duplicate the disputed '2 December' strings and break fix-2026-11-02-hsc-date.py. The validator accepts exactly that shape for that one story and fails any other story with empty key_facts/what_happened.",
+    "No other entries exist. In particular, no '[example]' marker, no non-ISO date, no non-fixed category/section, and no non-CA MCQ source is allowlisted anywhere -- the validator must fail on all of those."
+  ]
+}

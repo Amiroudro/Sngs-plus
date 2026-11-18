@@ -1,4 +1,4 @@
-/// Self-update tests (2013): the GitHub version check. The service
+/// Self-update tests (2015): the GitHub version check. The service
 /// uses an injected fetcher — no test ever touches the real network.
 /// Run with `flutter test test/app_update_test.dart`.
 library;
@@ -28,10 +28,10 @@ void main() {
   group('app update: parseVersionFile', () {
     test('parses a well-formed version file', () {
       final info = AppUpdateService.parseVersionFile(
-        versionJson(code: 2014, notes: 'Auto-switch fix.'),
+        versionJson(code: 2015, notes: 'Auto-switch fix.'),
       );
       expect(info, isNotNull);
-      expect(info!.versionCode, 2014);
+      expect(info!.versionCode, 2015);
       expect(info.versionName, '1.2.1');
       expect(info.apkUrl, contains('app-release.apk'));
       expect(info.notes, 'Auto-switch fix.');
@@ -39,12 +39,12 @@ void main() {
 
     test('accepts the version code as a string', () {
       final info = AppUpdateService.parseVersionFile(
-        '{"latest_version_code": "2014", '
+        '{"latest_version_code": "2015", '
         '"latest_version_name": "1.2.1", '
         '"apk_url": "https://example.com/app.apk"}',
       );
       expect(info, isNotNull);
-      expect(info!.versionCode, 2014);
+      expect(info!.versionCode, 2015);
     });
 
     test('rejects a missing version code', () {
@@ -60,19 +60,19 @@ void main() {
     test('rejects a missing or non-http apk url', () {
       expect(
         AppUpdateService.parseVersionFile(
-          versionJson(code: 2014, url: ''),
+          versionJson(code: 2015, url: ''),
         ),
         isNull,
       );
       expect(
         AppUpdateService.parseVersionFile(
-          versionJson(code: 2014, url: 'ftp://example.com/app.apk'),
+          versionJson(code: 2015, url: 'ftp://example.com/app.apk'),
         ),
         isNull,
       );
       expect(
         AppUpdateService.parseVersionFile(
-          '{"latest_version_code": 2014, '
+          '{"latest_version_code": 2015, '
           '"latest_version_name": "1.2.1"}',
         ),
         isNull,
@@ -89,11 +89,16 @@ void main() {
   group('app update: checkForUpdate', () {
     test('returns the info when a newer version is advertised', () async {
       final svc = AppUpdateService(
-        fetcher: (_) async => versionJson(code: 2014),
+        fetcher: (_) async => versionJson(
+          code: 2016,
+          name: '1.4.1',
+          url:
+              'https://github.com/Amiroudro/sarangsho-plus-editions/releases/download/v1.4.1/app-release.apk',
+        ),
       );
       final info = await svc.checkForUpdate();
       expect(info, isNotNull);
-      expect(info!.versionCode, 2014);
+      expect(info!.versionCode, 2016);
     });
 
     test('returns null when the advertised version is this build', () async {
@@ -125,8 +130,8 @@ void main() {
       expect(await svc.checkForUpdate(), isNull);
     });
 
-    test('current version code is 2013 (pubspec 1.2.1+2013)', () {
-      expect(AppUpdateService.currentVersionCode, 2013);
+    test('current version code is 2015 (pubspec 1.4.0+2015)', () {
+      expect(AppUpdateService.currentVersionCode, 2015);
     });
   });
 }

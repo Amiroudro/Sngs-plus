@@ -69,15 +69,29 @@ def run_cli(args):
         capture_output=True, text=True, timeout=120)
 
 
+def _inject_image_url(scratch):
+    """Bring the scratch 15 Nov staging to current converter output:
+    the staging predates image_url (Phase 0, ws5) and the current
+    converter always emits the key ("" when the article has no lead
+    image). Scratch copy only; live files untouched."""
+    for fname in ("data-2026-11-15.json", "bn-2026-11-15.json"):
+        p = scratch / "app-format" / fname
+        doc = json.loads(p.read_text(encoding="utf-8"))
+        if fname.startswith("data-"):
+            for s in doc.get("stories", []):
+                s.setdefault("image_url", "")
+        else:
+            for bs in (doc.get("stories", {}) or {}).values():
+                bs.setdefault("image_url", "")
+        p.write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n",
+                     encoding="utf-8")
+
+
 def main():
     print("== paste check (v2 read_paste_file) ==")
-    historical_paste = ROOT / "engine" / "paste" / "paste-2026-11-08.md"
-    if historical_paste.exists():
-        found, count = daily.paste_check("2026-11-08")
-        check("paste file 2026-11-08 found", found is True, f"got {found}")
-        check("paste count 2026-11-08 is 13", count == 13, f"got {count}")
-    else:
-        print("  SKIP historical 8 Nov paste fixture (paste/run outputs are not committed)")
+    found, count = daily.paste_check("2026-11-08")
+    check("paste file 2026-11-08 found", found is True, f"got {found}")
+    check("paste count 2026-11-08 is 13", count == 13, f"got {count}")
     found15, count15 = daily.paste_check("2026-11-15")
     check("no paste file 2026-11-15", found15 is False, f"got {found15}")
     check("paste count 2026-11-15 is 0", count15 == 0, f"got {count15}")
@@ -104,27 +118,6 @@ def main():
             "{not json", encoding="utf-8")
         ok, why = daily.read_approval(rd, "2026-11-15")
         check("malformed approval file -> not approved", ok is False, why)
-
-    # A clean clone intentionally excludes per-day run outputs. Keep the
-    # unit checks runnable there; historical gate/CLI integration checks
-    # run only when the 15 Nov run fixture has been supplied locally.
-    if not RUN_2026_11_15.exists():
-        before_clean = snapshot(LIVE_GUARDS)
-        print("== historical run integration ==")
-        print("  SKIP: engine-v2/runs/2026-11-15 is a generated run directory "
-              "and is intentionally not committed.")
-        proc = run_cli(["--date", "15-11-2026", "--reuse-run", "2026-11-15"])
-        check("bad --date exits non-zero", proc.returncode != 0)
-        proc = run_cli(["--run-dir", "/tmp/x"])
-        check("--run-dir without --reuse-run exits non-zero",
-              proc.returncode != 0)
-        check("today (Asia/Dhaka) is a valid date",
-              bool(daily.DATE_RE.match(daily.today_dhaka())),
-              daily.today_dhaka())
-        print("== live files untouched ==")
-        check("live guarded files unchanged", before_clean == snapshot(LIVE_GUARDS))
-        print(f"== {PASS} passed, {FAIL} failed ==")
-        return 0 if FAIL == 0 else 1
 
     print("== gate review parsing (scratch copy of the 15 Nov review) ==")
     gate_exists = daily.PUBLISH_SCRIPT.exists()
@@ -159,6 +152,7 @@ def main():
     with tempfile.TemporaryDirectory() as td:
         scratch = Path(td) / "2026-11-15"
         shutil.copytree(RUN_2026_11_15, scratch)
+        _inject_image_url(scratch)
         proc = run_cli(["--reuse-run", "2026-11-15",
                         "--run-dir", str(scratch)])
         out = proc.stdout + proc.stderr
@@ -208,6 +202,7 @@ def main():
     with tempfile.TemporaryDirectory() as td:
         scratch = Path(td) / "2026-11-15"
         shutil.copytree(RUN_2026_11_15, scratch)
+        _inject_image_url(scratch)
         proc = run_cli(["--reuse-run", "2026-11-15",
                         "--run-dir", str(scratch), "--dry-run"])
         out = proc.stdout + proc.stderr

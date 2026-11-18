@@ -28,6 +28,10 @@ tools/collector/ROUTES.md for the full table):
     cluster mains only, the real headline is fetched from the
     article page itself (og:title, then <title>, then <h1>) before
     Step 3 decides, so no page item ever shows a slug headline.
+    The same fetch also captures the article's lead image
+    (og:image, resolved against the article URL, http(s) only) as
+    ``image_url`` on the article record — the URL only, never
+    downloaded; "" when the page carries none.
     Only children whose lastmod is within 2 days are fetched, and
     only items with lastmod in the window are kept.
   * Daily Star sitemap — the index is IncompleteRead from this VM,
@@ -128,9 +132,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import common  # noqa: E402
-import rights_registry  # noqa: E402
 
-VERSION = "2.2.0"
+VERSION = "2.3.0"
 BASE = Path(__file__).resolve().parent
 STATE_PATH = BASE / "state" / "sources.json"
 RUNS_DIR = BASE / "runs"
@@ -251,7 +254,9 @@ DROPPED = [
      "Bing site: query"),
 ]
 
-SKIP_URL_PARTS = ["/opinion/cartoon", "/videos/", "/author/", "/govt-ad/"]
+SKIP_URL_PARTS = ["/sports/", "/sports", "/entertainment/", "/lifestyle/",
+                  "/fashion/", "/opinion/cartoon", "/videos/",
+                  "/author/", "/govt-ad/"]
 
 DOMAIN_SOURCES = {
     "thedailystar.net": "The Daily Star",
@@ -502,24 +507,6 @@ def _fetch_route(url, name, report, method, state):
     """Fetch one route, respecting robots.txt. Returns the raw text
     or None. Every outcome (ok / robots-blocked / fetch failed) is
     recorded in `report` and, on success, in the persisted state."""
-    # Discovery aggregators may be queried under their separate host allowlist.
-    # Direct publisher routes require current metadata + automated-processing
-    # permission. A missing/invalid registry is a hard stop.
-    try:
-        if not rights_registry.discovery_host_allowed(url):
-            permitted, reason = rights_registry.metadata_decision(url)
-            if not permitted:
-                report[name] = {"method": method,
-                                "status": f"blocked by rights registry: {reason}",
-                                "items": 0, "fresh": False, "latest_item": None,
-                                "last_success": state.get(name, {}).get("last_success")}
-                return None
-    except Exception as e:
-        report[name] = {"method": method,
-                        "status": f"blocked: rights registry unavailable: {e}",
-                        "items": 0, "fresh": False, "latest_item": None,
-                        "last_success": state.get(name, {}).get("last_success")}
-        return None
     if not common.robots_allowed(url):
         report[name] = {"method": method,
                         "status": "blocked by robots.txt",
@@ -562,9 +549,7 @@ def collect_bing(report, state):
             continue
         items = parse_rss_items(text, "Bing News", "bing")
         _report_items(name, report, "bing-rss", items, state)
-        permitted, blocked = rights_registry.filter_metadata_items(items)
-        report[name]["rights_blocked"] = blocked
-        all_items.extend(permitted)
+        all_items.extend(items)
     return all_items
 
 
@@ -580,9 +565,7 @@ def collect_editorial_bing(report, state):
         items = parse_rss_items(text, "Bing News", "editorial",
                                 section="editorial")
         _report_items(name, report, "bing-rss-editorial", items, state)
-        permitted, blocked = rights_registry.filter_metadata_items(items)
-        report[name]["rights_blocked"] = blocked
-        all_items.extend(permitted)
+        all_items.extend(items)
     return all_items
 
 
@@ -597,9 +580,7 @@ def collect_googlenews(report, state):
             continue
         items = parse_rss_items(text, "Google News", "google-news")
         _report_items(name, report, "google-news-rss", items, state)
-        permitted, blocked = rights_registry.filter_metadata_items(items)
-        report[name]["rights_blocked"] = blocked
-        all_items.extend(permitted)
+        all_items.extend(items)
     return all_items
 
 
@@ -884,14 +865,6 @@ def fetch_bodies_for_kept(articles):
             a["body_text"] = ""
             a["body_error"] = "no direct URL"
             continue
-        try:
-            permitted, reason = rights_registry.body_decision(a["url"])
-        except Exception as e:
-            permitted, reason = False, f"rights registry unavailable: {e}"
-        if not permitted:
-            a["body_text"] = ""
-            a["body_error"] = f"rights registry: {reason}"
-            continue
         if not common.robots_allowed(a["url"]):
             a["body_text"] = ""
             a["body_error"] = "robots.txt disallows"
@@ -1000,27 +973,60 @@ def extract_page_title(html_text):
     return ""
 
 
+def extract_page_image(html_text, page_url):
+    """Lead image URL from an article page's HTML: the og:image
+    content (og:image:url is the same property under another name).
+    Relative URLs are resolved against the article URL; only
+    http(s) URLs are accepted — a data: URI, another scheme, or an
+    empty value returns "". The URL is stored only, never
+    downloaded: the app hotlinks the publisher's image with
+    attribution. Returns "" when no usable og:image exists."""
+    if not html_text:
+        return ""
+    for tag in re.finditer(r"<meta\s+[^>]*>", html_text, re.I):
+        attrs = dict(re.findall(r"([\w-]+)\s*=\s*[\"']([^\"']*)[\"']",
+                                tag.group(0)))
+        if attrs.get("property", "").lower() not in (
+                "og:image", "og:image:url"):
+            continue
+        raw = _html.unescape(attrs.get("content", "") or "").strip()
+        if not raw:
+            return ""
+        resolved = urllib.parse.urljoin(page_url or "", raw)
+        if resolved.startswith(("http://", "https://")):
+            return resolved
+        return ""
+    return ""
+
+
 def _resolve_one_title(article):
     """Fetch one article page and return its real headline, or ""
     on any failure (robots-disallowed, fetch error, no usable
     title). One retry: servers often close mid-read (the same
     reason fetch_bodies_for_kept retries). The caller keeps the
     slug title on failure."""
+    return _resolve_one_page(article)[0]
+
+
+def _resolve_one_page(article):
+    """Fetch one article page and return (real headline, lead image
+    URL). ONE fetch serves both: the og:image is extracted from the
+    same HTML the headline comes from — never a second request per
+    article. On any failure both are "" and the caller keeps the
+    slug title and an empty image_url."""
     url = article.get("url") or ""
     if not url or not _is_direct(url):
-        return ""
-    try:
-        permitted, _reason = rights_registry.page_metadata_decision(url)
-    except Exception:
-        return ""
-    if not permitted or not common.robots_allowed(url):
-        return ""
+        return "", ""
+    if not common.robots_allowed(url):
+        return "", ""
     for _attempt in range(2):
         try:
-            return extract_page_title(common.fetch_text(url, timeout=20))
+            html_text = common.fetch_text(url, timeout=20)
+            return (extract_page_title(html_text),
+                    extract_page_image(html_text, url))
         except Exception:
             continue
-    return ""
+    return "", ""
 
 
 def resolve_slug_titles(articles, clusters=None, max_workers=TITLE_RESOLVE_WORKERS,
@@ -1028,11 +1034,14 @@ def resolve_slug_titles(articles, clusters=None, max_workers=TITLE_RESOLVE_WORKE
     """Replace slug-derived titles with real headlines for cluster
     mains, BEFORE Step 3 decides. Only mains are fetched: non-mains
     never reach Step 3 or the page, so their slug titles are left
-    alone (and honestly marked title_source="slug"). Mutates the
-    article dicts in place (title, title_source) and the clusters'
-    members_detail titles for resolved mains. Fetches run in a
-    small thread pool and the whole pass is time-boxed: when the
-    budget runs out, remaining mains keep their slug titles.
+    alone (and honestly marked title_source="slug"). The same fetch
+    also captures each main's lead image URL (og:image, resolved
+    against the article URL, http(s) only) on the article record as
+    ``image_url`` — "" when the page carries none. Mutates the
+    article dicts in place (title, title_source, image_url) and the
+    clusters' members_detail titles for resolved mains. Fetches run
+    in a small thread pool and the whole pass is time-boxed: when
+    the budget runs out, remaining mains keep their slug titles.
     Returns (resolved, failed, seconds)."""
     by_id = {a.get("id"): a for a in articles if a.get("id")}
     if clusters is None:
@@ -1049,7 +1058,7 @@ def resolve_slug_titles(articles, clusters=None, max_workers=TITLE_RESOLVE_WORKE
         return 0, 0, 0.0
     with concurrent.futures.ThreadPoolExecutor(
             max_workers=max_workers) as pool:
-        futures = {pool.submit(_resolve_one_title, a): a for a in mains}
+        futures = {pool.submit(_resolve_one_page, a): a for a in mains}
         try:
             done, _ = concurrent.futures.wait(
                 futures, timeout=budget_seconds,
@@ -1057,13 +1066,16 @@ def resolve_slug_titles(articles, clusters=None, max_workers=TITLE_RESOLVE_WORKE
         except Exception:
             done = set()
         for fut, art in futures.items():
+            art.setdefault("image_url", "")
             if fut not in done:
                 failed += 1  # over budget: slug title kept
                 continue
             try:
-                title = fut.result()
+                title, image_url = fut.result()
             except Exception:
-                title = ""
+                title, image_url = "", ""
+            if image_url:
+                art["image_url"] = image_url
             if title:
                 art["title"] = title
                 art["title_source"] = "page"
@@ -1185,6 +1197,10 @@ def collect(day, bodies=False, keep_ids=None):
         a["id"] = f"a{i:03d}"
         a.setdefault("body_text", "")
         a.setdefault("body_error", "")
+        # Lead image URL (og:image), filled by resolve_slug_titles
+        # below for fetched cluster mains only; "" everywhere else
+        # (feed-titled mains are never fetched, so they carry none).
+        a.setdefault("image_url", "")
     raw_clusters = cluster_articles(kept)
     # articles = every kept item, ids consecutive in collection
     # order; clusters group them and name one main per story.

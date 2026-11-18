@@ -124,7 +124,7 @@ class _ModeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final accent = AppColors.accentFor(Theme.of(context).brightness);
+    final primary = AppColors.primaryFor(Theme.of(context).brightness);
     return LearnSurface(
       margin: EdgeInsets.zero,
       child: Column(
@@ -135,9 +135,9 @@ class _ModeCard extends StatelessWidget {
               Container(
                 width: 48,
                 height: 48,
-                // Solid red tile, same language as the Home rows and
+                // Solid forest tile, same language as the Home rows and
                 // date rows — not a bordered box (v1.2.1 craft pass).
-                color: accent,
+                color: primary,
                 child: Icon(icon, size: 24, color: Colors.white),
               ),
               const SizedBox(width: 12),
@@ -320,13 +320,13 @@ class _QuizRunnerState extends State<_QuizRunner> {
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 4, 16, 0),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: AppShapes.small,
               child: LinearProgressIndicator(
                 value: (_index + 1) / widget.questions.length,
                 minHeight: 6,
                 backgroundColor:
                     dark ? AppColors.darkHairline : AppColors.hairline,
-                valueColor: AlwaysStoppedAnimation(accent),
+                valueColor: const AlwaysStoppedAnimation(AppColors.pink),
               ),
             ),
           ),
@@ -406,7 +406,7 @@ class _OptionRow extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: onTap,
-          borderRadius: BorderRadius.circular(AppRadii.button),
+          borderRadius: AppShapes.button.radius,
           child: Container(
             padding: const EdgeInsets.symmetric(
               horizontal: 14,
@@ -418,7 +418,7 @@ class _OptionRow extends StatelessWidget {
                       Theme.of(context).brightness,
                     ).withValues(alpha: 0.08)
                   : (dark ? AppColors.darkSurface : AppColors.surface),
-              borderRadius: BorderRadius.circular(AppRadii.button),
+              borderRadius: AppShapes.button.radius,
               border: Border.all(
                 color: selected
                     ? AppColors.accentFor(
@@ -452,10 +452,12 @@ class _OptionRow extends StatelessWidget {
                         : Colors.transparent,
                   ),
                   child: selected
-                      ? const Icon(
+                      ? Icon(
                           Icons.check,
                           size: 13,
-                          color: Colors.white,
+                          color: AppColors.onAccentFor(
+                            Theme.of(context).brightness,
+                          ),
                         )
                       : null,
                 ),

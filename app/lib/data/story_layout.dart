@@ -728,7 +728,22 @@ StoryLayout buildStoryLayout(Story story, String lang) {
   final authoredBullets = story.whatHappenedIn(lang);
   final bullets = <String>[];
   if (authoredBullets.isNotEmpty) {
-    bullets.addAll(authoredBullets.take(3));
+    // Authored bullets restate the lead verbatim in the data (e.g.
+    // bn 2026-11-17 CA01: what_happened[0] == the one-liner), so
+    // skip any bullet whose normalized text equals the one-liner or
+    // an earlier bullet — the mechanical branch below already dedups
+    // this way (see deriveWhy). The edition data is never edited for
+    // this: restating the lead is legitimate authored content.
+    final oneLinerNorm = normalizeFact(oneLiner);
+    for (final b in authoredBullets) {
+      if (bullets.length >= 3) break;
+      final trimmed = b.trim();
+      if (trimmed.isEmpty) continue;
+      final norm = normalizeFact(trimmed);
+      if (norm == oneLinerNorm) continue;
+      if (bullets.any((e) => normalizeFact(e) == norm)) continue;
+      bullets.add(trimmed);
+    }
   } else {
     for (final s in sentences.skip(1)) {
       if (bullets.length >= 3) break;

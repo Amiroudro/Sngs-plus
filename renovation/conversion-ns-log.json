@@ -1,0 +1,1352 @@
+[
+ {
+  "edition": "2026-11-01",
+  "story": "CA01",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-01",
+  "story": "CA02",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-01",
+  "story": "CA03",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-01",
+  "story": "CA04",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-01",
+  "story": "CA05",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-01",
+  "story": "CA06",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-01",
+  "story": "CA07",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-01",
+  "story": "CA08",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-01",
+  "story": "CA09",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-01",
+  "story": "CA10",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-01",
+  "story": "CA11",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-01",
+  "story": "CA12",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-01",
+  "story": "CA13",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-01",
+  "story": "CA14",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-01",
+  "story": "CA15",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-02",
+  "story": "CA01",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-02",
+  "story": "CA02",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-02",
+  "story": "CA03",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-02",
+  "story": "CA04",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-02",
+  "story": "CA05",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-02",
+  "story": "CA06",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-02",
+  "story": "CA07",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-02",
+  "story": "CA08",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-02",
+  "story": "CA09",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-02",
+  "story": "CA10",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-02",
+  "story": "CA11",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-02",
+  "story": "CA12",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-02",
+  "story": "CA13",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-02",
+  "story": "CA14",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-02",
+  "story": "CA15",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-03",
+  "story": "CA01",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-03",
+  "story": "CA02",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-03",
+  "story": "CA03",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-03",
+  "story": "CA04",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-03",
+  "story": "CA05",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-03",
+  "story": "CA06",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-03",
+  "story": "CA07",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-03",
+  "story": "CA08",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-03",
+  "story": "CA09",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-03",
+  "story": "CA10",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-03",
+  "story": "CA11",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-03",
+  "story": "CA12",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-03",
+  "story": "CA13",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-03",
+  "story": "CA14",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-03",
+  "story": "CA15",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-04",
+  "story": "CA01",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-04",
+  "story": "CA02",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-04",
+  "story": "CA03",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-04",
+  "story": "CA04",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-04",
+  "story": "CA05",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-04",
+  "story": "CA06",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-04",
+  "story": "CA07",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-04",
+  "story": "CA08",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-04",
+  "story": "CA09",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-04",
+  "story": "CA10",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-04",
+  "story": "CA11",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-04",
+  "story": "CA12",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-04",
+  "story": "CA13",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-04",
+  "story": "CA14",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-04",
+  "story": "CA15",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-05",
+  "story": "CA01",
+  "rule": "already-object",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-05",
+  "story": "CA02",
+  "rule": "already-object",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-05",
+  "story": "CA03",
+  "rule": "already-object",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-05",
+  "story": "CA04",
+  "rule": "already-object",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-05",
+  "story": "CA05",
+  "rule": "already-object",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-05",
+  "story": "CA06",
+  "rule": "already-object",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-05",
+  "story": "CA07",
+  "rule": "already-object",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-05",
+  "story": "CA08",
+  "rule": "already-object",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-05",
+  "story": "CA09",
+  "rule": "already-object",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-05",
+  "story": "CA10",
+  "rule": "already-object",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-05",
+  "story": "CA11",
+  "rule": "already-object",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-05",
+  "story": "CA12",
+  "rule": "already-object",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-05",
+  "story": "CA13",
+  "rule": "already-object",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-05",
+  "story": "CA14",
+  "rule": "already-object",
+  "publication": "IJR (reporting the Associated Press)"
+ },
+ {
+  "edition": "2026-11-05",
+  "story": "CA15",
+  "rule": "already-object",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-06",
+  "story": "CA01",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-06",
+  "story": "CA02",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-06",
+  "story": "CA03",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-06",
+  "story": "CA04",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-06",
+  "story": "CA05",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-06",
+  "story": "CA06",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-06",
+  "story": "CA07",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-06",
+  "story": "CA08",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-06",
+  "story": "CA09",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-06",
+  "story": "CA10",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-06",
+  "story": "CA11",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-06",
+  "story": "CA12",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-06",
+  "story": "CA13",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-06",
+  "story": "CA14",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-06",
+  "story": "CA15",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-07",
+  "story": "CA01",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-07",
+  "story": "CA02",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-07",
+  "story": "CA03",
+  "rule": "plain-string-first-source",
+  "publication": "World Bank"
+ },
+ {
+  "edition": "2026-11-07",
+  "story": "CA04",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-07",
+  "story": "CA05",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-07",
+  "story": "CA06",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-07",
+  "story": "CA07",
+  "rule": "plain-string-first-source",
+  "publication": "The Financial Express"
+ },
+ {
+  "edition": "2026-11-07",
+  "story": "CA08",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-07",
+  "story": "CA09",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-07",
+  "story": "CA10",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-07",
+  "story": "CA11",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-07",
+  "story": "CA12",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-07",
+  "story": "CA13",
+  "rule": "plain-string-first-source",
+  "publication": "Bangladesh Sangbad Sangstha (BSS)"
+ },
+ {
+  "edition": "2026-11-07",
+  "story": "CA14",
+  "rule": "plain-string-first-source",
+  "publication": "Reuters"
+ },
+ {
+  "edition": "2026-11-07",
+  "story": "CA15",
+  "rule": "plain-string-first-source",
+  "publication": "Reuters"
+ },
+ {
+  "edition": "2026-11-08",
+  "story": "CA01",
+  "rule": "plain-string-first-source",
+  "publication": "World Bank"
+ },
+ {
+  "edition": "2026-11-08",
+  "story": "CA02",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-08",
+  "story": "CA03",
+  "rule": "plain-string-first-source",
+  "publication": "Deccan Herald"
+ },
+ {
+  "edition": "2026-11-08",
+  "story": "CA04",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-08",
+  "story": "CA05",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-08",
+  "story": "CA06",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-08",
+  "story": "CA07",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-08",
+  "story": "CA08",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-08",
+  "story": "CA09",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-08",
+  "story": "CA10",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-08",
+  "story": "CA11",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-08",
+  "story": "CA12",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-08",
+  "story": "CA13",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-08",
+  "story": "CA14",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-09",
+  "story": "CA01",
+  "rule": "plain-string-first-source",
+  "publication": "Dhaka Tribune"
+ },
+ {
+  "edition": "2026-11-09",
+  "story": "CA02",
+  "rule": "plain-string-first-source",
+  "publication": "Dhaka Tribune"
+ },
+ {
+  "edition": "2026-11-09",
+  "story": "CA03",
+  "rule": "plain-string-first-source",
+  "publication": "Bioengineer.Org"
+ },
+ {
+  "edition": "2026-11-09",
+  "story": "CA04",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-09",
+  "story": "CA05",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-09",
+  "story": "CA06",
+  "rule": "plain-string-first-source",
+  "publication": "bdnews24.com"
+ },
+ {
+  "edition": "2026-11-09",
+  "story": "CA07",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-09",
+  "story": "CA08",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-09",
+  "story": "CA09",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-09",
+  "story": "CA10",
+  "rule": "plain-string-first-source",
+  "publication": "The Financial Express"
+ },
+ {
+  "edition": "2026-11-09",
+  "story": "CA11",
+  "rule": "plain-string-first-source",
+  "publication": "Dhaka Tribune"
+ },
+ {
+  "edition": "2026-11-09",
+  "story": "CA12",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-09",
+  "story": "CA13",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-10",
+  "story": "CA01",
+  "rule": "source_line-url-match",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-10",
+  "story": "CA02",
+  "rule": "source_line-url-match",
+  "publication": "Reuters"
+ },
+ {
+  "edition": "2026-11-10",
+  "story": "CA03",
+  "rule": "source_line-url-match",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-10",
+  "story": "CA04",
+  "rule": "source_line-url-match",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-10",
+  "story": "CA05",
+  "rule": "source_line-url-match",
+  "publication": "The Times of India"
+ },
+ {
+  "edition": "2026-11-10",
+  "story": "CA06",
+  "rule": "source_line-url-match",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-10",
+  "story": "CA07",
+  "rule": "source_line-url-match",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-10",
+  "story": "CA08",
+  "rule": "source_line-url-match",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-10",
+  "story": "CA09",
+  "rule": "source_line-url-match",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-10",
+  "story": "CA10",
+  "rule": "source_line-url-match",
+  "publication": "bdnews24.com"
+ },
+ {
+  "edition": "2026-11-10",
+  "story": "CA11",
+  "rule": "source_line-url-match",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-10",
+  "story": "CA12",
+  "rule": "source_line-url-match",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-10",
+  "story": "CA13",
+  "rule": "source_line-url-match",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-10",
+  "story": "CA14",
+  "rule": "source_line-url-match",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-11",
+  "story": "CA01",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-11",
+  "story": "CA02",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-11",
+  "story": "CA03",
+  "rule": "plain-string-first-source",
+  "publication": "United News of Bangladesh"
+ },
+ {
+  "edition": "2026-11-11",
+  "story": "CA04",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-11",
+  "story": "CA05",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-11",
+  "story": "CA06",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-11",
+  "story": "CA07",
+  "rule": "plain-string-first-source",
+  "publication": "The Financial Express"
+ },
+ {
+  "edition": "2026-11-11",
+  "story": "CA08",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-11",
+  "story": "CA09",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-11",
+  "story": "CA10",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-11",
+  "story": "CA11",
+  "rule": "plain-string-first-source",
+  "publication": "Dhaka Tribune"
+ },
+ {
+  "edition": "2026-11-11",
+  "story": "CA12",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-11",
+  "story": "CA13",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-11",
+  "story": "CA14",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-11",
+  "story": "CA15",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-12",
+  "story": "CA02",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-12",
+  "story": "CA05",
+  "rule": "plain-string-first-source",
+  "publication": "Yahoo News / AFP"
+ },
+ {
+  "edition": "2026-11-12",
+  "story": "CA06",
+  "rule": "plain-string-first-source",
+  "publication": "bdnews24.com"
+ },
+ {
+  "edition": "2026-11-12",
+  "story": "CA07",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-12",
+  "story": "CA08",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-12",
+  "story": "CA09",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-12",
+  "story": "CA10",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-12",
+  "story": "CA11",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-12",
+  "story": "CA12",
+  "rule": "plain-string-first-source",
+  "publication": "The Hindu"
+ },
+ {
+  "edition": "2026-11-12",
+  "story": "CA13",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-12",
+  "story": "CA14",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-12",
+  "story": "CA15",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-13",
+  "story": "CA01",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-13",
+  "story": "CA02",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-13",
+  "story": "CA03",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-13",
+  "story": "CA04",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-13",
+  "story": "CA05",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-13",
+  "story": "CA06",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-13",
+  "story": "CA07",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-13",
+  "story": "CA08",
+  "rule": "plain-string-first-source",
+  "publication": "MSN / UNB"
+ },
+ {
+  "edition": "2026-11-13",
+  "story": "CA09",
+  "rule": "plain-string-first-source",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-13",
+  "story": "CA10",
+  "rule": "plain-string-first-source",
+  "publication": "MSN / UNB"
+ },
+ {
+  "edition": "2026-11-13",
+  "story": "CA11",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-13",
+  "story": "CA12",
+  "rule": "plain-string-first-source",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-13",
+  "story": "CA13",
+  "rule": "plain-string-first-source",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-14",
+  "story": "CA01",
+  "rule": "already-object",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-14",
+  "story": "CA02",
+  "rule": "already-object",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-14",
+  "story": "CA03",
+  "rule": "already-object",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-14",
+  "story": "CA04",
+  "rule": "already-object",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-14",
+  "story": "CA05",
+  "rule": "already-object",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-14",
+  "story": "CA06",
+  "rule": "already-object",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-14",
+  "story": "CA07",
+  "rule": "already-object",
+  "publication": "The Daily Observer"
+ },
+ {
+  "edition": "2026-11-14",
+  "story": "CA08",
+  "rule": "already-object",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-14",
+  "story": "CA09",
+  "rule": "already-object",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-14",
+  "story": "CA10",
+  "rule": "already-object",
+  "publication": "The Daily Star"
+ },
+ {
+  "edition": "2026-11-14",
+  "story": "CA11",
+  "rule": "already-object",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-14",
+  "story": "CA12",
+  "rule": "already-object",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-15",
+  "story": "CA01",
+  "rule": "already-object",
+  "publication": "The Financial Express"
+ },
+ {
+  "edition": "2026-11-15",
+  "story": "CA02",
+  "rule": "already-object",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-15",
+  "story": "CA03",
+  "rule": "already-object",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-15",
+  "story": "CA04",
+  "rule": "already-object",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-15",
+  "story": "CA05",
+  "rule": "already-object",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-15",
+  "story": "CA06",
+  "rule": "already-object",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-15",
+  "story": "CA07",
+  "rule": "already-object",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-15",
+  "story": "CA08",
+  "rule": "already-object",
+  "publication": "Dhaka Tribune"
+ },
+ {
+  "edition": "2026-11-15",
+  "story": "CA09",
+  "rule": "already-object",
+  "publication": "The Financial Express"
+ },
+ {
+  "edition": "2026-11-15",
+  "story": "CA10",
+  "rule": "already-object",
+  "publication": "Dhaka Tribune"
+ },
+ {
+  "edition": "2026-11-15",
+  "story": "CA11",
+  "rule": "already-object",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-15",
+  "story": "CA12",
+  "rule": "already-object",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-15",
+  "story": "CA13",
+  "rule": "already-object",
+  "publication": "Fibre2Fashion"
+ },
+ {
+  "edition": "2026-11-15",
+  "story": "CA14",
+  "rule": "already-object",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-15",
+  "story": "CA15",
+  "rule": "already-object",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-16",
+  "story": "CA01",
+  "rule": "source-string-name-match",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-16",
+  "story": "CA02",
+  "rule": "source-string-name-match",
+  "publication": "BBC"
+ },
+ {
+  "edition": "2026-11-16",
+  "story": "CA03",
+  "rule": "source-string-name-match",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-16",
+  "story": "CA04",
+  "rule": "source-string-name-match",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-16",
+  "story": "CA05",
+  "rule": "source-string-name-match",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-16",
+  "story": "CA09",
+  "rule": "source-string-name-match",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-16",
+  "story": "CA10",
+  "rule": "source-string-name-match",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-16",
+  "story": "CA11",
+  "rule": "source-string-name-match",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-16",
+  "story": "CA12",
+  "rule": "source-string-name-match",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-16",
+  "story": "CA13",
+  "rule": "source-string-name-match",
+  "publication": "Prothom Alo English"
+ },
+ {
+  "edition": "2026-11-16",
+  "story": "CA14",
+  "rule": "source-string-name-match",
+  "publication": "The Business Standard"
+ },
+ {
+  "edition": "2026-11-16",
+  "story": "CA15",
+  "rule": "source-string-name-match",
+  "publication": "Prothom Alo English"
+ }
+]

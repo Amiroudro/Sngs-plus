@@ -11,6 +11,7 @@ as `python3 <module>.py` from that directory.
  "section": "", "published": "2026-11-14T05:30:00+00:00", "summary": "...",
  "found_via": "bing|google-news|rss|editorial|paste",
  "title_source": "feed|slug|page",
+ "image_url": "https://...|\"\"",
  "body_text": "", "body_error": ""}
 ```
 - `id`: `a001`, `a002`, ... in collection order.
@@ -24,6 +25,15 @@ as `python3 <module>.py` from that directory.
   drawn from the real headline. A main whose page fetch fails keeps
   its slug title (title_source stays "slug") — never invented.
 - `summary`: RSS description (≤600 chars) or paste note. Never full text.
+- `image_url`: the article's lead image URL (og:image) captured by
+  Step 1 from the SAME page fetch that resolves slug titles — the URL
+  only, never downloaded, never copied or hosted. Resolved against
+  the article URL (relative og:image becomes absolute); only http(s)
+  URLs are kept, anything else becomes "". Only cluster mains that
+  are actually fetched carry a non-empty value (feed-titled mains
+  are never fetched, so theirs is ""); "" means the app shows a
+  designed typographic banner instead. Present on every article
+  ("" when absent), never null.
 - `body_text`: filled ONLY for Step-3-kept articles (Step 4 fetches it).
   Empty string otherwise. `body_error` explains a failed fetch.
 
@@ -143,9 +153,12 @@ brackets. Bengali digits in Bangla text.
 ```
 - Item: {"id","headline","score","topic_primary","fact_lines":[...],
   "why_important","status","sources":[{"name","url"}],
+  "image_url": "https://...|\"\"",
   "facts_en":[{Step 4 fact, in English}...],
   "focus_paragraph": "..." (score-3 items only, when the fact list
   supports 3 sentences — see below)}.
+  `image_url` is carried through from the article record (Step 1
+  og:image, URL only); "" when the article has none.
 - Sections in the RULES.md order, empty ones omitted. Max 15 full items.
 - **Page order (Decision 5, 2026-11-15): score desc, then newest first**
   (by published time); collection order breaks exact ties only.
@@ -420,11 +433,40 @@ report must say so whenever an edition auto-publishes.
     `ANALYTICAL_MAX_PER_EDITION = 2`); SRS card count is recorded
     in the gate report (461 on 15 Nov). Analytical questions are
     NOT SRS cards.
-15. **Edition validator clean.** `python3
+15. **Edition validator clean + renovated standard.** `python3
     tools/validate_editions.py` passes on the converted edition
     (any FAIL is a gate failure; a longest-correct FLAG is not a
     substitute for check 8 — the validator's flag threshold is
-    informational, the gate's ≤10/25 is binding).
+    informational, the gate's ≤10/25 is binding). The gate ALSO
+    enforces the renovated-archive standard the local validator
+    does not check (repo `tools/validate_renovated_editions.py`,
+    run on every push to the editions repo): exactly 2 English +
+    2 Bangla short Q&A per story, and the BN overlay's
+    `english_fallback_allowed` exactly `false`. Added 2026-11-17:
+    the 15 Nov dry-run converter output carried 5 EN / 6 BN Q&A
+    per story (editorial 0, no fallback flag) and would have passed
+    this gate 15/15, then failed the repo validator with 31 errors
+    on Edition 11 — the converter now builds exactly 2+2 and this
+    check fails the gate if it ever does not. The gate ALSO checks
+   the story-banner image (Phase 0, ws5): every story in the
+   converted EN file AND the BN overlay carries the `image_url`
+   key (the converter never omits it, never null), and its value
+   is "" or a valid http(s) URL — a local path, a downloaded file
+   or a data: URI fails the gate. "" is a pass: the app shows a
+   designed typographic banner for stories with no lead image.
+   Added 2026-11-18 (learning-module v2, Rudro confirmed
+   2026-11-18 02:00): when the staged edition declares
+   `renovation_format` `"learning-module-v2"`, this check ALSO
+   validates the module shape (`learning_module.py::validate_module`,
+   single implementation shared with the converter self-check):
+   all 11 keys per story in order, `mcq_practice` exactly 4 per
+   story with answers + explanations that trace to the story's own
+   facts, and no empty-string GK without the exact per-section
+   marker. Editions without the key (including Edition 12) skip
+   the module shape entirely — the converter only attaches modules
+   under the opt-in `--learning-modules` flag, so the live daily
+   path is unaffected until the format is proven on dry-runs
+   (target: Edition 13 at the earliest).
 
 **Gate report.** `review-v2-<date>.json` records, per check:
 pass/fail + detail (counts, the longest-correct number, the letter

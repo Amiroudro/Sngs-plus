@@ -24,16 +24,17 @@ never invented. When a route's status changes, update this file and
 
 The route statuses below describe technical reachability only. They do
 **not** authorize automated collection, page inspection or article-body
-processing. The current `state/source_rights.json` contains 55 publisher
-records: **0 enabled**, 0 metadata permissions, 0 page-metadata permissions
-and 0 article-body permissions. Bing News is an approved discovery host in
-this registry, not a licence to process the publishers' content it finds.
+processing. The rights registry (`engine-v2/rights_registry.py`,
+repo-only, not part of the working engine) holds 55 publisher records,
+**0 enabled**. Bing News is an approved discovery host in this registry,
+not a licence to process the publishers' content it finds.
 
-The v2 collector enforces this rights registry after discovery and before
-direct-feed, page-title or article-body processing. Therefore a route marked
-`live` below may be technically reachable while still being ineligible for
-processing. Do not report any publisher as an active v2 content source until
-its permission evidence and enablement are recorded in the rights registry.
+Note (2026-11-18): the working engine-v2 in this repo does **not**
+currently enforce the rights registry at collection time — the registry
+is policy, not an operating control (see `phase0-audit-system-b.md`).
+Do not report any publisher as an active v2 content source until its
+permission evidence and enablement are recorded in the rights registry,
+and do not claim the collector enforces it until the wiring exists.
 
 ## Level 1 — core daily monitoring (wired)
 

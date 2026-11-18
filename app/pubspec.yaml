@@ -1,7 +1,7 @@
 name: sarangsho_plus
 description: "সারাংশ প্লাস — বাংলাদেশের সংবাদপত্র থেকে BCS/Bank পরীক্ষার প্রস্তুতির দৈনিক সংস্করণ। সম্পূর্ণ অফলাইন, বিনামূল্যে, লগইন ছাড়া।"
 publish_to: "none"
-version: 1.2.1+2013
+version: 1.4.0+2015
 
 environment:
   sdk: ">=3.4.0 <4.0.0"

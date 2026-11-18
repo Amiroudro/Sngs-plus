@@ -413,7 +413,7 @@ void main() {
       EditionDownloadService.defaultIndexUrl,
     );
     expect(
-      find.text('ডিফল্ট লিংক ব্যবহার হচ্ছে — নতুন সংস্করণ নিজে থেকেই আসবে।'),
+      find.text('ডিফল্ট লিংক চলছে। নতুন সংস্করণ নিজে থেকেই আসবে।'),
       findsOneWidget,
     );
 
@@ -444,7 +444,7 @@ void main() {
       EditionDownloadService.defaultIndexUrl,
     );
     expect(
-      find.text('ডিফল্ট লিংক ব্যবহার হচ্ছে — নতুন সংস্করণ নিজে থেকেই আসবে।'),
+      find.text('ডিফল্ট লিংক চলছে। নতুন সংস্করণ নিজে থেকেই আসবে।'),
       findsOneWidget,
     );
 
@@ -460,7 +460,7 @@ void main() {
     await _pump(tester);
     await tester.tap(find.text('নতুন সংস্করণ দেখুন'));
     await tester.pump();
-    expect(find.text('যাচাই করা হচ্ছে…'), findsOneWidget);
+    expect(find.text('যাচাই করছি…'), findsOneWidget);
     expect(tester.takeException(), isNull);
     // Leave the shared prefs clean for the other test files.
     await EditionDownloadService.setStoredIndexUrl('');

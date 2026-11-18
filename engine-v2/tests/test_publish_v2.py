@@ -31,6 +31,7 @@ No test touches the live editions/ tree or live runs/2026-11-15/.
 """
 import hashlib
 import json
+import re
 import shutil
 import subprocess
 import sys
@@ -64,53 +65,26 @@ def sha(path):
 
 
 def scratch_run_dir(tmp):
-    """Use the historical run when present; otherwise create a self-contained
-    synthetic fixture so a fresh clone can still exercise publish/refusal logic."""
+    """Copy the live 15 Nov run dir (+ staging) to tmp; return its path."""
     dst = tmp / f"runs-{DATE}"
-    if LIVE_RUN.exists():
-        shutil.copytree(LIVE_RUN, dst)
-        return dst
-    staging = dst / "app-format"
-    staging.mkdir(parents=True)
-    coverage = "14 Nov 2026, 7:47 AM to 2026-11-15, 7:47 AM (Asia/Dhaka)"
-    stories = [
-        {"id": f"CA{i:02d}", "sources": [
-            {"url": f"https://example.com/story/{i}"}]}
-        for i in range(1, 16)
-    ]
-    data = {
-        "status": "draft", "coverage": coverage, "stories": stories,
-        "counts": {"stories": 15, "words": 20, "phrases": 10,
-                   "mcqs": 25, "revision_words": 5},
-    }
-    bn = {"status": "draft", "stories": []}
-    staged_index = {"editions": [{
-        "edition_date": DATE, "file": f"data-{DATE}.json",
-        "status": "draft", "stories": 15, "words": 20, "phrases": 10,
-        "mcqs": 25, "revision_words": 5, "sources": 15,
-        "coverage": coverage,
-    }]}
-    for name, obj in ((f"data-{DATE}.json", data),
-                      (f"bn-{DATE}.json", bn),
-                      (f"index-{DATE}.json", staged_index)):
-        (staging / name).write_text(
-            json.dumps(obj, indent=2, ensure_ascii=False) + "\n",
-            encoding="utf-8")
-    (staging / f"edition-{DATE}.xlsx").write_bytes(b"synthetic test fixture")
-    (staging / f"edition-{DATE}.pdf").write_bytes(b"synthetic test fixture")
-    edition = {"stats": {"collected": 1514, "decisions": {
-        "keep": 128, "maybe": 300, "reject": 949}}}
-    (dst / f"edition-{DATE}.json").write_text(
-        json.dumps(edition, indent=2) + "\n", encoding="utf-8")
+    shutil.copytree(LIVE_RUN, dst)
     return dst
 
 
 def scratch_trees(tmp):
-    """Minimal scratch editions/app/tracker trees (index.json + tracker.md
-    copied from live -- read-only copies, never written back). The live
-    index already has a v1 entry for 2026-11-15 (Edition 9), so that
-    entry is stripped from the SCRATCH copies: the fixture simulates
-    the date not yet published, which is the state --publish expects."""
+    """Minimal scratch editions/app/tracker trees, seeded in the
+    synthetic PRE-V2 state (fixture, 2026-11-18) -- read-only copies,
+    never written back. The live index and v2 tracker have moved on
+    (Edition 11 published 17 Nov 2026 as the first v2 edition), so
+    copying them verbatim would make --publish see a SECOND v2
+    edition, not the first, and the first-v2 assertions in test 5
+    would fail. The fixture therefore strips every v2-gate entry
+    from the scratch index copies, restores the v1 tracker fields
+    (count 7/7), and seeds an empty v2 tracker (no rows, count
+    line at 0/7) derived from the live tracker. The live index
+    already has a v1 entry for 2026-11-15 (Edition 9), so that
+    entry is stripped too: the fixture simulates the date not yet
+    published, which is the state --publish expects."""
     ed = tmp / "editions"
     app_ed = tmp / "app" / "assets" / "editions"
     ed.mkdir(parents=True)
@@ -120,27 +94,63 @@ def scratch_trees(tmp):
                       app_ed / "index.json")):
         idx = json.loads(src.read_text(encoding="utf-8"))
         idx["editions"] = [e for e in idx["editions"]
-                           if e.get("edition_date") != DATE]
+                           if e.get("edition_date") != DATE
+                           and not str(e.get("review", "")).startswith("v2 gate")]
+        # Synthetic v1 state: the v1 run closed at 7/7; the first v2
+        # edition resets the count (see _v2_run_counter in
+        # publish_v2.py -- the first-v2 branch forces new_count 1,
+        # so the seeded count only documents the simulated state).
+        idx["correct_consecutive_editions"] = 7
+        idx["correct_rule"] = (
+            "A v1 edition counts as correct only if published after "
+            "passing the full 17-check v1 gate; the v1 run closed at "
+            "7/7 (Editions 9-15 Nov 2026, 17/17). "
+            "[synthetic v1-state fixture for the first-v2 publish test]")
         dst.write_text(json.dumps(idx, indent=2, ensure_ascii=False) + "\n",
                        encoding="utf-8")
     tracker = tmp / "tracker.md"
     # The v2 tracker (engine-v2/runs/tracker.md) is the one --publish
-    # writes; the v1 tracker is never touched by a v2 publish.
-    shutil.copy2(ENGINE_V2 / "runs" / "tracker.md", tracker)
+    # writes; the v1 tracker is never touched by a v2 publish. Seed
+    # it empty: same header as live, no data rows, count line at
+    # 0/7 -- --publish appends row #1 and rewrites the line to 1/7.
+    live_tracker = (ENGINE_V2 / "runs" / "tracker.md").read_text(encoding="utf-8")
+    lines = [ln for ln in live_tracker.splitlines()
+             if not re.match(r"^\| \d+ \|", ln)]
+    lines = [("**Correct consecutive editions so far: 0 / 7.**"
+              if ln.startswith("**Correct consecutive editions so far:")
+              else ln) for ln in lines]
+    if not any(ln.startswith("**Correct consecutive editions so far:")
+               for ln in lines):
+        lines.append("**Correct consecutive editions so far: 0 / 7.**")
+    tracker.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return ed, app_ed, tracker
 
 
 def test_gate_reproduction():
     print("== 1. gate reproduction on a scratch copy of runs/2026-11-15 ==")
     live_review = LIVE_RUN / f"review-v2-{DATE}.json"
-    if not live_review.exists():
-        print("  SKIP: historical per-day run outputs are intentionally not committed; "
-              "the clean-clone suite tests the publish/refusal path with synthetic fixtures.")
-        return
     before = sha(live_review)
     with tempfile.TemporaryDirectory(prefix="v2-pub-test-") as tmp:
         tmp = Path(tmp)
         run_dir = scratch_run_dir(tmp)
+        # The 15 Nov staging predates image_url (Phase 0, ws5): its
+        # stories carry no image_url key. The current converter
+        # always emits the key ("" when the article has no lead
+        # image), so the scratch copy is brought to current
+        # converter output before gating -- the live files are
+        # untouched, and the gate still sees exactly what a
+        # re-conversion of this run would produce (all "").
+        for fname in (f"data-{DATE}.json", f"bn-{DATE}.json"):
+            p = run_dir / "app-format" / fname
+            doc = json.loads(p.read_text(encoding="utf-8"))
+            if fname.startswith("data-"):
+                for s in doc.get("stories", []):
+                    s.setdefault("image_url", "")
+            else:
+                for bs in (doc.get("stories", {}) or {}).values():
+                    bs.setdefault("image_url", "")
+            p.write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n",
+                         encoding="utf-8")
         proc = run_pub(["--check", "--date", DATE,
                         "--run-dir", str(run_dir),
                         "--staging-dir", str(run_dir / "app-format")])
@@ -307,16 +317,7 @@ def test_publish_success_scratch():
         # the v1 7/7 count to 0 and makes the v2 run 1/7.
         idx_live = json.loads((ed / "index.json").read_text(encoding="utf-8"))
         idx_app = json.loads((app_ed / "index.json").read_text(encoding="utf-8"))
-        check(
-            [e.get("edition_date") for e in idx_live["editions"]] ==
-            [e.get("edition_date") for e in idx_app["editions"]],
-            "canonical and app index dates remain aligned")
-        live_v2 = next(e for e in idx_live["editions"] if e["edition_date"] == DATE)
-        app_v2 = next(e for e in idx_app["editions"] if e["edition_date"] == DATE)
-        check(live_v2 == app_v2, "new v2 index entry is identical in both indexes")
-        check(idx_live.get("correct_consecutive_editions") ==
-              idx_app.get("correct_consecutive_editions") == 1,
-              "v2 correct-consecutive count matches in both indexes")
+        check(idx_live == idx_app, "both scratch index.json files identical")
         entries = [e for e in idx_live["editions"] if e["edition_date"] == DATE]
         check(len(entries) == 1, "exactly one new index entry for the date")
         if entries:
@@ -405,19 +406,114 @@ def test_v2_run_counter():
     check(first is True, "review not STARTING with 'v2 gate' is not a v2 entry")
 
 
+def test_image_url_gate():
+    """Phase 0, ws5: check 15 (renovated standard) also enforces the
+    story-banner image_url rule on the staged files -- key always
+    present, "" or a valid http(s) URL; a local path, a downloaded
+    file or a data: URI fails the gate. Direct unit tests on
+    check_renovated_standard with minimal staging dirs (no live
+    files involved)."""
+    print("== 7. image_url gate validation (check 15, renovated standard) ==")
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("publish_v2", PUBLISH_V2)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+
+    def staging(tmp, en_images, bn_images, bn_fallback=False):
+        """Minimal staging: 2 stories, exactly 2 EN + 2 BN exam_qa,
+        fallback flag as given. en_images/bn_images map CA id ->
+        image_url value, or None to OMIT the key."""
+        st = Path(tmp) / "staging"
+        st.mkdir(parents=True, exist_ok=True)
+        qa = [{"q": "Q1?", "a": "A1"}, {"q": "Q2?", "a": "A2"}]
+        stories = []
+        for sid in ("CA01", "CA02"):
+            s = {"id": sid, "exam_qa": qa}
+            if sid in en_images:  # absent sid => key omitted (the case under test)
+                s["image_url"] = en_images[sid]
+            stories.append(s)
+        bn_stories = {}
+        for sid in ("CA01", "CA02"):
+            bs = {"exam_qa": qa}
+            if sid in bn_images:  # absent sid => key omitted
+                bs["image_url"] = bn_images[sid]
+            bn_stories[sid] = bs
+        (st / f"data-{DATE}.json").write_text(
+            json.dumps({"stories": stories}, ensure_ascii=False),
+            encoding="utf-8")
+        (st / f"bn-{DATE}.json").write_text(
+            json.dumps({"stories": bn_stories,
+                        "english_fallback_allowed": bn_fallback},
+                       ensure_ascii=False), encoding="utf-8")
+        return st
+
+    def check_case(label, en_images, bn_images, want_ok,
+                   want_text=""):
+        with tempfile.TemporaryDirectory(prefix="v2-img-test-") as tmp:
+            st = staging(tmp, en_images, bn_images)
+            ok, detail = mod.check_renovated_standard(DATE, st)
+            good = (ok is want_ok
+                    and (not want_text or want_text in detail))
+            check(good, f"{label} (ok={ok}, detail={detail[:120]!r})")
+
+    # Valid: "" (typographic banner) and a real https URL pass.
+    check_case("valid image_url: '' + https URL pass",
+               {"CA01": "", "CA02": "https://cdn.example.com/x.jpg"},
+               {"CA01": "", "CA02": "https://cdn.example.com/x.jpg"},
+               True, "image_url on 1/2 stories")
+    # Missing key fails (converter must never omit it).
+    check_case("missing image_url key fails the gate",
+               {"CA01": ""},  # CA02 key omitted
+               {"CA01": "", "CA02": ""},
+               False, "image_url key missing")
+    check_case("missing BN image_url key fails the gate",
+               {"CA01": "", "CA02": ""},
+               {"CA01": ""},  # CA02 BN key omitted
+               False, "image_url key missing")
+    # Bad values fail.
+    for bad in ("/local/path.jpg", "images/x.jpg",
+                "data:image/png;base64,AAA", "ftp://example.com/x.jpg",
+                "file:///tmp/x.jpg", "javascript:alert(1)"):
+        check_case(f"bad image_url fails the gate: {bad!r}",
+                   {"CA01": bad, "CA02": ""},
+                   {"CA01": "", "CA02": ""},
+                   False, "not '' or a valid http(s) URL")
+    check_case("bad BN image_url fails the gate",
+               {"CA01": "", "CA02": ""},
+               {"CA01": "C:\\images\\x.jpg", "CA02": ""},
+               False, "not '' or a valid http(s) URL")
+    check_case("null image_url fails the gate",
+               {"CA01": None, "CA02": ""},
+               {"CA01": "", "CA02": ""},
+               False, "not '' or a valid http(s) URL")
+    # _valid_image_url unit checks.
+    check(mod._valid_image_url("") is True, "_valid_image_url('') is True")
+    check(mod._valid_image_url("http://cdn.example.com/x.jpg") is True,
+          "_valid_image_url(http URL) is True")
+    check(mod._valid_image_url("https://cdn.example.com/x.jpg") is True,
+          "_valid_image_url(https URL) is True")
+    check(mod._valid_image_url("https://") is False,
+          "_valid_image_url('https://' — no host) is False")
+    check(mod._valid_image_url(None) is False,
+          "_valid_image_url(None) is False")
+    check(mod._valid_image_url(123) is False,
+          "_valid_image_url(123) is False")
+
+
 def main():
     global _LIVE_UNTOUCHED
     _live_paths = [ROOT / "editions" / "index.json",
                    ROOT / "app" / "assets" / "editions" / "index.json",
-                   ROOT / "engine-v1" / "tracker.md",
+                   ROOT / "engine" / "runs" / "tracker.md",
                    ENGINE_V2 / "runs" / "tracker.md",
                    LIVE_RUN / f"review-v2-{DATE}.json"]
-    _before = {str(p): sha(p) for p in _live_paths if p.exists()}
+    _before = {str(p): sha(p) for p in _live_paths}
     test_gate_reproduction()
     test_publish_refusals()
     test_publish_success_scratch()
     test_v2_run_counter()
-    _after = {str(p): sha(p) for p in _live_paths if p.exists()}
+    test_image_url_gate()
+    _after = {str(p): sha(p) for p in _live_paths}
     _LIVE_UNTOUCHED = _before == _after
     # Live-untouched check runs here (not inside test 5): the flag is
     # only computed after the whole suite has run.

@@ -271,6 +271,7 @@ def _normalise_item(item, date):
                           or item.get("why_important_bn") or "").strip(),
         "status": (item.get("status") or "happened").strip(),
         "sources": norm_sources,
+        "image_url": item.get("image_url", "") or "",
         "date": (item.get("date") or date or "").strip(),
         "published": (item.get("published") or "").strip(),
         "ranking_triple": ranking_triple_for(item, fact_lines),
@@ -335,6 +336,7 @@ def _render_item(norm):
         "why_important": why,
         "status": norm["status"],
         "sources": norm["sources"],
+        "image_url": norm["image_url"],
         "facts_en": norm.get("facts_en") or [],
     }
     if norm["ranking_triple"]:
