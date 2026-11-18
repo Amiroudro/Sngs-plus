@@ -37,6 +37,55 @@ class EditionLoadResult {
   });
 }
 
+/// A Bangla overlay is usable only when every story in the edition has
+/// an explicit human-approved status. Automated/structural checks are
+/// not approval. The all-or-nothing rule matches the read-only API.
+bool isBanglaOverlayApprovedForEdition(
+  Edition edition,
+  dynamic rawStories,
+) {
+  if (rawStories is! Map || rawStories.length != edition.stories.length) {
+    return false;
+  }
+  if (edition.stories.isEmpty) return false;
+  for (final story in edition.stories) {
+    final raw = rawStories[story.id];
+    if (raw is! Map || raw['translation_status'] != 'approved') {
+      return false;
+    }
+  }
+  return true;
+}
+
+void _applyBanglaOverlay(Edition edition, Map<String, dynamic> bnJson) {
+  final rawStories = bnJson['stories'];
+  if (!isBanglaOverlayApprovedForEdition(edition, rawStories)) {
+    edition.banglaPendingReview = true;
+    return;
+  }
+
+  edition.banglaPendingReview = false;
+  final bnStories = rawStories as Map;
+  for (final story in edition.stories) {
+    final raw = bnStories[story.id];
+    if (raw is Map) {
+      story.bn = BnStory.fromJson(Map<String, dynamic>.from(raw));
+    }
+  }
+
+  // MCQ translations are released only with the fully approved story
+  // overlay for the same edition.
+  final bnMcqs = bnJson['mcqs'];
+  if (bnMcqs is Map) {
+    for (final mcq in edition.mcqs) {
+      final raw = bnMcqs['${mcq.no}'];
+      if (raw is Map) {
+        mcq.bn = BnMcq.fromJson(Map<String, dynamic>.from(raw));
+      }
+    }
+  }
+}
+
 Future<EditionLoadResult> loadEditions() async {
   final indexRaw = await rootBundle.loadString('assets/editions/index.json');
   final indexJson = jsonDecode(indexRaw) as Map<String, dynamic>;
@@ -70,28 +119,7 @@ Future<EditionLoadResult> loadEditions() async {
       final bnRaw =
           await rootBundle.loadString('assets/editions/${entry.bnFile}');
       final bnJson = jsonDecode(bnRaw) as Map<String, dynamic>;
-      final bnStories = bnJson['stories'];
-      if (bnStories is Map) {
-        for (final story in edition.stories) {
-          final bs = bnStories[story.id];
-          if (bs is Map<String, dynamic>) {
-            story.bn = BnStory.fromJson(bs);
-          } else if (bs is Map) {
-            story.bn = BnStory.fromJson(Map<String, dynamic>.from(bs));
-          }
-        }
-      }
-      final bnMcqs = bnJson['mcqs'];
-      if (bnMcqs is Map) {
-        for (final mcq in edition.mcqs) {
-          final bm = bnMcqs['${mcq.no}'];
-          if (bm is Map<String, dynamic>) {
-            mcq.bn = BnMcq.fromJson(bm);
-          } else if (bm is Map) {
-            mcq.bn = BnMcq.fromJson(Map<String, dynamic>.from(bm));
-          }
-        }
-      }
+      _applyBanglaOverlay(edition, bnJson);
     } catch (_) {
       // No Bengali overlay for this edition — English source is used.
     }
@@ -174,19 +202,7 @@ Future<List<Edition>> loadDownloadedEditions({
           if (await bnFile.exists()) {
             final bnJson = jsonDecode(await bnFile.readAsString())
                 as Map<String, dynamic>;
-            final bnStories = bnJson['stories'];
-            if (bnStories is Map) {
-              for (final story in edition.stories) {
-                final bs = bnStories[story.id];
-                if (bs is Map<String, dynamic>) {
-                  story.bn = BnStory.fromJson(bs);
-                } else if (bs is Map) {
-                  story.bn = BnStory.fromJson(
-                    Map<String, dynamic>.from(bs),
-                  );
-                }
-              }
-            }
+            _applyBanglaOverlay(edition, bnJson);
           }
         } catch (_) {
           // No / bad overlay — the edition still shows in English.
