@@ -26,6 +26,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sarangsho_plus/data/loader.dart';
 import 'package:sarangsho_plus/models.dart';
@@ -265,6 +266,19 @@ class _MockImageClient implements HttpClient {
 
 void main() {
   setUpAll(() async {
+    // Flutter widget tests use the test font unless app fonts are loaded
+    // explicitly. Load the same bundled Bengali families used by the app
+    // before capturing story goldens, otherwise Bengali glyphs render as
+    // missing-glyph boxes and the screenshots do not represent the app.
+    final hindSiliguri = FontLoader('HindSiliguri')
+      ..addFont(rootBundle.load('assets/fonts/HindSiliguri-Regular.ttf'))
+      ..addFont(rootBundle.load('assets/fonts/HindSiliguri-Bold.ttf'));
+    await hindSiliguri.load();
+
+    final notoSerifBengali = FontLoader('NotoSerifBengali')
+      ..addFont(rootBundle.load('assets/fonts/NotoSerifBengali-Bold.ttf'));
+    await notoSerifBengali.load();
+
     SharedPreferences.setMockInitialValues({});
     sharedState = AppState();
     await sharedState.init();
