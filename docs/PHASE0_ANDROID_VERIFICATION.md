@@ -11,7 +11,7 @@ This document records the release-verification gate for the existing Flutter cli
 ## Reproducible CI toolchain
 
 - Java: 17
-- Flutter: 3.35.7 stable
+- Flutter: 3.50.0 stable
 - Android Gradle Plugin: 8.9.2
 - Gradle wrapper: 8.11.1
 - Android CMake: 3.31.6
