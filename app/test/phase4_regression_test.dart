@@ -672,7 +672,6 @@ void main() {
               dark: dark,
               textScale: scale,
             );
-            final texts = _renderedTexts(tester);
             _assertAllTextHasColour(tester, '${entry.key} ($tag)');
             expect(
               tester.takeException(),
