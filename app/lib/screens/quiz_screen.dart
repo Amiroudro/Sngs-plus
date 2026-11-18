@@ -18,6 +18,7 @@ import '../data/strings.dart';
 import '../models.dart';
 import '../state/app_state.dart';
 import '../widgets/app_theme.dart';
+import '../widgets/bangla_review_notice.dart';
 
 class QuizScreen extends StatefulWidget {
   final AppState state;
@@ -62,6 +63,10 @@ class _QuizScreenState extends State<QuizScreen> {
                 ),
               ),
             ),
+            if (state.lang == 'bn' && edition.banglaPendingReview) ...[
+              const SizedBox(height: 12),
+              const BanglaReviewNotice(),
+            ],
             const SizedBox(height: 16),
             _ModeCard(
               icon: Icons.quiz_outlined,
