@@ -16,6 +16,7 @@ import '../models.dart';
 import '../services/app_update_service.dart';
 import '../state/app_state.dart';
 import '../widgets/app_theme.dart';
+import '../widgets/bangla_review_notice.dart';
 import '../widgets/masthead.dart';
 import '../widgets/story_card.dart';
 import 'english_screen.dart';
@@ -197,6 +198,13 @@ class _HomeScreenState extends State<HomeScreen> {
               onEditionTap: () => _showEditionSheet(context),
             ),
           ),
+          if (lang == 'bn' && edition.banglaPendingReview)
+            const SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(16, 12, 16, 0),
+                child: BanglaReviewNotice(),
+              ),
+            ),
           // Self-update (2013): when GitHub advertises a newer app
           // version, a banner offers the one-tap update. Dismissing
           // hides it for this session; it returns on the next
