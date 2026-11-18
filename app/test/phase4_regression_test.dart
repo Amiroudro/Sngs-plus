@@ -110,28 +110,31 @@ Set<String> _englishContent() {
   }
 
   for (final edition in sharedState.editions) {
-    // An edition whose Bengali overlay is pending review intentionally
-    // renders its English source content. Exempt only those exact source
-    // strings from Bengali-only digit/month checks; keep Bengali UI chrome
-    // and any actually approved overlay under the full regression checks.
-    if (edition.banglaPendingReview) {
-      for (final story in edition.stories) {
-        add(story.headline);
-        add(story.summary);
-        add(story.whyItMatters);
-        add(story.examFacts);
-        add(story.keyPeople);
-        add(story.figures);
-        add(story.oneLiner);
-        add(story.detail);
-      }
-      for (final mcq in edition.mcqs) {
-        add(mcq.question);
+    // When a translation field is absent, the app intentionally falls
+    // back to that exact English source field. Exempt only those source
+    // strings; translated Bengali fields and Bengali UI chrome stay tested.
+    for (final story in edition.stories) {
+      if (story.bn?.headline == null) add(story.headline);
+      if (story.bn?.summary == null) add(story.summary);
+      if (story.bn?.whyItMatters == null) add(story.whyItMatters);
+      if (story.bn?.examFacts == null) add(story.examFacts);
+      if (story.bn?.keyPeople == null) add(story.keyPeople);
+      if (story.bn?.figures == null) add(story.figures);
+      if (story.bn?.oneLiner == null) add(story.oneLiner);
+      if (story.bn?.detail == null) add(story.detail);
+    }
+    for (final mcq in edition.mcqs) {
+      if (mcq.bn?.question == null) add(mcq.question);
+      if (mcq.bn?.options == null) {
         for (final option in mcq.options.values) {
           add(option);
         }
-        add(mcq.explanation);
+      } else {
+        for (final entry in mcq.options.entries) {
+          if (mcq.bn?.options?[entry.key] == null) add(entry.value);
+        }
       }
+      if (mcq.bn?.explanation == null) add(mcq.explanation);
     }
     for (final w in edition.words) {
       add(w.headword);
