@@ -158,3 +158,24 @@ WHEN OLD.quality_status = 'approved'
 BEGIN
   SELECT RAISE(ABORT, 'approved perspectives are immutable; create a new reviewed record');
 END;
+
+CREATE TRIGGER IF NOT EXISTS trg_approved_summary_no_delete
+BEFORE DELETE ON event_summary_versions
+WHEN OLD.quality_status = 'approved'
+BEGIN
+  SELECT RAISE(ABORT, 'approved summary versions cannot be deleted');
+END;
+
+CREATE TRIGGER IF NOT EXISTS trg_approved_timeline_no_delete
+BEFORE DELETE ON event_timeline_entries
+WHEN OLD.publication_status = 'approved'
+BEGIN
+  SELECT RAISE(ABORT, 'approved timeline entries cannot be deleted');
+END;
+
+CREATE TRIGGER IF NOT EXISTS trg_approved_perspective_no_delete
+BEFORE DELETE ON event_article_perspectives
+WHEN OLD.quality_status = 'approved'
+BEGIN
+  SELECT RAISE(ABORT, 'approved perspectives cannot be deleted');
+END;
