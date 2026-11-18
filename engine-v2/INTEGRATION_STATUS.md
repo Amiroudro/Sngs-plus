@@ -1,9 +1,8 @@
 # Engine v2 integration status
 
-**Branch:** feature/engine-v2-runtime-import  
-**Source:** Amiroudro/Engine  
-**Target:** Amiroudro/Sngs-plus  
-**Status:** Draft integration; not merged and not live.
+**Integration PR:** [#4](https://github.com/Amiroudro/Sngs-plus/pull/4), merged into `main` on 15 November 2026.  
+**Status:** Engine v2 code is integrated. Production collection and publishing remain disabled pending current rights approvals, verified routes and the human publish gate.  
+**Last reconciled:** 18 November 2026.
 
 ## Imported
 
@@ -46,7 +45,7 @@ The SQLite source_rights_reviews table is the review ledger. The Engine reads a 
 - Every publisher's article-body status remains not_permitted.
 - No publisher is enabled for collection.
 - No live collection schedule is enabled.
-- No articles have been published or synced to the app.
+- No publisher-derived Engine v2 collection records have been approved and published. This statement does not refer to the separately maintained daily editions already distributed by the app.
 - Third-party feed-registry verification is a discovery signal, not a reuse licence.
 - Prothom Alo terms restrict derivative works and reuse; The Daily Star, BSS and UNB require rights-scope review before reuse. The Daily Sangbad terms require prior written consent for republication/reproduction.
 - Daily Inqilab and Risingbd are set to automated_processing_status=restricted because a third-party registry reports AI-crawler blocks; they must be rechecked against current publisher-controlled robots files and terms before any automated processing.
@@ -80,7 +79,7 @@ The converter stages the archive separately; `publish_v2.py` refuses to publish 
 8. Connect Topics and Exam Desk to approved records.
 9. Complete the human publish validator before considering scheduled collection.
 
-The integration does not publish or activate any article. PR #4 must remain unmerged until the user approves it.
+The integration code was merged in PR #4. That merge did not approve any publisher, grant reuse rights, enable collection, or authorize article publication. Source activation remains a separate, evidence-backed human decision.
 
 
 ## Source route ledger update (16 Nov 2026)
