@@ -1,13 +1,63 @@
 {
   "generated_by": "dart tools/validate_bangla.dart --write-snapshot",
-  "note": "Per-file, per-kind counts of UNSUPPRESSED violations, plus suppressed counts. test/bangla_validator_test.dart compares its live in-process scan against these numbers. Regenerate after converting data; when Phase 4 conversion is complete every violations count here is 0 and the script exits 0.",
-  "violations": {},
+  "note": "Baseline refreshed 2026-11-18 after the 17 Nov Bangla overlay was converted to Bangla digits and unhyphenated Bengali suffixes. Older editions still contain the listed Phase 4 conversion violations; this snapshot detects regressions and must be regenerated to zero only after those files are converted.",
+  "violations": {
+    "assets/editions/bn-2026-11-01.json": {
+      "latinDigits": 3
+    },
+    "assets/editions/bn-2026-11-02.json": {
+      "latinDigits": 3
+    },
+    "assets/editions/bn-2026-11-03.json": {
+      "latinDigits": 3
+    },
+    "assets/editions/bn-2026-11-04.json": {
+      "latinDigits": 3
+    },
+    "assets/editions/bn-2026-11-05.json": {
+      "latinDigits": 3
+    },
+    "assets/editions/bn-2026-11-06.json": {
+      "latinDigits": 3
+    },
+    "assets/editions/bn-2026-11-07.json": {
+      "latinDigits": 3
+    },
+    "assets/editions/bn-2026-11-08.json": {
+      "latinDigits": 3
+    },
+    "assets/editions/bn-2026-11-09.json": {
+      "latinDigits": 3
+    },
+    "assets/editions/bn-2026-11-10.json": {
+      "latinDigits": 3
+    },
+    "assets/editions/bn-2026-11-11.json": {
+      "latinDigits": 3
+    },
+    "assets/editions/bn-2026-11-12.json": {
+      "latinDigits": 3
+    },
+    "assets/editions/bn-2026-11-13.json": {
+      "latinDigits": 3
+    },
+    "assets/editions/bn-2026-11-14.json": {
+      "latinDigits": 3
+    },
+    "assets/editions/bn-2026-11-15.json": {
+      "latinDigits": 1
+    },
+    "assets/editions/bn-2026-11-16.json": {
+      "hyphenSuffix": 2,
+      "latinDigits": 13
+    }
+  },
   "suppressed": {
     "assets/editions/bn-2026-11-02.json": 14,
     "assets/editions/bn-2026-11-16.json": 7
   },
   "totals": {
-    "violations": 0,
+    "violations": 58,
     "suppressed": 21
   }
 }
