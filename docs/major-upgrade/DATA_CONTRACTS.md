@@ -36,6 +36,32 @@ Do not use collection-run IDs, array positions, display order or mutable headlin
 
 The exact SQL must be reviewed against the current schema before implementation. This is a design, not a migration file.
 
+### Stable identity columns
+
+The current operational IDs are primarily integer/run-local. Add nullable columns, backfill them, then enforce uniqueness with indexes. Apply this migration once through the migration runner; SQLite `ALTER TABLE ADD COLUMN` is not intrinsically idempotent.
+
+```sql
+ALTER TABLE articles ADD COLUMN article_uid TEXT;
+CREATE UNIQUE INDEX idx_articles_article_uid
+  ON articles(article_uid) WHERE article_uid IS NOT NULL;
+
+ALTER TABLE events ADD COLUMN event_uid TEXT;
+CREATE UNIQUE INDEX idx_events_event_uid
+  ON events(event_uid) WHERE event_uid IS NOT NULL;
+
+ALTER TABLE facts ADD COLUMN fact_uid TEXT;
+CREATE UNIQUE INDEX idx_facts_fact_uid
+  ON facts(fact_uid) WHERE fact_uid IS NOT NULL;
+
+ALTER TABLE questions ADD COLUMN question_uid TEXT;
+CREATE UNIQUE INDEX idx_questions_question_uid
+  ON questions(question_uid) WHERE question_uid IS NOT NULL;
+
+ALTER TABLE questions ADD COLUMN topic_tags_json TEXT NOT NULL DEFAULT '[]';
+```
+
+Backfill article IDs from normalized canonical URLs, but persist the selected identity so redirects and URL changes can be reconciled. Event IDs are assigned by a persistent event registry; do not regenerate them from headlines. Fact and question IDs must remain stable when wording is edited.
+
 ### Entities
 
 ```sql
