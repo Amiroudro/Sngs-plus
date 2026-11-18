@@ -334,6 +334,17 @@ void main() {
         story.bn = BnStory.fromJson(Map<String, dynamic>.from(raw));
       }
     }
+    // MCQs live in a separate ID-keyed overlay and must be injected too;
+    // otherwise questionIn('bn') silently falls back to English in tests.
+    final rawMcqs = overlay['mcqs'];
+    if (rawMcqs is Map) {
+      for (final mcq in qrEdition.mcqs) {
+        final raw = rawMcqs['${mcq.no}'];
+        if (raw is Map) {
+          mcq.bn = BnMcq.fromJson(Map<String, dynamic>.from(raw));
+        }
+      }
+    }
     qrEdition.banglaPendingReview = false;
     sharedState.selectedEditionDate = qrEdition.date;
   });
