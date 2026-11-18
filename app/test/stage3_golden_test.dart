@@ -96,7 +96,6 @@ void main() {
         'home_dark_small',
         AppShell(state: sharedState),
         dark: true,
-      ,
         compareGolden: false);
     });
     testWidgets('home light large', (t) async {
@@ -105,7 +104,6 @@ void main() {
         'home_light_large',
         AppShell(state: sharedState),
         size: const Size(768, 1024),
-      ,
         compareGolden: false);
     });
     testWidgets('home light 200pct', (t) async {
@@ -114,7 +112,6 @@ void main() {
         'home_light_200pct',
         AppShell(state: sharedState),
         textScale: 2.0,
-      ,
         compareGolden: false);
     });
 
@@ -126,7 +123,6 @@ void main() {
           edition: sharedState.selectedEdition!,
           state: sharedState,
         ),
-      ,
         compareGolden: false);
     });
     testWidgets('words dark small', (t) async {
@@ -138,7 +134,6 @@ void main() {
           state: sharedState,
         ),
         dark: true,
-      ,
         compareGolden: false);
     });
     testWidgets('words light large', (t) async {
@@ -150,7 +145,6 @@ void main() {
           state: sharedState,
         ),
         size: const Size(768, 1024),
-      ,
         compareGolden: false);
     });
     testWidgets('words light 200pct', (t) async {
@@ -162,7 +156,6 @@ void main() {
           state: sharedState,
         ),
         textScale: 2.0,
-      ,
         compareGolden: false);
     });
 
@@ -171,7 +164,6 @@ void main() {
         t,
         'quiz_light_small',
         QuizScreen(state: sharedState),
-      ,
         compareGolden: false);
     });
     testWidgets('quiz home dark small', (t) async {
@@ -180,7 +172,6 @@ void main() {
         'quiz_dark_small',
         QuizScreen(state: sharedState),
         dark: true,
-      ,
         compareGolden: false);
     });
     testWidgets('quiz home light 200pct', (t) async {
@@ -189,7 +180,6 @@ void main() {
         'quiz_light_200pct',
         QuizScreen(state: sharedState),
         textScale: 2.0,
-      ,
         compareGolden: false);
     });
 
