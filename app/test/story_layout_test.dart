@@ -27,8 +27,9 @@ void main() {
       result.correctRule,
     );
 
-    // Exercise the Bengali layout with a test-only approved fixture.
-    // Runtime loading still rejects automated_checks_passed overlays.
+    // Exercise the Bengali layout with a test-only fixture that simulates the
+    // approved display path. Runtime loading still rejects
+    // automated_checks_passed overlays.
     final qrEdition = state.findEdition('2026-11-08')!;
     final overlay = jsonDecode(
       await rootBundle.loadString('assets/editions/bn-2026-11-08.json'),
