@@ -320,8 +320,9 @@ void main() {
     );
 
     // This regression suite exercises the Bengali rendering path with a
-    // test-only approved fixture. Production loading remains fail-closed:
-    // automated_checks_passed overlays are not promoted to approval.
+    // test-only fixture that simulates the approved display path. It does
+    // not grant approval to the source overlay. Production loading remains
+    // fail-closed: automated_checks_passed is not approval.
     final qrEdition = sharedState.findEdition('2026-11-08')!;
     final overlay = jsonDecode(
       await rootBundle.loadString('assets/editions/bn-2026-11-08.json'),
