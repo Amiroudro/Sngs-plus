@@ -279,6 +279,7 @@ void main() {
     bool dark = false,
     double textScale = 1.0,
     String? scrollTo,
+    bool compareGolden = true,
   }) async {
     tester.view.physicalSize = const Size(390, 844);
     tester.view.devicePixelRatio = 1.0;
