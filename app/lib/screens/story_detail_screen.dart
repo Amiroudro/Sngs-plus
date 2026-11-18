@@ -33,6 +33,7 @@ import '../models.dart';
 import '../services/share_service.dart';
 import '../state/app_state.dart';
 import '../widgets/app_theme.dart';
+import '../widgets/bangla_review_notice.dart';
 import 'learning_module_section.dart';
 
 class StoryDetailScreen extends StatefulWidget {
@@ -121,6 +122,10 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
         level: story.relevanceLevel,
         lang: lang,
       ),
+      if (lang == 'bn' && _edition.banglaPendingReview) ...[
+        const SizedBox(height: 12),
+        const BanglaReviewNotice(),
+      ],
       // With a banner image the headline sits below the meta line,
       // as before. Without one it lives inside the typographic
       // banner above — never in both places.
