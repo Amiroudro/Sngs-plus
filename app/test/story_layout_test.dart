@@ -136,7 +136,7 @@ void main() {
     final story = createApprovedBanglaQrStory();
     final layout = buildStoryLayout(story, 'bn');
 
-    expect(layout.oneLiner, startsWith('নগদ ব্যবহার কমাতে'));
+    expect(layout.oneLiner, startsWith('বাংলা কিউআর লেনদেনের দৈনিক পরিমাণ'));
     expect(layout.tiles.length, greaterThanOrEqualTo(3));
     // The chart: three comparable daily figures, now in authentic
     // Bengali (Phase 4: "Tk 13.5 billion" -> "১,৩৫০ কোটি টাকা").
