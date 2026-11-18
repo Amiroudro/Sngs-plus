@@ -567,6 +567,10 @@ ThemeData buildLightTheme() {
   return ThemeData(
     colorScheme: scheme,
     scaffoldBackgroundColor: AppColors.paper,
+    // Use the bundled Bengali-capable family as the theme default too.
+    // Many story labels and metadata inherit their font from ThemeData
+    // rather than declaring a family on each individual TextStyle.
+    fontFamily: 'HindSiliguri',
     useMaterial3: true,
     textTheme: const TextTheme(
       displayLarge: AppType.display,
@@ -748,6 +752,8 @@ ThemeData buildDarkTheme() {
   return ThemeData(
     colorScheme: scheme,
     scaffoldBackgroundColor: AppColors.darkPaper,
+    // Keep Bengali glyph coverage consistent in dark mode as well.
+    fontFamily: 'HindSiliguri',
     useMaterial3: true,
     textTheme: const TextTheme(
       displayLarge: AppType.display,
