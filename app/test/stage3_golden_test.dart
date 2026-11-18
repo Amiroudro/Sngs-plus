@@ -187,7 +187,6 @@ void main() {
         t,
         'profile_light_small',
         Scaffold(body: ProfileScreen(state: sharedState)),
-      ,
         compareGolden: false);
     });
     testWidgets('profile dark small', (t) async {
@@ -196,7 +195,6 @@ void main() {
         'profile_dark_small',
         Scaffold(body: ProfileScreen(state: sharedState)),
         dark: true,
-      ,
         compareGolden: false);
     });
     testWidgets('profile light 200pct', (t) async {
@@ -205,7 +203,6 @@ void main() {
         'profile_light_200pct',
         Scaffold(body: ProfileScreen(state: sharedState)),
         textScale: 2.0,
-      ,
         compareGolden: false);
     });
   });
