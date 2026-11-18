@@ -1475,6 +1475,11 @@ class Edition {
   final List<SourceRef> sources;
   final Map<String, int> counts;
 
+  /// True when a Bangla overlay exists but the edition has not passed
+  /// explicit human approval. In that case the loader keeps the English
+  /// source and the UI explains why.
+  bool banglaPendingReview;
+
   Edition({
     required this.date,
     this.day,
@@ -1487,6 +1492,7 @@ class Edition {
     required this.mcqs,
     required this.sources,
     required this.counts,
+    this.banglaPendingReview = false,
   });
 
   factory Edition.fromJson(Map<String, dynamic> json,
