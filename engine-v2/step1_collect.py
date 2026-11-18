@@ -254,8 +254,10 @@ DROPPED = [
      "Bing site: query"),
 ]
 
-SKIP_URL_PARTS = ["/sports/", "/sports", "/entertainment/", "/lifestyle/",
-                  "/fashion/", "/opinion/cartoon", "/videos/",
+# Keep substantive editorial categories in the candidate set. Relevance is
+# decided by the downstream editorial classifier, not by URL section alone.
+# Exclude only clearly non-article or site-chrome paths here.
+SKIP_URL_PARTS = ["/fashion/", "/opinion/cartoon", "/videos/",
                   "/author/", "/govt-ad/"]
 
 DOMAIN_SOURCES = {
