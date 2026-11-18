@@ -840,11 +840,18 @@ StoryLayout buildStoryLayout(Story story, String lang) {
           .map((e) => QaPair(question: e.q, answer: e.a))
           .toList()
       : buildQa(tiles, story, lang);
-  final authoredCloze = story.recallCardsIn(lang);
+  final authoredCloze = story.recallCardsIn(lang)
+      .where((card) =>
+          card.cloze.contains('______') &&
+          RegExp(r'[0-9০-৯]').hasMatch(card.answer))
+      .toList();
+  // Recall-card data is editorial input, not trusted layout structure.
+  // Only publish cards that satisfy this screen's numeric cloze contract;
+  // malformed cards fall back to mechanically derived facts.
   final cloze = authoredCloze.isNotEmpty
       ? authoredCloze
           .take(2)
-          .map((c) => ClozeCard(text: c.cloze, answer: c.answer))
+          .map((c) => ClozeCard(text: c.cloze, answer: c.answer.trim()))
           .toList()
       : buildCloze([...keyFactItems, ...figureItems, ...factItems]);
   final why = deriveWhy(story, lang, oneLiner, bullets);
