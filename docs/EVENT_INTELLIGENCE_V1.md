@@ -21,6 +21,7 @@ The existing `events`, `articles`, `event_articles`, `facts`, `fact_evidence` an
 - `facts` stores individual claims attached to an event.
 - `fact_evidence` records which article supports, partly supports, contradicts or contextualises a fact.
 - `event_summary_versions` stores each language, level and version independently.
+- `event_summary_sources` and `event_summary_facts` provide relational, foreign-key-checked provenance for every summary version; the JSON source list is export convenience only.
 - `event_timeline_entries` stores dated or undated developments, each with a required source article.
 - `event_article_perspectives` stores a reviewed framing/emphasis note for one article/event pair.
 - `perspective_fact_links` links that publication's treatment to shared facts.
