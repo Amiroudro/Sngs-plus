@@ -75,6 +75,14 @@ jobs:
       - name: Run Flutter tests
         working-directory: app
         run: flutter test
+      - name: Upload Flutter test failure images
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter-test-failure-images
+          path: app/test/failures/
+          if-no-files-found: ignore
+          retention-days: 7
       - name: Build unsigned-key fallback release APK
         working-directory: app
         run: flutter build apk --release
