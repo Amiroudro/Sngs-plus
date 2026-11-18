@@ -64,23 +64,43 @@ void _applyBanglaOverlay(Edition edition, Map<String, dynamic> bnJson) {
     return;
   }
 
-  edition.banglaPendingReview = false;
   final bnStories = rawStories as Map;
-  for (final story in edition.stories) {
-    final raw = bnStories[story.id];
-    if (raw is Map) {
-      story.bn = BnStory.fromJson(Map<String, dynamic>.from(raw));
+  final parsedStories = <String, BnStory>{};
+  try {
+    for (final story in edition.stories) {
+      final raw = bnStories[story.id];
+      if (raw is! Map) {
+        edition.banglaPendingReview = true;
+        return;
+      }
+      parsedStories[story.id] =
+          BnStory.fromJson(Map<String, dynamic>.from(raw));
     }
+  } catch (_) {
+    // Never leave a partially applied translation if one record is invalid.
+    edition.banglaPendingReview = true;
+    return;
   }
 
+  // Parse the story overlay completely before mutating the edition.
+  for (final story in edition.stories) {
+    story.bn = parsedStories[story.id];
+  }
+  edition.banglaPendingReview = false;
+
   // MCQ translations are released only with the fully approved story
-  // overlay for the same edition.
+  // overlay for the same edition. Parse each independently so a malformed
+  // optional MCQ translation cannot invalidate approved story text.
   final bnMcqs = bnJson['mcqs'];
   if (bnMcqs is Map) {
     for (final mcq in edition.mcqs) {
       final raw = bnMcqs['${mcq.no}'];
       if (raw is Map) {
-        mcq.bn = BnMcq.fromJson(Map<String, dynamic>.from(raw));
+        try {
+          mcq.bn = BnMcq.fromJson(Map<String, dynamic>.from(raw));
+        } catch (_) {
+          mcq.bn = null;
+        }
       }
     }
   }
