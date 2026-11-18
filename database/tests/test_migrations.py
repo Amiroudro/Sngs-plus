@@ -325,6 +325,10 @@ class StudyMigrationTests(unittest.TestCase):
                 "UPDATE event_summary_versions SET content='silent rewrite' WHERE id=?",
                 (summary_id,),
             )
+        with self.assertRaises(sqlite3.IntegrityError):
+            self.db.execute(
+                "DELETE FROM event_summary_versions WHERE id=?", (summary_id,)
+            )
         self.db.execute(
             "INSERT INTO event_summary_versions "
             "(event_id, language, summary_level, version, content) "
@@ -354,6 +358,10 @@ class StudyMigrationTests(unittest.TestCase):
             self.db.execute(
                 "UPDATE event_timeline_entries SET description='rewritten' WHERE id=?",
                 (entry_id,),
+            )
+        with self.assertRaises(sqlite3.IntegrityError):
+            self.db.execute(
+                "DELETE FROM event_timeline_entries WHERE id=?", (entry_id,)
             )
         with self.assertRaises(sqlite3.IntegrityError):
             self.db.execute(
@@ -423,6 +431,11 @@ class StudyMigrationTests(unittest.TestCase):
         with self.assertRaises(sqlite3.IntegrityError):
             self.db.execute(
                 "UPDATE event_article_perspectives SET framing='silent rewrite' WHERE id=?",
+                (perspective_ids[0],),
+            )
+        with self.assertRaises(sqlite3.IntegrityError):
+            self.db.execute(
+                "DELETE FROM event_article_perspectives WHERE id=?",
                 (perspective_ids[0],),
             )
 
