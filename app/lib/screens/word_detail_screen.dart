@@ -320,7 +320,7 @@ class _WordDetailScreenState extends State<WordDetailScreen> {
           width: double.infinity,
           decoration: BoxDecoration(
             color: soft,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: AppShapes.soft,
           ),
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -372,7 +372,7 @@ class _WordDetailScreenState extends State<WordDetailScreen> {
           decoration: BoxDecoration(
             color: surface,
             border: Border.all(color: hairline),
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: AppShapes.medium,
           ),
           padding: const EdgeInsets.all(14),
           child: Column(
@@ -592,7 +592,7 @@ class _TagRow extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: surface,
                     border: Border.all(color: hairline),
-                    borderRadius: BorderRadius.circular(999),
+                    borderRadius: AppShapes.round,
                   ),
                   child: Text(
                     item,
@@ -651,13 +651,13 @@ class _ExamInfo extends StatelessWidget {
       decoration: BoxDecoration(
         color: surface,
         border: Border.all(color: hairline),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: AppShapes.medium,
       ),
       child: Column(
         children: [
           InkWell(
             onTap: onToggle,
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: AppShapes.medium,
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 14,
@@ -823,7 +823,7 @@ class _ExamInfoBody extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: surface,
                           border: Border.all(color: hairline),
-                          borderRadius: BorderRadius.circular(999),
+                          borderRadius: AppShapes.round,
                         ),
                         child: Text(
                           e,

@@ -407,6 +407,119 @@ class AppShapes {
 }
 
 /// ---------------------------------------------------------------------------
+/// AppShape + AppBox — the ONE place a screen asks for a shape.
+///
+/// Screens never write a radius. They use [AppBox] and, only when a
+/// page needs something other than the default square box, pass a
+/// named [AppShape]. Changing what "soft" or "round" means (or the
+/// app-wide default) is one edit in [AppShapes], and every page
+/// follows. See docs/AI_GUIDE.md "UI rules".
+/// ---------------------------------------------------------------------------
+enum AppShape {
+  /// Default: square corners.
+  box,
+
+  /// 4px corners.
+  small,
+
+  /// 8px corners (buttons).
+  medium,
+
+  /// 12px corners (learning surfaces).
+  soft,
+
+  /// Fully rounded ends (chips, pills).
+  round,
+
+  /// Perfect circle (avatars, number badges). Use on square boxes.
+  circle,
+
+  /// Rounded top corners only (bottom sheets).
+  sheet,
+}
+
+extension AppShapeRadius on AppShape {
+  /// Corner radii for this shape. [AppShape.circle] has no corner
+  /// radius of its own (it is a [BoxShape.circle]); it reports the
+  /// pill radius for callers that only need a clip radius.
+  BorderRadius get radius {
+    switch (this) {
+      case AppShape.box:
+        return AppShapes.box;
+      case AppShape.small:
+        return AppShapes.small;
+      case AppShape.medium:
+        return AppShapes.medium;
+      case AppShape.soft:
+        return AppShapes.soft;
+      case AppShape.round:
+      case AppShape.circle:
+        return AppShapes.round;
+      case AppShape.sheet:
+        return AppShapes.sheet;
+    }
+  }
+}
+
+/// A themed container. Pass a [role] for padding/border/shadow
+/// defaults (e.g. [AppShapes.card]) and, only when needed, a [shape]
+/// to override the role's corners.
+class AppBox extends StatelessWidget {
+  final Widget? child;
+
+  /// Padding, border width and shadows come from this role. Defaults
+  /// to [AppShapes.banner] (square, 16px padding, no border).
+  final ShapeRole role;
+
+  /// Optional corner override; null keeps the role's own corners.
+  final AppShape? shape;
+
+  /// Fill colour; null means transparent.
+  final Color? color;
+
+  /// Draw the role's hairline border (only if the role has one).
+  final bool bordered;
+
+  /// Overrides the role's padding when set.
+  final EdgeInsetsGeometry? padding;
+
+  const AppBox({
+    super.key,
+    this.child,
+    this.role = AppShapes.banner,
+    this.shape,
+    this.color,
+    this.bordered = true,
+    this.padding,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final isCircle = shape == AppShape.circle;
+    final radius = shape?.radius ?? role.radius;
+    final side = bordered
+        ? role.borderFor(brightness)
+        : BorderSide.none;
+    return Container(
+      padding: padding ?? role.padding,
+      constraints: role.minHeight == null
+          ? null
+          : BoxConstraints(minHeight: role.minHeight!),
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(
+        color: color,
+        shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
+        borderRadius: isCircle ? null : radius,
+        border: side == BorderSide.none ? null : Border.fromBorderSide(side),
+        boxShadow: role.shadows,
+      ),
+      child: child,
+    );
+  }
+}
+
+/// ---------------------------------------------------------------------------
 /// Motion — ONE curve, ONE standard duration (unchanged).
 /// ---------------------------------------------------------------------------
 class AppMotion {

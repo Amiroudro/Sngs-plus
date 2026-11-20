@@ -33,7 +33,7 @@ class ProfileScreen extends StatelessWidget {
                 color: AppColors.primaryFor(
                   Theme.of(context).brightness,
                 ),
-                borderRadius: BorderRadius.circular(AppRadii.small),
+                borderRadius: AppShapes.small,
               ),
               alignment: Alignment.center,
               child: const Text(
