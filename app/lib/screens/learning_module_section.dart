@@ -711,6 +711,52 @@ class _ExamNotesBody extends StatelessWidget {
   }
 }
 
+/// The engine copies one story-level source onto EVERY entry of an
+/// institutions / extra-knowledge list, so a source repeated on all
+/// items says where the *section* came from, not where each item did.
+/// Returns that shared source when a list of 2+ items carries the same
+/// non-empty source on every item (callers then show it once under the
+/// list); null otherwise, including for a single item or mixed sources,
+/// in which case per-item sources render exactly as before.
+String? sharedSectionSource(Iterable<String?> sources) {
+  final list = sources.toList();
+  if (list.length < 2) return null;
+  final first = list.first?.trim();
+  if (first == null || first.isEmpty) return null;
+  for (final s in list) {
+    if (s?.trim() != first) return null;
+  }
+  return first;
+}
+
+/// One muted line under a list: the source shared by the whole section.
+class _SectionSourceLine extends StatelessWidget {
+  final String source;
+  final String lang;
+
+  const _SectionSourceLine({required this.source, required this.lang});
+
+  @override
+  Widget build(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    final secondary = AppColors.secondaryFor(brightness);
+    final hairline = AppColors.storyHairlineFor(brightness);
+    final label = lang == 'bn' ? 'এই অংশের সূত্র' : 'Sources for this section';
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 12),
+        Container(height: 1, color: hairline),
+        const SizedBox(height: 8),
+        Text(
+          '$label: ${storyDigits(source, lang)}',
+          style: TextStyle(fontSize: 12, height: 1.5, color: secondary),
+        ),
+      ],
+    );
+  }
+}
+
 /// The institutions section (v2, section 5): one entry per
 /// institution — name (+ full name), one-line role, source where the
 /// role is stated. Hairline-separated rows.
@@ -726,6 +772,7 @@ class _InstitutionsBody extends StatelessWidget {
     final ink = AppColors.inkFor(brightness);
     final secondary = AppColors.secondaryFor(brightness);
     final hairline = AppColors.storyHairlineFor(brightness);
+    final shared = sharedSectionSource(items.map((e) => e.source));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -759,7 +806,8 @@ class _InstitutionsBody extends StatelessWidget {
               style: AppType.storyBody.copyWith(color: ink),
             ),
           ],
-          if (items[i].source != null &&
+          if (shared == null &&
+              items[i].source != null &&
               items[i].source!.trim().isNotEmpty) ...[
             const SizedBox(height: 2),
             Text(
@@ -768,6 +816,7 @@ class _InstitutionsBody extends StatelessWidget {
             ),
           ],
         ],
+        if (shared != null) _SectionSourceLine(source: shared, lang: lang),
       ],
     );
   }
@@ -787,6 +836,7 @@ class _ExtraKnowledgeBody extends StatelessWidget {
     final ink = AppColors.inkFor(brightness);
     final secondary = AppColors.secondaryFor(brightness);
     final hairline = AppColors.storyHairlineFor(brightness);
+    final shared = sharedSectionSource(items.map((e) => e.source));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -821,7 +871,8 @@ class _ExtraKnowledgeBody extends StatelessWidget {
               style: AppType.storyBody.copyWith(color: ink),
             ),
           ],
-          if (items[i].source != null &&
+          if (shared == null &&
+              items[i].source != null &&
               items[i].source!.trim().isNotEmpty) ...[
             const SizedBox(height: 2),
             Text(
@@ -830,6 +881,7 @@ class _ExtraKnowledgeBody extends StatelessWidget {
             ),
           ],
         ],
+        if (shared != null) _SectionSourceLine(source: shared, lang: lang),
       ],
     );
   }
