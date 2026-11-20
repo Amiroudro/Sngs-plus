@@ -405,6 +405,28 @@ than it does. In particular:
     spelled out.** Never refer to a decision by number alone.
     Silence is not approval.
 
+### UI rules (shapes, colours, banners)
+
+These keep the look changeable from one place, so an AI (or a person)
+can restyle the app without touching every screen.
+
+1. **Shapes live in one file:** `app/lib/widgets/app_theme.dart`
+   (`AppShapes`, `AppShape`, `AppBox`). Screens and widgets must not
+   write `BorderRadius.circular(...)`, `Radius.circular(...)` or
+   `Color(0x...)`. `app/test/ui_shape_guard_test.dart` fails if they do.
+2. **Default is the square box.** Only pass `shape:` to `AppBox`
+   (`soft`, `round`, `circle`, `sheet`, ...) when a page truly needs it.
+3. **Need a new shape?** Add a value to `AppShape` and `AppShapes`,
+   then use it by name. Never inline a one-off radius in a screen.
+4. **Colours come from `AppColors`.** Do not add new hues.
+5. **Banners:** the default story banner is the generated typographic
+   banner. A publisher photo is shown only when the story carries
+   `banner_rights: "approved"` (see `Story.bannerImageUrl`). Never
+   hotlink or copy a publisher image without that flag.
+6. **Do not change** the app ID (`com.sarangsho.plus`), signing
+   config, bundled fonts, or published edition data while restyling.
+7. Run `flutter analyze` and `flutter test` before you hand work back.
+
 ## 9. How to hand this repo to another AI
 
 1. Give it this file + the repo. Nothing else is required.

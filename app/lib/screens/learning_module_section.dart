@@ -272,7 +272,7 @@ class _HeroFigure extends StatelessWidget {
       decoration: BoxDecoration(
         color: surface,
         border: Border.all(color: hairline),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: AppShapes.medium,
       ),
       padding: const EdgeInsets.all(14),
       child: Column(
@@ -940,7 +940,7 @@ class _LmMcqCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: surface,
         border: Border.all(color: hairline),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: AppShapes.medium,
       ),
       padding: const EdgeInsets.all(14),
       child: Column(
@@ -1080,11 +1080,11 @@ class _OptionRow extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: AppShapes.medium,
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(color: border, width: 1.5),
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: AppShapes.medium,
           ),
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: Row(

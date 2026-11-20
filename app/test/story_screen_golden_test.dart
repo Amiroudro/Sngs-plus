@@ -182,6 +182,7 @@ Map<String, dynamic> _v2StoryJson({String? imageUrl}) {
       },
     ],
     if (imageUrl != null) 'image_url': imageUrl,
+    if (imageUrl != null) 'banner_rights': 'approved',
     'one_liner': 'এডিপি বাস্তবায়ন ৬.৫৩ শতাংশে নেমেছে।',
     'key_facts': [
       {'label': 'হার', 'value': '৬.৫৩%', 'original': '6.53%'},
