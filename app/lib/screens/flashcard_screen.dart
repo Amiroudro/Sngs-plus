@@ -104,7 +104,7 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
                           children: [
                             Expanded(
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(4),
+                                borderRadius: AppShapes.small,
                                 child: LinearProgressIndicator(
                                   value: (_index + 1) / words.length,
                                   minHeight: 6,
@@ -321,7 +321,7 @@ class _FlipCardState extends State<_FlipCard>
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
                   color: dark ? AppColors.darkSurface : AppColors.surface,
-                  borderRadius: BorderRadius.circular(AppRadii.learn),
+                  borderRadius: AppShapes.soft,
                   border: Border.all(
                     color: dark ? AppColors.darkHairline : AppColors.hairline,
                   ),

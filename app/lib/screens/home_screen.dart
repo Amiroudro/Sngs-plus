@@ -61,11 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final accent = AppColors.accentFor(Theme.of(context).brightness);
     showModalBottomSheet<void>(
       context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(AppRadii.sheet),
-        ),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: AppShapes.sheet),
       builder: (_) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -217,7 +213,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     builder: (_) => SearchScreen(state: state),
                   ),
                 ),
-                borderRadius: BorderRadius.circular(AppRadii.small),
+                borderRadius: AppShapes.small,
                 child: Container(
                   height: 48,
                   padding: const EdgeInsets.symmetric(horizontal: 14),
@@ -225,7 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     border: Border.all(
                       color: dark ? AppColors.darkHairline : AppColors.hairline,
                     ),
-                    borderRadius: BorderRadius.circular(AppRadii.small),
+                    borderRadius: AppShapes.small,
                   ),
                   child: Row(
                     children: [
@@ -395,7 +391,7 @@ class _UpdateBanner extends StatelessWidget {
         decoration: BoxDecoration(
           color: accent.withValues(alpha: 0.10),
           border: Border.all(color: accent.withValues(alpha: 0.45)),
-          borderRadius: BorderRadius.circular(AppRadii.small),
+          borderRadius: AppShapes.small,
         ),
         child: Row(
           children: [

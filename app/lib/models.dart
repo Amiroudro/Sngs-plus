@@ -1046,6 +1046,12 @@ class Story {
   final LearningModule? learningModule;
   final String? imageUrl;
 
+  /// Publisher-photo permission for this story. Only the exact value
+  /// `approved` lets [bannerImageUrl] return the publisher's image;
+  /// anything else (absent, `pending`, ...) keeps the generated
+  /// typographic banner. Publisher rights are not cleared by default.
+  final String? bannerRights;
+
   /// Bengali overlay, if one was bundled for this edition.
   BnStory? bn;
 
@@ -1072,6 +1078,7 @@ class Story {
     this.detail,
     this.learningModule,
     this.imageUrl,
+    this.bannerRights,
   });
 
   factory Story.fromJson(Map<String, dynamic> json) {
@@ -1107,6 +1114,7 @@ class Story {
       keywords: parseStringList(json['keywords']) ?? const [],
       detail: asStr(json['detail']),
       imageUrl: asStr(json['image_url']),
+      bannerRights: asStr(json['banner_rights']),
       learningModule: json['learning_module'] is Map<String, dynamic>
           ? LearningModule.fromJson(
               json['learning_module'] as Map<String, dynamic>)
@@ -1119,9 +1127,11 @@ class Story {
 
   /// Banner image URL for the story screen: the source article's
   /// og:image (URL only, hotlinked from the publisher, never
-  /// downloaded). Null when the story carries none — the screen
-  /// shows its typographic banner instead.
+  /// downloaded). Null unless [bannerRights] is `approved`, and null
+  /// when the story carries no image — the screen then shows its
+  /// generated typographic banner instead.
   String? get bannerImageUrl {
+    if (bannerRights?.trim().toLowerCase() != 'approved') return null;
     final u = imageUrl ?? bn?.imageUrl;
     if (u == null || u.trim().isEmpty) return null;
     return u.trim();

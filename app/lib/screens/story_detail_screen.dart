@@ -834,7 +834,7 @@ class _FactTiles extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: surface,
                       border: Border.all(color: hairline),
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: AppShapes.medium,
                     ),
                     padding: const EdgeInsets.all(12),
                     child: Column(
@@ -1053,7 +1053,7 @@ class _ClozeCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: surface,
         border: Border.all(color: hairline),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: AppShapes.medium,
       ),
       padding: const EdgeInsets.all(14),
       child: Column(
@@ -1212,13 +1212,13 @@ class _FullSummary extends StatelessWidget {
       decoration: BoxDecoration(
         color: surface,
         border: Border.all(color: hairline),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: AppShapes.medium,
       ),
       child: Column(
         children: [
           InkWell(
             onTap: onToggle,
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: AppShapes.medium,
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 14,
@@ -1428,7 +1428,7 @@ class _SharePreviewDialog extends StatelessWidget {
     return Dialog(
       backgroundColor: dark ? AppColors.darkSurface : AppColors.surface,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppRadii.learn),
+        borderRadius: AppShapes.soft,
       ),
       child: Padding(
         padding: const EdgeInsets.all(12),
@@ -1483,7 +1483,7 @@ class _ShareCard extends StatelessWidget {
       width: 320,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(AppRadii.small),
+        borderRadius: AppShapes.small,
         border: Border.all(color: AppColors.ink),
       ),
       child: Column(
