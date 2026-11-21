@@ -113,19 +113,14 @@ jobs:
           dates = {e["edition_date"] for e in published}
           clean = dict(index)
           clean["editions"] = published
-          (target / "index.json").write_text(
-              json.dumps(clean, ensure_ascii=False, indent=2) + "\n",
-              encoding="utf-8"
-          )
-          app_index = {
-              "editions": [{"edition_date": d, "status": "published"} for d in sorted(dates)],
-              "correct_consecutive_editions": index.get("correct_consecutive_editions", 0),
-              "correct_rule": index.get("correct_rule", ""),
-          }
-          (bn_target / "index.json").write_text(
-              json.dumps(app_index, ensure_ascii=False, indent=2) + "\n",
-              encoding="utf-8"
-          )
+          index_text = json.dumps(clean, ensure_ascii=False, indent=2) + "\n"
+          (target / "index.json").write_text(index_text, encoding="utf-8")
+          # The app loader reads `file` from every entry
+          # (assets/editions/${entry.file}) and app/tools/check_data.py
+          # requires the bundled index to be byte-identical to
+          # editions/index.json. Write the SAME text to both; a slimmed
+          # index without `file` breaks bundled editions in the next build.
+          (bn_target / "index.json").write_text(index_text, encoding="utf-8")
 
           # Re-parse every copied JSON file before commit.
           for path in list(target.glob("data-*.json")) + list(bn_target.glob("bn-*.json")):

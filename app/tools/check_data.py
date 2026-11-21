@@ -249,10 +249,24 @@ check(claimed == ["adaptation", "bilateral", "bureaucratic", "mitigation", "sanc
       "exactly the 5 verified words, no invented exam references")
 
 print("== 10. Dart hygiene: balanced delimiters + imports resolve ==")
+
+# One left-to-right pass removes comments and simple string literals, so a
+# bracket inside a doc comment ("... fields (optional — ...") or a string
+# is not counted. Matching all four forms in a single alternation means
+# a quote inside a comment, or "//" inside a URL string, cannot confuse it.
+_DART_NOISE = re.compile(
+    r"/\*.*?\*/"                 # block comment
+    r"|//[^\n]*"                 # line / doc comment
+    r"|'(?:\\.|[^'\\\n])*'"      # single-quoted string
+    r'|"(?:\\.|[^"\\\n])*"',     # double-quoted string
+    re.S,
+)
+
 for f in sorted((APP / "lib").rglob("*.dart")):
     src = f.read_text(encoding="utf-8")
+    code = _DART_NOISE.sub("", src)
     for a, b, name in [("{", "}", "braces"), ("(", ")", "parens"), ("[", "]", "brackets")]:
-        check(src.count(a) == src.count(b), f"{f.relative_to(APP)}: {name} balanced ({src.count(a)}/{src.count(b)})")
+        check(code.count(a) == code.count(b), f"{f.relative_to(APP)}: {name} balanced ({code.count(a)}/{code.count(b)})")
     for m in re.finditer(r"import '([^']+)';", src):
         imp = m.group(1)
         if imp.startswith("package:") or imp.startswith("dart:"):
