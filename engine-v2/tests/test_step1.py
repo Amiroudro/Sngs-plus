@@ -386,8 +386,10 @@ def main():
     cutoff = datetime(2026, 11, 12, tzinfo=timezone.utc)
     plain = s1.parse_plain_sitemap(plain_xml, "The Business Standard",
                                    "sitemap", cutoff=cutoff)
-    check("parse_plain_sitemap keeps only in-window, non-video, "
-          "non-sports items", len(plain) == 1,
+    # Policy (INTEGRATION_STATUS.md, tests/test_collection_policy.py): sports
+    # is kept for editorial scoring; only out-of-window and video URLs go.
+    check("parse_plain_sitemap keeps in-window items (sports included), "
+          "drops video and out-of-window", len(plain) == 2,
           f"kept={len(plain)}")
     if plain:
         check("parse_plain_sitemap title comes from the slug",
