@@ -254,8 +254,12 @@ DROPPED = [
      "Bing site: query"),
 ]
 
-SKIP_URL_PARTS = ["/sports/", "/sports", "/entertainment/", "/lifestyle/",
-                  "/fashion/", "/opinion/cartoon", "/videos/",
+# Non-article URLs only. Sports, entertainment and lifestyle ARE kept:
+# the collector retains them for editorial scoring instead of discarding
+# them at URL-filter time (INTEGRATION_STATUS.md; the step 2 pre-filter
+# deprioritises entertainment, it never hard-deletes). Locked by
+# tests/test_collection_policy.py.
+SKIP_URL_PARTS = ["/fashion/", "/opinion/cartoon", "/videos/",
                   "/author/", "/govt-ad/"]
 
 DOMAIN_SOURCES = {
